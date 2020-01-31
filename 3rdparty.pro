@@ -1,3 +1,5 @@
 OTHER_FILES += generate.sh \
-               download.sh \
-               install-qt.sh \
+               install.sh \
+               dist/generate.sh \
+               dist/download.sh \
+               dist/install-qt.sh \
