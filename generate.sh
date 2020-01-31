@@ -11,12 +11,11 @@ source="http://omega.gg/get/Sky/3rdparty"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux32"   -a \
-                                                                       $1 != "linux64"   -a \
+if [ $# != 1 ] || [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux"     -a \
                                                                        $1 != "android32" -a \
                                                                        $1 != "android64" ]; then
 
-    echo "Usage: generate <win32 | win64 | macOS | linux32 | linux64 | android32 | android64>"
+    echo "Usage: generate <win32 | win64 | macOS | linux | android32 | android64>"
 
     exit 1
 fi
@@ -25,7 +24,7 @@ fi
 # Install
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "linux32" -o $1 = "linux64" ]; then
+if [ $1 = "linux" ]; then
 
     sh install.sh install $1
 

@@ -57,9 +57,9 @@ tools_ubuntu="git"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" ] || [ $2 != "linux32" -a $2 != "linux64" ]; then
+if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" ] || [ $2 != "linux" ]; then
 
-    echo "Usage: 3rdparty <qt4 | qt5> <install | uninstall> <linux32 | linux64>"
+    echo "Usage: 3rdparty <qt4 | qt5> <install | uninstall> <linux>"
 
     exit 1
 fi
@@ -70,11 +70,11 @@ fi
 
 external="$2"
 
-if [ $2 = "linux32" ]; then
+if [ -d "${lib64}" ]; then
 
-    lib="$lib32"
-else
     lib="$lib64"
+else
+    lib="$lib32"
 fi
 
 Qt5_version="$Qt5_version_linux"
