@@ -26,7 +26,7 @@ fi
 
 if [ $1 = "linux" ]; then
 
-    sh install.sh install $1
+    sh install.sh $1
 
     exit 0
 fi

@@ -57,9 +57,9 @@ tools_ubuntu="git"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" ] || [ $2 != "linux" ]; then
+if [ $# != 1 -a $# != 2 ] || [ $1 != "linux" ] || [ $# = 2 -a "$2" != "deploy" ]; then
 
-    echo "Usage: 3rdparty <qt4 | qt5> <install | uninstall> <linux>"
+    echo "Usage: install <linux> [uninstall]>"
 
     exit 1
 fi
@@ -68,7 +68,7 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-external="$2"
+external="$1"
 
 if [ -d "${lib64}" ]; then
 
@@ -126,7 +126,7 @@ Boost="$external/Boost/$Boost_version"
 # Install
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "uninstall" ]; then
+if [ "$2" = "uninstall" ]; then
 
     echo "UNINSTALLING X11"
 
