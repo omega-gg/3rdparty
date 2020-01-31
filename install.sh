@@ -204,6 +204,7 @@ sudo apt-get install -y $tools_linux
 # Deploy
 #--------------------------------------------------------------------------------------------------
 
+echo ""
 echo "DEPLOYING Qt4"
 
 if [ ! -d "${Qt4}" ]; then
