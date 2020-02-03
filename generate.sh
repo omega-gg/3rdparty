@@ -40,7 +40,7 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: OSTYPE is not defined in Docker instances.
 
-if [ "$OSTYPE" = "" ]; then
+if [[ "$OSTYPE" = "" ]]; then
 
     export OSTYPE=linux-gnu
 fi
@@ -112,7 +112,13 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [[ "$OSTYPE" = "linux"* ]]; then
+if [[ "$OSTYPE" = "darwin"* ]]; then
+
+    brew install p7zip
+
+    echo ""
+
+elif [[ "$OSTYPE" = "linux"* ]]; then
 
     sudo apt-get install -y p7zip-full
 
@@ -129,7 +135,7 @@ if [ $os = "windows" ] || [ $1 = "macOS" ]; then
     echo "$source"
     echo ""
 
-    curl -L -o 3rdparty.zip --retry 3 "$source"
+    curl --retry 3 -L -o 3rdparty.zip "$source"
 
     unzip -o -q 3rdparty.zip -d ..
 
