@@ -202,7 +202,7 @@ DOWNLOAD_DIR=`mktemp -d 2>/dev/null || mktemp -d -t 'install-qt'`
 #
 function compute_url(){
     local COMPONENT=$1
-    local CURL="curl -s -L"
+    local CURL="curl --retry 3 -s -L"
     local BASE_URL="http://download.qt.io/online/qtsdkrepository/${HOST_OS}/${TARGET_PLATFORM}"
 
     if [[ "${COMPONENT}" =~ "qtcreator" ]]; then
