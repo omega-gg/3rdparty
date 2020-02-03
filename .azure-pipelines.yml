@@ -40,7 +40,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo;
+                                     apt-get -y install sudo curl;
                                      sh generate.sh linux"
 
 - job: linux64
@@ -51,7 +51,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo;
+                                     apt-get -y install sudo curl;
                                      sh generate.sh linux"
 
 #--------------------------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo;
+                                     apt-get -y install sudo curl;
                                      sh generate.sh android32"
 
 - job: android64
@@ -77,5 +77,5 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo;
+                                     apt-get -y install sudo curl;
                                      sh generate.sh android64"
