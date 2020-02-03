@@ -47,7 +47,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl;
-                                     sh generate.sh linux"
+                                     bash generate.sh linux"
   - publish: $(System.DefaultWorkingDirectory)/linux
     artifact: 3rdparty-linux32
 
@@ -56,11 +56,11 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl;
-                                     sh generate.sh linux"
+                                     bash generate.sh linux"
   - publish: $(System.DefaultWorkingDirectory)/linux
     artifact: 3rdparty-linux64
 
@@ -73,11 +73,11 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
-                                     sh generate.sh android32"
+                                     bash generate.sh android32"
   - publish: $(System.DefaultWorkingDirectory)/android32
     artifact: 3rdparty-android32
 
@@ -86,10 +86,10 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
-                                     sh generate.sh android64"
+                                     bash generate.sh android64"
   - publish: $(System.DefaultWorkingDirectory)/android64
     artifact: 3rdparty-android64
