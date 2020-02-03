@@ -220,24 +220,33 @@ elif [ $1 = "macOS" ]; then
 
     test -d "$VLC" && rm -rf "$VLC"/*
 
-    #----------------------------------------------------------------------------------------------
-    # NOTE macOS: We get a header error when extracting the archive with 7z.
+    if [[ "$OSTYPE" = "darwin"* ]]; then
 
-    set +e
+        hdiutil attach VLC.dmg
 
-    7z x VLC.dmg -o"$VLC"
+        mv "Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
 
-    set -e
+        rm VLC.dmg
+    else
+        #------------------------------------------------------------------------------------------
+        # NOTE: We get a header error when extracting the archive with 7z.
 
-    #----------------------------------------------------------------------------------------------
+        set +e
 
-    rm VLC.dmg
+        7z x VLC.dmg -o"$VLC"
 
-    path="$VLC/VLC media player"
+        set -e
 
-    mv "$path"/VLC.app/Contents/MacOS/* "$VLC"
+        #------------------------------------------------------------------------------------------
 
-    rm -rf "$path"
+        rm VLC.dmg
+
+        path="$VLC/VLC media player"
+
+        mv "$path"/VLC.app/Contents/MacOS/* "$VLC"
+
+        rm -rf "$path"
+    fi
 fi
 
 #--------------------------------------------------------------------------------------------------
