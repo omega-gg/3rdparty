@@ -69,7 +69,7 @@ elif [ $1 = "android32" -o $1 = "android64" ]; then
 
     os="android"
 else
-    os=""
+    os="other"
 fi
 
 source="$source/$1"
