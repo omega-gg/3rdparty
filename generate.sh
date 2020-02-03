@@ -112,13 +112,7 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [[ "$OSTYPE" = "darwin"* ]]; then
-
-    brew install p7zip
-
-    echo ""
-
-elif [[ "$OSTYPE" = "linux"* ]]; then
+if [[ "$OSTYPE" = "linux"* ]]; then
 
     sudo apt-get install -y p7zip-full
 
