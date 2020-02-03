@@ -79,7 +79,7 @@ else
     os=""
 fi
 
-if [[ "$OSTYPE" = "darwin"* ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # NOTE: We use ggrep on macOS because it supports Perl regexp (brew install grep).
     grep="ggrep"
