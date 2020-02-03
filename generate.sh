@@ -54,9 +54,13 @@ if [ "$OSTYPE" = "darwin"* ]; then
 
     brew install p7zip
 
+    echo ""
+
 elif [ "$OSTYPE" = "linux-gnu" ]; then
 
     sudo apt-get install -y p7zip-full
+
+    echo ""
 fi
 
 #--------------------------------------------------------------------------------------------------
