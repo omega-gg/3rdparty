@@ -35,15 +35,23 @@ fi
 # Install
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "macOS" ]; then
-
-    brew install p7zip
-
-elif [ $1 = "linux" ]; then
+if [ $1 = "linux" ]; then
 
     sh install.sh $1
 
     exit 0
+fi
+
+#--------------------------------------------------------------------------------------------------
+# NOTE: We need 7z on macOS and Linux.
+
+if [ "$OSTYPE" = "darwin"* ]; then
+
+    brew install p7zip
+
+elif [ "$OSTYPE" = "linux-gnu" ]; then
+
+    sudo apt-get install -y p7zip-full
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -71,6 +79,8 @@ Qt5="$external/Qt/$Qt5_version"
 
 VLC="$external/VLC/$VLC_version"
 
+NDK="$external/NDK/$NDK_version"
+
 #--------------------------------------------------------------------------------------------------
 
 if [ $os = "windows" ]; then
@@ -94,6 +104,7 @@ if [ $os = "windows" ] || [ $1 = "macOS" ]; then
 
     echo "DOWNLOADING 3rdparty"
     echo "$source"
+    echo ""
 
     curl -L -o 3rdparty.zip --retry 3 "$source"
 
@@ -106,7 +117,6 @@ fi
 # Qt5
 #--------------------------------------------------------------------------------------------------
 
-echo ""
 echo "DOWNLOADING Qt5"
 
 test -d "$Qt5" && rm -rf "$Qt5"/*
@@ -132,16 +142,14 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "android32" ]; then
 
-    bash $install_qt --directory "$Qt5" --version $Qt5_version \
-                     --host linux_x64 --target android \
+    bash $install_qt --directory "$Qt5" --version $Qt5_version --target android \
                      --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
 
     mv "$Qt5"/$Qt5_version/android_armv7/* "$Qt5"
 
 elif [ $1 = "android64" ]; then
 
-    bash $install_qt --directory "$Qt5" --version $Qt5_version \
-                     --host linux_x64 --target android \
+    bash $install_qt --directory "$Qt5" --version $Qt5_version --target android \
                      --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
 
     mv "$Qt5"/$Qt5_version/android_arm64_v8a/* "$Qt5"
@@ -153,11 +161,11 @@ rm -rf "$Qt5"/$Qt5_version
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-echo ""
-echo "DOWNLOADING VLC"
-echo $VLC_url
-
 if [ $os = "windows" ]; then
+
+    echo ""
+    echo "DOWNLOADING VLC"
+    echo $VLC_url
 
     curl -L -o VLC.7z $VLC_url
 
@@ -174,6 +182,10 @@ if [ $os = "windows" ]; then
     rm -rf "$path"
 
 elif [ $1 = "macOS" ]; then
+
+    echo ""
+    echo "DOWNLOADING VLC"
+    echo $VLC_url
 
     curl -L -o VLC.dmg $VLC_url
 
