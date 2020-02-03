@@ -35,7 +35,11 @@ fi
 # Install
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "linux" ]; then
+if [ $1 = "macOS" ]; then
+
+    brew install p7zip
+
+elif [ $1 = "linux" ]; then
 
     sh install.sh $1
 
