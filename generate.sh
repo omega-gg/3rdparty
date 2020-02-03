@@ -264,7 +264,7 @@ if [ $os = "android" ]; then
     echo ""
     echo "DOWNLOADING NDK"
 
-    curl --retry 3 -L -o NDK.zip $NDK_url
+    curl -L -o NDK.zip $NDK_url
 
     test -d "$NDK" && rm -rf "$NDK"/*
 
