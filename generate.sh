@@ -8,6 +8,17 @@ set -e
 source="http://omega.gg/get/Sky/3rdparty"
 
 #--------------------------------------------------------------------------------------------------
+
+Qt5_version="5.12.3"
+
+VLC_version="3.0.6"
+
+#--------------------------------------------------------------------------------------------------
+# Android
+
+NDK_version="21"
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
@@ -35,24 +46,168 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
+if [ $1 = "win32" -o $1 = "win64" ]; then
+
+    os="windows"
+
+elif [ $1 = "android32" -o $1 = "android64" ]; then
+
+    os="android"
+else
+    os=""
+fi
+
 source="$source/$1"
 
-#--------------------------------------------------------------------------------------------------
-# Download
+external="$1"
+
+Qt5="$external/Qt/$Qt5_version"
+
+VLC="$external/VLC/$VLC_version"
+
 #--------------------------------------------------------------------------------------------------
 
-echo "DOWNLOADING"
+if [ $os = "windows" ]; then
+
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
+
+elif [ $1 = "macOS" ]; then
+
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version.dmg"
+
+elif [ $os = "android" ]; then
+
+    NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# 3rdparty
+#--------------------------------------------------------------------------------------------------
+
+echo "DOWNLOADING 3rdparty"
 echo "$source"
 
 curl -L -o 3rdparty.zip --retry 3 "$source"
 
-#--------------------------------------------------------------------------------------------------
-# Extract
-#--------------------------------------------------------------------------------------------------
-
-echo ""
-echo "EXTRACTING"
-
 unzip -o -q 3rdparty.zip -d "$PWD/.."
 
 rm 3rdparty.zip
+
+#--------------------------------------------------------------------------------------------------
+# Qt5
+#--------------------------------------------------------------------------------------------------
+
+echo ""
+echo "DOWNLOADING Qt5"
+
+test -d "$Qt5" && rm -rf "$Qt5"/*
+
+if [ $os = "windows" ]; then
+
+    sh install-qt.sh --directory "$Qt5" --version $Qt5_version \
+                     --toolchain $1_mingw73 qtbase qtdeclarative qtxmlpatterns qtsvg qtwinextras
+
+    if [ $1 = "win32" ]; then
+
+        mv "$Qt5"/$Qt5_version/mingw73_32/* "$Qt5"
+    else
+        mv "$Qt5"/$Qt5_version/mingw73_64/* "$Qt5"
+    fi
+
+elif [ $1 = "macOS" ]; then
+
+    sh install-qt.sh --directory "$Qt5" --version $Qt5_version \
+                     --toolchain clang_64 qtbase qtdeclarative qtxmlpatterns qtsvg
+
+    mv "$Qt5"/$Qt5_version/clang_64/* "$Qt5"
+
+elif [ $1 = "android32" ]; then
+
+    sh install-qt.sh --directory "$Qt5" --version $Qt5_version --host linux_x64 --target android \
+                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
+
+    mv "$Qt5"/$Qt5_version/android_armv7/* "$Qt5"
+
+elif [ $1 = "android64" ]; then
+
+    sh install-qt.sh --directory "$Qt5" --version $Qt5_version --host linux_x64 --target android \
+                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
+
+    mv "$Qt5"/$Qt5_version/android_arm64_v8a/* "$Qt5"
+fi
+
+rm -rf "$Qt5"/$Qt5_version
+
+#--------------------------------------------------------------------------------------------------
+# VLC
+#--------------------------------------------------------------------------------------------------
+
+echo ""
+echo "DOWNLOADING VLC"
+echo $VLC_url
+
+if [ $os = "windows" ]; then
+
+    curl -L -o VLC.7z $VLC_url
+
+    test -d "$VLC" && rm -rf "$VLC"/*
+
+    7z x VLC.7z -o"$VLC"
+
+    rm VLC.7z
+
+    path="$VLC/vlc-$VLC_version"
+
+    mv "$path"/* "$VLC"
+
+    rm -rf "$path"
+
+elif [ $1 = "macOS" ]; then
+
+    curl -L -o VLC.dmg $VLC_url
+
+    test -d "$VLC" && rm -rf "$VLC"/*
+
+    #----------------------------------------------------------------------------------------------
+    # NOTE macOS: We get a header error when extracting the archive with 7z.
+
+    set +e
+
+    7z x VLC.dmg -o"$VLC"
+
+    set -e
+
+    #----------------------------------------------------------------------------------------------
+
+    rm VLC.dmg
+
+    path="$VLC/VLC media player"
+
+    mv "$path"/VLC.app/Contents/MacOS/* "$VLC"
+
+    rm -rf "$path"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# NDK
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING NDK"
+
+    curl -L -o NDK.zip $NDK_url
+
+    test -d "$NDK" && rm -rf "$NDK"/*
+
+    7z x NDK.zip -o"$NDK"
+
+    rm NDK.zip
+
+    path="$NDK/android-ndk-r$NDK_version"
+
+    mv "$path"/* "$NDK"
+
+    rm -rf "$path"
+fi
