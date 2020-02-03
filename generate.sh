@@ -143,7 +143,7 @@ if [ $os = "windows" ] || [ $1 = "macOS" ]; then
 
     rm 3rdparty.zip
 
-    mv 3rdparty/* .
+    mv 3rdparty/$1/* .
 
     rm 3rdparty
 
