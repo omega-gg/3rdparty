@@ -9,7 +9,7 @@ jobs:
   steps:
   - bash: |
       sh generate.sh win32
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/win32
     artifact: 3rdparty-win32
 
 - job: win64
@@ -18,7 +18,7 @@ jobs:
   steps:
   - bash: |
       sh generate.sh win32
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/win64
     artifact: 3rdparty-win64
 
 #--------------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ jobs:
   steps:
   - bash: |
       sh generate.sh macOS
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/macOS
     artifact: 3rdparty-macOS
 
 #--------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl;
                                      sh generate.sh linux"
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/linux
     artifact: 3rdparty-linux32
 
 - job: linux64
@@ -61,7 +61,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl;
                                      sh generate.sh linux"
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/linux
     artifact: 3rdparty-linux64
 
 #--------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
                                      sh generate.sh android32"
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/android32
     artifact: 3rdparty-android32
 
 - job: android64
@@ -91,5 +91,5 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
                                      sh generate.sh android64"
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(System.DefaultWorkingDirectory)/android64
     artifact: 3rdparty-android64
