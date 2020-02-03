@@ -90,14 +90,17 @@ fi
 # 3rdparty
 #--------------------------------------------------------------------------------------------------
 
-echo "DOWNLOADING 3rdparty"
-echo "$source"
+if [ $os = "windows" ] || [ $1 = "macOS" ]; then
 
-curl -L -o 3rdparty.zip --retry 3 "$source"
+    echo "DOWNLOADING 3rdparty"
+    echo "$source"
 
-unzip -o -q 3rdparty.zip -d ..
+    curl -L -o 3rdparty.zip --retry 3 "$source"
 
-rm 3rdparty.zip
+    unzip -o -q 3rdparty.zip -d ..
+
+    rm 3rdparty.zip
+fi
 
 #--------------------------------------------------------------------------------------------------
 # Qt5
