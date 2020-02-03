@@ -45,6 +45,11 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
+if [ "$OSTYPE" = "" ]; then
+
+    $OSTYPE="linux-gnu"
+fi
+
 echo "OS TYPE"
 echo "$OSTYPE"
 
