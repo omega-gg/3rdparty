@@ -9,6 +9,8 @@ jobs:
   steps:
   - bash: |
       sh generate.sh win32
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-win32
 
 - job: win64
   pool:
@@ -16,6 +18,8 @@ jobs:
   steps:
   - bash: |
       sh generate.sh win32
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-win64
 
 #--------------------------------------------------------------------------------------------------
 # macOS
@@ -27,6 +31,8 @@ jobs:
   steps:
   - bash: |
       sh generate.sh macOS
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-macOS
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -42,6 +48,8 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl;
                                      sh generate.sh linux"
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-linux32
 
 - job: linux64
   pool:
@@ -53,6 +61,8 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl;
                                      sh generate.sh linux"
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-linux64
 
 #--------------------------------------------------------------------------------------------------
 # Android
@@ -68,6 +78,8 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
                                      sh generate.sh android32"
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-android32
 
 - job: android64
   pool:
@@ -79,3 +91,5 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
                                      sh generate.sh android64"
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: 3rdparty-android64
