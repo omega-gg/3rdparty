@@ -89,7 +89,7 @@ echo "$source"
 
 curl -L -o 3rdparty.zip --retry 3 "$source"
 
-unzip -o -q 3rdparty.zip -d "$PWD/.."
+unzip -o -q 3rdparty.zip -d ..
 
 rm 3rdparty.zip
 
@@ -201,7 +201,7 @@ if [ $os = "android" ]; then
 
     test -d "$NDK" && rm -rf "$NDK"/*
 
-    7z x NDK.zip -o"$NDK"
+    unzip -q NDK.zip -d "$NDK"
 
     rm NDK.zip
 
