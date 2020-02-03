@@ -47,7 +47,7 @@ fi
 
 if [ "$OSTYPE" = "" ]; then
 
-    $OSTYPE="linux-gnu"
+    export OSTYPE="linux-gnu"
 fi
 
 echo "OS TYPE"
