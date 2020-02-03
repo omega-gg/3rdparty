@@ -22,49 +22,29 @@ NDK_version="21"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux"     -a \
-                                                                       $1 != "android32" -a \
-                                                                       $1 != "android64" ]; then
+if [ $# != 1 -a $# != 2 ] \
+   || \
+   [ $1 != "win32" -a \
+     $1 != "win64" -a \
+     $1 != "macOS" -a \
+     $1 != "linux" -a \
+     $1 != "android32" -a $1 != "android64" ] || [ $# = 2 -a "$2" != "clean" ]; then
 
-    echo "Usage: generate <win32 | win64 | macOS | linux | android32 | android64>"
+    echo "Usage: generate <win32 | win64 | macOS | linux | android32 | android64> [clean]"
 
     exit 1
 fi
 
 #--------------------------------------------------------------------------------------------------
-# Install
+# Configuration
 #--------------------------------------------------------------------------------------------------
-
-if [ $1 = "linux" ]; then
-
-    sh install.sh $1
-
-    exit 0
-fi
+# NOTE: OSTYPE is not defined in Docker instances.
 
 if [ "$OSTYPE" = "" ]; then
 
     export OSTYPE=linux-gnu
 fi
 
-#--------------------------------------------------------------------------------------------------
-# NOTE: We need 7z on macOS and Linux.
-
-if [ "$OSTYPE" = "darwin"* ]; then
-
-    brew install p7zip
-
-    echo ""
-
-elif [ "$OSTYPE" = "linux-gnu" ]; then
-
-    sudo apt-get install -y p7zip-full
-
-    echo ""
-fi
-
-#--------------------------------------------------------------------------------------------------
-# Configuration
 #--------------------------------------------------------------------------------------------------
 
 if [ $1 = "win32" -o $1 = "win64" ]; then
@@ -103,6 +83,46 @@ elif [ $1 = "macOS" ]; then
 elif [ $os = "android" ]; then
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Clean
+#--------------------------------------------------------------------------------------------------
+
+if [ "$2" = "clean" ]; then
+
+    rm -rf $1
+    mkdir  $1
+    touch  $1/.gitignore
+
+    exit 0
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Install
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "linux" ]; then
+
+    sh install.sh $1
+
+    exit 0
+fi
+
+#--------------------------------------------------------------------------------------------------
+# NOTE: We need 7z on macOS and Linux.
+
+if [ "$OSTYPE" = "darwin"* ]; then
+
+    brew install p7zip
+
+    echo ""
+
+elif [ "$OSTYPE" = "linux-gnu" ]; then
+
+    sudo apt-get install -y p7zip-full
+
+    echo ""
 fi
 
 #--------------------------------------------------------------------------------------------------

@@ -59,7 +59,7 @@ tools_ubuntu="git"
 
 if [ $# != 1 -a $# != 2 ] || [ $1 != "linux" ] || [ $# = 2 -a "$2" != "deploy" ]; then
 
-    echo "Usage: install <linux> [uninstall]>"
+    echo "Usage: install <linux> [uninstall]"
 
     exit 1
 fi
