@@ -1,0 +1,73 @@
+#--------------------------------------------------------------------------------------------------
+# Windows
+#--------------------------------------------------------------------------------------------------
+
+jobs:
+- job: win32
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh generate.sh win32
+
+- job: win64
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh generate.sh win32
+
+#--------------------------------------------------------------------------------------------------
+# macOS
+#--------------------------------------------------------------------------------------------------
+
+- job: macOS
+  pool:
+    vmImage: "macOS-latest"
+  steps:
+  - bash: |
+      sh generate.sh macOS
+
+#--------------------------------------------------------------------------------------------------
+# Linux
+#--------------------------------------------------------------------------------------------------
+
+- job: linux32
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     sh generate.sh linux"
+
+- job: linux64
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     sh generate.sh linux"
+
+#--------------------------------------------------------------------------------------------------
+# Android
+#--------------------------------------------------------------------------------------------------
+
+- job: android32
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     sh generate.sh android32"
+
+- job: android32
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     sh generate.sh android64"
