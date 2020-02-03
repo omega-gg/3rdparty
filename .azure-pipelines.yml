@@ -63,7 +63,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      sh generate.sh android32"
 
-- job: android32
+- job: android64
   pool:
     vmImage: "ubuntu-latest"
   steps:
