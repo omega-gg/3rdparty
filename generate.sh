@@ -42,22 +42,24 @@ if [ $1 = "linux" ]; then
     exit 0
 fi
 
-#--------------------------------------------------------------------------------------------------
-# NOTE: We need 7z on macOS and Linux.
-
 if [ "$OSTYPE" = "" ]; then
 
-    export OSTYPE="linux-gnu"
+    export OSTYPE=linux-gnu
 fi
 
 echo "OS TYPE"
 echo "$OSTYPE"
 
+#--------------------------------------------------------------------------------------------------
+# NOTE: We need 7z on macOS and Linux.
+
 if [ "$OSTYPE" = "darwin"* ]; then
 
     brew install p7zip
 
-elif [ "$OSTYPE" = "linux"* ]; then
+elif [ "$OSTYPE" = "linux-gnu" ]; then
+
+    echo "Linux"
 
     sudo apt-get install -y p7zip-full
 fi
