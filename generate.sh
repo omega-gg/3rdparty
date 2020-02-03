@@ -234,6 +234,8 @@ if [ $os = "android" ]; then
 
     test -d "$NDK" && rm -rf "$NDK"/*
 
+    mkdir -p "$NDK"
+
     unzip -q NDK.zip -d "$NDK"
 
     rm NDK.zip
