@@ -17,7 +17,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh generate.sh win32
+      sh generate.sh win64
   - publish: $(System.DefaultWorkingDirectory)/win64
     artifact: 3rdparty-win64
 
@@ -77,7 +77,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
-                                     bash generate.sh android32"
+                                     sh generate.sh android32"
   - publish: $(System.DefaultWorkingDirectory)/android32
     artifact: 3rdparty-android32
 
@@ -90,6 +90,6 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
-                                     bash generate.sh android64"
+                                     sh generate.sh android64"
   - publish: $(System.DefaultWorkingDirectory)/android64
     artifact: 3rdparty-android64
