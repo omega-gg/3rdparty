@@ -15,4 +15,4 @@
 
 You can generate third party libraries with:
 
-    sh generate.sh <win32 | win64 | macOS | linux | android32 | android64>
+    bash generate.sh <win32 | win64 | macOS | linux | android32 | android64>

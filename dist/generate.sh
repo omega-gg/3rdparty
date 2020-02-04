@@ -48,11 +48,11 @@ fi
 
 if [ "$2" = "all" ]; then
 
-    sh generate.sh win32
-    sh generate.sh win64
-    sh generate.sh macOS
-    sh generate.sh android32
-    sh generate.sh android64
+    bash generate.sh win32
+    bash generate.sh win64
+    bash generate.sh macOS
+    bash generate.sh android32
+    bash generate.sh android64
 
     exit 0
 fi
