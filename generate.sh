@@ -141,7 +141,7 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-    brew install p7zip
+    brew install grep p7zip
 
     echo ""
 
