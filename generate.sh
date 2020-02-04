@@ -19,6 +19,18 @@ VLC_version="3.0.6"
 NDK_version="21"
 
 #--------------------------------------------------------------------------------------------------
+# Functions
+#--------------------------------------------------------------------------------------------------
+
+function artifact
+{
+    echo $artifacts | $grep -Po '"id":.*?[^\\]}}'         | \
+                      $grep $1                            | \
+                      $grep -Po '"downloadUrl":.*?[^\\]"' | \
+                      $grep -o '"[^"]*"$'                 | tr -d '"'
+}
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
@@ -38,14 +50,6 @@ fi
 #--------------------------------------------------------------------------------------------------
 # Configuration
 #--------------------------------------------------------------------------------------------------
-# NOTE: OSTYPE is not defined in Docker instances.
-
-if [ "$OSTYPE" = "" ]; then
-
-    export OSTYPE=linux-gnu
-fi
-
-#--------------------------------------------------------------------------------------------------
 
 if [ $1 = "win32" -o $1 = "win64" ]; then
 
@@ -56,6 +60,24 @@ elif [ $1 = "android32" -o $1 = "android64" ]; then
     os="android"
 else
     os="other"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# NOTE: OSTYPE is not defined in Docker instances.
+
+#if [ "$OSTYPE" = "" ]; then
+
+    #export OSTYPE=linux-gnu
+#fi
+
+#--------------------------------------------------------------------------------------------------
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+
+    # NOTE: We use ggrep on macOS because it supports Perl regexp (brew install grep).
+    grep="ggrep"
+else
+    grep="grep"
 fi
 
 source="$source/$1"
@@ -71,6 +93,8 @@ VLC="$external/VLC/$VLC_version"
 NDK="$external/NDK/$NDK_version"
 
 #--------------------------------------------------------------------------------------------------
+
+libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/627/artifacts"
 
 if [ $os = "windows" ]; then
 
@@ -263,6 +287,36 @@ elif [ $1 = "macOS" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
+# libtorrent
+#--------------------------------------------------------------------------------------------------
+
+echo ""
+echo "DOWNLOADING libtorrent"
+
+curl -L -o artifacts.json $libtorrent_url
+
+test -d "$libtorrent" && rm -rf "$libtorrent"/*
+test -d "$Boost"      && rm -rf "$Boost"/*
+
+artifacts=$(cat artifacts.json)
+
+rm artifacts.json
+
+libtorrent_url=$(artifact libtorrent-$1)
+
+echo $libtorrent_url
+
+curl -L -o libtorrent.zip $(artifact libtorrent-$1)
+
+unzip -q libtorrent.zip
+
+rm libtorrent.zip
+
+unzip -q deploy.zip -d "$external"
+
+rm deploy.zip
+
+#--------------------------------------------------------------------------------------------------
 # NDK
 #--------------------------------------------------------------------------------------------------
 
@@ -270,6 +324,7 @@ if [ $os = "android" ]; then
 
     echo ""
     echo "DOWNLOADING NDK"
+    echo $NDK_url
 
     curl -L -o NDK.zip $NDK_url
 
