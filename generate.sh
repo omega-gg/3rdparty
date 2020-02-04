@@ -89,11 +89,11 @@ fi
 # Clean
 #--------------------------------------------------------------------------------------------------
 
-if [ "$2" = "clean" ]; then
+rm -rf $1
+mkdir  $1
+touch  $1/.gitignore
 
-    rm -rf $1
-    mkdir  $1
-    touch  $1/.gitignore
+if [ "$2" = "clean" ]; then
 
     exit 0
 fi
