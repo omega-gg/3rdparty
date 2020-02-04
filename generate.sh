@@ -137,16 +137,16 @@ if [ $os = "windows" ] || [ $1 = "macOS" ]; then
 
     curl --retry 3 -L -o 3rdparty.zip "$source"
 
-    echo "$PWD/.."
-
-    unzip -o 3rdparty.zip -d "$PWD/.."
+    unzip -q 3rdparty.zip
 
     rm 3rdparty.zip
 
+    mv 3rdparty/$1/* $1
+
+    rm -rf 3rdparty
+
     echo ""
 fi
-
-ls -la $1
 
 #--------------------------------------------------------------------------------------------------
 # Qt5
