@@ -330,7 +330,7 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q deploy.zip -d "$external"
+unzip -q libtorrent-$1/deploy.zip -d "$external"
 
 rm deploy.zip
 
