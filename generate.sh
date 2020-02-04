@@ -137,15 +137,9 @@ if [ $os = "windows" ] || [ $1 = "macOS" ]; then
 
     curl --retry 3 -L -o 3rdparty.zip "$source"
 
-    test -d 3rdparty && rm -rf 3rdparty
-
-    unzip -q 3rdparty.zip
+    unzip -o -q 3rdparty.zip -d "$PWD/.."
 
     rm 3rdparty.zip
-
-    mv 3rdparty/$1/* .
-
-    rm 3rdparty
 
     echo ""
 fi
