@@ -294,7 +294,7 @@ echo ""
 echo "DOWNLOADING artifact"
 echo $libtorrent_url
 
-if [ $1 = "windows" ]; then
+if [ $os = "windows" ]; then
     #----------------------------------------------------------------------------------------------
     # FIXME Azure: It seems that the language is not set by default.
 
