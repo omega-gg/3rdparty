@@ -291,7 +291,7 @@ fi
 #--------------------------------------------------------------------------------------------------
 
 echo ""
-echo "DOWNLOADING libtorrent"
+echo "DOWNLOADING artifact"
 
 if [ $1 = "windows" ]; then
     #----------------------------------------------------------------------------------------------
@@ -319,9 +319,11 @@ rm artifacts.json
 
 libtorrent_url=$(artifact libtorrent-$1)
 
+echo ""
+echo "DOWNLOADING libtorrent"
 echo $libtorrent_url
 
-curl -L -o libtorrent.zip $(artifact libtorrent-$1)
+curl -L -o libtorrent.zip $libtorrent_url
 
 unzip -q libtorrent.zip
 
