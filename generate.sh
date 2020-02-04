@@ -154,8 +154,8 @@ test -d "$Qt5" && rm -rf "$Qt5"/*
 
 if [ $os = "windows" ]; then
 
-    bash $install_qt --directory "$Qt5" --version $Qt5_version \
-                     --toolchain $1_mingw73 qtbase qtdeclarative qtxmlpatterns qtsvg qtwinextras
+    sh $install_qt --directory "$Qt5" --version $Qt5_version --host windows_x86 \
+                   --toolchain $1_mingw73 qtbase qtdeclarative qtxmlpatterns qtsvg qtwinextras
 
     if [ $1 = "win32" ]; then
 
@@ -166,22 +166,22 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
-    bash $install_qt --directory "$Qt5" --version $Qt5_version \
-                     --toolchain clang_64 qtbase qtdeclarative qtxmlpatterns qtsvg
+    sh $install_qt --directory "$Qt5" --version $Qt5_version --host mac_x64 \
+                   --toolchain clang_64 qtbase qtdeclarative qtxmlpatterns qtsvg
 
     mv "$Qt5"/$Qt5_version/clang_64/* "$Qt5"
 
 elif [ $1 = "android32" ]; then
 
-    bash $install_qt --directory "$Qt5" --version $Qt5_version --target android \
-                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
+    sh $install_qt --directory "$Qt5" --version $Qt5_version --host linux_x64 --target android \
+                   --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
 
     mv "$Qt5"/$Qt5_version/android_armv7/* "$Qt5"
 
 elif [ $1 = "android64" ]; then
 
-    bash $install_qt --directory "$Qt5" --version $Qt5_version --target android \
-                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
+    sh $install_qt --directory "$Qt5" --version $Qt5_version --host linux_x64 --target android \
+                   --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
 
     mv "$Qt5"/$Qt5_version/android_arm64_v8a/* "$Qt5"
 fi
