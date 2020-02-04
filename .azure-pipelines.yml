@@ -9,6 +9,7 @@ jobs:
   steps:
   - bash: |
       sh generate.sh win32
+      ls -la win32
   - publish: $(System.DefaultWorkingDirectory)/win32
     artifact: 3rdparty-win32
 
@@ -18,6 +19,7 @@ jobs:
   steps:
   - bash: |
       sh generate.sh win64
+      ls -la win64
   - publish: $(System.DefaultWorkingDirectory)/win64
     artifact: 3rdparty-win64
 
