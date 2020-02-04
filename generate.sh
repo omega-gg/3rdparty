@@ -293,6 +293,21 @@ fi
 echo ""
 echo "DOWNLOADING libtorrent"
 
+if [ $1 = "windows" ]; then
+    #----------------------------------------------------------------------------------------------
+    # FIXME Azure: It seems that the language is not set by default.
+
+    echo "LOCALE BEFORE"
+    locale
+
+    export LANG=en_US.UTF-8
+
+    echo "LOCALE AFTER"
+    locale
+
+    #----------------------------------------------------------------------------------------------
+fi
+
 curl -L -o artifacts.json $libtorrent_url
 
 test -d "$libtorrent" && rm -rf "$libtorrent"/*
