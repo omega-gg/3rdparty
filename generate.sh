@@ -112,13 +112,13 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [ "$OSTYPE" = "darwin"* ]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
 
     brew install p7zip
 
     echo ""
 
-elif [ "$OSTYPE" = "linux"* ]; then
+elif [[ "$OSTYPE" == "linux"* ]]; then
 
     sudo apt-get install -y p7zip-full
 
@@ -222,7 +222,7 @@ elif [ $1 = "macOS" ]; then
 
     test -d "$VLC" && rm -rf "$VLC"/*
 
-    if [ "$OSTYPE" = "darwin"* ]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
 
         hdiutil attach VLC.dmg
 
