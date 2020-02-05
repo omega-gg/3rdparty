@@ -85,12 +85,12 @@ fi
 
 external="$external/$1"
 
-MinGW="$external/MinGW/$MinGW_version"
-
 Qt4="$external/Qt/$Qt4_version"
 Qt5="$external/Qt/$Qt5_version"
 
 QtInstaller="$external/Qt/installer/$QtInstaller_version"
+
+MinGW="$external/MinGW/$MinGW_version"
 
 SSL="$external/OpenSSL"
 

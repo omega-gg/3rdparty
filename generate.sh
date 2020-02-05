@@ -11,6 +11,9 @@ source="http://omega.gg/get/Sky/3rdparty"
 
 Qt5_version="5.12.3"
 
+MinGW_versionA="7.3.0"
+MinGW_versionB="730"
+
 VLC_version="3.0.6"
 
 #--------------------------------------------------------------------------------------------------
@@ -63,14 +66,6 @@ else
 fi
 
 #--------------------------------------------------------------------------------------------------
-# NOTE: OSTYPE is not defined in Docker instances.
-
-#if [ "$OSTYPE" = "" ]; then
-
-    #export OSTYPE=linux-gnu
-#fi
-
-#--------------------------------------------------------------------------------------------------
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -88,6 +83,10 @@ install_qt="dist/install-qt.sh"
 
 Qt5="$external/Qt/$Qt5_version"
 
+MinGW="$external/MinGW/$MinGW_versionA"
+
+SSL="$external/OpenSSL"
+
 VLC="$external/VLC/$VLC_version"
 
 NDK="$external/NDK/$NDK_version"
@@ -97,6 +96,17 @@ NDK="$external/NDK/$NDK_version"
 libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/627/artifacts"
 
 if [ $os = "windows" ]; then
+
+    if [ $1 = "win32" ]; then
+
+        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
+
+        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-1.0.2p-i386-win32.zip"
+    else
+        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw730/7.3.0-1x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z"
+
+        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-1.0.2p-x64_86-win64.zip"
+    fi
 
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
 
@@ -220,6 +230,55 @@ fi
 rm -rf "$Qt5"/$Qt5_version
 
 #--------------------------------------------------------------------------------------------------
+# MinGW
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "windows" ]; then
+
+    echo ""
+    echo "DOWNLOADING MinGW"
+    echo $MinGW_url
+
+    curl -L -o MinGW.7z $MinGW_url
+
+    test -d "$MinGW" && rm -rf "$MinGW"
+
+    7z x MinGW.7z -o"$MinGW"
+
+    rm MinGW.7z
+
+    if [ $1 = "win32" ]; then
+
+        path="$MinGW/Tools/mingw$MinGW_versionB_32"
+    else
+        path="$MinGW/Tools/mingw$MinGW_versionB_64"
+    fi
+
+    mv "$path"/* "$MinGW"
+
+    rm -rf "$MinGW/Tools"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# SSL
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "windows" ]; then
+
+    echo ""
+    echo "DOWNLOADING SSL"
+    echo $SSL_url
+
+    curl -L -o ssl.zip $SSL_url
+
+    test -d "$SSL" && rm -rf "$SSL"
+
+    7z x ssl.zip -o"$SSL"
+
+    rm ssl.zip
+fi
+
+#--------------------------------------------------------------------------------------------------
 # VLC
 #--------------------------------------------------------------------------------------------------
 
@@ -231,7 +290,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o VLC.7z $VLC_url
 
-    test -d "$VLC" && rm -rf "$VLC"/*
+    test -d "$VLC" && rm -rf "$VLC"
 
     7z x VLC.7z -o"$VLC"
 
@@ -251,7 +310,7 @@ elif [ $1 = "macOS" ]; then
 
     curl -L -o VLC.dmg $VLC_url
 
-    test -d "$VLC" && rm -rf "$VLC"/*
+    test -d "$VLC" && rm -rf "$VLC"
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -346,7 +405,7 @@ if [ $os = "android" ]; then
 
     curl -L -o NDK.zip $NDK_url
 
-    test -d "$NDK" && rm -rf "$NDK"/*
+    test -d "$NDK" && rm -rf "$NDK"
 
     mkdir -p "$NDK"
 
