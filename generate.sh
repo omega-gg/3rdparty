@@ -250,8 +250,6 @@ if [ $os = "windows" ]; then
         path="$MinGW"/Tools/mingw"$MinGW_versionB"_64
     fi
 
-    ls -la "$MinGW"
-
     mv "$path"/* "$MinGW"
 
     rm -rf "$MinGW/Tools"
