@@ -191,8 +191,6 @@ fi
 
 echo "DOWNLOADING Qt5"
 
-test -d "$Qt5" && rm -rf "$Qt5"/*
-
 if [ $os = "windows" ]; then
 
     bash $install_qt --directory "$Qt5" --version $Qt5_version --host windows_x86 \
@@ -241,8 +239,6 @@ if [ $os = "windows" ]; then
 
     curl -L -o MinGW.7z $MinGW_url
 
-    test -d "$MinGW" && rm -rf "$MinGW"
-
     7z x MinGW.7z -o"$MinGW"
 
     rm MinGW.7z
@@ -273,8 +269,6 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_url
 
-    test -d "$SSL" && rm -rf "$SSL"
-
     7z x ssl.zip -o"$SSL"
 
     rm ssl.zip
@@ -291,8 +285,6 @@ if [ $os = "windows" ]; then
     echo $VLC_url
 
     curl -L -o VLC.7z $VLC_url
-
-    test -d "$VLC" && rm -rf "$VLC"
 
     7z x VLC.7z -o"$VLC"
 
@@ -311,8 +303,6 @@ elif [ $1 = "macOS" ]; then
     echo $VLC_url
 
     curl -L -o VLC.dmg $VLC_url
-
-    test -d "$VLC" && rm -rf "$VLC"
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -372,9 +362,6 @@ fi
 
 curl -L -o artifacts.json $libtorrent_url
 
-test -d "$libtorrent" && rm -rf "$libtorrent"
-test -d "$Boost"      && rm -rf "$Boost"
-
 artifacts=$(cat artifacts.json)
 
 rm artifacts.json
@@ -406,8 +393,6 @@ if [ $os = "android" ]; then
     echo $NDK_url
 
     curl -L -o NDK.zip $NDK_url
-
-    test -d "$NDK" && rm -rf "$NDK"
 
     mkdir -p "$NDK"
 

@@ -3,5 +3,4 @@ OTHER_FILES += generate.sh \
                README.md \
                .azure-pipelines.yml \
                dist/generate.sh \
-               dist/download.sh \
                dist/install-qt.sh \
