@@ -166,7 +166,7 @@ fi
 # 3rdparty
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "windows" ]; then
+if [ $1 = "win32" ]; then
 
     echo "DOWNLOADING 3rdparty"
     echo "$source"
