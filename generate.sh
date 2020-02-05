@@ -239,6 +239,8 @@ if [ $os = "windows" ]; then
 
     curl -L -o MinGW.7z $MinGW_url
 
+    mkdir -p "$MinGW"
+
     7z x MinGW.7z -o"$MinGW"
 
     rm MinGW.7z
@@ -267,6 +269,8 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_url
 
+    mkdir -p "$SSL"
+
     7z x ssl.zip -o"$SSL"
 
     rm ssl.zip
@@ -283,6 +287,8 @@ if [ $os = "windows" ]; then
     echo $VLC_url
 
     curl -L -o VLC.7z $VLC_url
+
+    mkdir -p "$VLC"
 
     7z x VLC.7z -o"$VLC"
 
@@ -302,11 +308,11 @@ elif [ $1 = "macOS" ]; then
 
     curl -L -o VLC.dmg $VLC_url
 
+    mkdir -p "$VLC"
+
     if [[ "$OSTYPE" == "darwin"* ]]; then
 
         hdiutil attach VLC.dmg
-
-        mkdir -p "$VLC"
 
         cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
 
@@ -376,7 +382,7 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q -o libtorrent-$1/deploy.zip -d "$external"
+unzip -q libtorrent-$1/deploy.zip -d "$external"
 
 rm -rf libtorrent-$1
 
