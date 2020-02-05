@@ -249,9 +249,9 @@ if [ $os = "windows" ]; then
 
     if [ $1 = "win32" ]; then
 
-        path="$MinGW/Tools/mingw$(MinGW_versionB)_32"
+        path="$MinGW"/Tools/mingw"$MinGW_versionB"_32
     else
-        path="$MinGW/Tools/mingw$(MinGW_versionB)_64"
+        path="$MinGW"/Tools/mingw"$MinGW_versionB"_64
     fi
 
     ls -la "$MinGW"
