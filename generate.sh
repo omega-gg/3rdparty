@@ -311,8 +311,8 @@ fi
 
 curl -L -o artifacts.json $libtorrent_url
 
-test -d "$libtorrent" && rm -rf "$libtorrent"/*
-test -d "$Boost"      && rm -rf "$Boost"/*
+test -d "$libtorrent" && rm -rf "$libtorrent"
+test -d "$Boost"      && rm -rf "$Boost"
 
 artifacts=$(cat artifacts.json)
 
@@ -330,9 +330,9 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q libtorrent-$1/deploy.zip -d "$external"
+unzip -q -o libtorrent-$1/deploy.zip -d "$external"
 
-rm deploy.zip
+rm -rf libtorrent-$1
 
 #--------------------------------------------------------------------------------------------------
 # NDK
