@@ -166,7 +166,7 @@ fi
 # 3rdparty
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "windows" ] || [ $1 = "macOS" ]; then
+if [ $os = "windows" ]; then
 
     echo "DOWNLOADING 3rdparty"
     echo "$source"
@@ -249,10 +249,12 @@ if [ $os = "windows" ]; then
 
     if [ $1 = "win32" ]; then
 
-        path="$MinGW/Tools/mingw$MinGW_versionB_32"
+        path="$MinGW/Tools/mingw$(MinGW_versionB)_32"
     else
-        path="$MinGW/Tools/mingw$MinGW_versionB_64"
+        path="$MinGW/Tools/mingw$(MinGW_versionB)_64"
     fi
+
+    ls -la "$MinGW"
 
     mv "$path"/* "$MinGW"
 
