@@ -154,6 +154,36 @@ if [ $os = "windows" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
+# Artifact
+#--------------------------------------------------------------------------------------------------
+
+if [ "$2" = "artifact" ]; then
+
+    thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
+
+    echo "DOWNLOADING artifact"
+    echo $thirdparty_url
+
+    curl -L -o 3rdparty.zip $thirdparty_url
+
+    echo ""
+    echo "EXTRACTING artifact"
+    echo $thirdparty_url
+
+    unzip -q 3rdparty.zip
+
+    rm 3rdparty.zip
+
+    rm -rf $1
+
+    unzip -q 3rdparty-$1/3rdparty.zip
+
+    rm -rf 3rdparty-$1
+
+    exit 0
+fi
+
+#--------------------------------------------------------------------------------------------------
 # Clean
 #--------------------------------------------------------------------------------------------------
 
@@ -176,35 +206,6 @@ fi
 if [ $1 = "linux" ]; then
 
     sh install.sh $1
-
-    exit 0
-fi
-
-#--------------------------------------------------------------------------------------------------
-# Download
-#--------------------------------------------------------------------------------------------------
-
-if [ "$2" = "artifact" ]; then
-
-    thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
-
-    echo ""
-    echo "DOWNLOADING artifact"
-    echo $thirdparty_url
-
-    curl -L -o 3rdparty.zip $thirdparty_url
-
-    echo ""
-    echo "EXTRACTING artifact"
-    echo $thirdparty_url
-
-    unzip -q 3rdparty.zip
-
-    rm 3rdparty.zip
-
-    unzip -q 3rdparty-$1/3rdparty.zip
-
-    rm -rf 3rdparty-$1
 
     exit 0
 fi
