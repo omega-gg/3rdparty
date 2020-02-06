@@ -9,7 +9,8 @@ jobs:
   steps:
   - bash: |
       bash generate.sh win32
-  - publish: $(System.DefaultWorkingDirectory)/win32
+      7z a 3rdparty.zip win32
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32
 
 - job: win64
@@ -18,7 +19,8 @@ jobs:
   steps:
   - bash: |
       bash generate.sh win64
-  - publish: $(System.DefaultWorkingDirectory)/win64
+      7z a 3rdparty.zip win64
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64
 
 #--------------------------------------------------------------------------------------------------
@@ -31,7 +33,8 @@ jobs:
   steps:
   - bash: |
       bash generate.sh macOS
-  - publish: $(System.DefaultWorkingDirectory)/macOS
+      zip -r 3rdparty.zip macOS
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-macOS
 
 #--------------------------------------------------------------------------------------------------
@@ -47,8 +50,9 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl;
-                                     bash generate.sh linux"
-  - publish: $(System.DefaultWorkingDirectory)/linux
+                                     bash generate.sh linux;
+                                     zip -r 3rdparty.zip linux"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
 
 - job: linux64
@@ -60,8 +64,9 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl;
-                                     bash generate.sh linux"
-  - publish: $(System.DefaultWorkingDirectory)/linux
+                                     bash generate.sh linux;
+                                     zip -r 3rdparty.zip linux"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64
 
 #--------------------------------------------------------------------------------------------------
@@ -77,8 +82,9 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
-                                     bash generate.sh android32"
-  - publish: $(System.DefaultWorkingDirectory)/android32
+                                     bash generate.sh android32;
+                                     zip -r 3rdparty.zip android32"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android32
 
 - job: android64
@@ -90,6 +96,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl unzip;
-                                     bash generate.sh android64"
-  - publish: $(System.DefaultWorkingDirectory)/android64
+                                     bash generate.sh android64;
+                                     zip -r 3rdparty.zip android64"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android64
