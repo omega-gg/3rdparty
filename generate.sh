@@ -21,6 +21,7 @@ VLC_version="3.0.6"
 
 #--------------------------------------------------------------------------------------------------
 
+thirdparty_artifact="657"
 libtorrent_artifact="654"
 
 #--------------------------------------------------------------------------------------------------
@@ -32,10 +33,16 @@ NDK_version="21"
 # Functions
 #--------------------------------------------------------------------------------------------------
 
-function artifact
+function getSource
 {
+    curl -L -o artifacts.json $1
+
+    artifacts=$(cat artifacts.json)
+
+    rm artifacts.json
+
     echo $artifacts | $grep -Po '"id":.*?[^\\]}}'         | \
-                      $grep $1                            | \
+                      $grep $2                            | \
                       $grep -Po '"downloadUrl":.*?[^\\]"' | \
                       $grep -o '"[^"]*"$'                 | tr -d '"'
 }
@@ -46,13 +53,15 @@ function artifact
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32" -a \
-     $1 != "win64" -a \
-     $1 != "macOS" -a \
-     $1 != "linux" -a \
-     $1 != "android32" -a $1 != "android64" ] || [ $# = 2 -a "$2" != "clean" ]; then
+   [ $1 != "win32"     -a \
+     $1 != "win64"     -a \
+     $1 != "macOS"     -a \
+     $1 != "linux"     -a \
+     $1 != "android32" -a \
+     $1 != "android64" ] || [ $# = 2 -a "$2" != "clean" -a "$2" != "artifact" ]; then
 
-    echo "Usage: generate <win32 | win64 | macOS | linux | android32 | android64> [clean]"
+    echo \
+    "Usage: generate <win32 | win64 | macOS | linux | android32 | android64> [clean | artifact]"
 
     exit 1
 fi
@@ -100,6 +109,8 @@ NDK="$external/NDK/$NDK_version"
 
 #--------------------------------------------------------------------------------------------------
 
+thirparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$thirdparty_artifact/artifacts"
+
 libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libtorrent_artifact/artifacts"
 
 if [ $os = "windows" ]; then
@@ -127,6 +138,20 @@ elif [ $os = "android" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
+# FIXME Azure: It seems that the language is not set by default.
+
+if [ $os = "windows" ]; then
+
+    echo "LOCALE BEFORE"
+    locale
+
+    export LANG=en_US.UTF-8
+
+    echo "LOCALE AFTER"
+    locale
+fi
+
+#--------------------------------------------------------------------------------------------------
 # Clean
 #--------------------------------------------------------------------------------------------------
 
@@ -143,7 +168,7 @@ if [ "$2" = "clean" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# Install
+# Linux
 #--------------------------------------------------------------------------------------------------
 
 if [ $1 = "linux" ]; then
@@ -153,6 +178,33 @@ if [ $1 = "linux" ]; then
     exit 0
 fi
 
+#--------------------------------------------------------------------------------------------------
+# Download
+#--------------------------------------------------------------------------------------------------
+
+if [ "$2" = "artifact" ]; then
+
+    thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
+
+    echo ""
+    echo "DOWNLOADING 3rdparty"
+    echo $thirdparty_url
+
+    curl -L -o 3rdparty.zip $thirdparty_url
+
+    unzip -q 3rdparty.zip
+
+    rm 3rdparty.zip
+
+    unzip -q 3rdparty-$1/3rdparty.zip -d "$external"
+
+    rm -rf 3rdparty-$1
+
+    exit 0
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Install
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
@@ -423,32 +475,7 @@ fi
 # libtorrent
 #--------------------------------------------------------------------------------------------------
 
-echo ""
-echo "DOWNLOADING artifact"
-echo $libtorrent_url
-
-if [ $os = "windows" ]; then
-    #----------------------------------------------------------------------------------------------
-    # FIXME Azure: It seems that the language is not set by default.
-
-    echo "LOCALE BEFORE"
-    locale
-
-    export LANG=en_US.UTF-8
-
-    echo "LOCALE AFTER"
-    locale
-
-    #----------------------------------------------------------------------------------------------
-fi
-
-curl -L -o artifacts.json $libtorrent_url
-
-artifacts=$(cat artifacts.json)
-
-rm artifacts.json
-
-libtorrent_url=$(artifact libtorrent-$1)
+libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
 
 echo ""
 echo "DOWNLOADING libtorrent"
