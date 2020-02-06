@@ -109,7 +109,7 @@ NDK="$external/NDK/$NDK_version"
 
 #--------------------------------------------------------------------------------------------------
 
-thirparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$thirdparty_artifact/artifacts"
+thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$thirdparty_artifact/artifacts"
 
 libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libtorrent_artifact/artifacts"
 
