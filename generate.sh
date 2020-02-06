@@ -35,6 +35,9 @@ NDK_version="21"
 
 function getSource
 {
+    echo "DOWNLOADING $2 artifact"
+    echo $1
+
     curl -L -o artifacts.json $1
 
     artifacts=$(cat artifacts.json)
@@ -161,6 +164,7 @@ if [ "$2" != "build" ]; then
 
     thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
 
+    echo ""
     echo "DOWNLOADING artifact"
     echo $thirdparty_url
 
@@ -481,6 +485,8 @@ fi
 #--------------------------------------------------------------------------------------------------
 # libtorrent
 #--------------------------------------------------------------------------------------------------
+
+echo ""
 
 libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
 
