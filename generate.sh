@@ -171,7 +171,7 @@ if [ "$2" != "build" ]; then
     curl -L -o 3rdparty.zip $thirdparty_url
 
     echo ""
-    echo "EXTRACTING artifact"
+    echo "EXTRACTING 3rdparty-$1"
 
     unzip -q 3rdparty.zip
 
