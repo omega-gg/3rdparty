@@ -159,7 +159,7 @@ fi
 
 if [ "$2" != "build" -a "$2" != "clean" ]; then
 
-    echo "DOWNLOADING 3rdparty-$1 artifact"
+    echo "ARTIFACT 3rdparty-$1"
     echo $thirdparty_url
 
     thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
@@ -486,7 +486,7 @@ fi
 # libtorrent
 #--------------------------------------------------------------------------------------------------
 
-echo "DOWNLOADING libtorrent-$1 artifact"
+echo "ARTIFACT libtorrent-$1"
 echo $thirdparty_url
 
 libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
