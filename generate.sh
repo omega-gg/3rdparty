@@ -58,10 +58,10 @@ if [ $# != 1 -a $# != 2 ] \
      $1 != "macOS"     -a \
      $1 != "linux"     -a \
      $1 != "android32" -a \
-     $1 != "android64" ] || [ $# = 2 -a "$2" != "clean" -a "$2" != "artifact" ]; then
+     $1 != "android64" ] || [ $# = 2 -a "$2" != "clean" -a "$2" != "build" ]; then
 
     echo \
-    "Usage: generate <win32 | win64 | macOS | linux | android32 | android64> [clean | artifact]"
+    "Usage: generate <win32 | win64 | macOS | linux | android32 | android64> [clean | build]"
 
     exit 1
 fi
@@ -157,7 +157,7 @@ fi
 # Artifact
 #--------------------------------------------------------------------------------------------------
 
-if [ "$2" = "artifact" ]; then
+if [ "$2" != "build" ]; then
 
     thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
 

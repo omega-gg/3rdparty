@@ -8,7 +8,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      bash generate.sh win32
+      bash generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32
@@ -18,7 +18,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      bash generate.sh win64
+      bash generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64
@@ -32,7 +32,7 @@ jobs:
     vmImage: "macOS-latest"
   steps:
   - bash: |
-      bash generate.sh macOS
+      bash generate.sh macOS build
       zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-macOS
@@ -50,7 +50,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
-                                     bash generate.sh linux;
+                                     bash generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
@@ -64,7 +64,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
-                                     bash generate.sh linux;
+                                     bash generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64
@@ -82,7 +82,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
-                                     bash generate.sh android32;
+                                     bash generate.sh android32 build;
                                      zip -rq 3rdparty.zip android32"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android32
@@ -96,7 +96,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
-                                     bash generate.sh android64;
+                                     bash generate.sh android64 build;
                                      zip -rq 3rdparty.zip android64"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android64
