@@ -138,22 +138,6 @@ elif [ $os = "android" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# FIXME Azure: It seems that the language is not set by default.
-
-if [ $os = "windows" ]; then
-
-    echo "LOCALE BEFORE"
-    locale
-
-    export LANG=en_US.UTF-8
-
-    echo "LOCALE AFTER"
-    locale
-
-    echo ""
-fi
-
-#--------------------------------------------------------------------------------------------------
 # Artifact
 #--------------------------------------------------------------------------------------------------
 
