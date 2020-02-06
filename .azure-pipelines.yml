@@ -33,7 +33,7 @@ jobs:
   steps:
   - bash: |
       bash generate.sh macOS
-      zip -r 3rdparty.zip macOS
+      zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-macOS
 
@@ -51,7 +51,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
                                      bash generate.sh linux;
-                                     zip -r 3rdparty.zip linux"
+                                     zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
 
@@ -65,7 +65,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
                                      bash generate.sh linux;
-                                     zip -r 3rdparty.zip linux"
+                                     zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64
 
@@ -83,7 +83,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
                                      bash generate.sh android32;
-                                     zip -r 3rdparty.zip android32"
+                                     zip -rq 3rdparty.zip android32"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android32
 
@@ -97,6 +97,6 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
                                      bash generate.sh android64;
-                                     zip -r 3rdparty.zip android64"
+                                     zip -rq 3rdparty.zip android64"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android64
