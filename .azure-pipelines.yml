@@ -49,7 +49,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl;
+                                     apt-get -y install sudo curl zip;
                                      bash generate.sh linux;
                                      zip -r 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -63,7 +63,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl;
+                                     apt-get -y install sudo curl zip;
                                      bash generate.sh linux;
                                      zip -r 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -81,7 +81,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl unzip;
+                                     apt-get -y install sudo curl zip unzip;
                                      bash generate.sh android32;
                                      zip -r 3rdparty.zip android32"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -95,7 +95,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl unzip;
+                                     apt-get -y install sudo curl zip unzip;
                                      bash generate.sh android64;
                                      zip -r 3rdparty.zip android64"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
