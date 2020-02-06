@@ -165,14 +165,13 @@ if [ "$2" != "build" ]; then
     thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
 
     echo ""
-    echo "DOWNLOADING artifact"
+    echo "DOWNLOADING 3rdparty-$1"
     echo $thirdparty_url
 
     curl -L -o 3rdparty.zip $thirdparty_url
 
     echo ""
     echo "EXTRACTING artifact"
-    echo $thirdparty_url
 
     unzip -q 3rdparty.zip
 
