@@ -14,7 +14,14 @@ Qt5_version="5.12.3"
 MinGW_versionA="7.3.0"
 MinGW_versionB="730"
 
+SSL_version="1.0.2p"
+
 VLC_version="3.0.6"
+VLC_version="3.0.6"
+
+#--------------------------------------------------------------------------------------------------
+
+libtorrent_artifact="654"
 
 #--------------------------------------------------------------------------------------------------
 # Android
@@ -93,7 +100,7 @@ NDK="$external/NDK/$NDK_version"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/627/artifacts"
+libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libtorrent_artifact/artifacts"
 
 if [ $os = "windows" ]; then
 
@@ -101,11 +108,11 @@ if [ $os = "windows" ]; then
 
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
 
-        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-1.0.2p-i386-win32.zip"
+        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_version-i386-win32.zip"
     else
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw730/7.3.0-1x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z"
 
-        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-1.0.2p-x64_86-win64.zip"
+        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_version-x64_86-win64.zip"
     fi
 
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
@@ -453,7 +460,7 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q libtorrent-$1/deploy.zip -d "$external"
+unzip -q libtorrent-$1/libtorrent.zip -d "$external"
 
 rm -rf libtorrent-$1
 
