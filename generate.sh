@@ -93,6 +93,8 @@ else
     grep="grep"
 fi
 
+#--------------------------------------------------------------------------------------------------
+
 source="$source/$1"
 
 external="$1"
@@ -138,6 +140,11 @@ elif [ $os = "android" ]; then
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
 fi
+
+#--------------------------------------------------------------------------------------------------
+# FIXME Azure, appveyor: It seems that the language is not set by default.
+
+export LANG=en_US.UTF-8
 
 #--------------------------------------------------------------------------------------------------
 # Clean
