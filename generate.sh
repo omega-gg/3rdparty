@@ -82,10 +82,12 @@ else
 fi
 
 #--------------------------------------------------------------------------------------------------
+# NOTE: We use ggrep on macOS because it supports Perl regexp.
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-    # NOTE: We use ggrep on macOS because it supports Perl regexp (brew install grep).
+    brew install grep
+
     grep="ggrep"
 else
     grep="grep"
@@ -203,7 +205,7 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-    brew install grep p7zip
+    brew install p7zip
 
     echo ""
 
