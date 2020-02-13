@@ -33,7 +33,7 @@ NDK_version="21"
 # Functions
 #--------------------------------------------------------------------------------------------------
 
-function getSource
+getSource()
 {
     curl -L -o artifacts.json $1
 
