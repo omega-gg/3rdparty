@@ -322,12 +322,12 @@ if [ $os = "windows" ]; then
 
     #----------------------------------------------------------------------------------------------
 
-    rm "$Qt5"/bin/*d.*
+    rm -f "$Qt5"/bin/*d.*
 
-    rm "$Qt5"/plugins/imageformats/*d.*
-    rm "$Qt5"/plugins/platforms/*d.*
+    rm -f "$Qt5"/plugins/imageformats/*d.*
+    rm -f "$Qt5"/plugins/platforms/*d.*
 
-    rm "$Qt5"/lib/*d.*
+    rm -f "$Qt5"/lib/*d.*
 
 elif [ $1 = "macOS" ]; then
 
@@ -341,8 +341,8 @@ elif [ $1 = "macOS" ]; then
 
     #----------------------------------------------------------------------------------------------
 
-    rm "$Qt5"/plugins/imageformats/*debug*
-    rm "$Qt5"/plugins/platforms/*debug*
+    rm -f "$Qt5"/plugins/imageformats/*debug*
+    rm -f "$Qt5"/plugins/platforms/*debug*
 
     find "$Qt5"/lib -name "*_debug*" -delete
 
