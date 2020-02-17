@@ -5,6 +5,8 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
+artifact="765"
+
 source="http://omega.gg/get/Sky/3rdparty"
 
 #--------------------------------------------------------------------------------------------------
@@ -21,7 +23,6 @@ VLC_version="3.0.6"
 
 #--------------------------------------------------------------------------------------------------
 
-thirdparty_artifact="657"
 libtorrent_artifact="654"
 
 #--------------------------------------------------------------------------------------------------
@@ -113,7 +114,7 @@ NDK="$external/NDK/$NDK_version"
 
 #--------------------------------------------------------------------------------------------------
 
-thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$thirdparty_artifact/artifacts"
+thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$artifact/artifacts"
 
 libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libtorrent_artifact/artifacts"
 
