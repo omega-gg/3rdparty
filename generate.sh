@@ -407,11 +407,17 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlA
 
-    mkdir -p "$SSL"
-
-    7z x ssl.zip -o"$SSL"
+    7z x ssl.zip -ossl
 
     rm ssl.zip
+
+    path="$SSL/$SSL_versionA"
+
+    mkdir -p "$path"
+
+    mv ssl/*.dll "$path"
+
+    rm -rf ssl
 
     echo ""
     echo "DOWNLOADING SSL $SSL_versionB"
@@ -419,19 +425,17 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlB
 
-    SSL="$SSL/$SSL_versionB"
-
-    mkdir -p "$SSL"
-
-    7z x ssl.zip -o"$SSL"
+    7z x ssl.zip -ossl
 
     rm ssl.zip
 
-    path="$SSL"/openssl-$SSL_versionB-$1-mingw
+    path="$SSL/$SSL_versionB"
 
-    mv "$path"/lib*.dll "$SSL"
+    mkdir -p "$path"
 
-    rm -rf "$path"
+    mv ssl/openssl-$SSL_versionB-$1-mingw/*.dll "$path"
+
+    rm -rf ssl
 fi
 
 #--------------------------------------------------------------------------------------------------
