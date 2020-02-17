@@ -190,7 +190,7 @@ if [ "$2" != "build" -a "$2" != "clean" ]; then
     echo "DOWNLOADING 3rdparty-$1"
     echo $thirdparty_url
 
-    curl -L -o 3rdparty.zip $thirdparty_url
+    curl --retry 3 -L -o 3rdparty.zip $thirdparty_url
 
     echo ""
     echo "EXTRACTING 3rdparty-$1"
@@ -488,7 +488,7 @@ echo ""
 echo "DOWNLOADING libtorrent"
 echo $libtorrent_url
 
-curl -L -o libtorrent.zip $libtorrent_url
+curl --retry 3 -L -o libtorrent.zip $libtorrent_url
 
 unzip -q libtorrent.zip
 
