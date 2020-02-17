@@ -16,7 +16,8 @@ Qt5_version="5.14.1"
 MinGW_versionA="7.3.0"
 MinGW_versionB="730"
 
-SSL_version="1.0.2p"
+SSL_versionA="1.0.2p"
+SSL_versionB="1.1.1d"
 
 VLC_version="3.0.6"
 VLC_version="3.0.6"
@@ -124,11 +125,15 @@ if [ $os = "windows" ]; then
 
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
 
-        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_version-i386-win32.zip"
+        SSL_urlA="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_versionA-i386-win32.zip"
+
+        SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win32-mingw.zip"
     else
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw730/7.3.0-1x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z"
 
-        SSL_url="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_version-x64_86-win64.zip"
+        SSL_urlA="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_versionA-x64_86-win64.zip"
+
+        SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win64-mingw.zip"
     fi
 
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
@@ -397,16 +402,36 @@ fi
 if [ $os = "windows" ]; then
 
     echo ""
-    echo "DOWNLOADING SSL"
-    echo $SSL_url
+    echo "DOWNLOADING SSL $SSL_versionA"
+    echo $SSL_urlA
 
-    curl -L -o ssl.zip $SSL_url
+    curl -L -o ssl.zip $SSL_urlA
 
     mkdir -p "$SSL"
 
     7z x ssl.zip -o"$SSL"
 
     rm ssl.zip
+
+    echo ""
+    echo "DOWNLOADING SSL $SSL_versionB"
+    echo $SSL_urlB
+
+    curl -L -o ssl.zip $SSL_urlB
+
+    SSL="$SSL/$SSL_versionB"
+
+    mkdir -p "$SSL"
+
+    7z x ssl.zip -o"$SSL"
+
+    rm ssl.zip
+
+    path="$SSL"/openssl-$SSL_versionB-$1-mingw
+
+    mv "$path"/lib*.dll "$SSL"
+
+    rm -rf "$path"
 fi
 
 #--------------------------------------------------------------------------------------------------
