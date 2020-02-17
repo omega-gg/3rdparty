@@ -240,7 +240,7 @@ if [ $1 = "win32" ]; then
 
     rm 3rdparty.zip
 
-    mv 3rdparty/$1/* .
+    mv 3rdparty/$1/* $1
 
     rm -rf 3rdparty
 
