@@ -277,18 +277,19 @@ elif [ $1 = "android32" ]; then
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
                      --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
 
-    Qt="Qt/$Qt5_version/android_armv7"
+    Qt="Qt/$Qt5_version/android"
 
 elif [ $1 = "android64" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
                      --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
 
-    Qt="Qt/$Qt5_version/android_arm64_v8a"
+    Qt="Qt/$Qt5_version/android"
 fi
 
 #--------------------------------------------------------------------------------------------------
 
+echo ""
 echo "COPYING Qt5"
 
 mkdir -p "$Qt5"/bin
@@ -296,7 +297,7 @@ mkdir -p "$Qt5"/plugins/imageformats
 mkdir -p "$Qt5"/plugins/platforms
 mkdir -p "$Qt5"/qml
 
-cp "$Qt"/bin/qt.conf "$Qt5"/bin
+#cp "$Qt"/bin/qt.conf "$Qt5"/bin
 
 cp -r "$Qt"/lib "$Qt5"
 
@@ -353,9 +354,8 @@ elif [ $os = "android" ]; then
     cp "$Qt"/bin/rcc         "$Qt5"/bin
     cp "$Qt"/bin/qmlcachegen "$Qt5"/bin
 
-    cp "$Qt"/plugins/imageformats/libq*.so "$Qt5"/plugins/imageformats
-
-    cp -r "$Qt"/plugins/platforms/android "$Qt5"/plugins/platforms
+    cp "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
+    cp "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
 fi
 
 rm -rf Qt
@@ -478,6 +478,7 @@ fi
 # libtorrent
 #--------------------------------------------------------------------------------------------------
 
+echo ""
 echo "ARTIFACT libtorrent-$1"
 echo $thirdparty_url
 
