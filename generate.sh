@@ -379,7 +379,7 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$MinGW"
 
-    7z x MinGW.7z -o"$MinGW"
+    7z x MinGW.7z -o"$MinGW" > nul
 
     rm MinGW.7z
 
@@ -407,7 +407,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlA
 
-    7z x ssl.zip -ossl
+    7z x ssl.zip -ossl > nul
 
     rm ssl.zip
 
@@ -425,7 +425,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlB
 
-    7z x ssl.zip -ossl
+    7z x ssl.zip -ossl > nul
 
     rm ssl.zip
 
@@ -452,7 +452,7 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$VLC"
 
-    7z x VLC.7z -o"$VLC"
+    7z x VLC.7z -o"$VLC" > nul
 
     rm VLC.7z
 
@@ -487,7 +487,7 @@ elif [ $1 = "macOS" ]; then
 
         set +e
 
-        7z x VLC.dmg -o"$VLC"
+        7z x VLC.dmg -o"$VLC" > nul
 
         set -e
 
