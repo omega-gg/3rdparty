@@ -268,6 +268,12 @@ sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version "$Qt5"/lib/libQt5XmlPatterns.so
 sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version      "$Qt5"/lib/libQt5XcbQpa.so.5
 sudo cp "$lib"/libQt5DBus.so.$Qt5_version        "$Qt5"/lib/libQt5DBus.so.5
 
+if [ -f "$lib"/libQt5QmlModels.so.$Qt5_version ]; then
+
+    sudo cp "$lib"/libQt5QmlModels.so.$Qt5_version       "$Qt5"/lib/libQt5QmlModels.so.5
+    sudo cp "$lib"/libQt5QmlWorkerScript.so.$Qt5_version "$Qt5"/lib/libQt5QmlWorkerScript.so.5
+fi
+
 sudo cp "$lib"/qt5/plugins/platforms/libqxcb.so "$Qt5"/plugins/platforms
 
 sudo cp "$lib"/qt5/plugins/imageformats/libqsvg.so  "$Qt5"/plugins/imageformats
