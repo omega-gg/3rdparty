@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 #--------------------------------------------------------------------------------------------------
@@ -33,6 +33,34 @@ NDK_version="21"
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
+
+getOs()
+{
+    case "$OSTYPE" in
+    msys*)   os="win";;
+    darwin*) os="macOS";;
+    linux*)  os="linux";;
+    *)       os="other";;
+    esac
+
+    type=`uname -m`
+
+    if [ $type == "x86_64" ]; then
+
+        if [ $os == "win" ]; then
+
+            echo win64
+        else
+            echo $os
+        fi
+
+    elif [ $os == "win" ]; then
+
+        echo win32
+    else
+        echo $os
+    fi
+}
 
 getSource()
 {
@@ -82,10 +110,12 @@ else
     os="other"
 fi
 
+host=$(getOs)
+
 #--------------------------------------------------------------------------------------------------
 # NOTE: We use ggrep on macOS because it supports Perl regexp.
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [ $host == "macOS" ]; then
 
     brew install grep
 
@@ -215,13 +245,13 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [ $host == "macOS" ]; then
 
     brew install p7zip
 
     echo ""
 
-elif [[ "$OSTYPE" == "linux"* ]]; then
+elif [ $host == "linux" ]; then
 
     sudo apt-get install -y p7zip-full
 
@@ -471,7 +501,7 @@ elif [ $1 = "macOS" ]; then
 
     mkdir -p "$VLC"
 
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ $host == "macOS" ]; then
 
         hdiutil attach VLC.dmg
 
