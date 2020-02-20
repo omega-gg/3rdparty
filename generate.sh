@@ -560,6 +560,8 @@ elif [ $os = "android" ]; then
 
     rm -rf $path
 
+    mkdir -p "$VLC"
+
     if [ $1 = "android32" ]; then
 
         path=VLC/libvlc/build/outputs/aar/libvlc-armv7-$VLC_versionB.aar
