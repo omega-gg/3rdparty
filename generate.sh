@@ -318,6 +318,11 @@ elif [ $1 = "android32" ]; then
 
     Qt="Qt/$Qt5_version/android"
 
+    ls -la .
+    ls -la Qt
+    ls -la Qt/$Qt5_version
+    ls -la Qt/$Qt5_version/android
+
 elif [ $1 = "android64" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
