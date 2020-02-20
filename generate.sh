@@ -48,16 +48,16 @@ getOs()
 
     type=`uname -m`
 
-    if [ $type == "x86_64" ]; then
+    if [ $type = "x86_64" ]; then
 
-        if [ $os == "win" ]; then
+        if [ $os = "win" ]; then
 
             echo win64
         else
             echo $os
         fi
 
-    elif [ $os == "win" ]; then
+    elif [ $os = "win" ]; then
 
         echo win32
     else
@@ -118,7 +118,7 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We use ggrep on macOS because it supports Perl regexp.
 
-if [ $host == "macOS" ]; then
+if [ $host = "macOS" ]; then
 
     brew install grep
 
@@ -250,13 +250,13 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [ $host == "macOS" ]; then
+if [ $host = "macOS" ]; then
 
     brew install p7zip
 
     echo ""
 
-elif [ $host == "linux" ]; then
+elif [ $host = "linux" ]; then
 
     sudo apt-get install -y p7zip-full
 
@@ -506,7 +506,7 @@ elif [ $1 = "macOS" ]; then
 
     mkdir -p "$VLC"
 
-    if [ $host == "macOS" ]; then
+    if [ $host = "macOS" ]; then
 
         hdiutil attach VLC.dmg
 
