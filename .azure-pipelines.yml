@@ -8,7 +8,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh generate.sh win32 build
+      bash generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32
@@ -18,7 +18,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh generate.sh win64 build
+      bash generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64
@@ -32,7 +32,7 @@ jobs:
     vmImage: "macOS-latest"
   steps:
   - bash: |
-      sh generate.sh macOS build
+      bash generate.sh macOS build
       zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-macOS
@@ -50,7 +50,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
-                                     sh generate.sh linux build;
+                                     bash generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
@@ -64,7 +64,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
-                                     sh generate.sh linux build;
+                                     bash generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64

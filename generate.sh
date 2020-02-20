@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 #--------------------------------------------------------------------------------------------------
@@ -317,11 +317,6 @@ elif [ $1 = "android32" ]; then
                      --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
 
     Qt="Qt/$Qt5_version/android"
-
-    ls -la .
-    ls -la Qt
-    ls -la Qt/$Qt5_version
-    ls -la Qt/$Qt5_version/android
 
 elif [ $1 = "android64" ]; then
 
