@@ -82,7 +82,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
-                                     sh generate.sh android32 build;
+                                     bash generate.sh android32 build;
                                      zip -rq 3rdparty.zip android32"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android32
@@ -96,7 +96,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
-                                     sh generate.sh android64 build;
+                                     bash generate.sh android64 build;
                                      zip -rq 3rdparty.zip android64"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android64
