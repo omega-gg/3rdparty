@@ -19,9 +19,12 @@ MinGW_versionB="730"
 SSL_versionA="1.0.2p"
 SSL_versionB="1.1.1d"
 
-VLC_version="3.0.8"
+VLC_versionA="3.0.8"
+VLC_versionB="3.2.4"
 
 #--------------------------------------------------------------------------------------------------
+
+VLC_artifact="796"
 
 libtorrent_artifact="654"
 
@@ -99,6 +102,8 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
+host=$(getOs)
+
 if [ $1 = "win32" -o $1 = "win64" ]; then
 
     os="windows"
@@ -109,8 +114,6 @@ elif [ $1 = "android32" -o $1 = "android64" ]; then
 else
     os="other"
 fi
-
-host=$(getOs)
 
 #--------------------------------------------------------------------------------------------------
 # NOTE: We use ggrep on macOS because it supports Perl regexp.
@@ -138,7 +141,7 @@ MinGW="$external/MinGW/$MinGW_versionA"
 
 SSL="$external/OpenSSL"
 
-VLC="$external/VLC/$VLC_version"
+VLC="$external/VLC/$VLC_versionA"
 
 NDK="$external/NDK/$NDK_version"
 
@@ -165,15 +168,17 @@ if [ $os = "windows" ]; then
         SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win64-mingw.zip"
     fi
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_versionA/$1/vlc-$VLC_versionA-$1.7z"
 
 elif [ $1 = "macOS" ]; then
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version.dmg"
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_versionA/macosx/vlc-$VLC_versionA.dmg"
 
 elif [ $os = "android" ]; then
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
+
+    VLC_url="https://dev.azure.com/bunjee/VLC/_apis/build/builds/$VLC_artifact/artifacts"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -485,7 +490,7 @@ if [ $os = "windows" ]; then
 
     rm VLC.7z
 
-    path="$VLC/vlc-$VLC_version"
+    path="$VLC/vlc-$VLC_versionA"
 
     mv "$path"/* "$VLC"
 
@@ -530,6 +535,39 @@ elif [ $1 = "macOS" ]; then
 
         rm -rf "$path"
     fi
+
+elif [ $os = "android" ]; then
+
+    echo ""
+    echo "ARTIFACT VLC-$1"
+    echo $VLC_url
+
+    VLC_url=$(getSource $VLC_url VLC-$1)
+
+    echo ""
+    echo "DOWNLOADING VLC"
+    echo $VLC_url
+
+    curl --retry 3 -L -o VLC.zip $VLC_url
+
+    unzip -q VLC.zip
+
+    rm VLC.zip
+
+    unzip -q VLC-$1/VLC.zip -d VLC
+
+    mkdir -p "$VLC"
+
+    if [ $1 = "android32" ]; then
+
+        path=VLC/libvlc/build/outputs/libvlc-armv7-$VLC_versionB.aar
+    else
+        path=VLC/libvlc/build/outputs/libvlc-armv8-$VLC_versionB.aar
+    fi
+
+    7z x $path -o"$VLC" > nul
+
+    rm -rf VLC
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -538,7 +576,7 @@ fi
 
 echo ""
 echo "ARTIFACT libtorrent-$1"
-echo $thirdparty_url
+echo $libtorrent_url
 
 libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
 
