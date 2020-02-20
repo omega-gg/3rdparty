@@ -554,15 +554,17 @@ elif [ $os = "android" ]; then
 
     rm VLC.zip
 
-    unzip -q VLC-$1/VLC.zip -d VLC
+    path=VLC-$1
 
-    mkdir -p "$VLC"
+    unzip -q $path/VLC.zip -d VLC
+
+    rm -rf $path
 
     if [ $1 = "android32" ]; then
 
-        path=VLC/libvlc/build/outputs/libvlc-armv7-$VLC_versionB.aar
+        path=VLC/libvlc/build/outputs/aar/libvlc-armv7-$VLC_versionB.aar
     else
-        path=VLC/libvlc/build/outputs/libvlc-armv8-$VLC_versionB.aar
+        path=VLC/libvlc/build/outputs/aar/libvlc-armv8-$VLC_versionB.aar
     fi
 
     7z x $path -o"$VLC" > nul
