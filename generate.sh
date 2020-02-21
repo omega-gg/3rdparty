@@ -338,29 +338,29 @@ mkdir -p "$Qt5"/plugins/imageformats
 mkdir -p "$Qt5"/plugins/platforms
 mkdir -p "$Qt5"/qml
 
-cp "$Qt"/bin/qt.conf "$Qt5"/bin
+mv "$Qt"/bin/qt.conf "$Qt5"/bin
 
-cp -r "$Qt"/lib "$Qt5"
+mv "$Qt"/lib "$Qt5"
 
-cp -r "$Qt"/include "$Qt5"
+mv "$Qt"/include "$Qt5"
 
-cp -r "$Qt"/qml/QtQuick.2 "$Qt5"/qml
+mv "$Qt"/qml/QtQuick.2 "$Qt5"/qml
 
-cp -r "$Qt"/mkspecs "$Qt5"
+mv "$Qt"/mkspecs "$Qt5"
 
 if [ $os = "windows" ]; then
 
-    cp "$Qt"/bin/qmake.exe       "$Qt5"/bin
-    cp "$Qt"/bin/moc.exe         "$Qt5"/bin
-    cp "$Qt"/bin/rcc.exe         "$Qt5"/bin
-    cp "$Qt"/bin/qmlcachegen.exe "$Qt5"/bin
+    mv "$Qt"/bin/qmake.exe       "$Qt5"/bin
+    mv "$Qt"/bin/moc.exe         "$Qt5"/bin
+    mv "$Qt"/bin/rcc.exe         "$Qt5"/bin
+    mv "$Qt"/bin/qmlcachegen.exe "$Qt5"/bin
 
-    cp "$Qt"/bin/lib*.dll "$Qt5"/bin
+    mv "$Qt"/bin/lib*.dll "$Qt5"/bin
 
-    cp "$Qt"/bin/Qt*.dll "$Qt5"/bin
+    mv "$Qt"/bin/Qt*.dll "$Qt5"/bin
 
-    cp "$Qt"/plugins/imageformats/q*.dll "$Qt5"/plugins/imageformats
-    cp "$Qt"/plugins/platforms/q*.dll    "$Qt5"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/q*.dll "$Qt5"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/q*.dll    "$Qt5"/plugins/platforms
 
     #----------------------------------------------------------------------------------------------
 
@@ -373,13 +373,13 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
-    cp "$Qt"/bin/qmake       "$Qt5"/bin
-    cp "$Qt"/bin/moc         "$Qt5"/bin
-    cp "$Qt"/bin/rcc         "$Qt5"/bin
-    cp "$Qt"/bin/qmlcachegen "$Qt5"/bin
+    mv "$Qt"/bin/qmake       "$Qt5"/bin
+    mv "$Qt"/bin/moc         "$Qt5"/bin
+    mv "$Qt"/bin/rcc         "$Qt5"/bin
+    mv "$Qt"/bin/qmlcachegen "$Qt5"/bin
 
-    cp "$Qt"/plugins/imageformats/libq*.dylib "$Qt5"/plugins/imageformats
-    cp "$Qt"/plugins/platforms/libq*.dylib    "$Qt5"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/libq*.dylib "$Qt5"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/libq*.dylib    "$Qt5"/plugins/platforms
 
     #----------------------------------------------------------------------------------------------
 
@@ -390,14 +390,14 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $os = "android" ]; then
 
-    cp "$Qt"/bin/qmake           "$Qt5"/bin
-    cp "$Qt"/bin/moc             "$Qt5"/bin
-    cp "$Qt"/bin/rcc             "$Qt5"/bin
-    cp "$Qt"/bin/qmlcachegen     "$Qt5"/bin
-    cp "$Qt"/bin/androiddeployqt "$Qt5"/bin
+    mv "$Qt"/bin/qmake           "$Qt5"/bin
+    mv "$Qt"/bin/moc             "$Qt5"/bin
+    mv "$Qt"/bin/rcc             "$Qt5"/bin
+    mv "$Qt"/bin/qmlcachegen     "$Qt5"/bin
+    mv "$Qt"/bin/androiddeployqt "$Qt5"/bin
 
-    cp "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
-    cp "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
 fi
 
 rm -rf Qt
@@ -513,7 +513,7 @@ elif [ $1 = "macOS" ]; then
 
         hdiutil attach VLC.dmg
 
-        cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
+        mv "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
 
         # TODO: Detach the mounted drive.
 
@@ -564,6 +564,8 @@ elif [ $os = "android" ]; then
     rm -rf $path
 
     mkdir -p "$VLC"
+
+    mv VLC/include "$VLC"
 
     if [ $1 = "android32" ]; then
 
