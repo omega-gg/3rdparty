@@ -263,6 +263,12 @@ elif [ $host = "linux" ]; then
     sudo apt-get install -y p7zip-full
 
     echo ""
+
+elif [ $os = "android" ]; then
+
+    sudo apt-get install -y build-essential
+
+    echo ""
 fi
 
 #--------------------------------------------------------------------------------------------------
