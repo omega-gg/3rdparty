@@ -314,14 +314,14 @@ elif [ $1 = "macOS" ]; then
 elif [ $1 = "android32" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg qttools
+                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
 
     Qt="Qt/$Qt5_version/android"
 
 elif [ $1 = "android64" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg qttools
+                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
 
     Qt="Qt/$Qt5_version/android"
 fi
@@ -392,6 +392,8 @@ elif [ $os = "android" ]; then
     cp "$Qt"/bin/moc         "$Qt5"/bin
     cp "$Qt"/bin/rcc         "$Qt5"/bin
     cp "$Qt"/bin/qmlcachegen "$Qt5"/bin
+
+    cp "$Qt"/bin/* "$Qt5"/bin
 
     cp "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
     cp "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
