@@ -206,7 +206,7 @@ fi
 echo ""
 
 #--------------------------------------------------------------------------------------------------
-# Linux
+# Install
 #--------------------------------------------------------------------------------------------------
 
 if [ $1 = "linux" ]; then
@@ -214,6 +214,12 @@ if [ $1 = "linux" ]; then
     sh install.sh $1
 
     exit 0
+
+elif [ $os = "android" ]; then
+
+    sudo apt-get install -y build-essential
+
+    echo ""
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -261,12 +267,6 @@ if [ $host = "macOS" ]; then
 elif [ $host = "linux" ]; then
 
     sudo apt-get install -y p7zip-full
-
-    echo ""
-
-elif [ $os = "android" ]; then
-
-    sudo apt-get install -y build-essential
 
     echo ""
 fi
