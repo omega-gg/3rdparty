@@ -37,7 +37,7 @@
 ## $QT_END_LICENSE$
 ##
 #############################################################################
-set -u
+set -eu
 
 function help() {
     cat <<EOF
@@ -264,20 +264,13 @@ for COMPONENT in ${COMPONENTS}; do
             SUBDIR="${TOOLCHAIN/win64_/}"
         elif [[ "${TOOLCHAIN}" =~ "win32_msvc" ]]; then
             SUBDIR="${TOOLCHAIN/win32_/}"
-        elif [[ "${TOOLCHAIN}" =~ "any" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
+        elif [[ "${TARGET_PLATFORM}" == "android" ]]; then
             SUBDIR="android"
         else
             SUBDIR="${TOOLCHAIN}"
         fi
 
         CONF_FILE="${INSTALL_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
-
-        # FIXME Android: The qt.conf file does not seem to exist.
-        if [ -f ${CONF_FILE} ]; then
-
-            touch ${CONF_FILE}
-        fi
-
         echo "[Paths]" > ${CONF_FILE}
         echo "Prefix = .." >> ${CONF_FILE}
 
