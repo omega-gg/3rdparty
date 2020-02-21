@@ -39,10 +39,12 @@ NDK_version="21"
 
 getOs()
 {
-    case "$OSTYPE" in
-    msys*)   os="win";;
-    darwin*) os="macOS";;
-    linux*)  os="linux";;
+    os=`uname`
+
+    case $os in
+    MINGW*)  os="win";;
+    Darwin*) os="macOS";;
+    Linux*)  os="linux";;
     *)       os="other";;
     esac
 
@@ -336,7 +338,7 @@ mkdir -p "$Qt5"/plugins/imageformats
 mkdir -p "$Qt5"/plugins/platforms
 mkdir -p "$Qt5"/qml
 
-#cp "$Qt"/bin/qt.conf "$Qt5"/bin
+cp "$Qt"/bin/qt.conf "$Qt5"/bin
 
 cp -r "$Qt"/lib "$Qt5"
 

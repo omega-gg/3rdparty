@@ -271,6 +271,13 @@ for COMPONENT in ${COMPONENTS}; do
         fi
 
         CONF_FILE="${INSTALL_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
+
+        # FIXME Android: The qt.conf file does not seem to exist.
+        if [ -f ${CONF_FILE} ]; then
+
+            touch ${CONF_FILE}
+        fi
+
         echo "[Paths]" > ${CONF_FILE}
         echo "Prefix = .." >> ${CONF_FILE}
 
