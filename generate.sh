@@ -314,14 +314,14 @@ elif [ $1 = "macOS" ]; then
 elif [ $1 = "android32" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
+                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg qttools
 
     Qt="Qt/$Qt5_version/android"
 
 elif [ $1 = "android64" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
+                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg qttools
 
     Qt="Qt/$Qt5_version/android"
 fi
