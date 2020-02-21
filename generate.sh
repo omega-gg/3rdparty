@@ -513,7 +513,7 @@ elif [ $1 = "macOS" ]; then
 
         hdiutil attach VLC.dmg
 
-        mv "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
+        cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
 
         # TODO: Detach the mounted drive.
 
