@@ -388,12 +388,11 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $os = "android" ]; then
 
-    cp "$Qt"/bin/qmake       "$Qt5"/bin
-    cp "$Qt"/bin/moc         "$Qt5"/bin
-    cp "$Qt"/bin/rcc         "$Qt5"/bin
-    cp "$Qt"/bin/qmlcachegen "$Qt5"/bin
-
-    cp "$Qt"/bin/* "$Qt5"/bin
+    cp "$Qt"/bin/qmake           "$Qt5"/bin
+    cp "$Qt"/bin/moc             "$Qt5"/bin
+    cp "$Qt"/bin/rcc             "$Qt5"/bin
+    cp "$Qt"/bin/qmlcachegen     "$Qt5"/bin
+    cp "$Qt"/bin/androiddeployqt "$Qt5"/bin
 
     cp "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
     cp "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
