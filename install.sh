@@ -295,7 +295,7 @@ echo "DEPLOYING VLC"
 mkdir -p "$VLC"
 
 sudo cp "$lib"/libvlc.so.$VLC_version            "$VLC"/libvlc.so.5
-sudo cp "$lib"/libvlccore.so.$libvlccore_version "$VLC"/libvlccore.so.8
+sudo cp "$lib"/libvlccore.so.$libvlccore_version "$VLC"/libvlccore.so.9
 
 sudo cp -r "$lib"/vlc/plugins "$VLC"
 
