@@ -215,7 +215,7 @@ if [ $1 = "linux" ]; then
 
     exit 0
 
-elif [ $os = "android" ]; then
+elif [ $os = "android" -a $host = "linux" ]; then
 
     sudo apt-get install -y build-essential
 
