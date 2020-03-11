@@ -42,7 +42,7 @@ VLC_version_android="3.2.7"
 extractVlc()
 {
     7z x VLC/vlc-android/build/outputs/apk/release/VLC-Android-$VLC_version_android-$1.apk \
-    -o"temp"
+    -o"temp" > nul
 
     cp temp/lib/$1/libvlc.so "$VLC"/libvlc_$1.so
 
