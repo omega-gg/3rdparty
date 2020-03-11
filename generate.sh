@@ -24,17 +24,29 @@ VLC_versionB="3.2.4"
 
 #--------------------------------------------------------------------------------------------------
 
-VLC_artifact="849"
+VLC_artifact="957"
 
-libtorrent_artifact="854"
+libtorrent_artifact="967"
 
 #--------------------------------------------------------------------------------------------------
 # Android
 
 NDK_version="21"
 
+VLC_version_android="3.2.7"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
+#--------------------------------------------------------------------------------------------------
+
+extractVlc()
+{
+    7z x VLC/vlc-android/build/outputs/apk/release/VLC-Android-$VLC_version_android-$1.apk \
+    -o"temp" > nul
+
+    cp temp/lib/$1/libvlc.so "$VLC"/libvlc_$1.so
+}
+
 #--------------------------------------------------------------------------------------------------
 
 getOs()
@@ -87,15 +99,14 @@ getSource()
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32"     -a \
-     $1 != "win64"     -a \
-     $1 != "macOS"     -a \
-     $1 != "linux"     -a \
-     $1 != "android32" -a \
-     $1 != "android64" ] || [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
+   [ $1 != "win32" -a \
+     $1 != "win64" -a \
+     $1 != "macOS" -a \
+     $1 != "linux" -a \
+     $1 != "android" ] || [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
 
     echo \
-    "Usage: generate <win32 | win64 | macOS | linux | android32 | android64> [build | clean]"
+    "Usage: generate <win32 | win64 | macOS | linux | android> [build | clean]"
 
     exit 1
 fi
@@ -109,10 +120,6 @@ host=$(getOs)
 if [ $1 = "win32" -o $1 = "win64" ]; then
 
     os="windows"
-
-elif [ $1 = "android32" -o $1 = "android64" ]; then
-
-    os="android"
 else
     os="other"
 fi
@@ -176,7 +183,7 @@ elif [ $1 = "macOS" ]; then
 
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_versionA/macosx/vlc-$VLC_versionA.dmg"
 
-elif [ $os = "android" ]; then
+elif [ $1 = "android" ]; then
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
 
@@ -215,7 +222,7 @@ if [ $1 = "linux" ]; then
 
     exit 0
 
-elif [ $os = "android" -a $host = "linux" ]; then
+elif [ $1 = "android" -a $host = "linux" ]; then
 
     sudo apt-get install -y build-essential
 
@@ -319,17 +326,10 @@ elif [ $1 = "macOS" ]; then
 
     Qt="Qt/$Qt5_version/clang_64"
 
-elif [ $1 = "android32" ]; then
+elif [ $1 = "android" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain android_armv7 qtbase qtdeclarative qtxmlpatterns qtsvg
-
-    Qt="Qt/$Qt5_version/android"
-
-elif [ $1 = "android64" ]; then
-
-    bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain android_arm64_v8a qtbase qtdeclarative qtxmlpatterns qtsvg
+                     --toolchain any qtbase qtdeclarative qtxmlpatterns qtsvg
 
     Qt="Qt/$Qt5_version/android"
 fi
@@ -394,7 +394,7 @@ elif [ $1 = "macOS" ]; then
 
     find "$Qt5"/lib -name "*_debug*" -delete
 
-elif [ $os = "android" ]; then
+elif [ $1 = "android" ]; then
 
     mv "$Qt"/bin/qmake           "$Qt5"/bin
     mv "$Qt"/bin/moc             "$Qt5"/bin
@@ -545,7 +545,7 @@ elif [ $1 = "macOS" ]; then
         rm -rf "$path"
     fi
 
-elif [ $os = "android" ]; then
+elif [ $1 = "android" ]; then
 
     echo ""
     echo "ARTIFACT VLC-$1"
@@ -573,14 +573,10 @@ elif [ $os = "android" ]; then
 
     mv VLC/include "$VLC"
 
-    if [ $1 = "android32" ]; then
-
-        path=VLC/libvlc/build/outputs/aar/libvlc-armv7-$VLC_versionB.aar
-    else
-        path=VLC/libvlc/build/outputs/aar/libvlc-armv8-$VLC_versionB.aar
-    fi
-
-    7z x $path -o"$VLC" > nul
+    extractVlc armeabi-v7a
+    extractVlc arm64-v8a
+    extractVlc x86
+    extractVlc x86_64
 
     rm -rf VLC
 fi
@@ -613,7 +609,7 @@ rm -rf libtorrent-$1
 # NDK
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "android" ]; then
+if [ $1 = "android" ]; then
 
     echo ""
     echo "DOWNLOADING NDK"
