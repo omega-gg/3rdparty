@@ -26,7 +26,7 @@ VLC_versionB="3.2.4"
 
 VLC_artifact="957"
 
-libtorrent_artifact="976"
+libtorrent_artifact="981"
 
 #--------------------------------------------------------------------------------------------------
 # Android
