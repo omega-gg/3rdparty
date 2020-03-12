@@ -42,7 +42,7 @@ VLC_version_android="3.2.7"
 extractVlc()
 {
     7z x VLC/vlc-android/build/outputs/apk/release/VLC-Android-$VLC_version_android-$1.apk \
-    -o"temp" > nul
+    -o"temp" > null
 
     cp temp/lib/$1/libvlc.so "$VLC"/libvlc_$1.so
 
@@ -424,7 +424,7 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$MinGW"
 
-    7z x MinGW.7z -o"$MinGW" > nul
+    7z x MinGW.7z -o"$MinGW" > null
 
     rm MinGW.7z
 
@@ -452,7 +452,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlA
 
-    7z x ssl.zip -ossl > nul
+    7z x ssl.zip -ossl > null
 
     rm ssl.zip
 
@@ -470,7 +470,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlB
 
-    7z x ssl.zip -ossl > nul
+    7z x ssl.zip -ossl > null
 
     rm ssl.zip
 
@@ -497,7 +497,7 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$VLC"
 
-    7z x VLC.7z -o"$VLC" > nul
+    7z x VLC.7z -o"$VLC" > null
 
     rm VLC.7z
 
@@ -532,7 +532,7 @@ elif [ $1 = "macOS" ]; then
 
         set +e
 
-        7z x VLC.dmg -o"$VLC" > nul
+        7z x VLC.dmg -o"$VLC" > null
 
         set -e
 
