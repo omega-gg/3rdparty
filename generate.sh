@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="972"
+artifact="857"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
@@ -26,7 +26,7 @@ VLC_versionB="3.2.4"
 
 VLC_artifact="957"
 
-libtorrent_artifact="967"
+libtorrent_artifact="976"
 
 #--------------------------------------------------------------------------------------------------
 # Android
