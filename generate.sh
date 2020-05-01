@@ -657,7 +657,7 @@ if [ $1 = "android" ]; then
 
     rm JDK.tar.gz
 
-    path="$JDK/21/$JDK_versionB"
+    path="$JDK/$JDK_versionB"
 
     mv "$path"/* "$JDK"
 
