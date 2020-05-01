@@ -33,6 +33,8 @@ libtorrent_artifact="981"
 
 NDK_version="21"
 
+JDK_version="8u251"
+
 VLC_version_android="3.2.7"
 
 #--------------------------------------------------------------------------------------------------
@@ -156,6 +158,8 @@ VLC="$external/VLC/$VLC_versionA"
 
 NDK="$external/NDK/$NDK_version"
 
+JDK="$external/JDK/$JDK_version"
+
 #--------------------------------------------------------------------------------------------------
 
 thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$artifact/artifacts"
@@ -188,6 +192,8 @@ elif [ $1 = "macOS" ]; then
 elif [ $1 = "android" ]; then
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
+
+    JDK_url="https://oraclemirror.np.gy/jdk8/jdk-$JDK_version-linux-x64.tar.gz"
 
     VLC_url="https://dev.azure.com/bunjee/VLC/_apis/build/builds/$VLC_artifact/artifacts"
 fi
@@ -630,4 +636,25 @@ if [ $1 = "android" ]; then
     mv "$path"/* "$NDK"
 
     rm -rf "$path"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# JDK
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING JDK"
+    echo $JDK_url
+
+    curl -L -o JDK.tar.gz $JDK_url
+
+    path="$JDK/$NDK_version"
+
+    mkdir -p "$path"
+
+    tar -xf JDK.tar.gz -C "$path"
+
+    rm JDK.tar.gz
 fi
