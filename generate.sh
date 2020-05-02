@@ -663,11 +663,13 @@ if [ $1 = "android" ]; then
 
     export ANDROID_SDK_PATH="$PWD/../.."
 
-    yes | sdkmanager --licenses
+    ls -la
 
-    sdkmanager "platforms;android-29"
+    yes | ./sdkmanager --licenses
 
-    sdkmanager --update
+    ./sdkmanager "platforms;android-29"
+
+    ./sdkmanager --update
 
     cd -
 
