@@ -31,6 +31,7 @@ libtorrent_artifact="981"
 #--------------------------------------------------------------------------------------------------
 # Android
 
+SDK_version="29"
 NDK_version="21"
 
 JDK_versionA="8u251"
@@ -157,6 +158,7 @@ SSL="$external/OpenSSL"
 
 VLC="$external/VLC/$VLC_versionA"
 
+SDK="$external/SDK/$SDK_version"
 NDK="$external/NDK/$NDK_version"
 
 JDK="$external/JDK/$JDK_versionA"
@@ -191,6 +193,8 @@ elif [ $1 = "macOS" ]; then
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_versionA/macosx/vlc-$VLC_versionA.dmg"
 
 elif [ $1 = "android" ]; then
+
+    SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
 
@@ -637,6 +641,37 @@ if [ $1 = "android" ]; then
     mv "$path"/* "$NDK"
 
     rm -rf "$path"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# SDK
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING SDK"
+    echo $SDK_url
+
+    curl -L -o SDK.zip $SDK_url
+
+    mkdir -p "$SDK"
+
+    unzip -q SDK.zip -d "$SDK"
+
+    cd "$SDK/tools/bin"
+
+    export ANDROID_SDK_PATH="$PWD/../.."
+
+    yes | sdkmanager --licenses
+
+    sdkmanager "platforms;android-29"
+
+    sdkmanager --update
+
+    cd -
+
+    rm SDK.zip
 fi
 
 #--------------------------------------------------------------------------------------------------
