@@ -31,11 +31,11 @@ libtorrent_artifact="981"
 #--------------------------------------------------------------------------------------------------
 # Android
 
-SDK_version="29"
-NDK_version="21"
-
 JDK_versionA="8u251"
 JDK_versionB="1.8.0_251"
+
+SDK_version="29"
+NDK_version="21"
 
 VLC_version_android="3.2.7"
 
@@ -146,7 +146,7 @@ fi
 
 source="$source/$1"
 
-external="$1"
+external="$PWD/$1"
 
 install_qt="dist/install-qt.sh"
 
@@ -158,10 +158,10 @@ SSL="$external/OpenSSL"
 
 VLC="$external/VLC/$VLC_versionA"
 
+JDK="$external/JDK/$JDK_versionA"
+
 SDK="$external/SDK/$SDK_version"
 NDK="$external/NDK/$NDK_version"
-
-JDK="$external/JDK/$JDK_versionA"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -194,11 +194,11 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "android" ]; then
 
+    JDK_url="https://oraclemirror.np.gy/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
+
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
     NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
-
-    JDK_url="https://oraclemirror.np.gy/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
 
     VLC_url="https://dev.azure.com/bunjee/VLC/_apis/build/builds/$VLC_artifact/artifacts"
 fi
@@ -619,6 +619,31 @@ unzip -q libtorrent-$1/libtorrent.zip -d "$external"
 rm -rf libtorrent-$1
 
 #--------------------------------------------------------------------------------------------------
+# JDK
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING JDK"
+    echo $JDK_url
+
+    curl -L -o JDK.tar.gz $JDK_url
+
+    mkdir -p "$JDK"
+
+    tar -xf JDK.tar.gz -C "$JDK"
+
+    rm JDK.tar.gz
+
+    path="$JDK/jdk$JDK_versionB"
+
+    mv "$path"/* "$JDK"
+
+    rm -rf "$path"
+fi
+
+#--------------------------------------------------------------------------------------------------
 # NDK
 #--------------------------------------------------------------------------------------------------
 
@@ -661,6 +686,8 @@ if [ $1 = "android" ]; then
 
     cd "$SDK/tools/bin"
 
+    export JAVA_HOME="$JDK"
+
     export ANDROID_SDK_PATH="$PWD/../.."
 
     ls -la
@@ -674,29 +701,4 @@ if [ $1 = "android" ]; then
     cd -
 
     rm SDK.zip
-fi
-
-#--------------------------------------------------------------------------------------------------
-# JDK
-#--------------------------------------------------------------------------------------------------
-
-if [ $1 = "android" ]; then
-
-    echo ""
-    echo "DOWNLOADING JDK"
-    echo $JDK_url
-
-    curl -L -o JDK.tar.gz $JDK_url
-
-    mkdir -p "$JDK"
-
-    tar -xf JDK.tar.gz -C "$JDK"
-
-    rm JDK.tar.gz
-
-    path="$JDK/jdk$JDK_versionB"
-
-    mv "$path"/* "$JDK"
-
-    rm -rf "$path"
 fi
