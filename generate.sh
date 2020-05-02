@@ -688,15 +688,13 @@ if [ $1 = "android" ]; then
 
     export JAVA_HOME="$JDK"
 
-    export ANDROID_SDK_PATH="$PWD/../.."
+    path="$PWD/../.."
 
-    ls -la
+    yes | ./sdkmanager --sdk_root="$path" --licenses
 
-    yes | ./sdkmanager --licenses
+    ./sdkmanager --sdk_root="$path" "platforms;android-29"
 
-    ./sdkmanager "platforms;android-29"
-
-    ./sdkmanager --update
+    ./sdkmanager --sdk_root="$path" --update
 
     cd -
 
