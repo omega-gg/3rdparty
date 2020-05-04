@@ -691,11 +691,5 @@ if [ $1 = "android" ]; then
 
     unzip -q SDK.zip -d "$SDK"
 
-    cd "$SDK/tools/bin"
-
-    yes | ./sdkmanager --sdk_root="$path" --licenses
-
-    cd -
-
     rm SDK.zip
 fi
