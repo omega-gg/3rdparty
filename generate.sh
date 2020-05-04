@@ -680,7 +680,7 @@ if [ $1 = "android" ]; then
 
     cd "$SDK/tools/bin"
 
-    export JAVA_HOME="$JDK/jdk$JDK_versionB"
+    export JAVA_HOME="$JDK"
 
     path="$PWD/../.."
 
