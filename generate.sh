@@ -163,7 +163,7 @@ VLC="$external/VLC/$VLC_versionA"
 JDK="$external/JDK/$JDK_versionA"
 
 SDK="$external/SDK/$SDK_version"
-NDK="$external/NDK/$NDK_versionA"
+NDK="$external/NDK"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -694,5 +694,5 @@ if [ $1 = "android" ]; then
 
     mkdir -p "$NDK"
 
-    ln -s "$SDK/ndk/$NDK_versionB" "$NDK/NDK_versionA"
+    ln -s "$SDK/ndk/$NDK_versionB" "$NDK/$NDK_versionA"
 fi
