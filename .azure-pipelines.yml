@@ -83,6 +83,6 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip;
                                      sh generate.sh android build;
-                                     zip -rq 3rdparty.zip android"
+                                     zip -rq --symlinks 3rdparty.zip android"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android
