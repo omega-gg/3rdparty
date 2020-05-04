@@ -699,13 +699,9 @@ if [ $1 = "android" ]; then
 
     export JAVA_HOME="$JDK"
 
-    path="$PWD/../.."
-
     yes | ./sdkmanager --sdk_root="$path" --licenses
 
-    ./sdkmanager --sdk_root="$path" "build-tools;$TOOLS_version" \
-                                    "ndk;$NDK_versionB" \
-                                    "platform-tools" \
+    ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionB" \
                                     "platforms;android-$SDK_version"
 
     ./sdkmanager --sdk_root="$path" --update
