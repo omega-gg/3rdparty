@@ -36,10 +36,7 @@ JDK_versionB="1.8.0_251"
 
 SDK_version="29"
 
-NDK_versionA="21"
-NDK_versionB="21.1.6352462"
-
-TOOLS_version="30.0.0-rc3"
+NDK_version="21"
 
 VLC_version_android="3.2.7"
 
@@ -165,7 +162,7 @@ VLC="$external/VLC/$VLC_versionA"
 JDK="$external/JDK/$JDK_versionA"
 
 SDK="$external/SDK/$SDK_version"
-NDK="$external/NDK/$NDK_versionA"
+NDK="$external/NDK/$NDK_version"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -202,7 +199,7 @@ elif [ $1 = "android" ]; then
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
-    NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_versionA-linux-x86_64.zip"
+    NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
 
     VLC_url="https://dev.azure.com/bunjee/VLC/_apis/build/builds/$VLC_artifact/artifacts"
 fi
@@ -672,7 +669,7 @@ if [ $1 = "android" ]; then
 
     rm NDK.zip
 
-    path="$NDK/android-ndk-r$NDK_versionA"
+    path="$NDK/android-ndk-r$NDK_version"
 
     mv "$path"/* "$NDK"
 
@@ -697,14 +694,7 @@ if [ $1 = "android" ]; then
 
     cd "$SDK/tools/bin"
 
-    export JAVA_HOME="$JDK"
-
     yes | ./sdkmanager --sdk_root="$path" --licenses
-
-    ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionB" \
-                                    "platforms;android-$SDK_version"
-
-    ./sdkmanager --sdk_root="$path" --update
 
     cd -
 
