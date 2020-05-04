@@ -699,7 +699,10 @@ if [ $1 = "android" ]; then
 
     yes | ./sdkmanager --sdk_root="$path" --licenses
 
-    ./sdkmanager --sdk_root="$path" "platforms;android-29"
+    ./sdkmanager --sdk_root="$path" "build-tools;30.0.0-rc3" \
+                                    "ndk;21.1.6352462" \
+                                    "platform-tools" \
+                                    "platforms;android-29"
 
     ./sdkmanager --sdk_root="$path" --update
 
