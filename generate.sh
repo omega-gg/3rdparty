@@ -427,7 +427,7 @@ elif [ $1 = "android" ]; then
 
     mv "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
     mv "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
-    mv "$Qt"/bearer/platforms/lib*.so     "$Qt5"/plugins/bearer
+    mv "$Qt"/bearer/lib*.so               "$Qt5"/plugins/bearer
 fi
 
 rm -rf Qt
