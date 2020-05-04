@@ -35,7 +35,9 @@ JDK_versionA="8u251"
 JDK_versionB="1.8.0_251"
 
 SDK_version="29"
-NDK_version="21"
+
+NDK_versionA="21"
+NDK_versionB="21.1.6352462"
 
 VLC_version_android="3.2.7"
 
@@ -161,7 +163,7 @@ VLC="$external/VLC/$VLC_versionA"
 JDK="$external/JDK/$JDK_versionA"
 
 SDK="$external/SDK/$SDK_version"
-NDK="$external/NDK/$NDK_version"
+NDK="$external/NDK/$NDK_versionA"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -197,8 +199,6 @@ elif [ $1 = "android" ]; then
     JDK_url="https://oraclemirror.np.gy/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
-
-    NDK_url="https://dl.google.com/android/repository/android-ndk-r$NDK_version-linux-x86_64.zip"
 
     VLC_url="https://dev.azure.com/bunjee/VLC/_apis/build/builds/$VLC_artifact/artifacts"
 fi
@@ -651,31 +651,6 @@ if [ $1 = "android" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# NDK
-#--------------------------------------------------------------------------------------------------
-
-if [ $1 = "android" ]; then
-
-    echo ""
-    echo "DOWNLOADING NDK"
-    echo $NDK_url
-
-    curl -L -o NDK.zip $NDK_url
-
-    mkdir -p "$NDK"
-
-    unzip -q NDK.zip -d "$NDK"
-
-    rm NDK.zip
-
-    path="$NDK/android-ndk-r$NDK_version"
-
-    mv "$path"/* "$NDK"
-
-    rm -rf "$path"
-fi
-
-#--------------------------------------------------------------------------------------------------
 # SDK
 #--------------------------------------------------------------------------------------------------
 
@@ -692,4 +667,32 @@ if [ $1 = "android" ]; then
     unzip -q SDK.zip -d "$SDK"
 
     rm SDK.zip
+fi
+
+#--------------------------------------------------------------------------------------------------
+# NDK
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING NDK from SDK"
+
+    cd "$SDK/tools/bin"
+
+    export JAVA_HOME="$JDK/jdk$JDK_versionB"
+
+    path="$PWD/../.."
+
+    yes | ./sdkmanager --sdk_root="$path" --licenses
+
+    ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionB"
+
+    ./sdkmanager --sdk_root="$path" --update
+
+    cd -
+
+    mkdir -p "$NDK"
+
+    ln -s "$SDK/ndk/$NDK_versionB" "$NDK/NDK_versionA"
 fi
