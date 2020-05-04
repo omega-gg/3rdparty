@@ -409,16 +409,21 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "android" ]; then
 
-    mv "$Qt"/bin/qmake           "$Qt5"/bin
-    mv "$Qt"/bin/moc             "$Qt5"/bin
-    mv "$Qt"/bin/rcc             "$Qt5"/bin
-    mv "$Qt"/bin/qmlcachegen     "$Qt5"/bin
-    mv "$Qt"/bin/androiddeployqt "$Qt5"/bin
+    mkdir -p "$Qt5"/plugins/bearer
+
+    mv "$Qt"/jar "$Qt5"
+    mv "$Qt"/src "$Qt5"
+
+    mv "$Qt"/bin/qmake            "$Qt5"/bin
+    mv "$Qt"/bin/moc              "$Qt5"/bin
+    mv "$Qt"/bin/rcc              "$Qt5"/bin
+    mv "$Qt"/bin/qmlcachegen      "$Qt5"/bin
+    mv "$Qt"/bin/qmlimportscanner "$Qt5"/bin
+    mv "$Qt"/bin/androiddeployqt  "$Qt5"/bin
 
     mv "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
     mv "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
-
-    mv "$Qt"/src "$Qt5"
+    mv "$Qt"/bearer/platforms/lib*.so     "$Qt5"/plugins/bearer
 fi
 
 rm -rf Qt
