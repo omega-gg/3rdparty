@@ -8,7 +8,7 @@ set -e
 Qt4_version="4.8.7"
 Qt5_version="5.14.1"
 
-VLC_version="3.0.8"
+VLC_version="3.0.10"
 
 libtorrent_version="1.2.2"
 
