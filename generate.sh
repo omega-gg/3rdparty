@@ -19,12 +19,9 @@ MinGW_versionB="730"
 SSL_versionA="1.0.2p"
 SSL_versionB="1.1.1d"
 
-VLC_versionA="3.0.10"
-VLC_versionB="3.2.4"
+VLC_version="3.0.10"
 
 #--------------------------------------------------------------------------------------------------
-
-VLC_artifact="957"
 
 libtorrent_artifact="981"
 
@@ -39,7 +36,7 @@ SDK_version="29"
 NDK_versionA="21"
 NDK_versionB="21.1.6352462"
 
-VLC_version_android="3.2.7"
+VLC_version_android="3.2.81"
 
 #--------------------------------------------------------------------------------------------------
 # Functions
@@ -47,8 +44,11 @@ VLC_version_android="3.2.7"
 
 extractVlc()
 {
-    7z x VLC/vlc-android/build/outputs/apk/release/VLC-Android-$VLC_version_android-$1.apk \
-    -o"temp" > null
+    curl --retry 3 -L -o VLC.apk $VLC_url/VLC-Android-$VLC_version_android-$1.apk
+
+    7z x VLC.apk -o"temp" > null
+
+    rm VLC.apk
 
     cp temp/lib/$1/libvlc.so "$VLC"/libvlc_$1.so
 
@@ -158,7 +158,7 @@ MinGW="$external/MinGW/$MinGW_versionA"
 
 SSL="$external/OpenSSL"
 
-VLC="$external/VLC/$VLC_versionA"
+VLC="$external/VLC/$VLC_version"
 
 JDK="$external/JDK/$JDK_versionA"
 
@@ -188,11 +188,11 @@ if [ $os = "windows" ]; then
         SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win64-mingw.zip"
     fi
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_versionA/$1/vlc-$VLC_versionA-$1.7z"
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
 
 elif [ $1 = "macOS" ]; then
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_versionA/macosx/vlc-$VLC_versionA.dmg"
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version.dmg"
 
 elif [ $1 = "android" ]; then
 
@@ -200,7 +200,7 @@ elif [ $1 = "android" ]; then
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
-    VLC_url="https://dev.azure.com/bunjee/VLC/_apis/build/builds/$VLC_artifact/artifacts"
+    VLC_url="https://get.videolan.org/vlc-android/$VLC_version_android"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -519,7 +519,7 @@ if [ $os = "windows" ]; then
 
     rm VLC.7z
 
-    path="$VLC/vlc-$VLC_versionA"
+    path="$VLC/vlc-$VLC_version"
 
     mv "$path"/* "$VLC"
 
@@ -568,26 +568,8 @@ elif [ $1 = "macOS" ]; then
 elif [ $1 = "android" ]; then
 
     echo ""
-    echo "ARTIFACT VLC-$1"
-    echo $VLC_url
-
-    VLC_url=$(getSource $VLC_url VLC-$1)
-
-    echo ""
     echo "DOWNLOADING VLC"
     echo $VLC_url
-
-    curl --retry 3 -L -o VLC.zip $VLC_url
-
-    unzip -q VLC.zip
-
-    rm VLC.zip
-
-    path=VLC-$1
-
-    unzip -q $path/VLC.zip -d VLC
-
-    rm -rf $path
 
     mkdir -p "$VLC"
 
