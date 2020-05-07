@@ -44,7 +44,7 @@ VLC_version_android="3.2.12"
 
 extractVlc()
 {
-    curl --retry 3 -L -o VLC.apk $VLC_url/VLC-Android-$VLC_version_android-$1.apk
+    curl --retry 3 -L -o VLC.apk $VLC_url_android/VLC-Android-$VLC_version_android-$1.apk
 
     7z x VLC.apk -o"temp" > null
 
@@ -200,7 +200,9 @@ elif [ $1 = "android" ]; then
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
-    VLC_url="https://get.videolan.org/vlc-android/$VLC_version_android"
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
+
+    VLC_url_android="https://get.videolan.org/vlc-android/$VLC_version_android"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -571,9 +573,19 @@ elif [ $1 = "android" ]; then
     echo "DOWNLOADING VLC"
     echo $VLC_url
 
+    curl -L -o VLC.7z $VLC_url
+
     mkdir -p "$VLC"
 
-    mv VLC/include "$VLC"
+    7z x VLC.7z -o"$VLC" > null
+
+    rm VLC.7z
+
+    path="$VLC/vlc-$VLC_version"
+
+    mv "$path"/sdk/include "$VLC"
+
+    rm -rf "$path"
 
     extractVlc armeabi-v7a
     extractVlc arm64-v8a
