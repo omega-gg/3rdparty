@@ -200,7 +200,8 @@ elif [ $1 = "android" ]; then
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
+    # FIXME: We need the Windows archive for the include folder.
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 
     VLC_url_android="https://get.videolan.org/vlc-android/$VLC_version_android"
 fi
@@ -573,6 +574,9 @@ elif [ $1 = "android" ]; then
     echo "DOWNLOADING VLC"
     echo $VLC_url
 
+    #----------------------------------------------------------------------------------------------
+    # FIXME: We need the Windows archive for the include folder.
+
     curl -L -o VLC.7z $VLC_url
 
     mkdir -p "$VLC"
@@ -586,6 +590,8 @@ elif [ $1 = "android" ]; then
     mv "$path"/sdk/include "$VLC"
 
     rm -rf "$path"
+
+    #----------------------------------------------------------------------------------------------
 
     extractVlc armeabi-v7a
     extractVlc arm64-v8a
