@@ -200,7 +200,7 @@ elif [ $1 = "android" ]; then
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
-    # FIXME: We need the Windows archive for the include folder.
+    # FIXME Android: We need the Windows archive for the include folder.
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 
     VLC_url_android="https://get.videolan.org/vlc-android/$VLC_version_android"
@@ -575,7 +575,7 @@ elif [ $1 = "android" ]; then
     echo $VLC_url
 
     #----------------------------------------------------------------------------------------------
-    # FIXME: We need the Windows archive for the include folder.
+    # FIXME Android: We need the Windows archive for the include folder.
 
     curl -L -o VLC.7z $VLC_url
 
@@ -680,7 +680,7 @@ if [ $1 = "android" ]; then
 
     cd "$SDK/tools/bin"
 
-    #export JAVA_HOME="$JDK"
+    export JAVA_HOME="$JDK"
 
     path="$PWD/../.."
 
