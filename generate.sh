@@ -11,7 +11,7 @@ source="http://omega.gg/get/Sky/3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
-Qt5_version="5.14.1"
+Qt5_version="5.14.2"
 
 MinGW_versionA="7.3.0"
 MinGW_versionB="730"
