@@ -293,7 +293,7 @@ if [ "$2" != "build" -a "$2" != "clean" ]; then
         echo ""
         echo "INSTALLING MSVC"
 
-        ./"$MSVC"/vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
+        ./"$MSVC"/vs_buildtools --quiet --wait --norestart --nocache \
                                 --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
     fi
 
@@ -524,10 +524,10 @@ if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     curl -L -o vs_buildtools.exe $MSVC_url
 
-    mkdir -p "$MSVC"
-
-    ./vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
+    ./vs_buildtools --quiet --wait --norestart --nocache \
                     --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
+
+    mkdir -p "$MSVC"
 
     mv vs_buildtools.exe "$MSVC"
 fi
