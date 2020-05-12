@@ -62,7 +62,7 @@ getOs()
     os=`uname`
 
     case $os in
-    MINGW*)  os="win";;
+    MINGW*)  os="windows";;
     Darwin*) os="macOS";;
     Linux*)  os="linux";;
     *)       os="other";;
@@ -72,14 +72,14 @@ getOs()
 
     if [ $type = "x86_64" ]; then
 
-        if [ $os = "win" ]; then
+        if [ $os = "windows" ]; then
 
             echo win64
         else
             echo $os
         fi
 
-    elif [ $os = "win" ]; then
+    elif [ $os = "windows" ]; then
 
         echo win32
     else
@@ -296,7 +296,11 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [ $host = "macOS" ]; then
+if [ $host = "windows" ]; then
+
+    PATH="C:/Program Files/7-Zip:$PATH"
+
+elif [ $host = "macOS" ]; then
 
     brew install p7zip
 
@@ -308,6 +312,10 @@ elif [ $host = "linux" ]; then
 
     echo ""
 fi
+
+echo "TESTING 7z"
+
+./7z
 
 #--------------------------------------------------------------------------------------------------
 # 3rdparty
