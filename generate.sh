@@ -46,7 +46,7 @@ extractVlc()
 {
     curl --retry 3 -L -o VLC.apk $VLC_url_android/VLC-Android-$VLC_version_android-$1.apk
 
-    7z x VLC.apk -o"temp" > null
+    7z x VLC.apk -o"temp" > /dev/null
 
     rm VLC.apk
 
@@ -504,7 +504,7 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
     mkdir -p "$MinGW"
 
-    7z x MinGW.7z -o"$MinGW" > null
+    7z x MinGW.7z -o"$MinGW" > /dev/null
 
     rm MinGW.7z
 
@@ -532,7 +532,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlA
 
-    7z x ssl.zip -ossl > null
+    7z x ssl.zip -ossl > /dev/null
 
     rm ssl.zip
 
@@ -550,7 +550,7 @@ if [ $os = "windows" ]; then
 
     curl -L -o ssl.zip $SSL_urlB
 
-    7z x ssl.zip -ossl > null
+    7z x ssl.zip -ossl > /dev/null
 
     rm ssl.zip
 
@@ -577,7 +577,7 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$VLC"
 
-    7z x VLC.7z -o"$VLC" > null
+    7z x VLC.7z -o"$VLC" > /dev/null
 
     rm VLC.7z
 
@@ -612,7 +612,7 @@ elif [ $1 = "macOS" ]; then
 
         set +e
 
-        7z x VLC.dmg -o"$VLC" > null
+        7z x VLC.dmg -o"$VLC" > /dev/null
 
         set -e
 
@@ -640,7 +640,7 @@ elif [ $1 = "android" ]; then
 
     mkdir -p "$VLC"
 
-    7z x VLC.7z -o"$VLC" > null
+    7z x VLC.7z -o"$VLC" > /dev/null
 
     rm VLC.7z
 
