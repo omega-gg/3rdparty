@@ -133,12 +133,14 @@ if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; t
 
     if [ $1 = "win32" -o $1 = "win32-msvc" ]; then
 
-        win="win32"
+        platform="win32"
     else
-        win="win64"
+        platform="win64"
     fi
 else
     os="other"
+
+    platform="$1"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -155,9 +157,9 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-source="$source/$1"
+source="$source/$platform"
 
-external="$PWD/$1"
+external="$PWD/$platform"
 
 install_qt="dist/install-qt.sh"
 
@@ -184,7 +186,7 @@ libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libt
 
 if [ $os = "windows" ]; then
 
-    if [ $win = "win32" ]; then
+    if [ $platform = "win32" ]; then
 
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
 
@@ -201,7 +203,7 @@ if [ $os = "windows" ]; then
 
     MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
+    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$platform/vlc-$VLC_version-$platform.7z"
 
 elif [ $1 = "macOS" ]; then
 
@@ -230,9 +232,9 @@ export LANG=en_US.UTF-8
 
 echo "CLEANING"
 
-rm -rf $1
-mkdir  $1
-touch  $1/.gitignore
+rm -rf $platform
+mkdir  $platform
+touch  $platform/.gitignore
 
 if [ "$2" = "clean" ]; then
 
@@ -311,7 +313,7 @@ fi
 # 3rdparty
 #--------------------------------------------------------------------------------------------------
 
-if [ $win = "win32" ]; then
+if [ $platform = "win32" ]; then
 
     echo "DOWNLOADING 3rdparty"
     echo "$source"
@@ -323,7 +325,7 @@ if [ $win = "win32" ]; then
 
     rm 3rdparty.zip
 
-    mv 3rdparty/$1/* $1
+    mv 3rdparty/$platform/* $platform
 
     rm -rf 3rdparty
 
@@ -340,13 +342,13 @@ if [ $os = "windows" ]; then
 
     if [ $1 = "win32-msvc" ]; then
 
-        toolchain="$win"_msvc2017_32
+        toolchain="$platform"_msvc2017_32
 
     elif [ $1 = "win64-msvc" ]; then
 
-        toolchain="$win"_msvc2017_64
+        toolchain="$platform"_msvc2017_64
     else
-        toolchain="$win"_mingw73
+        toolchain="$platform"_mingw73
     fi
 
     bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
@@ -542,7 +544,7 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$path"
 
-    mv ssl/openssl-$SSL_versionB-$1-mingw/*.dll "$path"
+    mv ssl/openssl-$SSL_versionB-$platform-mingw/*.dll "$path"
 
     rm -rf ssl
 fi
@@ -649,10 +651,10 @@ fi
 #--------------------------------------------------------------------------------------------------
 
 echo ""
-echo "ARTIFACT libtorrent-$1"
+echo "ARTIFACT libtorrent-$platform"
 echo $libtorrent_url
 
-libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
+libtorrent_url=$(getSource $libtorrent_url libtorrent-$platform)
 
 echo ""
 echo "DOWNLOADING libtorrent"
@@ -664,9 +666,9 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q libtorrent-$1/libtorrent.zip -d "$external"
+unzip -q libtorrent-$platform/libtorrent.zip -d "$external"
 
-rm -rf libtorrent-$1
+rm -rf libtorrent-$platform
 
 #--------------------------------------------------------------------------------------------------
 # JDK
