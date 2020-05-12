@@ -296,7 +296,7 @@ fi
 #--------------------------------------------------------------------------------------------------
 # NOTE: We need 7z on macOS and Linux.
 
-if [ $host = "windows" ]; then
+if [ $host = "win32" -o $host = "win64" ]; then
 
     PATH="C:/Program Files/7-Zip:$PATH"
 
@@ -314,8 +314,7 @@ elif [ $host = "linux" ]; then
 fi
 
 echo "TESTING 7z"
-
-./7z
+7z
 
 #--------------------------------------------------------------------------------------------------
 # 3rdparty
