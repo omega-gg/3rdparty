@@ -340,13 +340,13 @@ if [ $os = "windows" ]; then
 
     if [ $1 = "win32-msvc" ]; then
 
-        toolchain="$win_msvc2017_32"
+        toolchain="$win"_msvc2017_32
 
     elif [ $1 = "win64-msvc" ]; then
 
-        toolchain="$win_msvc2017_64"
+        toolchain="$win"_msvc2017_64
     else
-        toolchain="$win_mingw73"
+        toolchain="$win"_mingw73
     fi
 
     bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
