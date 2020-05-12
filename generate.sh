@@ -159,7 +159,7 @@ fi
 
 source="$source/$platform"
 
-external="$PWD/$platform"
+external="$PWD/$1"
 
 install_qt="dist/install-qt.sh"
 
@@ -232,9 +232,9 @@ export LANG=en_US.UTF-8
 
 echo "CLEANING"
 
-rm -rf $platform
-mkdir  $platform
-touch  $platform/.gitignore
+rm -rf $1
+mkdir  $1
+touch  $1/.gitignore
 
 if [ "$2" = "clean" ]; then
 
