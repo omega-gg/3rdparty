@@ -107,14 +107,16 @@ getSource()
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32" -a \
-     $1 != "win64" -a \
-     $1 != "macOS" -a \
-     $1 != "linux" -a \
+   [ $1 != "win32"      -a \
+     $1 != "win64"      -a \
+     $1 != "win32-msvc" -a \
+     $1 != "win64-msvc" -a \
+     $1 != "macOS"      -a \
+     $1 != "linux"      -a \
      $1 != "android" ] || [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
 
-    echo \
-    "Usage: generate <win32 | win64 | macOS | linux | android> [build | clean]"
+    echo "Usage: generate <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
+    echo "                [build | clean]"
 
     exit 1
 fi
@@ -125,9 +127,16 @@ fi
 
 host=$(getOs)
 
-if [ $1 = "win32" -o $1 = "win64" ]; then
+if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     os="windows"
+
+    if [ $1 = "win32" -o $1 = "win32-msvc" ]; then
+
+        win="win32"
+    else
+        win="win64"
+    fi
 else
     os="other"
 fi
@@ -156,6 +165,8 @@ Qt5="$external/Qt/$Qt5_version"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
+MSVC="$external/MSVC"
+
 SSL="$external/OpenSSL"
 
 VLC="$external/VLC/$VLC_version"
@@ -173,7 +184,7 @@ libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libt
 
 if [ $os = "windows" ]; then
 
-    if [ $1 = "win32" ]; then
+    if [ $win = "win32" ]; then
 
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
 
@@ -187,6 +198,8 @@ if [ $os = "windows" ]; then
 
         SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win64-mingw.zip"
     fi
+
+    MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
 
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$1/vlc-$VLC_version-$1.7z"
 
@@ -298,7 +311,7 @@ fi
 # 3rdparty
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "win32" ]; then
+if [ $win = "win32" ]; then
 
     echo "DOWNLOADING 3rdparty"
     echo "$source"
@@ -325,14 +338,33 @@ echo "DOWNLOADING Qt5"
 
 if [ $os = "windows" ]; then
 
+    if [ $1 = "win32-msvc" ]; then
+
+        toolchain="$win_msvc2017_32"
+
+    elif [ $2 = "win64-msvc" ]; then
+
+        toolchain="$win_msvc2017_64"
+    else
+        toolchain="$win_mingw73"
+    fi
+
     bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
-                     --toolchain $1_mingw73 qtbase qtdeclarative qtxmlpatterns qtsvg qtwinextras
+                     --toolchain $toolchain qtbase qtdeclarative qtxmlpatterns qtsvg qtwinextras
 
     if [ $1 = "win32" ]; then
 
         Qt="Qt/$Qt5_version/mingw73_32"
-    else
+
+    elif [ $1 = "win64" ]; then
+
         Qt="Qt/$Qt5_version/mingw73_64"
+
+    elif [ $1 = "win32-msvc" ]; then
+
+        Qt="Qt/$Qt5_version/msvc2017_32"
+    else
+        Qt="Qt/$Qt5_version/msvc2017_64"
     fi
 
 elif [ $1 = "macOS" ]; then
@@ -435,7 +467,7 @@ rm -rf Qt
 # MinGW
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "windows" ]; then
+if [ $1 = "win32" -o $1 = "win64" ]; then
 
     echo ""
     echo "DOWNLOADING MinGW"
@@ -459,6 +491,17 @@ if [ $os = "windows" ]; then
     mv "$path"/* "$MinGW"
 
     rm -rf "$MinGW/Tools"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# MSVC
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+
+    echo ""
+    echo "DOWNLOADING MSVC"
+    echo $MSVC_url
 fi
 
 #--------------------------------------------------------------------------------------------------
