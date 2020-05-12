@@ -167,8 +167,6 @@ Qt5="$external/Qt/$Qt5_version"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
-MSVC="$external/MSVC"
-
 SSL="$external/OpenSSL"
 
 VLC="$external/VLC/$VLC_version"
@@ -261,6 +259,24 @@ elif [ $1 = "android" -a $host = "linux" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
+# MSVC
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+
+    echo ""
+    echo "INSTALLING MSVC"
+    echo $MSVC_url
+
+    curl -L -o vs_buildtools.exe $MSVC_url
+
+    ./vs_buildtools --quiet --wait --norestart --nocache \
+                    --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
+
+    rm vs_buildtools.exe
+fi
+
+#--------------------------------------------------------------------------------------------------
 # Artifact
 #--------------------------------------------------------------------------------------------------
 
@@ -287,15 +303,6 @@ if [ "$2" != "build" -a "$2" != "clean" ]; then
     unzip -qo 3rdparty-$1/3rdparty.zip
 
     rm -rf 3rdparty-$1
-
-    if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
-
-        echo ""
-        echo "INSTALLING MSVC"
-
-        ./"$MSVC"/vs_buildtools --quiet --wait --norestart --nocache \
-                                --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
-    fi
 
     exit 0
 fi
@@ -510,26 +517,6 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     mv "$path"/* "$MinGW"
 
     rm -rf "$MinGW/Tools"
-fi
-
-#--------------------------------------------------------------------------------------------------
-# MSVC
-#--------------------------------------------------------------------------------------------------
-
-if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
-
-    echo ""
-    echo "DOWNLOADING MSVC"
-    echo $MSVC_url
-
-    curl -L -o vs_buildtools.exe $MSVC_url
-
-    ./vs_buildtools --quiet --wait --norestart --nocache \
-                    --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
-
-    mkdir -p "$MSVC"
-
-    mv vs_buildtools.exe "$MSVC"
 fi
 
 #--------------------------------------------------------------------------------------------------
