@@ -264,7 +264,6 @@ fi
 
 if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
-    echo ""
     echo "INSTALLING MSVC"
     echo $MSVC_url
 
@@ -274,6 +273,8 @@ if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
                     --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
 
     rm vs_buildtools.exe
+
+    echo ""
 fi
 
 #--------------------------------------------------------------------------------------------------
