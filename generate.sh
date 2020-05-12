@@ -298,7 +298,12 @@ fi
 
 if [ $host = "win32" -o $host = "win64" ]; then
 
-    PATH="/c/Program Files/7-Zip:$PATH"
+    if [ ! -d "/c/Program Files/7-Zip" ]; then
+
+        echo "Warning: You need 7zip installed in C:/Program Files/7-Zip"
+    else
+        PATH="/c/Program Files/7-Zip:$PATH"
+    fi
 
 elif [ $host = "macOS" ]; then
 
@@ -312,11 +317,6 @@ elif [ $host = "linux" ]; then
 
     echo ""
 fi
-
-echo "TESTING 7z"
-7z
-echo "TESTING 7z DONE"
-echo ""
 
 #--------------------------------------------------------------------------------------------------
 # 3rdparty
