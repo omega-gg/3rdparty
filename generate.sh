@@ -522,12 +522,14 @@ if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
     echo "DOWNLOADING MSVC"
     echo $MSVC_url
 
-    curl -L -o "$MSVC"/vs_buildtools.exe $MSVC_url
+    curl -L -o vs_buildtools.exe $MSVC_url
 
     mkdir -p "$MSVC"
 
-    ./"$MSVC"/vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
-                            --add Microsoft.VisualStudio.Workload.VCTools
+    ./vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
+                    --add Microsoft.VisualStudio.Workload.VCTools
+
+    mv vs_buildtools.exe "$MSVC"
 fi
 
 #--------------------------------------------------------------------------------------------------
