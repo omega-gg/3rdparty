@@ -23,7 +23,7 @@ jobs:
 #  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
 #    artifact: 3rdparty-win64
 
-#- job: win32-msvc
+#- job: win32_msvc
 #  pool:
 #    vmImage: "windows-latest"
 #  steps:
@@ -33,7 +33,7 @@ jobs:
 #  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
 #    artifact: 3rdparty-win32-msvc
 
-- job: win64-msvc
+- job: win64_msvc
   pool:
     vmImage: "windows-latest"
   steps:
