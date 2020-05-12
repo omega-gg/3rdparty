@@ -298,7 +298,7 @@ fi
 
 if [ $host = "win32" -o $host = "win64" ]; then
 
-    PATH="C:/Program Files/7-Zip:$PATH"
+    PATH="/c/Program Files/7-Zip:$PATH"
 
 elif [ $host = "macOS" ]; then
 
