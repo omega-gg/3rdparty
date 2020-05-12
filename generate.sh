@@ -294,7 +294,8 @@ if [ "$2" != "build" -a "$2" != "clean" ]; then
         echo "INSTALLING MSVC"
 
         ./"$MSVC"/vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
-                                --add Microsoft.VisualStudio.Workload.VCTools
+                                --add Microsoft.VisualStudio.Workload.VCTools \
+                                --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
     fi
 
     exit 0
@@ -527,7 +528,8 @@ if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
     mkdir -p "$MSVC"
 
     ./vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
-                    --add Microsoft.VisualStudio.Workload.VCTools
+                    --add Microsoft.VisualStudio.Workload.VCTools \
+                    --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
 
     mv vs_buildtools.exe "$MSVC"
 fi
