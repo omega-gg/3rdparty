@@ -294,7 +294,6 @@ fi
 #--------------------------------------------------------------------------------------------------
 # Install
 #--------------------------------------------------------------------------------------------------
-# NOTE: We need 7z on macOS and Linux.
 
 if [ $host = "win32" -o $host = "win64" ]; then
 
@@ -351,7 +350,7 @@ if [ $os = "windows" ]; then
 
     if [ $1 = "win32-msvc" ]; then
 
-        toolchain="$platform"_msvc2017_32
+        toolchain="$platform"_msvc2017
 
     elif [ $1 = "win64-msvc" ]; then
 
@@ -373,7 +372,7 @@ if [ $os = "windows" ]; then
 
     elif [ $1 = "win32-msvc" ]; then
 
-        Qt="Qt/$Qt5_version/msvc2017_32"
+        Qt="Qt/$Qt5_version/msvc2017"
     else
         Qt="Qt/$Qt5_version/msvc2017_64"
     fi
