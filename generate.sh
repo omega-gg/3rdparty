@@ -342,7 +342,7 @@ if [ $os = "windows" ]; then
 
         toolchain="$win_msvc2017_32"
 
-    elif [ $2 = "win64-msvc" ]; then
+    elif [ $1 = "win64-msvc" ]; then
 
         toolchain="$win_msvc2017_64"
     else
