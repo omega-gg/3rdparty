@@ -333,7 +333,7 @@ if [ $platform = "win32" ]; then
 
     rm 3rdparty.zip
 
-    mv 3rdparty/$platform/* $platform
+    mv 3rdparty/$platform/* $1
 
     rm -rf 3rdparty
 
