@@ -23,15 +23,15 @@ jobs:
 #  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
 #    artifact: 3rdparty-win64
 
-#- job: win32_msvc
-#  pool:
-#    vmImage: "windows-latest"
-#  steps:
-#  - bash: |
-#      sh generate.sh win32-msvc build
-#      7z a 3rdparty.zip win32-msvc
-#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-#    artifact: 3rdparty-win32-msvc
+- job: win32_msvc
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh generate.sh win32-msvc build
+      7z a 3rdparty.zip win32-msvc
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win32-msvc
 
 - job: win64_msvc
   pool:
