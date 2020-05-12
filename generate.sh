@@ -261,24 +261,6 @@ elif [ $1 = "android" -a $host = "linux" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# MSVC
-#--------------------------------------------------------------------------------------------------
-
-if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
-
-    echo ""
-    echo "DOWNLOADING MSVC"
-    echo $MSVC_url
-
-    curl -L -o vs_buildtools.exe $MSVC_url
-
-    mkdir -p "$MSVC"
-
-    ./vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
-                    --add Microsoft.VisualStudio.Workload.VCTools
-fi
-
-#--------------------------------------------------------------------------------------------------
 # Artifact
 #--------------------------------------------------------------------------------------------------
 
@@ -305,6 +287,15 @@ if [ "$2" != "build" -a "$2" != "clean" ]; then
     unzip -qo 3rdparty-$1/3rdparty.zip
 
     rm -rf 3rdparty-$1
+
+    if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+
+        echo ""
+        echo "INSTALLING MSVC"
+
+        ./"$MSVC"/vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
+                                --add Microsoft.VisualStudio.Workload.VCTools
+    fi
 
     exit 0
 fi
@@ -519,6 +510,24 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     mv "$path"/* "$MinGW"
 
     rm -rf "$MinGW/Tools"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# MSVC
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+
+    echo ""
+    echo "DOWNLOADING MSVC"
+    echo $MSVC_url
+
+    curl -L -o "$MSVC"/vs_buildtools.exe $MSVC_url
+
+    mkdir -p "$MSVC"
+
+    ./"$MSVC"/vs_BuildTools --quiet --wait --norestart --nocache --installPath "$MSVC" \
+                            --add Microsoft.VisualStudio.Workload.VCTools
 fi
 
 #--------------------------------------------------------------------------------------------------
