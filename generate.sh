@@ -157,7 +157,7 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-source="$source/$platform"
+source="$source/$1"
 
 external="$PWD/$1"
 
@@ -350,7 +350,7 @@ if [ $platform = "win32" ]; then
 
     rm 3rdparty.zip
 
-    mv 3rdparty/$platform/* $1
+    mv 3rdparty/$1/* $1
 
     rm -rf 3rdparty
 
