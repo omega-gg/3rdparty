@@ -13,9 +13,6 @@ source="http://omega.gg/get/Sky/3rdparty"
 
 Qt5_version="5.14.2"
 
-MinGW_versionA="7.3.0"
-MinGW_versionB="730"
-
 SSL_versionA="1.0.2p"
 SSL_versionB="1.1.1d"
 
@@ -24,6 +21,15 @@ VLC_version="3.0.10"
 #--------------------------------------------------------------------------------------------------
 
 libtorrent_artifact="981"
+
+#--------------------------------------------------------------------------------------------------
+# Windows
+
+MinGW_versionA="7.3.0"
+MinGW_versionB="730"
+
+jom_versionA="1.1.3"
+jom_versionB="1_1_3"
 
 #--------------------------------------------------------------------------------------------------
 # Android
@@ -167,6 +173,8 @@ Qt5="$external/Qt/$Qt5_version"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
+jom="$external/jom/$jom_versionA"
+
 SSL="$external/OpenSSL"
 
 VLC="$external/VLC/$VLC_version"
@@ -200,6 +208,8 @@ if [ $os = "windows" ]; then
     fi
 
     MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
+
+    jom_url="http://ftp1.nluug.nl/languages/qt/official_releases/jom/jom_$jom_versionB.zip"
 
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$platform/vlc-$VLC_version-$platform.7z"
 
@@ -518,6 +528,25 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     mv "$path"/* "$MinGW"
 
     rm -rf "$MinGW/Tools"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# jom
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "windows" ]; then
+
+    echo ""
+    echo "DOWNLOADING jom $jom_versionA"
+    echo $jom_url
+
+    curl -L -o jom.zip $jom_url
+
+    mkdir -p "$jom"
+
+    unzip -q jom.zip -d "$jom"
+
+    rm jom.zip
 fi
 
 #--------------------------------------------------------------------------------------------------
