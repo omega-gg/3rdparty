@@ -279,8 +279,13 @@ if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     curl -L -o vs_buildtools.exe $MSVC_url
 
+    # NOTE: This prevents the script from exiting when MSVC is already installed.
+    set +e
+
     ./vs_buildtools --quiet --wait --norestart --nocache \
                     --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
+
+    set -e
 
     rm vs_buildtools.exe
 
@@ -534,7 +539,7 @@ fi
 # jom
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "windows" ]; then
+if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     echo ""
     echo "DOWNLOADING jom $jom_versionA"
