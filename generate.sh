@@ -20,7 +20,7 @@ VLC_version="3.0.10"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_artifact="981"
+libtorrent_artifact="1542"
 
 #--------------------------------------------------------------------------------------------------
 # Windows
@@ -699,10 +699,10 @@ fi
 #--------------------------------------------------------------------------------------------------
 
 echo ""
-echo "ARTIFACT libtorrent-$platform"
+echo "ARTIFACT libtorrent-$1"
 echo $libtorrent_url
 
-libtorrent_url=$(getSource $libtorrent_url libtorrent-$platform)
+libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
 
 echo ""
 echo "DOWNLOADING libtorrent"
@@ -714,9 +714,9 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q libtorrent-$platform/libtorrent.zip -d "$external"
+unzip -q libtorrent-$1/libtorrent.zip -d "$external"
 
-rm -rf libtorrent-$platform
+rm -rf libtorrent-$1
 
 #--------------------------------------------------------------------------------------------------
 # JDK
