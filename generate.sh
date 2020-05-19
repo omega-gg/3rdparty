@@ -20,7 +20,7 @@ VLC_version="3.0.10"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_artifact="1542"
+libtorrent_artifact="1547"
 
 #--------------------------------------------------------------------------------------------------
 # Windows
@@ -787,5 +787,9 @@ if [ $1 = "android" ]; then
 
     mkdir -p "$NDK"
 
-    ln -s "$SDK/ndk/$NDK_versionB" "$NDK/$NDK_versionA"
+    cd "$NDK"
+
+    ln -s "../SDK/$SDK_version/ndk/$NDK_versionB" "$NDK_versionA"
+
+    cd -
 fi
