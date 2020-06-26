@@ -12,6 +12,7 @@ source="http://omega.gg/get/Sky/3rdparty"
 #--------------------------------------------------------------------------------------------------
 
 Qt5_version="5.14.2"
+Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
 SSL_versionA="1.0.2p"
 SSL_versionB="1.1.1d"
@@ -196,13 +197,13 @@ if [ $os = "windows" ]; then
 
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
 
-        SSL_urlA="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_versionA-i386-win32.zip"
+        SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win32.zip"
 
         SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win32-mingw.zip"
     else
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw730/7.3.0-1x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z"
 
-        SSL_urlA="https://indy.fulgan.com/SSL/Archive/openssl-$SSL_versionA-x64_86-win64.zip"
+        SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win64.zip"
 
         SSL_urlB="https://bintray.com/vszakats/generic/download_file?file_path=openssl-$SSL_versionB-win64-mingw.zip"
     fi
@@ -392,7 +393,7 @@ if [ $os = "windows" ]; then
     fi
 
     bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
-                     --toolchain $toolchain qtbase qtdeclarative qtxmlpatterns qtsvg qtwinextras
+                     --toolchain $toolchain $Qt5_modules qtwinextras
 
     if [ $1 = "win32" ]; then
 
@@ -412,14 +413,14 @@ if [ $os = "windows" ]; then
 elif [ $1 = "macOS" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host mac_x64 \
-                     --toolchain clang_64 qtbase qtdeclarative qtxmlpatterns qtsvg
+                     --toolchain clang_64 $Qt5_modules
 
     Qt="Qt/$Qt5_version/clang_64"
 
 elif [ $1 = "android" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain any qtbase qtdeclarative qtxmlpatterns qtsvg
+                     --toolchain any $Qt5_modules
 
     Qt="Qt/$Qt5_version/android"
 fi
