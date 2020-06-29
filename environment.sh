@@ -8,12 +8,25 @@ set -e
 compiler_win="mingw"
 
 #--------------------------------------------------------------------------------------------------
+# Functions
+#--------------------------------------------------------------------------------------------------
+
+replace()
+{
+    expression='s/'"$1"'=\"'"$2"'"/'"$1"'=\"'"$3"'"/g'
+
+    sed -i $expression environment.sh
+
+    sed -i $expression generate.sh
+}
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "mingw" -a $1 != "msvc" ]; then
+if [ $# != 1 ] || [ $1 != "gcc" -a $1 != "mingw" -a $1 != "msvc" ]; then
 
-    echo "Usage: environment <mingw | msvc>"
+    echo "Usage: environment <gcc | mingw | msvc>"
 
     exit 1
 fi
@@ -22,8 +35,9 @@ fi
 # Replacements
 #--------------------------------------------------------------------------------------------------
 
-expression='s/compiler_win=\"'"$compiler_win"'"/compiler_win=\"'"$1"'"/g'
+if [ $1 = "msvc" ]; then
 
-sed -i $expression environment.sh
-
-sed -i $expression generate.sh
+    replace compiler_win $compiler_win msvc
+else
+    replace compiler_win $compiler_win mingw
+fi
