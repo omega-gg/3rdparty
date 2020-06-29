@@ -30,7 +30,7 @@ jobs:
   - bash: |
       sh environment.sh msvc
       sh generate.sh win32 build
-      7z a 3rdparty.zip win32-msvc
+      7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32-msvc
 
@@ -41,7 +41,7 @@ jobs:
   - bash: |
       sh environment.sh msvc
       sh generate.sh win64 build
-      7z a 3rdparty.zip win64-msvc
+      7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64-msvc
 
