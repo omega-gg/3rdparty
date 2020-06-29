@@ -11,7 +11,7 @@ compiler_win="mingw"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "qt4" -a $1 != "qt5" ]; then
+if [ $# != 1 ] || [ $1 != "mingw" -a $1 != "msvc" ]; then
 
     echo "Usage: environment <mingw | msvc>"
 
