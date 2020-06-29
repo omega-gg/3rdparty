@@ -46,6 +46,11 @@ NDK_versionB="21.1.6352462"
 VLC_version_android="3.2.12"
 
 #--------------------------------------------------------------------------------------------------
+# environment
+
+compiler_win="mingw"
+
+#--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
 
@@ -114,16 +119,11 @@ getSource()
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32"      -a \
-     $1 != "win64"      -a \
-     $1 != "win32-msvc" -a \
-     $1 != "win64-msvc" -a \
-     $1 != "macOS"      -a \
-     $1 != "linux"      -a \
-     $1 != "android" ] || [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
+   || \
+   [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
 
-    echo "Usage: generate <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
-    echo "                [build | clean]"
+    echo "Usage: generate <win32 | win64 | macOS | linux | android> [build | clean]"
 
     exit 1
 fi
@@ -134,20 +134,24 @@ fi
 
 host=$(getOs)
 
-if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+if [ $1 = "win32" -o $1 = "win64" ]; then
 
     os="windows"
 
-    if [ $1 = "win32" -o $1 = "win32-msvc" ]; then
+    if [ $1 = "win32" ]; then
 
         platform="win32"
     else
         platform="win64"
     fi
+
+    compiler="$compiler_win"
 else
     os="other"
 
     platform="$1"
+
+    compiler=""
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -273,7 +277,7 @@ fi
 # MSVC
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+if [ $compiler = "msvc" ]; then
 
     echo "INSTALLING MSVC"
     echo $MSVC_url
@@ -381,13 +385,14 @@ echo "DOWNLOADING Qt5"
 
 if [ $os = "windows" ]; then
 
-    if [ $1 = "win32-msvc" ]; then
+    if [ $compiler = "msvc" ]; then
 
-        toolchain="$platform"_msvc2017
+        if [ $1 = "win32" ]; then
 
-    elif [ $1 = "win64-msvc" ]; then
-
-        toolchain="$platform"_msvc2017_64
+            toolchain="$platform"_msvc2017
+        else
+            toolchain="$platform"_msvc2017_64
+        fi
     else
         toolchain="$platform"_mingw73
     fi
@@ -395,19 +400,21 @@ if [ $os = "windows" ]; then
     bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
                      --toolchain $toolchain $Qt5_modules qtwinextras
 
-    if [ $1 = "win32" ]; then
+    if [ $compiler = "mingw" ]; then
 
-        Qt="Qt/$Qt5_version/mingw73_32"
+        if [ $1 = "win32" ]; then
 
-    elif [ $1 = "win64" ]; then
-
-        Qt="Qt/$Qt5_version/mingw73_64"
-
-    elif [ $1 = "win32-msvc" ]; then
-
-        Qt="Qt/$Qt5_version/msvc2017"
+            Qt="Qt/$Qt5_version/mingw73_32"
+        else
+            Qt="Qt/$Qt5_version/mingw73_64"
+        fi
     else
-        Qt="Qt/$Qt5_version/msvc2017_64"
+        if [ $1 = "win32" ]; then
+
+            Qt="Qt/$Qt5_version/msvc2017"
+        else
+            Qt="Qt/$Qt5_version/msvc2017_64"
+        fi
     fi
 
 elif [ $1 = "macOS" ]; then
@@ -540,7 +547,7 @@ fi
 # jom
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+if [ $1 = "msvc" ]; then
 
     echo ""
     echo "DOWNLOADING jom $jom_versionA"

@@ -28,7 +28,8 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh generate.sh win32-msvc build
+      sh environment.sh msvc
+      sh generate.sh win32 build
       7z a 3rdparty.zip win32-msvc
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32-msvc
@@ -38,7 +39,8 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh generate.sh win64-msvc build
+      sh environment.sh msvc
+      sh generate.sh win64 build
       7z a 3rdparty.zip win64-msvc
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64-msvc
