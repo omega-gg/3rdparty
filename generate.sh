@@ -14,7 +14,7 @@ source="http://omega.gg/get/Sky/3rdparty"
 Qt5_version="5.14.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
-SSL_versionA="1.0.2p"
+SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1d"
 
 VLC_version="3.0.11"
