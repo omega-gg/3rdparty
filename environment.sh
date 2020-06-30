@@ -44,9 +44,9 @@ getOs()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "gcc" -a $1 != "mingw" -a $1 != "msvc" ]; then
+if [ $# != 1 ] || [ $1 != "mingw" -a $1 != "msvc" ]; then
 
-    echo "Usage: environment <gcc | mingw | msvc>"
+    echo "Usage: environment <mingw | msvc>"
 
     exit 1
 fi
