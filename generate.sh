@@ -552,7 +552,7 @@ fi
 # jom
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "msvc" ]; then
+if [ $compiler = "msvc" ]; then
 
     echo ""
     echo "DOWNLOADING jom $jom_versionA"
