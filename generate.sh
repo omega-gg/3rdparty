@@ -144,12 +144,21 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     fi
 
     compiler="$compiler_win"
+
+    if [ $compiler = "msvc" ]; then
+
+        name="$1-msvc"
+    else
+        name="$1"
+    fi
 else
     os="other"
 
     platform="$1"
 
     compiler="default"
+
+    name="$1"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -300,13 +309,6 @@ fi
 #--------------------------------------------------------------------------------------------------
 
 if [ "$2" != "build" -a "$2" != "clean" ]; then
-
-    if [ $compiler = "msvc" ]; then
-
-        name="$1-msvc"
-    else
-        name="$1"
-    fi
 
     echo "ARTIFACT 3rdparty-$name"
     echo $thirdparty_url
@@ -712,10 +714,10 @@ fi
 #--------------------------------------------------------------------------------------------------
 
 echo ""
-echo "ARTIFACT libtorrent-$1"
+echo "ARTIFACT libtorrent-$name"
 echo $libtorrent_url
 
-libtorrent_url=$(getSource $libtorrent_url libtorrent-$1)
+libtorrent_url=$(getSource $libtorrent_url libtorrent-$name)
 
 echo ""
 echo "DOWNLOADING libtorrent"
@@ -727,9 +729,9 @@ unzip -q libtorrent.zip
 
 rm libtorrent.zip
 
-unzip -q libtorrent-$1/libtorrent.zip -d "$external"
+unzip -q libtorrent-$name/libtorrent.zip -d "$external"
 
-rm -rf libtorrent-$1
+rm -rf libtorrent-$name
 
 #--------------------------------------------------------------------------------------------------
 # JDK
