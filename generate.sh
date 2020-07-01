@@ -301,27 +301,34 @@ fi
 
 if [ "$2" != "build" -a "$2" != "clean" ]; then
 
-    echo "ARTIFACT 3rdparty-$1"
+    if [ $compiler = "msvc" ]; then
+
+        name="$1-msvc"
+    else
+        name="$1"
+    fi
+
+    echo "ARTIFACT 3rdparty-$name"
     echo $thirdparty_url
 
-    thirdparty_url=$(getSource $thirdparty_url 3rdparty-$1)
+    thirdparty_url=$(getSource $thirdparty_url 3rdparty-$name)
 
     echo ""
-    echo "DOWNLOADING 3rdparty-$1"
+    echo "DOWNLOADING 3rdparty-$name"
     echo $thirdparty_url
 
     curl --retry 3 -L -o 3rdparty.zip $thirdparty_url
 
     echo ""
-    echo "EXTRACTING 3rdparty-$1"
+    echo "EXTRACTING 3rdparty-$name"
 
     unzip -q 3rdparty.zip
 
     rm 3rdparty.zip
 
-    unzip -qo 3rdparty-$1/3rdparty.zip
+    unzip -qo 3rdparty-$name/3rdparty.zip
 
-    rm -rf 3rdparty-$1
+    rm -rf 3rdparty-$name
 
     exit 0
 fi
