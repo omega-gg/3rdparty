@@ -434,7 +434,7 @@ elif [ $1 = "macOS" ]; then
 elif [ $1 = "android" ]; then
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain any $Qt5_modules
+                     --toolchain any $Qt5_modules androidextras
 
     Qt="Qt/$Qt5_version/android"
 fi
