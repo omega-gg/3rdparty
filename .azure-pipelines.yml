@@ -103,7 +103,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip unzip;
+                                     apt-get -y install sudo curl zip unzip git;
                                      sh generate.sh android build;
                                      zip -rqy 3rdparty.zip android"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
