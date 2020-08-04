@@ -54,6 +54,13 @@ compiler_win="mingw"
 # Functions
 #--------------------------------------------------------------------------------------------------
 
+copySsl()
+{
+    mkdir $2
+
+    cp android_openssl/latest/$1/*.so $2
+}
+
 extractVlc()
 {
     curl --retry 3 -L -o VLC.apk $VLC_url_android/VLC-Android-$VLC_version_android-$1.apk
@@ -234,6 +241,8 @@ elif [ $1 = "android" ]; then
     JDK_url="https://oraclemirror.np.gy/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
+
+    SSL_urlB="https://github.com/KDAB/android_openssl"
 
     # FIXME Android: We need the Windows archive for the include folder.
     VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
@@ -610,6 +619,25 @@ if [ $os = "windows" ]; then
     mv ssl/openssl-$SSL_versionB-$platform-mingw/*.dll "$path"
 
     rm -rf ssl
+
+elif [ $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING SSL $SSL_versionB"
+    echo $SSL_urlB
+
+    git clone $SSL_urlB
+
+    path="$SSL/$SSL_versionB"
+
+    mkdir -p "$path"
+
+    copySsl arm    "$path"/armeabi-v7a
+    copySsl arm64  "$path"/arm64-v8a
+    copySsl x86    "$path"/x86
+    copySsl x86_64 "$path"/x86_64
+
+    rm -rf android_openssl
 fi
 
 #--------------------------------------------------------------------------------------------------
