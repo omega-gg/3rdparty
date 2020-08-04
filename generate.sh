@@ -56,9 +56,9 @@ compiler_win="mingw"
 
 copySsl()
 {
-    mkdir $2
+    mkdir "$2"
 
-    cp android_openssl/latest/$1/*.so $2
+    cp android_openssl/latest/$1/*.so "$2"
 }
 
 extractVlc()
@@ -69,7 +69,11 @@ extractVlc()
 
     rm VLC.apk
 
-    cp temp/lib/$1/libvlc.so "$VLC"/libvlc_$1.so
+    path="$VLC/$1"
+
+    mkdir "$path"
+
+    cp temp/lib/$1/libvlc.so "$path"
 
     rm -rf temp
 }
