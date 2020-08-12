@@ -72,8 +72,8 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
+                                     apt-get -yf install software-properties-common;
                                      DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata sudo curl zip;
-                                     sudo apt-get -fy install software-properties-common;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
