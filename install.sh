@@ -20,12 +20,12 @@ Boost_version="1.71.0"
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
 
-Qt5_version_linux="5.9.5"
+Qt5_version_linux="5.12.8"
 
 #--------------------------------------------------------------------------------------------------
 # Ubuntu
 
-QtWebkit_version_ubuntu="4.10.2"
+QtWebkit_version_ubuntu="4.10.4"
 
 VLC_version_ubuntu="5.6.0"
 
@@ -33,7 +33,7 @@ libvlccore_version_ubuntu="9.0.0"
 
 libtorrent_version_ubuntu="9.0.0"
 
-Boost_version_ubuntu="1.65.1"
+Boost_version_ubuntu="1.71.0"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -173,6 +173,9 @@ sudo apt-get install -y $X11_linux
 
 echo ""
 echo "INSTALLING Qt4"
+
+# Qt4 has been removed on Ubuntu 20.04 main repository
+sudo add-apt-repository ppa:rock-core/qt4
 
 sudo apt-get install -y $Qt4_linux
 
