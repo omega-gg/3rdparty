@@ -62,6 +62,7 @@ jobs:
 #--------------------------------------------------------------------------------------------------
 # Linux
 #--------------------------------------------------------------------------------------------------
+# NOTE: Docker requires 'DEBIAN_FRONTEND=noninteractive' to avoid getting prompted.
 
 - job: linux32
   pool:
@@ -70,6 +71,7 @@ jobs:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     export DEBIAN_FRONTEND=noninteractive;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
                                      sh generate.sh linux build;
@@ -84,6 +86,7 @@ jobs:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     export DEBIAN_FRONTEND=noninteractive;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
                                      sh generate.sh linux build;

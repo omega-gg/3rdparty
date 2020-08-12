@@ -125,11 +125,6 @@ libtorrent="$external/libtorrent/$libtorrent_version"
 Boost="$external/Boost/$Boost_version"
 
 #--------------------------------------------------------------------------------------------------
-# NOTE: This avoids interactions with tzdata from a Docker container.
-
-export DEBIAN_FRONTEND=noninteractive
-
-#--------------------------------------------------------------------------------------------------
 # Install
 #--------------------------------------------------------------------------------------------------
 
