@@ -73,8 +73,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata sudo curl zip;
-                                     apt-get -y install software-properties-common;
-                                     sh generate.sh linux build;
+                                     apt-get -y install packagekit software-properties-common;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
