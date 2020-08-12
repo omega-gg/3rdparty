@@ -3,61 +3,61 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: win32
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh generate.sh win32 build
-      7z a 3rdparty.zip win32
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win32
+#- job: win32
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh generate.sh win32 build
+#      7z a 3rdparty.zip win32
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-win32
 
-- job: win64
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh generate.sh win64 build
-      7z a 3rdparty.zip win64
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win64
+#- job: win64
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh generate.sh win64 build
+#      7z a 3rdparty.zip win64
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-win64
 
-- job: win32_msvc
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh environment.sh msvc
-      sh generate.sh win32 build
-      7z a 3rdparty.zip win32
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win32-msvc
+#- job: win32_msvc
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh environment.sh msvc
+#      sh generate.sh win32 build
+#      7z a 3rdparty.zip win32
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-win32-msvc
 
-- job: win64_msvc
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh environment.sh msvc
-      sh generate.sh win64 build
-      7z a 3rdparty.zip win64
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win64-msvc
+#- job: win64_msvc
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh environment.sh msvc
+#      sh generate.sh win64 build
+#      7z a 3rdparty.zip win64
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-win64-msvc
 
-#--------------------------------------------------------------------------------------------------
-# macOS
-#--------------------------------------------------------------------------------------------------
+##--------------------------------------------------------------------------------------------------
+## macOS
+##--------------------------------------------------------------------------------------------------
 
-- job: macOS
-  pool:
-    vmImage: "macOS-latest"
-  steps:
-  - bash: |
-      sh generate.sh macOS build
-      zip -rq 3rdparty.zip macOS
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-macOS
+#- job: macOS
+#  pool:
+#    vmImage: "macOS-latest"
+#  steps:
+#  - bash: |
+#      sh generate.sh macOS build
+#      zip -rq 3rdparty.zip macOS
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-macOS
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -71,43 +71,42 @@ jobs:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     export DEBIAN_FRONTEND=noninteractive;
                                      apt-get update;
-                                     apt-get -y install tzdata sudo curl zip;
+                                     export DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common tzdata sudo curl zip;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
 
-- job: linux64
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     export DEBIAN_FRONTEND=noninteractive;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip;
-                                     sh generate.sh linux build;
-                                     zip -rq 3rdparty.zip linux"
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-linux64
+#- job: linux64
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /3rdparty;
+#                                     export DEBIAN_FRONTEND=noninteractive;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl zip;
+#                                     sh generate.sh linux build;
+#                                     zip -rq 3rdparty.zip linux"
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-linux64
 
-#--------------------------------------------------------------------------------------------------
-# Android
-#--------------------------------------------------------------------------------------------------
+##--------------------------------------------------------------------------------------------------
+## Android
+##--------------------------------------------------------------------------------------------------
 
-- job: android
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip unzip git;
-                                     sh generate.sh android build;
-                                     zip -rqy 3rdparty.zip android"
-  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-android
+#- job: android
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /3rdparty;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl zip unzip git;
+#                                     sh generate.sh android build;
+#                                     zip -rqy 3rdparty.zip android"
+#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+#    artifact: 3rdparty-android
