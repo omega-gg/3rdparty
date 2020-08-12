@@ -125,9 +125,9 @@ libtorrent="$external/libtorrent/$libtorrent_version"
 Boost="$external/Boost/$Boost_version"
 
 #--------------------------------------------------------------------------------------------------
-# FIXME Azure, appveyor: It seems that the language is not set by default.
+# NOTE: This avoids interactions with tzdata from a Docker container.
 
-export LANG=en_US.UTF-8
+export DEBIAN_FRONTEND=noninteractive
 
 #--------------------------------------------------------------------------------------------------
 # Install
