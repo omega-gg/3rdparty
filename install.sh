@@ -179,7 +179,10 @@ sudo apt-get install -y $X11_linux
 echo ""
 echo "INSTALLING Qt4"
 
-# Qt4 has been removed on Ubuntu 20.04 main repository
+# NOTE: This installs the add-apt-repository command.
+sudo apt-get install -y software-properties-common
+
+# NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
 sudo add-apt-repository ppa:rock-core/qt4
 
 sudo apt-get install -y $Qt4_linux
