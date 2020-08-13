@@ -175,9 +175,9 @@ echo ""
 echo "INSTALLING Qt4"
 
 echo "INSTALLING Qt4 A"
-keyboard="KBLAYOUT='"'us'"'\nXKBVARIANT='"'intl'"'\nBACKSPACE='"'guess'"'"
+keyboard="KBLAYOUT='us'\nXKBVARIANT='intl'\nBACKSPACE='guess'"
 
-sudo echo "$keyboard" > /etc/default/keyboard
+sudo printf "$keyboard" > /etc/default/keyboard
 
 cat /etc/default/keyboard
 
