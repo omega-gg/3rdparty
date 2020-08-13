@@ -174,14 +174,17 @@ sudo apt-get install -y $X11_linux
 echo ""
 echo "INSTALLING Qt4"
 
-export DEBIAN_FRONTEND=noninteractive
-sudo apt-get -y install keyboard-configuration
+DEBIAN_FRONTEND=noninteractive sudo apt-get install keyboard-configuration
+
+echo "INSTALLING Qt4 A"
 
 # NOTE: This is required for add-apt-repository.
-sudo apt-get -y install software-properties-common
+DEBIAN_FRONTEND=noninteractive sudo apt-get -y install software-properties-common
+
+echo "INSTALLING Qt4 B"
 
 # NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
-sudo add-apt-repository -y ppa:rock-core/qt4
+DEBIAN_FRONTEND=noninteractive sudo add-apt-repository -y ppa:rock-core/qt4
 
 sudo apt-get install -y $Qt4_linux
 
