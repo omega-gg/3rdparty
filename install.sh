@@ -130,7 +130,7 @@ Boost="$external/Boost/$Boost_version"
 #export LANG=en_US.UTF-8
 #export LC_ALL=en_US.UTF-8
 
-sudo apt-get install -y locale
+sudo apt-get install -y locales
 
 locale-gen en_US.UTF-8
 export LANG=en_US.UTF-8
