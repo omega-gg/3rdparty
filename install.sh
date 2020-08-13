@@ -125,19 +125,6 @@ libtorrent="$external/libtorrent/$libtorrent_version"
 Boost="$external/Boost/$Boost_version"
 
 #--------------------------------------------------------------------------------------------------
-# FIXME Azure, appveyor: It seems that the language is not set by default.
-
-#export LANG=en_US.UTF-8
-#export LC_ALL=en_US.UTF-8
-
-sudo apt-get install -y locales
-
-locale-gen en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US:en
-export LC_ALL=en_US.UTF-8
-
-#--------------------------------------------------------------------------------------------------
 # Install
 #--------------------------------------------------------------------------------------------------
 
