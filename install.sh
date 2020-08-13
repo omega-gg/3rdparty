@@ -190,11 +190,9 @@ echo "INSTALLING Qt4"
 export DEBIAN_FRONTEND=noninteractive
 
 # NOTE: This is required to avoid getting prompted.
-#sudo printf "KBLAYOUT='us'\nXKBVARIANT='intl'\nBACKSPACE='guess'" > /etc/default/keyboard
+sudo printf 'XKBLAYOUT="us"\nXKBVARIANT="intl"\nBACKSPACE="guess"' > /etc/default/keyboard
 
-sudo touch /etc/default/keyboard
-
-L='us' && sudo sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'$L'\"/g' /etc/default/keyboard
+#L='us' && sudo sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'$L'\"/g' /etc/default/keyboard
 
 cat /etc/default/keyboard
 
