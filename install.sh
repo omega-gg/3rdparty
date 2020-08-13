@@ -187,15 +187,7 @@ sudo apt-get install -y $X11_linux
 echo ""
 echo "INSTALLING Qt4"
 
-export DEBIAN_FRONTEND=noninteractive
-
 # NOTE: This is required to avoid getting prompted.
-sudo printf 'XKBLAYOUT="us"\nXKBVARIANT="intl"\nBACKSPACE="guess"' > /etc/default/keyboard
-
-#L='us' && sudo sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'$L'\"/g' /etc/default/keyboard
-
-cat /etc/default/keyboard
-
 sudo DEBIAN_FRONTEND=noninteractive apt-get install keyboard-configuration
 
 # NOTE: This is required for add-apt-repository.
