@@ -174,20 +174,14 @@ sudo apt-get install -y $X11_linux
 echo ""
 echo "INSTALLING Qt4"
 
-echo "INSTALLING Qt4 A"
-keyboard="KBLAYOUT='us'\nXKBVARIANT='intl'\nBACKSPACE='guess'"
-
-sudo printf "$keyboard" > /etc/default/keyboard
-
-cat /etc/default/keyboard
+# NOTE: This is required to avoid getting prompted.
+sudo printf "KBLAYOUT='us'\nXKBVARIANT='intl'\nBACKSPACE='guess'" > /etc/default/keyboard
 
 # NOTE: This is required for add-apt-repository.
-DEBIAN_FRONTEND=noninteractive sudo apt-get -y install software-properties-common
-
-echo "INSTALLING Qt4 B"
+sudo apt-get -y install software-properties-common
 
 # NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
-DEBIAN_FRONTEND=noninteractive sudo add-apt-repository -y ppa:rock-core/qt4
+sudo add-apt-repository -y ppa:rock-core/qt4
 
 sudo apt-get install -y $Qt4_linux
 
