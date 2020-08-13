@@ -174,8 +174,6 @@ sudo apt-get install -y $X11_linux
 echo ""
 echo "INSTALLING Qt4"
 
-DEBIAN_FRONTEND=noninteractive sudo apt-get -y install keyboard-configuration
-
 echo "INSTALLING Qt4 A"
 
 # NOTE: This is required for add-apt-repository.
