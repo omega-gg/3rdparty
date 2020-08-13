@@ -71,7 +71,10 @@ jobs:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     apt-get update --fix-missing && apt-get install -y gir1.2-packagekitglib-1.0 software-properties-common"
+                                     apt-get clean;
+                                     apt-get update --fix-missing;
+                                     apt-get dist-upgrade;
+                                     apt-get install -y gir1.2-packagekitglib-1.0 software-properties-common"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
 
