@@ -175,6 +175,11 @@ echo ""
 echo "INSTALLING Qt4"
 
 echo "INSTALLING Qt4 A"
+keyboard="KBLAYOUT='"'us'"'\nXKBVARIANT='"'intl'"'\nBACKSPACE='"'guess'"'"
+
+sudo echo "$keyboard" > /etc/default/keyboard
+
+cat /etc/default/keyboard
 
 # NOTE: This is required for add-apt-repository.
 DEBIAN_FRONTEND=noninteractive sudo apt-get -y install software-properties-common
