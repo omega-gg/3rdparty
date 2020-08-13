@@ -196,6 +196,8 @@ sudo printf 'XKBLAYOUT="us"\nXKBVARIANT="intl"\nBACKSPACE="guess"' > /etc/defaul
 
 cat /etc/default/keyboard
 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install keyboard-configuration
+
 # NOTE: This is required for add-apt-repository.
 sudo apt-get install -y software-properties-common
 
