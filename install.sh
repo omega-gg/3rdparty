@@ -178,10 +178,14 @@ echo ""
 echo "INSTALLING Qt4"
 
 # NOTE: This is required for add-apt-repository.
-sudo apt-get install -y software-properties-common
+#sudo apt-get install -y software-properties-common
 
 # NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
-sudo add-apt-repository -y ppa:rock-core/qt4
+#sudo add-apt-repository -y ppa:rock-core/qt4
+
+sudo printf "\ndeb http://ppa.launchpad.net/rock-core/qt4/ubuntu focal main" >> /etc/apt/sources.list
+cat /etc/apt/sources.list
+sudo apt-get update
 
 sudo apt-get install -y $Qt4_linux
 
