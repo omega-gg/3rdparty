@@ -184,12 +184,12 @@ if [ $type = "x86_64" ]; then
     echo "INSTALLING Qt4"
 
     # NOTE: This is required for add-apt-repository.
-    #sudo apt-get install -y software-properties-common
+    sudo apt-get install -y software-properties-common
 
     # NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
-    #sudo add-apt-repository -y ppa:rock-core/qt4
+    sudo add-apt-repository -y ppa:rock-core/qt4
 
-    #sudo apt-get install -y $Qt4_linux
+    sudo apt-get install -y $Qt4_linux
 fi
 
 echo ""
