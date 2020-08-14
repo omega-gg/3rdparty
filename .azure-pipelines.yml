@@ -86,9 +86,9 @@ jobs:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     export DEBIAN_FRONTEND=noninteractive;
+                                     DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration;
                                      apt-get update;
-                                     apt-get -y install tzdata sudo curl zip;
+                                     apt-get -y install sudo curl zip;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
