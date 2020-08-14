@@ -128,6 +128,9 @@ Boost="$external/Boost/$Boost_version"
 # Install
 #--------------------------------------------------------------------------------------------------
 
+# NOTE: Docker requires tzdata and keyboard-configuration
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration
+
 if [ "$2" = "uninstall" ]; then
 
     echo "UNINSTALLING X11"
