@@ -176,6 +176,8 @@ sudo apt-get install -y $X11_linux
 
 type=`uname -m`
 
+echo $type
+
 if [ $type = "x86_64" ]; then
 
     echo ""
