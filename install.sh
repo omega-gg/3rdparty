@@ -175,7 +175,7 @@ echo ""
 echo "INSTALLING Qt4"
 
 # NOTE: This is required to avoid getting prompted.
-sudo DEBIAN_FRONTEND=noninteractive apt-get install keyboard-configuration
+sudo apt-get install -y keyboard-configuration
 
 # NOTE: This is required for add-apt-repository.
 sudo apt-get install -y software-properties-common
