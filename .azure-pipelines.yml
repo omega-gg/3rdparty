@@ -72,7 +72,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
-                                     linux32 sh generate.sh linux build;
+                                     sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32
