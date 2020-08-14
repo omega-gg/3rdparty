@@ -174,20 +174,21 @@ echo "INSTALLING X11"
 
 sudo apt-get install -y $X11_linux
 
-echo ""
-echo "INSTALLING Qt4"
+type=`uname -m`
 
-# NOTE: This is required for add-apt-repository.
-#sudo apt-get install -y software-properties-common
+if [ $type = "x86_64" ]; then
 
-# NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
-#sudo add-apt-repository -y ppa:rock-core/qt4
+    echo ""
+    echo "INSTALLING Qt4"
 
-sudo printf "\ndeb http://ppa.launchpad.net/rock-core/qt4/ubuntu focal main" >> /etc/apt/sources.list
-cat /etc/apt/sources.list
-sudo apt-get update
+    # NOTE: This is required for add-apt-repository.
+    sudo apt-get install -y software-properties-common
 
-sudo apt-get install -y $Qt4_linux
+    # NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
+    sudo add-apt-repository -y ppa:rock-core/qt4
+
+    sudo apt-get install -y $Qt4_linux
+fi
 
 echo ""
 echo "INSTALLING Qt5"
