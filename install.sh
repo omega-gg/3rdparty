@@ -20,6 +20,9 @@ Boost_version="1.71.0"
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
 
+include32="/usr/include/i386-linux-gnu"
+include64="/usr/include/x86_64-linux-gnu"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
@@ -56,8 +59,12 @@ external="$1"
 if [ -d "${lib64}" ]; then
 
     lib="$lib64"
+
+    include="$include64"
 else
     lib="$lib32"
+
+    include="$include32"
 fi
 
 #----------------------------------------------------------------------------------------------
@@ -125,12 +132,15 @@ tools_linux="git"
 # Install
 #--------------------------------------------------------------------------------------------------
 
-# NOTE: Docker requires tzdata and keyboard-configuration.
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration
+if [ $host = "ubuntu20" ]; then
 
-# NOTE: Docker has no local set by default.
-sudo apt-get install -y locales
-sudo locale-gen en_US.UTF-8
+    # NOTE: Docker requires tzdata and keyboard-configuration.
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration
+
+    # NOTE: Docker has no local set by default.
+    sudo apt-get install -y locales
+    sudo locale-gen en_US.UTF-8
+fi
 
 if [ "$2" = "uninstall" ]; then
 
@@ -262,12 +272,17 @@ echo ""
 echo "DEPLOYING Qt5"
 
 mkdir -p "$Qt5"/lib
+mkdir -p "$Qt5"/include
 
 mkdir -p "$Qt5"/plugins/platforms
 mkdir -p "$Qt5"/plugins/imageformats
 mkdir -p "$Qt5"/plugins/xcbglintegrations
 
 mkdir -p "$Qt5"/qml/QtQuick.2
+
+sudo cp -r "$include"/qt5 "$Qt5"/include
+
+sudo cp "$Qt5"/include/QtGui/$Qt5_version/QtGui/qpa "$Qt5"/include/Qt5/QtGui
 
 sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
 sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
