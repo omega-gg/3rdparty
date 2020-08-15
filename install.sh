@@ -51,6 +51,8 @@ fi
 
 host=$(getOs)
 
+cat /etc/lsb_release
+
 external="$1"
 
 if [ -d "${lib64}" ]; then
