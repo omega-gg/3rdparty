@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="2127"
+artifact="2214"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
@@ -253,6 +253,11 @@ elif [ $1 = "android" ]; then
 
     VLC_url_android="https://get.videolan.org/vlc-android/$VLC_version_android"
 fi
+
+#--------------------------------------------------------------------------------------------------
+# FIXME Azure, appveyor: It seems that the language is not set by default.
+
+export LANG=en_US.UTF-8
 
 #--------------------------------------------------------------------------------------------------
 # Clean
