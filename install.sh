@@ -17,6 +17,9 @@ Boost_version="1.71.0"
 #--------------------------------------------------------------------------------------------------
 # Linux
 
+base32="/lib/i386-linux-gnu"
+base64="/lib/x86_64-linux-gnu"
+
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
 
@@ -58,10 +61,14 @@ external="$1"
 
 if [ -d "${lib64}" ]; then
 
+    base="$base64"
+
     lib="$lib64"
 
     include="$include64"
 else
+    base="$base32"
+
     lib="$lib32"
 
     include="$include32"
@@ -340,6 +347,12 @@ sudo cp "$lib"/qt5/plugins/xcbglintegrations/libqxcb-glx-integration.so \
 
 sudo cp "$lib"/qt5/qml/QtQuick.2/libqtquick2plugin.so "$Qt5"/qml/QtQuick.2
 sudo cp "$lib"/qt5/qml/QtQuick.2/qmldir               "$Qt5"/qml/QtQuick.2
+
+echo ""
+echo "DEPLOYING SSL"
+
+sudo cp "$lib"/libssl.so*    "$libs"
+sudo cp "$lib"/libcrypto.so* "$libs"
 
 echo ""
 echo "DEPLOYING VLC"
