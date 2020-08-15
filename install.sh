@@ -20,38 +20,19 @@ Boost_version="1.71.0"
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
 
-Qt5_version_linux="5.12.8"
-
 #--------------------------------------------------------------------------------------------------
-# Ubuntu
-
-QtWebkit_version_ubuntu="4.10.4"
-
-VLC_version_ubuntu="5.6.0"
-
-libvlccore_version_ubuntu="9.0.0"
-
-libtorrent_version_ubuntu="9.0.0"
-
-Boost_version_ubuntu="1.71.0"
-
+# Functions
 #--------------------------------------------------------------------------------------------------
 
-X11_ubuntu="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2"
+getOs()
+{
+    if [ "$(lsb_release -a | grep "18.04")" != "" ]
 
-Qt4_ubuntu="qt4-default libqtwebkit-dev openssl"
-
-Qt5_ubuntu="qt5-default qtbase5-private-dev qtdeclarative5-private-dev libqt5xmlpatterns5-dev "\
-"libqt5svg5-dev libqt5x11extras5-dev qml-module-qtquick2"
-
-VLC_ubuntu="libvlc-dev vlc"
-
-libtorrent_ubuntu="libtorrent-rasterbar-dev"
-
-Boost_ubuntu="libboost-all-dev"
-
-tools_ubuntu="git"
+        echo "ubuntu18"
+    else
+        echo "ubuntu20"
+    fi
+}
 
 #--------------------------------------------------------------------------------------------------
 # Syntax
@@ -68,6 +49,8 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
+host=$(getOs)
+
 external="$1"
 
 if [ -d "${lib64}" ]; then
@@ -76,33 +59,6 @@ if [ -d "${lib64}" ]; then
 else
     lib="$lib32"
 fi
-
-Qt5_version="$Qt5_version_linux"
-
-QtWebkit_version="$QtWebkit_version_ubuntu"
-
-VLC_version="$VLC_version_ubuntu"
-
-libvlccore_version="$libvlccore_version_ubuntu"
-
-libtorrent_version="$libtorrent_version_ubuntu"
-
-Boost_version="$Boost_version_ubuntu"
-
-#----------------------------------------------------------------------------------------------
-
-X11_linux="$X11_ubuntu"
-
-Qt4_linux="$Qt4_ubuntu"
-Qt5_linux="$Qt5_ubuntu"
-
-VLC_linux="$VLC_ubuntu"
-
-libtorrent_linux="$libtorrent_ubuntu"
-
-Boost_linux="$Boost_ubuntu"
-
-tools_linux="$tools_ubuntu"
 
 #----------------------------------------------------------------------------------------------
 
@@ -125,11 +81,47 @@ libtorrent="$external/libtorrent/$libtorrent_version"
 Boost="$external/Boost/$Boost_version"
 
 #--------------------------------------------------------------------------------------------------
+
+Qt5_version="5.12.8"
+
+QtWebkit_version="4.10.4"
+
+VLC_version="5.6.0"
+
+libvlccore_version="9.0.0"
+
+libtorrent_version="9.0.0"
+
+Boost_version="1.71.0"
+
+#--------------------------------------------------------------------------------------------------
+
+X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
+"libaudio2"
+
+Qt4_linux="qt4-default libqtwebkit-dev openssl"
+
+Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev libqt5xmlpatterns5-dev "\
+"libqt5svg5-dev libqt5x11extras5-dev qml-module-qtquick2"
+
+VLC_linux="libvlc-dev vlc"
+
+libtorrent_linux="libtorrent-rasterbar-dev"
+
+Boost_linux="libboost-all-dev"
+
+tools_linux="git"
+
+#--------------------------------------------------------------------------------------------------
 # Install
 #--------------------------------------------------------------------------------------------------
 
 # NOTE: Docker requires tzdata and keyboard-configuration.
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration
+
+# NOTE: Docker has no local set by default.
+sudo apt-get install -y locales
+sudo locale-gen en_US.UTF-8
 
 if [ "$2" = "uninstall" ]; then
 
