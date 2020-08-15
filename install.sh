@@ -51,7 +51,8 @@ fi
 
 host=$(getOs)
 
-cat /etc/os_release
+sudo cat /etc/os_release
+sudo ls -a /etc
 
 external="$1"
 
