@@ -69,6 +69,8 @@ fi
 
 #----------------------------------------------------------------------------------------------
 
+libs="$external/lib"
+
 Qt4="$external/Qt/$Qt4_version"
 
 Qt4_name="qt-everywhere-opensource-src-$Qt4_version"
@@ -228,6 +230,22 @@ sudo apt-get install -y $tools_linux
 #--------------------------------------------------------------------------------------------------
 # Deploy
 #--------------------------------------------------------------------------------------------------
+
+echo ""
+echo "DEPLOYING lib(s)"
+
+mkdir -p "$libs"
+
+sudo cp "$base"/libz.so.1 "$libs"
+
+sudo cp "$lib"/libicudata.so.60 "$libs"
+sudo cp "$lib"/libicui18n.so.60 "$libs"
+sudo cp "$lib"/libicuuc.so.60   "$libs"
+
+sudo cp "$lib"/libdouble-conversion.so.1 "$libs"
+sudo cp "$lib"/libpng16.so.16            "$libs"
+sudo cp "$lib"/libharfbuzz.so.0          "$libs"
+sudo cp "$lib"/libxcb-xinerama.so.0      "$libs"
 
 echo ""
 echo "DEPLOYING Qt4"
