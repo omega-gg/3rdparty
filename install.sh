@@ -166,23 +166,19 @@ echo "INSTALLING X11"
 
 sudo apt-get install -y $X11_linux
 
-type=`uname -m`
+echo ""
+echo "INSTALLING Qt4"
 
-echo $type
-
-if [ $type = "x86_64" ]; then
-
-    echo ""
-    echo "INSTALLING Qt4"
+# NOTE: Qt4 has been removed from Ubuntu 20.04 main repository.
+if [ $host = "ubuntu20" ]; then
 
     # NOTE: This is required for add-apt-repository.
     sudo apt-get install -y software-properties-common
 
-    # NOTE: Qt4 has been removed on Ubuntu 20.04 main repository.
     sudo add-apt-repository -y ppa:rock-core/qt4
-
-    sudo apt-get install -y $Qt4_linux
 fi
+
+sudo apt-get install -y $Qt4_linux
 
 echo ""
 echo "INSTALLING Qt5"
