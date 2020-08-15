@@ -360,8 +360,8 @@ echo "DEPLOYING SSL"
 
 mkdir -p "$SSL"
 
-sudo cp "$lib"/libssl.so*    "$SSL"
-sudo cp "$lib"/libcrypto.so* "$SSL"
+sudo cp "$lib"/libssl.so.1.1    "$SSL"
+sudo cp "$lib"/libcrypto.so.1.1 "$SSL"
 
 echo ""
 echo "DEPLOYING VLC"
