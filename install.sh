@@ -282,7 +282,7 @@ mkdir -p "$Qt5"/qml/QtQuick.2
 
 sudo cp -r "$include"/qt5/* "$Qt5"/include
 
-sudo cp "$Qt5"/include/QtGui/$Qt5_version/QtGui/qpa "$Qt5"/include/QtGui
+sudo cp -r "$Qt5"/include/QtGui/$Qt5_version/QtGui/qpa "$Qt5"/include/QtGui
 
 sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
 sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
