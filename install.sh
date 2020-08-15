@@ -51,8 +51,10 @@ fi
 
 echo "before"
 ls -a /
+echo "after"
 ls -a /etc
 echo "after"
+cat /etc/os-release
 
 host=$(getOs)
 
