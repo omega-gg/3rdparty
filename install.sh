@@ -8,6 +8,8 @@ set -e
 Qt4_version="4.8.7"
 Qt5_version="5.14.2"
 
+SSL_version="1.1.1d"
+
 VLC_version="3.0.11"
 
 libtorrent_version="1.2.6"
@@ -89,6 +91,8 @@ Qt4_archive="$Qt4_name.tar.gz"
 Qt4_sources="http://master.qt.io/archive/qt/4.8/$Qt4_version/$Qt4_archive"
 
 Qt5="$external/Qt/$Qt5_version"
+
+SSL="$external/OpenSSL/$SSL_version"
 
 VLC="$external/VLC/$VLC_version"
 
@@ -351,8 +355,10 @@ sudo cp "$lib"/qt5/qml/QtQuick.2/qmldir               "$Qt5"/qml/QtQuick.2
 echo ""
 echo "DEPLOYING SSL"
 
-sudo cp "$lib"/libssl.so*    "$libs"
-sudo cp "$lib"/libcrypto.so* "$libs"
+mkdir -p "$SSL"
+
+sudo cp "$lib"/libssl.so*    "$SSL"
+sudo cp "$lib"/libcrypto.so* "$SSL"
 
 echo ""
 echo "DEPLOYING VLC"
