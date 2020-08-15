@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="2214"
+artifact="2215"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
@@ -255,7 +255,7 @@ elif [ $1 = "android" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# FIXME Azure, appveyor: It seems that the language is not set by default.
+# FIXME Azure: grep needs the language to be set to UTF-8.
 
 export LANG=en_US.UTF-8
 
