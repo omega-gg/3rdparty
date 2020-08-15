@@ -135,12 +135,13 @@ tools_linux="git"
 if [ $host = "ubuntu20" ]; then
 
     # NOTE: Docker requires tzdata and keyboard-configuration.
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration locales
 
     # NOTE: Docker has no local set by default.
-    sudo apt-get install -y locales
     sudo locale-gen en_US.UTF-8
 fi
+
+sudo apt-get install -y build-essential
 
 if [ "$2" = "uninstall" ]; then
 
@@ -281,8 +282,6 @@ mkdir -p "$Qt5"/plugins/xcbglintegrations
 mkdir -p "$Qt5"/qml/QtQuick.2
 
 sudo cp -r "$include"/qt5/* "$Qt5"/include
-
-sudo cp -r "$Qt5"/include/QtGui/$Qt5_version/QtGui/qpa "$Qt5"/include/QtGui
 
 sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
 sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
