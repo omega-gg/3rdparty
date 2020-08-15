@@ -132,6 +132,8 @@ tools_linux="git"
 # Install
 #--------------------------------------------------------------------------------------------------
 
+sudo apt-get install -y build-essential
+
 if [ $host = "ubuntu20" ]; then
 
     # NOTE: Docker requires tzdata and keyboard-configuration.
@@ -140,8 +142,6 @@ if [ $host = "ubuntu20" ]; then
     # NOTE: Docker has no local set by default.
     sudo locale-gen en_US.UTF-8
 fi
-
-sudo apt-get install -y build-essential
 
 if [ "$2" = "uninstall" ]; then
 
