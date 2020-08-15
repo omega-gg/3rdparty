@@ -82,17 +82,26 @@ Boost="$external/Boost/$Boost_version"
 
 #--------------------------------------------------------------------------------------------------
 
-Qt5_version="5.12.8"
+if [ $host = "ubuntu18" ]; then
 
-QtWebkit_version="4.10.4"
+    Qt5_version="5.9.5"
+
+    QtWebkit_version="4.10.2"
+
+    Boost_version="1.65.1"
+else
+    Qt5_version="5.12.8"
+
+    QtWebkit_version="4.10.4"
+
+    Boost_version="1.71.0"
+fi
 
 VLC_version="5.6.0"
 
 libvlccore_version="9.0.0"
 
 libtorrent_version="9.0.0"
-
-Boost_version="1.71.0"
 
 #--------------------------------------------------------------------------------------------------
 
