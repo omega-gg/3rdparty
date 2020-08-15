@@ -254,16 +254,19 @@ if [ $host = "ubuntu18" ]; then
     sudo cp "$lib"/libicudata.so.60 "$libs"
     sudo cp "$lib"/libicui18n.so.60 "$libs"
     sudo cp "$lib"/libicuuc.so.60   "$libs"
+
+    sudo cp "$lib"/libdouble-conversion.so.1 "$libs"
 else
     sudo cp "$lib"/libicudata.so.66 "$libs"
     sudo cp "$lib"/libicui18n.so.66 "$libs"
     sudo cp "$lib"/libicuuc.so.66   "$libs"
+
+    sudo cp "$lib"/libdouble-conversion.so.3 "$libs"
 fi
 
-sudo cp "$lib"/libdouble-conversion.so.1 "$libs"
-sudo cp "$lib"/libpng16.so.16            "$libs"
-sudo cp "$lib"/libharfbuzz.so.0          "$libs"
-sudo cp "$lib"/libxcb-xinerama.so.0      "$libs"
+sudo cp "$lib"/libpng16.so.16       "$libs"
+sudo cp "$lib"/libharfbuzz.so.0     "$libs"
+sudo cp "$lib"/libxcb-xinerama.so.0 "$libs"
 
 echo ""
 echo "DEPLOYING Qt4"
