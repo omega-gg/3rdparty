@@ -238,9 +238,16 @@ mkdir -p "$libs"
 
 sudo cp "$base"/libz.so.1 "$libs"
 
-sudo cp "$lib"/libicudata.so.60 "$libs"
-sudo cp "$lib"/libicui18n.so.60 "$libs"
-sudo cp "$lib"/libicuuc.so.60   "$libs"
+if [ $host = "ubuntu18" ]; then
+
+    sudo cp "$lib"/libicudata.so.60 "$libs"
+    sudo cp "$lib"/libicui18n.so.60 "$libs"
+    sudo cp "$lib"/libicuuc.so.60   "$libs"
+else
+    sudo cp "$lib"/libicudata.so.66 "$libs"
+    sudo cp "$lib"/libicui18n.so.66 "$libs"
+    sudo cp "$lib"/libicuuc.so.66   "$libs"
+fi
 
 sudo cp "$lib"/libdouble-conversion.so.1 "$libs"
 sudo cp "$lib"/libpng16.so.16            "$libs"
