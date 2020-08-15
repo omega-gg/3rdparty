@@ -49,10 +49,12 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-host=$(getOs)
+echo "before"
+ls -a /
+ls -a /etc
+echo "after"
 
-sudo cat /etc/os_release
-sudo ls -a /etc
+host=$(getOs)
 
 external="$1"
 
