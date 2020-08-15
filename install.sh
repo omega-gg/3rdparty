@@ -26,7 +26,7 @@ lib64="/usr/lib/x86_64-linux-gnu"
 
 getOs()
 {
-    if [ "$(lsb_release -a | grep "18.04")" != "" ]; then
+    if [ "$(cat /etc/lsb_release | grep 18.04)" != "" ]; then
 
         echo "ubuntu18"
     else
