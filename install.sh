@@ -26,7 +26,7 @@ lib64="/usr/lib/x86_64-linux-gnu"
 
 getOs()
 {
-    if [ "$(cat /etc/lsb_release | grep 18.04)" != "" ]; then
+    if [ "$(cat /etc/os_release | grep 18.04)" != "" ]; then
 
         echo "ubuntu18"
     else
@@ -51,7 +51,7 @@ fi
 
 host=$(getOs)
 
-cat /etc/lsb_release
+cat /etc/os_release
 
 external="$1"
 
