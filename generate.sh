@@ -602,7 +602,8 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$path"
 
-    mv ssl/*.dll "$path"
+    mv ssl/libeay32.dll "$path"
+    mv ssl/ssleay32.dll "$path"
 
     rm -rf ssl
 
@@ -620,7 +621,10 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$path"
 
-    mv ssl/openssl-$SSL_versionB-$platform-mingw/*.dll "$path"
+    ssl="ssl/openssl-$SSL_versionB-$platform-mingw"
+
+    mv $ssl/libssl*.dll    "$path"
+    mv $ssl/libcrypto*.dll "$path"
 
     rm -rf ssl
 
