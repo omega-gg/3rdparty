@@ -262,6 +262,9 @@ else
     sudo cp "$lib"/libicuuc.so.66   "$libs"
 
     sudo cp "$lib"/libdouble-conversion.so.3 "$libs"
+
+    # NOTE: Required for Ubuntu 20.04.
+    sudo cp "$lib"/libpcre2-16.so.0 "$libs"
 fi
 
 sudo cp "$lib"/libpng16.so.16       "$libs"
