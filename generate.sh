@@ -68,7 +68,7 @@ extractVlc()
 
     curl --retry 3 -L -o VLC.zip $url
 
-    7z x VLC.zip -o"temp" > /dev/null
+    unzip -q VLC.zip -d"temp"
 
     rm VLC.zip
 
