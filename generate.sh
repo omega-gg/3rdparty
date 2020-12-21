@@ -66,11 +66,11 @@ extractVlc()
     url="$VLC_url_android/VLC-Android-$VLC_version_android-$1.apk"
     echo $url
 
-    curl --retry 3 -L -o VLC.apk $url
+    curl --retry 3 -L -o VLC.zip $url
 
-    7z x VLC.apk -o"temp" > /dev/null
+    7z x VLC.zip -o"temp" > /dev/null
 
-    rm VLC.apk
+    rm VLC.zip
 
     path="$VLC/$1"
 
@@ -740,6 +740,7 @@ elif [ $1 = "android" ]; then
 
     #----------------------------------------------------------------------------------------------
 
+    echo ""
     echo "DOWNLOADING VLC ANDROID"
 
     extractVlc armeabi-v7a
