@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="2298"
+artifact="2668"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
@@ -64,6 +64,8 @@ copySsl()
 extractVlc()
 {
     url="$VLC_url_android/VLC-Android-$VLC_version_android-$1.apk"
+
+    echo ""
     echo $url
 
     curl --retry 3 -L -o VLC.zip $url
