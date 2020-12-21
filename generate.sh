@@ -234,11 +234,11 @@ if [ $os = "windows" ]; then
 
     jom_url="http://ftp1.nluug.nl/languages/qt/official_releases/jom/jom_$jom_versionB.zip"
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/$platform/vlc-$VLC_version-$platform.7z"
+    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/$platform/vlc-$VLC_version-$platform.7z"
 
 elif [ $1 = "macOS" ]; then
 
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version.dmg"
+    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version.dmg"
 
 elif [ $1 = "android" ]; then
 
@@ -249,7 +249,7 @@ elif [ $1 = "android" ]; then
     SSL_urlB="https://github.com/KDAB/android_openssl"
 
     # FIXME Android: We need the Windows archive for the include folder.
-    VLC_url="http://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
+    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 
     VLC_url_android="https://get.videolan.org/vlc-android/$VLC_version_android"
 fi
