@@ -63,7 +63,10 @@ copySsl()
 
 extractVlc()
 {
-    curl --retry 3 -L -o VLC.apk $VLC_url_android/VLC-Android-$VLC_version_android-$1.apk
+    url="$VLC_url_android/VLC-Android-$VLC_version_android-$1.apk"
+    echo $url
+
+    curl --retry 3 -L -o VLC.apk $url
 
     7z x VLC.apk -o"temp" > /dev/null
 
@@ -736,6 +739,8 @@ elif [ $1 = "android" ]; then
     rm -rf "$path"
 
     #----------------------------------------------------------------------------------------------
+
+    echo "DOWNLOADING VLC ANDROID"
 
     extractVlc armeabi-v7a
     extractVlc arm64-v8a
