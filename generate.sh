@@ -43,7 +43,7 @@ SDK_version="29"
 NDK_versionA="21"
 NDK_versionB="21.1.6352462"
 
-VLC_version_android="3.2.12"
+VLC_version_android="3.3.3"
 
 #--------------------------------------------------------------------------------------------------
 # environment
