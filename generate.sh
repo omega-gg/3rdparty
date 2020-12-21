@@ -251,7 +251,7 @@ elif [ $1 = "android" ]; then
     # FIXME Android: We need the Windows archive for the include folder.
     VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 
-    VLC_url_android="https://get.videolan.org/vlc-android/$VLC_version_android"
+    VLC_url_android="https://download.videolan.org/pub/videolan/vlc-android/$VLC_version_android"
 fi
 
 #--------------------------------------------------------------------------------------------------
