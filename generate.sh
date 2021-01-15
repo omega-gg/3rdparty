@@ -182,7 +182,12 @@ fi
 
 if [ $host = "macOS" ]; then
 
+    set +e
+
+    # NOTE: This generates an error when grep is already installed.
     brew install grep
+
+    set -e
 
     grep="ggrep"
 else
