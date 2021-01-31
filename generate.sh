@@ -258,7 +258,7 @@ elif [ $1 = "android" ]; then
 
     SSL_urlB="https://github.com/KDAB/android_openssl"
 
-    # FIXME Android: We need the Windows archive for the include folder.
+    # FIXME android: We need the Windows archive for the include folder.
     VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 
     VLC_url_android="https://download.videolan.org/pub/videolan/vlc-android/$VLC_version_android"
@@ -729,7 +729,7 @@ elif [ $1 = "android" ]; then
     echo $VLC_url
 
     #----------------------------------------------------------------------------------------------
-    # FIXME Android: We need the Windows archive for the include folder.
+    # FIXME android: We need the Windows archive for the include folder.
 
     curl -L -o VLC.7z $VLC_url
 
