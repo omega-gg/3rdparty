@@ -10,7 +10,7 @@ Qt5_version="5.14.2"
 
 SSL_version="1.1.1d"
 
-VLC_version="3.0.11"
+VLC_version="3.0.12"
 
 libtorrent_version="1.2.6"
 
