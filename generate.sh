@@ -248,7 +248,7 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
-    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version.dmg"
+    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version-intel64.dmg"
 
 elif [ $1 = "android" ]; then
 
