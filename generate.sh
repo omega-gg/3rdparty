@@ -35,7 +35,7 @@ jom_versionB="1_1_3"
 #--------------------------------------------------------------------------------------------------
 # Android
 
-JDK_versionA="8u261"
+JDK_versionA="8u291"
 JDK_versionB="1.8.0_261"
 
 SDK_version="29"
@@ -252,7 +252,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "android" ]; then
 
-    JDK_url="https://oraclemirror.np.gy/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
+    JDK_url="https://enos.itcollege.ee/~jpoial/allalaadimised/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
