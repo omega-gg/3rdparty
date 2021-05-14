@@ -36,7 +36,7 @@ jom_versionB="1_1_3"
 # Android
 
 JDK_versionA="8u291"
-JDK_versionB="1.8.0_261"
+JDK_versionB="1.8.0_291"
 
 SDK_version="29"
 
