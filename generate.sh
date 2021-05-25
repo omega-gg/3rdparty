@@ -419,12 +419,12 @@ if [ $os = "windows" ]; then
 
         if [ $1 = "win32" ]; then
 
-            toolchain="$platform"_msvc2017
+            toolchain="$platform"_msvc2019
         else
-            toolchain="$platform"_msvc2017_64
+            toolchain="$platform"_msvc2019_64
         fi
     else
-        toolchain="$platform"_mingw73
+        toolchain="$platform"_mingw81
     fi
 
     bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
@@ -434,16 +434,16 @@ if [ $os = "windows" ]; then
 
         if [ $1 = "win32" ]; then
 
-            Qt="Qt/$Qt5_version/mingw73_32"
+            Qt="Qt/$Qt5_version/mingw81_32"
         else
-            Qt="Qt/$Qt5_version/mingw73_64"
+            Qt="Qt/$Qt5_version/mingw81_64"
         fi
     else
         if [ $1 = "win32" ]; then
 
-            Qt="Qt/$Qt5_version/msvc2017"
+            Qt="Qt/$Qt5_version/msvc2019"
         else
-            Qt="Qt/$Qt5_version/msvc2017_64"
+            Qt="Qt/$Qt5_version/msvc2019_64"
         fi
     fi
 
@@ -455,6 +455,9 @@ elif [ $1 = "macOS" ]; then
     Qt="Qt/$Qt5_version/clang_64"
 
 elif [ $1 = "android" ]; then
+
+    # NOTE android: This is required for install-qt.sh.
+    export QT_VERSION="$Qt5_version"
 
     bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
                      --toolchain any $Qt5_modules androidextras
