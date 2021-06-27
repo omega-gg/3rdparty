@@ -17,7 +17,7 @@ Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1k"
 
-VLC_version="3.0.12"
+VLC_version="3.0.16"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ SDK_version="29"
 NDK_versionA="21"
 NDK_versionB="21.1.6352462"
 
-VLC_version_android="3.3.3"
+VLC_version_android="3.3.4"
 
 #--------------------------------------------------------------------------------------------------
 # environment
