@@ -15,7 +15,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
 SSL_versionA="1.0.2u"
-SSL_versionB="1.1.1k"
+SSL_versionB="1.1.1l"
 
 VLC_version="3.0.16"
 
@@ -218,13 +218,13 @@ if [ $os = "windows" ]; then
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win32.zip"
 
-        SSL_urlB="https://curl.se/windows/dl-7.75.0_5/openssl-${SSL_versionB}_5-win32-mingw.zip"
+        SSL_urlB="https://curl.se/windows/dl-7.78.0_4/openssl-${SSL_versionB}_4-win32-mingw.zip"
     else
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw730/7.3.0-1x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win64.zip"
 
-        SSL_urlB="https://curl.se/windows/dl-7.75.0_5/openssl-${SSL_versionB}_5-win64-mingw.zip"
+        SSL_urlB="https://curl.se/windows/dl-7.78.0_4/openssl-${SSL_versionB}_4-win64-mingw.zip"
     fi
 
     MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
