@@ -63,24 +63,11 @@ copySsl()
 
 extractVlc()
 {
-    url="$VLC_url_android/VLC-Android-$VLC_version_android-$1.apk"
-
-    echo ""
-    echo $url
-
-    curl --retry 3 -L -o VLC.zip $url
-
-    unzip -q VLC.zip -d"temp"
-
-    rm VLC.zip
-
     path="$VLC/$1"
 
     mkdir "$path"
 
-    cp temp/lib/$1/libvlc.so "$path"
-
-    rm -rf temp
+    cp temp/jni/$1/libvlc.so "$path"
 }
 
 #--------------------------------------------------------------------------------------------------
@@ -261,7 +248,7 @@ elif [ $1 = "android" ]; then
     # FIXME android: We need the Windows archive for the include folder.
     VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 
-    VLC_url_android="https://download.videolan.org/pub/videolan/vlc-android/$VLC_version_android"
+    VLC_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC_version_android/libvlc-all-$VLC_version_android.aar"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -752,6 +739,13 @@ elif [ $1 = "android" ]; then
 
     echo ""
     echo "DOWNLOADING VLC ANDROID"
+    echo $VLC_url_android
+
+    curl --retry 3 -L -o VLC.zip $VLC_url_android
+
+    unzip -q VLC.zip -d"VLC"
+
+    rm VLC.zip
 
     extractVlc armeabi-v7a
     extractVlc arm64-v8a
