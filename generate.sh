@@ -400,6 +400,12 @@ fi
 
 echo "DOWNLOADING Qt5"
 
+# NOTE Qt5 Windows: The WebView module is only available for MSVC.
+if [ $os != "windows" ] || [ $compiler = "msvc" ]; then
+
+    Qt5_modules="$Qt5_modules qtwebview"
+fi
+
 if [ $os = "windows" ]; then
 
     if [ $compiler = "msvc" ]; then
