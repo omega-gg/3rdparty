@@ -401,7 +401,7 @@ fi
 echo "DOWNLOADING Qt5"
 
 # NOTE Qt5 Windows: The WebEngine module is not available for MSVC and Android.
-if [ $os != "windows" -a $os != "android" ] || [ $compiler = "msvc" ]; then
+if [ $os != "windows" -a $1 != "android" ] || [ $compiler = "msvc" ]; then
 
     Qt5_modules="$Qt5_modules qtwebengine"
 fi
