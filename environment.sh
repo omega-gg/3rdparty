@@ -7,6 +7,8 @@ set -e
 
 compiler_win="mingw"
 
+qt="qt5"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
@@ -44,9 +46,11 @@ getOs()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "mingw" -a $1 != "msvc" ]; then
+if [ $# != 1 ] \
+   || \
+   [ $1 != "mingw" -a $1 != "msvc" ] || [ $2 != "qt5" -a $2 != "qt6" ]; then
 
-    echo "Usage: environment <mingw | msvc>"
+    echo "Usage: environment <mingw | msvc> <qt5 | qt6>"
 
     exit 1
 fi
@@ -67,3 +71,5 @@ if [ $1 = "msvc" ]; then
 else
     replace compiler_win $compiler_win mingw
 fi
+
+replace qt $qt $2

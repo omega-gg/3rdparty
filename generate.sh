@@ -11,8 +11,13 @@ source="http://omega.gg/get/Sky/3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
+qt="qt5"
+
 Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
+
+Qt6_version="6.2.1"
+Qt6_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1l"
@@ -189,7 +194,16 @@ external="$PWD/$1"
 
 install_qt="dist/install-qt.sh"
 
-Qt5="$external/Qt/$Qt5_version"
+if [ $qt = "qt5" ]; then
+
+    Qt_version="$Qt5_version"
+    Qt_modules="$Qt5_modules"
+else
+    Qt_version="$Qt6_version"
+    Qt_modules="$Qt6_modules"
+fi
+
+Qt="$external/Qt/$Qt_version"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
@@ -395,10 +409,10 @@ if [ $platform = "win32" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# Qt5
+# Qt
 #--------------------------------------------------------------------------------------------------
 
-echo "DOWNLOADING Qt5"
+echo "DOWNLOADING Qt"
 
 if [ $os = "windows" ]; then
 
@@ -414,121 +428,121 @@ if [ $os = "windows" ]; then
         toolchain="$platform"_mingw81
     fi
 
-    bash $install_qt --directory Qt --version $Qt5_version --host windows_x86 \
-                     --toolchain $toolchain $Qt5_modules qtwinextras
+    bash $install_qt --directory Qt --version $Qt_version --host windows_x86 \
+                     --toolchain $toolchain $Qt_modules qtwinextras
 
     if [ $compiler = "mingw" ]; then
 
         if [ $1 = "win32" ]; then
 
-            Qt="Qt/$Qt5_version/mingw81_32"
+            Qt="Qt/$Qt_version/mingw81_32"
         else
-            Qt="Qt/$Qt5_version/mingw81_64"
+            Qt="Qt/$Qt_version/mingw81_64"
         fi
     else
         if [ $1 = "win32" ]; then
 
-            Qt="Qt/$Qt5_version/msvc2019"
+            Qt="Qt/$Qt_version/msvc2019"
         else
-            Qt="Qt/$Qt5_version/msvc2019_64"
+            Qt="Qt/$Qt_version/msvc2019_64"
         fi
     fi
 
 elif [ $1 = "macOS" ]; then
 
-    bash $install_qt --directory Qt --version $Qt5_version --host mac_x64 \
-                     --toolchain clang_64 $Qt5_modules
+    bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
+                     --toolchain clang_64 $Qt_modules
 
-    Qt="Qt/$Qt5_version/clang_64"
+    Qt="Qt/$Qt_version/clang_64"
 
 elif [ $1 = "android" ]; then
 
     # NOTE android: This is required for install-qt.sh.
-    export QT_VERSION="$Qt5_version"
+    export QT_VERSION="$Qt_version"
 
-    bash $install_qt --directory Qt --version $Qt5_version --host linux_x64 --target android \
-                     --toolchain any $Qt5_modules androidextras
+    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android \
+                     --toolchain any $Qt_modules androidextras
 
-    Qt="Qt/$Qt5_version/android"
+    Qt="Qt/$Qt_version/android"
 fi
 
 #--------------------------------------------------------------------------------------------------
 
 echo ""
-echo "COPYING Qt5"
+echo "COPYING Qt"
 
-mkdir -p "$Qt5"/bin
-mkdir -p "$Qt5"/plugins/imageformats
-mkdir -p "$Qt5"/plugins/platforms
-mkdir -p "$Qt5"/qml
+mkdir -p "$Qt"/bin
+mkdir -p "$Qt"/plugins/imageformats
+mkdir -p "$Qt"/plugins/platforms
+mkdir -p "$Qt"/qml
 
-mv "$Qt"/bin/qt.conf "$Qt5"/bin
+mv "$Qt"/bin/qt.conf "$Qt"/bin
 
-mv "$Qt"/lib "$Qt5"
+mv "$Qt"/lib "$Qt"
 
-mv "$Qt"/include "$Qt5"
+mv "$Qt"/include "$Qt"
 
-mv "$Qt"/qml/QtQuick.2 "$Qt5"/qml
+mv "$Qt"/qml/QtQuick.2 "$Qt"/qml
 
-mv "$Qt"/mkspecs "$Qt5"
+mv "$Qt"/mkspecs "$Qt"
 
 if [ $os = "windows" ]; then
 
-    mv "$Qt"/bin/qmake.exe       "$Qt5"/bin
-    mv "$Qt"/bin/moc.exe         "$Qt5"/bin
-    mv "$Qt"/bin/rcc.exe         "$Qt5"/bin
-    mv "$Qt"/bin/qmlcachegen.exe "$Qt5"/bin
+    mv "$Qt"/bin/qmake.exe       "$Qt"/bin
+    mv "$Qt"/bin/moc.exe         "$Qt"/bin
+    mv "$Qt"/bin/rcc.exe         "$Qt"/bin
+    mv "$Qt"/bin/qmlcachegen.exe "$Qt"/bin
 
-    mv "$Qt"/bin/lib*.dll "$Qt5"/bin
+    mv "$Qt"/bin/lib*.dll "$Qt"/bin
 
-    mv "$Qt"/bin/Qt*.dll "$Qt5"/bin
+    mv "$Qt"/bin/Qt*.dll "$Qt"/bin
 
-    mv "$Qt"/plugins/imageformats/q*.dll "$Qt5"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/q*.dll    "$Qt5"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/q*.dll "$Qt"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/q*.dll    "$Qt"/plugins/platforms
 
     #----------------------------------------------------------------------------------------------
 
-    rm -f "$Qt5"/bin/*d.*
+    rm -f "$Qt"/bin/*d.*
 
-    rm -f "$Qt5"/plugins/imageformats/*d.*
-    rm -f "$Qt5"/plugins/platforms/*d.*
+    rm -f "$Qt"/plugins/imageformats/*d.*
+    rm -f "$Qt"/plugins/platforms/*d.*
 
-    rm -f "$Qt5"/lib/*d.*
+    rm -f "$Qt"/lib/*d.*
 
 elif [ $1 = "macOS" ]; then
 
-    mv "$Qt"/bin/qmake       "$Qt5"/bin
-    mv "$Qt"/bin/moc         "$Qt5"/bin
-    mv "$Qt"/bin/rcc         "$Qt5"/bin
-    mv "$Qt"/bin/qmlcachegen "$Qt5"/bin
+    mv "$Qt"/bin/qmake       "$Qt"/bin
+    mv "$Qt"/bin/moc         "$Qt"/bin
+    mv "$Qt"/bin/rcc         "$Qt"/bin
+    mv "$Qt"/bin/qmlcachegen "$Qt"/bin
 
-    mv "$Qt"/plugins/imageformats/libq*.dylib "$Qt5"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/libq*.dylib    "$Qt5"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/libq*.dylib "$Qt"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/libq*.dylib    "$Qt"/plugins/platforms
 
     #----------------------------------------------------------------------------------------------
 
-    rm -f "$Qt5"/plugins/imageformats/*debug*
-    rm -f "$Qt5"/plugins/platforms/*debug*
+    rm -f "$Qt"/plugins/imageformats/*debug*
+    rm -f "$Qt"/plugins/platforms/*debug*
 
-    find "$Qt5"/lib -name "*_debug*" -delete
+    find "$Qt"/lib -name "*_debug*" -delete
 
 elif [ $1 = "android" ]; then
 
-    mkdir -p "$Qt5"/plugins/bearer
+    mkdir -p "$Qt"/plugins/bearer
 
-    mv "$Qt"/jar "$Qt5"
-    mv "$Qt"/src "$Qt5"
+    mv "$Qt"/jar "$Qt"
+    mv "$Qt"/src "$Qt"
 
-    mv "$Qt"/bin/qmake            "$Qt5"/bin
-    mv "$Qt"/bin/moc              "$Qt5"/bin
-    mv "$Qt"/bin/rcc              "$Qt5"/bin
-    mv "$Qt"/bin/qmlcachegen      "$Qt5"/bin
-    mv "$Qt"/bin/qmlimportscanner "$Qt5"/bin
-    mv "$Qt"/bin/androiddeployqt  "$Qt5"/bin
+    mv "$Qt"/bin/qmake            "$Qt"/bin
+    mv "$Qt"/bin/moc              "$Qt"/bin
+    mv "$Qt"/bin/rcc              "$Qt"/bin
+    mv "$Qt"/bin/qmlcachegen      "$Qt"/bin
+    mv "$Qt"/bin/qmlimportscanner "$Qt"/bin
+    mv "$Qt"/bin/androiddeployqt  "$Qt"/bin
 
-    mv "$Qt"/plugins/imageformats/lib*.so "$Qt5"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/lib*.so    "$Qt5"/plugins/platforms
-    mv "$Qt"/plugins/bearer/lib*.so       "$Qt5"/plugins/bearer
+    mv "$Qt"/plugins/imageformats/lib*.so "$Qt"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/lib*.so    "$Qt"/plugins/platforms
+    mv "$Qt"/plugins/bearer/lib*.so       "$Qt"/plugins/bearer
 fi
 
 rm -rf Qt

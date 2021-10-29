@@ -28,7 +28,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh environment.sh msvc
+      sh environment.sh msvc qt5
       sh generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -39,7 +39,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh environment.sh msvc
+      sh environment.sh msvc qt5
       sh generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
