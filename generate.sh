@@ -528,7 +528,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "android" ]; then
 
-    mkdir -p "$Qt"/plugins/bearer
+    mkdir -p "$QtX"/plugins/bearer
 
     mv "$Qt"/jar "$QtX"
     mv "$Qt"/src "$QtX"
