@@ -203,7 +203,7 @@ else
     Qt_modules="$Qt6_modules"
 fi
 
-Qt="$external/Qt/$Qt_version"
+QtX="$external/Qt/$Qt_version"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
@@ -471,78 +471,78 @@ fi
 echo ""
 echo "COPYING Qt"
 
-mkdir -p "$Qt"/bin
-mkdir -p "$Qt"/plugins/imageformats
-mkdir -p "$Qt"/plugins/platforms
-mkdir -p "$Qt"/qml
+mkdir -p "$QtX"/bin
+mkdir -p "$QtX"/plugins/imageformats
+mkdir -p "$QtX"/plugins/platforms
+mkdir -p "$QtX"/qml
 
-mv "$Qt"/bin/qt.conf "$Qt"/bin
+mv "$Qt"/bin/qt.conf "$QtX"/bin
 
-mv "$Qt"/lib "$Qt"
+mv "$Qt"/lib "$QtX"
 
-mv "$Qt"/include "$Qt"
+mv "$Qt"/include "$QtX"
 
-mv "$Qt"/qml/QtQuick.2 "$Qt"/qml
+mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
 
-mv "$Qt"/mkspecs "$Qt"
+mv "$Qt"/mkspecs "$QtX"
 
 if [ $os = "windows" ]; then
 
-    mv "$Qt"/bin/qmake.exe       "$Qt"/bin
-    mv "$Qt"/bin/moc.exe         "$Qt"/bin
-    mv "$Qt"/bin/rcc.exe         "$Qt"/bin
-    mv "$Qt"/bin/qmlcachegen.exe "$Qt"/bin
+    mv "$Qt"/bin/qmake.exe       "$QtX"/bin
+    mv "$Qt"/bin/moc.exe         "$QtX"/bin
+    mv "$Qt"/bin/rcc.exe         "$QtX"/bin
+    mv "$Qt"/bin/qmlcachegen.exe "$QtX"/bin
 
-    mv "$Qt"/bin/lib*.dll "$Qt"/bin
+    mv "$Qt"/bin/lib*.dll "$QtX"/bin
 
-    mv "$Qt"/bin/Qt*.dll "$Qt"/bin
+    mv "$Qt"/bin/Qt*.dll "$QtX"/bin
 
-    mv "$Qt"/plugins/imageformats/q*.dll "$Qt"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/q*.dll    "$Qt"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/q*.dll    "$QtX"/plugins/platforms
 
     #----------------------------------------------------------------------------------------------
 
-    rm -f "$Qt"/bin/*d.*
+    rm -f "$QtX"/bin/*d.*
 
-    rm -f "$Qt"/plugins/imageformats/*d.*
-    rm -f "$Qt"/plugins/platforms/*d.*
+    rm -f "$QtX"/plugins/imageformats/*d.*
+    rm -f "$QtX"/plugins/platforms/*d.*
 
-    rm -f "$Qt"/lib/*d.*
+    rm -f "$QtX"/lib/*d.*
 
 elif [ $1 = "macOS" ]; then
 
-    mv "$Qt"/bin/qmake       "$Qt"/bin
-    mv "$Qt"/bin/moc         "$Qt"/bin
-    mv "$Qt"/bin/rcc         "$Qt"/bin
-    mv "$Qt"/bin/qmlcachegen "$Qt"/bin
+    mv "$Qt"/bin/qmake       "$QtX"/bin
+    mv "$Qt"/bin/moc         "$QtX"/bin
+    mv "$Qt"/bin/rcc         "$QtX"/bin
+    mv "$Qt"/bin/qmlcachegen "$QtX"/bin
 
-    mv "$Qt"/plugins/imageformats/libq*.dylib "$Qt"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/libq*.dylib    "$Qt"/plugins/platforms
+    mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
 
     #----------------------------------------------------------------------------------------------
 
-    rm -f "$Qt"/plugins/imageformats/*debug*
-    rm -f "$Qt"/plugins/platforms/*debug*
+    rm -f "$QtX"/plugins/imageformats/*debug*
+    rm -f "$QtX"/plugins/platforms/*debug*
 
-    find "$Qt"/lib -name "*_debug*" -delete
+    find "$QtX"/lib -name "*_debug*" -delete
 
 elif [ $1 = "android" ]; then
 
     mkdir -p "$Qt"/plugins/bearer
 
-    mv "$Qt"/jar "$Qt"
-    mv "$Qt"/src "$Qt"
+    mv "$Qt"/jar "$QtX"
+    mv "$Qt"/src "$QtX"
 
-    mv "$Qt"/bin/qmake            "$Qt"/bin
-    mv "$Qt"/bin/moc              "$Qt"/bin
-    mv "$Qt"/bin/rcc              "$Qt"/bin
-    mv "$Qt"/bin/qmlcachegen      "$Qt"/bin
-    mv "$Qt"/bin/qmlimportscanner "$Qt"/bin
-    mv "$Qt"/bin/androiddeployqt  "$Qt"/bin
+    mv "$Qt"/bin/qmake            "$QtX"/bin
+    mv "$Qt"/bin/moc              "$QtX"/bin
+    mv "$Qt"/bin/rcc              "$QtX"/bin
+    mv "$Qt"/bin/qmlcachegen      "$QtX"/bin
+    mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
+    mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
 
-    mv "$Qt"/plugins/imageformats/lib*.so "$Qt"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/lib*.so    "$Qt"/plugins/platforms
-    mv "$Qt"/plugins/bearer/lib*.so       "$Qt"/plugins/bearer
+    mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
+    mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
+    mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
 fi
 
 rm -rf Qt

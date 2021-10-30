@@ -223,10 +223,10 @@ if ${INSTALLATION_IS_VALID}; then
 fi
 
 MIRRORS="\
-    http://download.qt.io \
     http://ftp.acc.umu.se/mirror/qt.io/qtproject \
     http://qt.mirrors.tds.net/qt \
     http://ftp.fau.de/qtproject \
+    http://download.qt.io \
 "
 
 for MIRROR in ${MIRRORS}; do
@@ -349,11 +349,13 @@ for COMPONENT in ${COMPONENTS}; do
             SUBDIR="${TOOLCHAIN/win32_/}"
         elif [[ "${TOOLCHAIN}" =~ "any" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
             SUBDIR="android"
+        elif [ "${HOST_OS}" == "mac_x64" ] && [ ! "${VERSION}" \< "6.1.2" ]; then
+            SUBDIR="macos"
         else
             SUBDIR="${TOOLCHAIN}"
         fi
 
-        if [ "${TARGET_PLATFORM}" == "android" ] && [ ! "${QT_VERSION}" \< "6.0.0" ]; then
+        if [ "${TARGET_PLATFORM}" == "android" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/target_qt.conf"
             sed -i "s|target|../$TOOLCHAIN|g" "${CONF_FILE}"
             sed -i "/HostPrefix/ s|$|gcc_64|g" "${CONF_FILE}"
@@ -380,7 +382,7 @@ for COMPONENT in ${COMPONENTS}; do
         if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
             echo "${UNPACK_DIR}/Tools/mingw${VERSION//./}_64/bin"
         elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
-            echo "${UNPACK_DIR}/Tools/mingw${VERSION//./}/bin"
+            echo "${UNPACK_DIR}/Tools/mingw${VERSION//./}_32/bin"
         fi
     elif [[ "${COMPONENT}" =~ "qtcreator" ]]; then
         if [ "${HOST_OS}" == "mac_x64" ]; then
