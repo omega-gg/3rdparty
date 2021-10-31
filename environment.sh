@@ -50,7 +50,7 @@ if [ $# != 2 ] \
    || \
    [ $1 != "mingw" -a $1 != "msvc" ] || [ $2 != "qt4" -a $2 != "qt5" -a $2 != "qt6" ]; then
 
-    echo "Usage: environment <mingw | msvc> <qt5 | qt6>"
+    echo "Usage: environment <mingw | msvc> <qt4 | qt5 | qt6>"
 
     exit 1
 fi
