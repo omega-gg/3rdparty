@@ -3,7 +3,7 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: win32
+- job: win32_qt5
   pool:
     vmImage: "windows-latest"
   steps:
@@ -13,7 +13,7 @@ jobs:
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32-qt5
 
-- job: win64
+- job: win64_qt5
   pool:
     vmImage: "windows-latest"
   steps:
@@ -23,7 +23,7 @@ jobs:
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64-qt5
 
-- job: win32_msvc
+- job: win32_msvc_qt5
   pool:
     vmImage: "windows-latest"
   steps:
@@ -34,7 +34,7 @@ jobs:
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win32-msvc-qt5
 
-- job: win64_msvc
+- job: win64_msvc_qt5
   pool:
     vmImage: "windows-latest"
   steps:
@@ -47,7 +47,7 @@ jobs:
 
 #--------------------------------------------------------------------------------------------------
 
-- job: win64
+- job: win64_qt6
   pool:
     vmImage: "windows-latest"
   steps:
@@ -62,7 +62,7 @@ jobs:
 # macOS
 #--------------------------------------------------------------------------------------------------
 
-- job: macOS
+- job: macOS_qt5
   pool:
     vmImage: "macOS-10.15"
   steps:
@@ -76,7 +76,7 @@ jobs:
 # Linux
 #--------------------------------------------------------------------------------------------------
 
-- job: linux32
+- job: linux32_qt5
   pool:
     vmImage: "ubuntu-latest"
   steps:
@@ -90,7 +90,7 @@ jobs:
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32-qt5
 
-- job: linux64
+- job: linux64_qt5
   pool:
     vmImage: "ubuntu-latest"
   steps:
@@ -108,7 +108,7 @@ jobs:
 # Android
 #--------------------------------------------------------------------------------------------------
 
-- job: android
+- job: android_qt5
   pool:
     vmImage: "ubuntu-latest"
   steps:
