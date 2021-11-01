@@ -17,7 +17,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
 Qt6_version="6.2.1"
-Qt6_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
+Qt6_modules="qtbase qtdeclarative qtsvg"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1l"
@@ -428,8 +428,13 @@ if [ $os = "windows" ]; then
         toolchain="$platform"_mingw81
     fi
 
+    if [ $qt = "qt5" ]; then
+
+        Qt_modules="$Qt_modules qtwinextras"
+    fi
+
     bash $install_qt --directory Qt --version $Qt_version --host windows_x86 \
-                     --toolchain $toolchain $Qt_modules qtwinextras
+                     --toolchain $toolchain $Qt_modules
 
     if [ $compiler = "mingw" ]; then
 
@@ -482,7 +487,12 @@ mv "$Qt"/lib "$QtX"
 
 mv "$Qt"/include "$QtX"
 
-mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
+if [ $qt = "qt5" ]; then
+
+    mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
+else
+    mv "$Qt"/qml/QtQuick "$QtX"/qml
+fi
 
 mv "$Qt"/mkspecs "$QtX"
 
@@ -493,7 +503,10 @@ if [ $os = "windows" ]; then
     mv "$Qt"/bin/rcc.exe         "$QtX"/bin
     mv "$Qt"/bin/qmlcachegen.exe "$QtX"/bin
 
-    mv "$Qt"/bin/lib*.dll "$QtX"/bin
+    if [ $qt = "qt5" ]; then
+
+        mv "$Qt"/bin/lib*.dll "$QtX"/bin
+    fi
 
     mv "$Qt"/bin/Qt*.dll "$QtX"/bin
 

@@ -46,6 +46,19 @@ jobs:
     artifact: 3rdparty-win64-msvc-qt5
 
 #--------------------------------------------------------------------------------------------------
+
+- job: win64
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh mingw qt6
+      sh generate.sh win64 build
+      7z a 3rdparty.zip win64
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win64-qt6
+
+#--------------------------------------------------------------------------------------------------
 # macOS
 #--------------------------------------------------------------------------------------------------
 
