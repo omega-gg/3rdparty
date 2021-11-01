@@ -155,9 +155,9 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
     if [ $compiler = "msvc" ]; then
 
-        name="$1-msvc-$qt"
+        name="$1-msvc"
     else
-        name="$1-$qt"
+        name="$1"
     fi
 else
     os="other"
@@ -166,7 +166,7 @@ else
 
     compiler="default"
 
-    name="$1-$qt"
+    name="$1"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -333,6 +333,8 @@ fi
 #--------------------------------------------------------------------------------------------------
 
 if [ "$2" != "build" -a "$2" != "clean" ]; then
+
+    name="$name-$qt"
 
     echo "ARTIFACT 3rdparty-$name"
     echo $thirdparty_url
