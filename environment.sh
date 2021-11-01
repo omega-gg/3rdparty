@@ -72,4 +72,10 @@ else
     replace compiler_win $compiler_win mingw
 fi
 
-replace qt $qt $2
+# NOTE: By default qt4 is mapped to qt5.
+if [ $2 = "qt4" ]; then
+
+    replace qt $qt "qt5"
+else
+    replace qt $qt $2
+fi

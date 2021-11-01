@@ -11,7 +11,7 @@ jobs:
       sh generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win32
+    artifact: 3rdparty-win32-qt5
 
 - job: win64
   pool:
@@ -21,7 +21,7 @@ jobs:
       sh generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win64
+    artifact: 3rdparty-win64-qt5
 
 - job: win32_msvc
   pool:
@@ -32,7 +32,7 @@ jobs:
       sh generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win32-msvc
+    artifact: 3rdparty-win32-msvc-qt5
 
 - job: win64_msvc
   pool:
@@ -43,7 +43,7 @@ jobs:
       sh generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-win64-msvc
+    artifact: 3rdparty-win64-msvc-qt5
 
 #--------------------------------------------------------------------------------------------------
 # macOS
@@ -57,7 +57,7 @@ jobs:
       sh generate.sh macOS build
       zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-macOS
+    artifact: 3rdparty-macOS-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -75,7 +75,7 @@ jobs:
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-linux32
+    artifact: 3rdparty-linux32-qt5
 
 - job: linux64
   pool:
@@ -89,7 +89,7 @@ jobs:
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-linux64
+    artifact: 3rdparty-linux64-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Android
@@ -107,4 +107,4 @@ jobs:
                                      sh generate.sh android build;
                                      zip -rqy 3rdparty.zip android"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-    artifact: 3rdparty-android
+    artifact: 3rdparty-android-qt5

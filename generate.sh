@@ -155,9 +155,9 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
     if [ $compiler = "msvc" ]; then
 
-        name="$1-msvc"
+        name="$1-msvc-$qt"
     else
-        name="$1"
+        name="$1-$qt"
     fi
 else
     os="other"
@@ -166,7 +166,7 @@ else
 
     compiler="default"
 
-    name="$1"
+    name="$1-$qt"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -194,13 +194,13 @@ external="$PWD/$1"
 
 install_qt="dist/install-qt.sh"
 
-if [ $qt = "qt6" ]; then
+if [ $qt = "qt5" ]; then
 
-    Qt_version="$Qt6_version"
-    Qt_modules="$Qt6_modules"
-else
     Qt_version="$Qt5_version"
     Qt_modules="$Qt5_modules"
+else
+    Qt_version="$Qt6_version"
+    Qt_modules="$Qt6_modules"
 fi
 
 QtX="$external/Qt/$Qt_version"
