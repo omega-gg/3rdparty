@@ -31,8 +31,8 @@ libtorrent_artifact="3258"
 #--------------------------------------------------------------------------------------------------
 # Windows
 
-MinGW_versionA="7.3.0"
-MinGW_versionB="730"
+MinGW_versionA="8.1.0"
+MinGW_versionB="810"
 
 jom_versionA="1.1.3"
 jom_versionB="1_1_3"
@@ -228,13 +228,13 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw730/7.3.0-1-201903151311i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z"
+        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw810/8.1.0-1-202004170606i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win32.zip"
 
         SSL_urlB="https://curl.se/windows/dl-7.78.0_4/openssl-${SSL_versionB}_4-win32-mingw.zip"
     else
-        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw730/7.3.0-1x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z"
+        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw810/8.1.0-1-202004170606x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win64.zip"
 
