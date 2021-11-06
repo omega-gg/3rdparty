@@ -88,8 +88,8 @@ Qt4_archive="$Qt4_name.tar.gz"
 
 #Qt4_sources="http://download.qt.io/archive/qt/4.8/$Qt4_version/$Qt4_archive"
 #Qt4_sources="http://ftp1.nluug.nl/languages/qt/archive/qt/4.8/$Qt4_version/$Qt4_archive"
-#Qt4_sources="http://master.qt.io/archive/qt/4.8/$Qt4_version/$Qt4_archive"
-Qt4_sources="https://ftp.osuosl.org/pub/blfs/conglomeration/qt4/$Qt4_archive"
+Qt4_sources="http://master.qt.io/archive/qt/4.8/$Qt4_version/$Qt4_archive"
+#Qt4_sources="https://ftp.osuosl.org/pub/blfs/conglomeration/qt4/$Qt4_archive"
 
 Qt5="$external/Qt/$Qt5_version"
 
