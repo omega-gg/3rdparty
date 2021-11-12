@@ -46,11 +46,11 @@ getOs()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] \
+if [ $# != 1 ] \
    || \
-   [ $1 != "mingw" -a $1 != "msvc" ] || [ $2 != "qt4" -a $2 != "qt5" -a $2 != "qt6" ]; then
+   [ $1 != "mingw" -a $1 != "msvc" -a $1 != "qt4" -a $1 != "qt5" -a $1 != "qt6" ]; then
 
-    echo "Usage: environment <mingw | msvc> <qt4 | qt5 | qt6>"
+    echo "Usage: environment <mingw | msvc | qt4 | qt5 | qt6>"
 
     exit 1
 fi
@@ -68,14 +68,15 @@ host=$(getOs)
 if [ $1 = "msvc" ]; then
 
     replace compiler_win $compiler_win msvc
-else
+
+elif [ $1 = "mingw" ]; then
+
     replace compiler_win $compiler_win mingw
-fi
 
 # NOTE: By default qt4 is mapped to qt5.
-if [ $2 = "qt4" ]; then
+elif [ $1 = "qt4" ]; then
 
     replace qt $qt "qt5"
 else
-    replace qt $qt $2
+    replace qt $qt $1
 fi
