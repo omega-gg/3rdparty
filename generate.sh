@@ -17,7 +17,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
 Qt6_version="6.2.1"
-Qt6_modules="qtbase qtdeclarative qtsvg core5compat"
+Qt6_modules="qtbase qtdeclarative qtsvg qt5compat"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1l"
