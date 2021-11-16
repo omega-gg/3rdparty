@@ -493,6 +493,7 @@ if [ $qt = "qt5" ]; then
 
     mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
 else
+    mv "$Qt"/qml/QtQml   "$QtX"/qml
     mv "$Qt"/qml/QtQuick "$QtX"/qml
 fi
 
