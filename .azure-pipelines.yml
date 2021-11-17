@@ -47,6 +47,18 @@ jobs:
 
 #--------------------------------------------------------------------------------------------------
 
+jobs:
+- job: win32_qt6
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh qt6
+      sh generate.sh win32 build
+      7z a 3rdparty.zip win32
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win32-qt6
+
 - job: win64_qt6
   pool:
     vmImage: "windows-latest"
@@ -57,6 +69,30 @@ jobs:
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64-qt6
+
+- job: win32_msvc_qt6
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh qt6
+      sh environment.sh msvc
+      sh generate.sh win32 build
+      7z a 3rdparty.zip win32
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win32-msvc-qt6
+
+- job: win64_msvc_qt6
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh qt6
+      sh environment.sh msvc
+      sh generate.sh win64 build
+      7z a 3rdparty.zip win64
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win64-msvc-qt6
 
 #--------------------------------------------------------------------------------------------------
 # macOS
@@ -71,6 +107,17 @@ jobs:
       zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-macOS-qt5
+
+- job: macOS_qt6
+  pool:
+    vmImage: "macOS-10.15"
+  steps:
+  - bash: |
+      sh environment.sh qt6
+      sh generate.sh macOS build
+      zip -rq 3rdparty.zip macOS
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-macOS-qt6
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -121,3 +168,18 @@ jobs:
                                      zip -rqy 3rdparty.zip android"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-android-qt5
+
+- job: android_qt6
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip unzip git;
+                                     sh environment.sh qt6;
+                                     sh generate.sh android build;
+                                     zip -rqy 3rdparty.zip android"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-android-qt6
