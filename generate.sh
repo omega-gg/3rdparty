@@ -475,20 +475,12 @@ elif [ $1 = "macOS" ]; then
 
     Qt="Qt/$Qt_version/clang_64"
 
-elif [ $1 = "linux" ]; then
+elif [ $platform = "linux64" ]; then
 
-    if [ $platform = "linux32" ]; then
+    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
+                     --toolchain gcc_64 $Qt_modules
 
-        bash $install_qt --directory Qt --version $Qt_version \
-                         --toolchain gcc_32 $Qt_modules
-
-        Qt="Qt/$Qt_version/gcc_32"
-    else
-        bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
-                         --toolchain gcc_64 $Qt_modules
-
-        Qt="Qt/$Qt_version/gcc_64"
-    fi
+    Qt="Qt/$Qt_version/gcc_64"
 
 elif [ $1 = "android" ]; then
 
