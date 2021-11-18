@@ -12,7 +12,7 @@ SSL_version="1.1.1l"
 
 VLC_version="3.0.16"
 
-libtorrent_version="2.0.4"
+#libtorrent_version="2.0.4"
 
 Boost_version="1.71.0"
 
@@ -101,7 +101,7 @@ SSL="$external/OpenSSL/$SSL_version"
 
 VLC="$external/VLC/$VLC_version"
 
-libtorrent="$external/libtorrent/$libtorrent_version"
+#libtorrent="$external/libtorrent/$libtorrent_version"
 
 Boost="$external/Boost/$Boost_version"
 
@@ -126,7 +126,7 @@ VLC_version="5.6.0"
 
 libvlccore_version="9.0.0"
 
-libtorrent_version="9.0.0"
+#libtorrent_version="9.0.0"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -140,7 +140,7 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev libqt5xmlp
 
 VLC_linux="libvlc-dev vlc"
 
-libtorrent_linux="libtorrent-rasterbar-dev"
+#libtorrent_linux="libtorrent-rasterbar-dev"
 
 Boost_linux="libboost-all-dev"
 
@@ -182,10 +182,10 @@ if [ "$2" = "uninstall" ]; then
 
     sudo apt-get remove -y $VLC_linux
 
-    echo ""
-    echo "UNINSTALLING libtorrent"
+    #echo ""
+    #echo "UNINSTALLING libtorrent"
 
-    sudo apt-get remove -y $libtorrent_linux
+    #sudo apt-get remove -y $libtorrent_linux
 
     echo ""
     echo "UNINSTALLING Boost"
@@ -228,10 +228,10 @@ echo "INSTALLING VLC"
 
 sudo apt-get install -y $VLC_linux
 
-echo ""
-echo "INSTALLING libtorrent"
+#echo ""
+#echo "INSTALLING libtorrent"
 
-sudo apt-get install -y $libtorrent_linux
+#sudo apt-get install -y $libtorrent_linux
 
 echo ""
 echo "INSTALLING Boost"
