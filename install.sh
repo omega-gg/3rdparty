@@ -315,49 +315,49 @@ sudo cp "$lib"/qt4/plugins/imageformats/libqjpeg.so "$Qt4"/plugins/imageformats
 echo ""
 echo "DEPLOYING Qt5"
 
-mkdir -p "$Qt5"/lib
-mkdir -p "$Qt5"/include
+#mkdir -p "$Qt5"/lib
+#mkdir -p "$Qt5"/include
 
-mkdir -p "$Qt5"/plugins/platforms
-mkdir -p "$Qt5"/plugins/imageformats
-mkdir -p "$Qt5"/plugins/xcbglintegrations
+#mkdir -p "$Qt5"/plugins/platforms
+#mkdir -p "$Qt5"/plugins/imageformats
+#mkdir -p "$Qt5"/plugins/xcbglintegrations
 
-mkdir -p "$Qt5"/qml/QtQuick.2
+#mkdir -p "$Qt5"/qml/QtQuick.2
 
-sudo cp -r "$include"/qt5/* "$Qt5"/include
+#sudo cp -r "$include"/qt5/* "$Qt5"/include
 
-sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
-sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
-sudo cp "$lib"/libQt5Network.so.$Qt5_version     "$Qt5"/lib/libQt5Network.so.5
-sudo cp "$lib"/libQt5OpenGL.so.$Qt5_version      "$Qt5"/lib/libQt5OpenGL.so.5
-sudo cp "$lib"/libQt5Qml.so.$Qt5_version         "$Qt5"/lib/libQt5Qml.so.5
-sudo cp "$lib"/libQt5Quick.so.$Qt5_version       "$Qt5"/lib/libQt5Quick.so.5
-sudo cp "$lib"/libQt5Svg.so.$Qt5_version         "$Qt5"/lib/libQt5Svg.so.5
-sudo cp "$lib"/libQt5Widgets.so.$Qt5_version     "$Qt5"/lib/libQt5Widgets.so.5
-sudo cp "$lib"/libQt5Xml.so.$Qt5_version         "$Qt5"/lib/libQt5Xml.so.5
-sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version "$Qt5"/lib/libQt5XmlPatterns.so.5
-sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version      "$Qt5"/lib/libQt5XcbQpa.so.5
-sudo cp "$lib"/libQt5DBus.so.$Qt5_version        "$Qt5"/lib/libQt5DBus.so.5
+#sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
+#sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
+#sudo cp "$lib"/libQt5Network.so.$Qt5_version     "$Qt5"/lib/libQt5Network.so.5
+#sudo cp "$lib"/libQt5OpenGL.so.$Qt5_version      "$Qt5"/lib/libQt5OpenGL.so.5
+#sudo cp "$lib"/libQt5Qml.so.$Qt5_version         "$Qt5"/lib/libQt5Qml.so.5
+#sudo cp "$lib"/libQt5Quick.so.$Qt5_version       "$Qt5"/lib/libQt5Quick.so.5
+#sudo cp "$lib"/libQt5Svg.so.$Qt5_version         "$Qt5"/lib/libQt5Svg.so.5
+#sudo cp "$lib"/libQt5Widgets.so.$Qt5_version     "$Qt5"/lib/libQt5Widgets.so.5
+#sudo cp "$lib"/libQt5Xml.so.$Qt5_version         "$Qt5"/lib/libQt5Xml.so.5
+#sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version "$Qt5"/lib/libQt5XmlPatterns.so.5
+#sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version      "$Qt5"/lib/libQt5XcbQpa.so.5
+#sudo cp "$lib"/libQt5DBus.so.$Qt5_version        "$Qt5"/lib/libQt5DBus.so.5
 
-if [ -f "$lib"/libQt5QmlModels.so.$Qt5_version ]; then
+#if [ -f "$lib"/libQt5QmlModels.so.$Qt5_version ]; then
 
-    sudo cp "$lib"/libQt5QmlModels.so.$Qt5_version       "$Qt5"/lib/libQt5QmlModels.so.5
-    sudo cp "$lib"/libQt5QmlWorkerScript.so.$Qt5_version "$Qt5"/lib/libQt5QmlWorkerScript.so.5
-fi
+#    sudo cp "$lib"/libQt5QmlModels.so.$Qt5_version       "$Qt5"/lib/libQt5QmlModels.so.5
+#    sudo cp "$lib"/libQt5QmlWorkerScript.so.$Qt5_version "$Qt5"/lib/libQt5QmlWorkerScript.so.5
+#fi
 
-sudo cp "$lib"/qt5/plugins/platforms/libqxcb.so "$Qt5"/plugins/platforms
+#sudo cp "$lib"/qt5/plugins/platforms/libqxcb.so "$Qt5"/plugins/platforms
 
-sudo cp "$lib"/qt5/plugins/imageformats/libqsvg.so  "$Qt5"/plugins/imageformats
-sudo cp "$lib"/qt5/plugins/imageformats/libqjpeg.so "$Qt5"/plugins/imageformats
+#sudo cp "$lib"/qt5/plugins/imageformats/libqsvg.so  "$Qt5"/plugins/imageformats
+#sudo cp "$lib"/qt5/plugins/imageformats/libqjpeg.so "$Qt5"/plugins/imageformats
 
-sudo cp "$lib"/qt5/plugins/xcbglintegrations/libqxcb-egl-integration.so \
-        "$Qt5"/plugins/xcbglintegrations
+#sudo cp "$lib"/qt5/plugins/xcbglintegrations/libqxcb-egl-integration.so \
+#        "$Qt5"/plugins/xcbglintegrations
 
-sudo cp "$lib"/qt5/plugins/xcbglintegrations/libqxcb-glx-integration.so \
-        "$Qt5"/plugins/xcbglintegrations
+#sudo cp "$lib"/qt5/plugins/xcbglintegrations/libqxcb-glx-integration.so \
+#        "$Qt5"/plugins/xcbglintegrations
 
-sudo cp "$lib"/qt5/qml/QtQuick.2/libqtquick2plugin.so "$Qt5"/qml/QtQuick.2
-sudo cp "$lib"/qt5/qml/QtQuick.2/qmldir               "$Qt5"/qml/QtQuick.2
+#sudo cp "$lib"/qt5/qml/QtQuick.2/libqtquick2plugin.so "$Qt5"/qml/QtQuick.2
+#sudo cp "$lib"/qt5/qml/QtQuick.2/qmldir               "$Qt5"/qml/QtQuick.2
 
 echo ""
 echo "DEPLOYING SSL"
