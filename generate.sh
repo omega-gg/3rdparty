@@ -495,93 +495,96 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-echo ""
-echo "COPYING Qt"
+if [ $platform != "linux32" ]; then
 
-mkdir -p "$QtX"/bin
-mkdir -p "$QtX"/plugins/imageformats
-mkdir -p "$QtX"/plugins/platforms
-mkdir -p "$QtX"/qml
+    echo ""
+    echo "COPYING Qt"
 
-mv "$Qt"/bin/qt.conf "$QtX"/bin
+    mkdir -p "$QtX"/bin
+    mkdir -p "$QtX"/plugins/imageformats
+    mkdir -p "$QtX"/plugins/platforms
+    mkdir -p "$QtX"/qml
 
-mv "$Qt"/lib "$QtX"
+    mv "$Qt"/bin/qt.conf "$QtX"/bin
 
-mv "$Qt"/include "$QtX"
+    mv "$Qt"/lib "$QtX"
 
-if [ $qt = "qt5" ]; then
-
-    mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
-else
-    mv "$Qt"/qml/QtQml   "$QtX"/qml
-    mv "$Qt"/qml/QtQuick "$QtX"/qml
-fi
-
-mv "$Qt"/mkspecs "$QtX"
-
-if [ $os = "windows" ]; then
-
-    mv "$Qt"/bin/qmake.exe       "$QtX"/bin
-    mv "$Qt"/bin/moc.exe         "$QtX"/bin
-    mv "$Qt"/bin/rcc.exe         "$QtX"/bin
-    mv "$Qt"/bin/qmlcachegen.exe "$QtX"/bin
+    mv "$Qt"/include "$QtX"
 
     if [ $qt = "qt5" ]; then
 
-        mv "$Qt"/bin/lib*.dll "$QtX"/bin
+        mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
+    else
+        mv "$Qt"/qml/QtQml   "$QtX"/qml
+        mv "$Qt"/qml/QtQuick "$QtX"/qml
     fi
 
-    mv "$Qt"/bin/Qt*.dll "$QtX"/bin
+    mv "$Qt"/mkspecs "$QtX"
 
-    mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/q*.dll    "$QtX"/plugins/platforms
+    if [ $os = "windows" ]; then
 
-    #----------------------------------------------------------------------------------------------
+        mv "$Qt"/bin/qmake.exe       "$QtX"/bin
+        mv "$Qt"/bin/moc.exe         "$QtX"/bin
+        mv "$Qt"/bin/rcc.exe         "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen.exe "$QtX"/bin
 
-    rm -f "$QtX"/bin/*d.*
+        if [ $qt = "qt5" ]; then
 
-    rm -f "$QtX"/plugins/imageformats/*d.*
-    rm -f "$QtX"/plugins/platforms/*d.*
+            mv "$Qt"/bin/lib*.dll "$QtX"/bin
+        fi
 
-    rm -f "$QtX"/lib/*d.*
+        mv "$Qt"/bin/Qt*.dll "$QtX"/bin
 
-elif [ $1 = "macOS" ]; then
+        mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/platforms/q*.dll    "$QtX"/plugins/platforms
 
-    mv "$Qt"/bin/qmake       "$QtX"/bin
-    mv "$Qt"/bin/moc         "$QtX"/bin
-    mv "$Qt"/bin/rcc         "$QtX"/bin
-    mv "$Qt"/bin/qmlcachegen "$QtX"/bin
+        #------------------------------------------------------------------------------------------
 
-    mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
+        rm -f "$QtX"/bin/*d.*
 
-    #----------------------------------------------------------------------------------------------
+        rm -f "$QtX"/plugins/imageformats/*d.*
+        rm -f "$QtX"/plugins/platforms/*d.*
 
-    rm -f "$QtX"/plugins/imageformats/*debug*
-    rm -f "$QtX"/plugins/platforms/*debug*
+        rm -f "$QtX"/lib/*d.*
 
-    find "$QtX"/lib -name "*_debug*" -delete
+    elif [ $1 = "macOS" ]; then
 
-elif [ $1 = "android" ]; then
+        mv "$Qt"/bin/qmake       "$QtX"/bin
+        mv "$Qt"/bin/moc         "$QtX"/bin
+        mv "$Qt"/bin/rcc         "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen "$QtX"/bin
 
-    mkdir -p "$QtX"/plugins/bearer
+        mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
 
-    mv "$Qt"/jar "$QtX"
-    mv "$Qt"/src "$QtX"
+        #------------------------------------------------------------------------------------------
 
-    mv "$Qt"/bin/qmake            "$QtX"/bin
-    mv "$Qt"/bin/moc              "$QtX"/bin
-    mv "$Qt"/bin/rcc              "$QtX"/bin
-    mv "$Qt"/bin/qmlcachegen      "$QtX"/bin
-    mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
-    mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
+        rm -f "$QtX"/plugins/imageformats/*debug*
+        rm -f "$QtX"/plugins/platforms/*debug*
 
-    mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
-    mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
-    mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
+        find "$QtX"/lib -name "*_debug*" -delete
+
+    elif [ $1 = "android" ]; then
+
+        mkdir -p "$QtX"/plugins/bearer
+
+        mv "$Qt"/jar "$QtX"
+        mv "$Qt"/src "$QtX"
+
+        mv "$Qt"/bin/qmake            "$QtX"/bin
+        mv "$Qt"/bin/moc              "$QtX"/bin
+        mv "$Qt"/bin/rcc              "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen      "$QtX"/bin
+        mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
+        mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
+
+        mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
+    fi
+
+    rm -rf Qt
 fi
-
-rm -rf Qt
 
 #--------------------------------------------------------------------------------------------------
 # MinGW
