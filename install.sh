@@ -327,6 +327,7 @@ if [ $platform = "linux32" ]; then
     echo ""
     echo "DEPLOYING Qt5"
 
+    mkdir -p "$Qt5"/bin
     mkdir -p "$Qt5"/lib
     mkdir -p "$Qt5"/include
 
@@ -337,6 +338,11 @@ if [ $platform = "linux32" ]; then
     mkdir -p "$Qt5"/qml/QtQuick.2
 
     sudo cp -r "$include"/qt5/* "$Qt5"/include
+
+    sudo cp "$lib"/qt5/bin/qmake       "$Qt5"/bin
+    sudo cp "$lib"/qt5/bin/moc         "$Qt5"/bin
+    sudo cp "$lib"/qt5/bin/rcc         "$Qt5"/bin
+    sudo cp "$lib"/qt5/bin/qmlcachegen "$Qt5"/bin
 
     sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
     sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5

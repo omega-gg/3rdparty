@@ -477,6 +477,11 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $platform = "linux64" ]; then
 
+    if [ $qt = "qt5" ]; then
+
+        Qt_modules="$Qt_modules qtx11extras"
+    fi
+
     bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
                      --toolchain gcc_64 $Qt_modules
 
