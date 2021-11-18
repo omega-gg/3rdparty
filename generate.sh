@@ -38,6 +38,11 @@ jom_versionA="1.1.3"
 jom_versionB="1_1_3"
 
 #--------------------------------------------------------------------------------------------------
+# Linux
+
+lib64="/usr/lib/x86_64-linux-gnu"
+
+#--------------------------------------------------------------------------------------------------
 # Android
 
 JDK_versionA="8u311"
@@ -162,7 +167,17 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 else
     os="other"
 
-    platform="$1"
+    if [ $1 = "linux" ]; then
+
+        if [ -d "${lib64}" ]; then
+
+            platform="linux32"
+        else
+            platform="linux64"
+        fi
+    else
+        platform="$1"
+    fi
 
     compiler="default"
 
@@ -294,8 +309,6 @@ echo ""
 if [ $1 = "linux" ]; then
 
     sh install.sh $1
-
-    exit 0
 
 elif [ $1 = "android" -a $host = "linux" ]; then
 
@@ -461,6 +474,21 @@ elif [ $1 = "macOS" ]; then
                      --toolchain clang_64 $Qt_modules
 
     Qt="Qt/$Qt_version/clang_64"
+
+elif [ $1 = "linux" ]; then
+
+    if [ $platform = "linux32" ]; then
+
+        bash $install_qt --directory Qt --version $Qt_version --host linux_x32 \
+                         --toolchain gcc_32 $Qt_modules
+
+        Qt="Qt/$Qt_version/gcc_32"
+    else
+        bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
+                         --toolchain gcc_64 $Qt_modules
+
+        Qt="Qt/$Qt_version/gcc_64"
+    fi
 
 elif [ $1 = "android" ]; then
 
