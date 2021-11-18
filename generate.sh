@@ -501,8 +501,8 @@ if [ $platform != "linux32" ]; then
     echo "COPYING Qt"
 
     mkdir -p "$QtX"/bin
-    mkdir -p "$QtX"/plugins/imageformats
     mkdir -p "$QtX"/plugins/platforms
+    mkdir -p "$QtX"/plugins/imageformats
     mkdir -p "$QtX"/qml
 
     mv "$Qt"/bin/qt.conf "$QtX"/bin
@@ -535,15 +535,15 @@ if [ $platform != "linux32" ]; then
 
         mv "$Qt"/bin/Qt*.dll "$QtX"/bin
 
-        mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/platforms/q*.dll    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
         rm -f "$QtX"/bin/*d.*
 
-        rm -f "$QtX"/plugins/imageformats/*d.*
         rm -f "$QtX"/plugins/platforms/*d.*
+        rm -f "$QtX"/plugins/imageformats/*d.*
 
         rm -f "$QtX"/lib/*d.*
 
@@ -554,15 +554,28 @@ if [ $platform != "linux32" ]; then
         mv "$Qt"/bin/rcc         "$QtX"/bin
         mv "$Qt"/bin/qmlcachegen "$QtX"/bin
 
-        mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
-        rm -f "$QtX"/plugins/imageformats/*debug*
         rm -f "$QtX"/plugins/platforms/*debug*
+        rm -f "$QtX"/plugins/imageformats/*debug*
 
         find "$QtX"/lib -name "*_debug*" -delete
+
+    elif [ $platform = "linux64" ]; then
+
+        mkdir -p "$QtX"/plugins/xcbglintegrations
+
+        mv "$Qt"/bin/qmake       "$QtX"/bin
+        mv "$Qt"/bin/moc         "$QtX"/bin
+        mv "$Qt"/bin/rcc         "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen "$QtX"/bin
+
+        mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
 
     elif [ $1 = "android" ]; then
 
@@ -578,8 +591,8 @@ if [ $platform != "linux32" ]; then
         mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
         mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
 
-        mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
     fi
 
