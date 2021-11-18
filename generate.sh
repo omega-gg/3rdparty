@@ -479,7 +479,7 @@ elif [ $1 = "linux" ]; then
 
     if [ $platform = "linux32" ]; then
 
-        bash $install_qt --directory Qt --version $Qt_version --host linux_x32 \
+        bash $install_qt --directory Qt --version $Qt_version \
                          --toolchain gcc_32 $Qt_modules
 
         Qt="Qt/$Qt_version/gcc_32"
