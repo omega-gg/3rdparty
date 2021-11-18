@@ -14,7 +14,7 @@ VLC_version="3.0.16"
 
 #libtorrent_version="2.0.4"
 
-Boost_version="1.71.0"
+#Boost_version="1.71.0"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -103,7 +103,7 @@ VLC="$external/VLC/$VLC_version"
 
 #libtorrent="$external/libtorrent/$libtorrent_version"
 
-Boost="$external/Boost/$Boost_version"
+#Boost="$external/Boost/$Boost_version"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -113,13 +113,13 @@ if [ $host = "ubuntu18" ]; then
 
     QtWebkit_version="4.10.2"
 
-    Boost_version="1.65.1"
+    #Boost_version="1.65.1"
 else
     Qt5_version="5.12.8"
 
     QtWebkit_version="4.10.4"
 
-    Boost_version="1.71.0"
+    #Boost_version="1.71.0"
 fi
 
 VLC_version="5.6.0"
@@ -142,7 +142,7 @@ VLC_linux="libvlc-dev vlc"
 
 #libtorrent_linux="libtorrent-rasterbar-dev"
 
-Boost_linux="libboost-all-dev"
+#Boost_linux="libboost-all-dev"
 
 tools_linux="git"
 
@@ -172,10 +172,13 @@ if [ "$2" = "uninstall" ]; then
 
     sudo apt-get remove -y $Qt4_linux
 
-    echo ""
-    echo "UNINSTALLING Qt5"
+    if [ $platform = "linux32" ]; then
 
-    sudo apt-get remove -y $Qt5_linux
+        echo ""
+        echo "UNINSTALLING Qt5"
+
+        sudo apt-get remove -y $Qt5_linux
+    fi
 
     echo ""
     echo "UNINSTALLING VLC"
@@ -187,10 +190,10 @@ if [ "$2" = "uninstall" ]; then
 
     #sudo apt-get remove -y $libtorrent_linux
 
-    echo ""
-    echo "UNINSTALLING Boost"
+    #echo ""
+    #echo "UNINSTALLING Boost"
 
-    sudo apt-get remove -y $Boost_linux
+    #sudo apt-get remove -y $Boost_linux
 
     echo ""
     echo "UNINSTALLING TOOLS"
@@ -218,10 +221,13 @@ fi
 
 sudo apt-get install -y $Qt4_linux
 
-echo ""
-echo "INSTALLING Qt5"
+if [ $platform = "linux32" ]; then
 
-sudo apt-get install -y $Qt5_linux
+    echo ""
+    echo "INSTALLING Qt5"
+
+    sudo apt-get install -y $Qt5_linux
+fi
 
 echo ""
 echo "INSTALLING VLC"
@@ -233,10 +239,10 @@ sudo apt-get install -y $VLC_linux
 
 #sudo apt-get install -y $libtorrent_linux
 
-echo ""
-echo "INSTALLING Boost"
+#echo ""
+#echo "INSTALLING Boost"
 
-sudo apt-get install -y $Boost_linux
+#sudo apt-get install -y $Boost_linux
 
 echo ""
 echo "INSTALLING TOOLS"
@@ -316,10 +322,10 @@ sudo cp "$lib"/libQtWebKit.so.$QtWebkit_version "$Qt4"/lib/libQtWebKit.so.4
 sudo cp "$lib"/qt4/plugins/imageformats/libqsvg.so  "$Qt4"/plugins/imageformats
 sudo cp "$lib"/qt4/plugins/imageformats/libqjpeg.so "$Qt4"/plugins/imageformats
 
-echo ""
-echo "DEPLOYING Qt5"
-
 if [ $platform = "linux32" ]; then
+
+    echo ""
+    echo "DEPLOYING Qt5"
 
     mkdir -p "$Qt5"/lib
     mkdir -p "$Qt5"/include
@@ -384,18 +390,18 @@ sudo cp "$lib"/libvlccore.so.$libvlccore_version "$VLC"/libvlccore.so.9
 
 sudo cp -r "$lib"/vlc/plugins "$VLC"
 
-echo ""
-echo "DEPLOYING libtorrent"
+#echo ""
+#echo "DEPLOYING libtorrent"
 
 #mkdir -p "$libtorrent"
 
 #sudo cp "$lib"/libtorrent-rasterbar.so.$libtorrent_version "$libtorrent"/libtorrent-rasterbar.so.9
 
-echo ""
-echo "DEPLOYING Boost"
+#echo ""
+#echo "DEPLOYING Boost"
 
-mkdir -p "$Boost"
+#mkdir -p "$Boost"
 
-sudo cp "$lib"/libboost_system.so.$Boost_version "$Boost"
-sudo cp "$lib"/libboost_random.so.$Boost_version "$Boost"
-sudo cp "$lib"/libboost_chrono.so.$Boost_version "$Boost"
+#sudo cp "$lib"/libboost_system.so.$Boost_version "$Boost"
+#sudo cp "$lib"/libboost_random.so.$Boost_version "$Boost"
+#sudo cp "$lib"/libboost_chrono.so.$Boost_version "$Boost"
