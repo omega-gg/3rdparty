@@ -22,6 +22,9 @@ VLC_version="3.0.16"
 base32="/lib/i386-linux-gnu"
 base64="/lib/x86_64-linux-gnu"
 
+bin32="/usr/bin/i386-linux-gnu"
+bin64="/usr/bin/x86_64-linux-gnu"
+
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
 
@@ -67,6 +70,7 @@ if [ -d "${lib32}" ]; then
 
     base="$base32"
 
+    bin="$bin32"
     lib="$lib32"
 
     include="$include32"
@@ -75,6 +79,7 @@ else
 
     base="$base64"
 
+    bin="$bin64"
     lib="$lib64"
 
     include="$include64"
@@ -339,10 +344,10 @@ if [ $platform = "linux32" ]; then
 
     sudo cp -r "$include"/qt5/* "$Qt5"/include
 
-    sudo cp "$lib"/qt5/bin/qmake       "$Qt5"/bin
-    sudo cp "$lib"/qt5/bin/moc         "$Qt5"/bin
-    sudo cp "$lib"/qt5/bin/rcc         "$Qt5"/bin
-    sudo cp "$lib"/qt5/bin/qmlcachegen "$Qt5"/bin
+    sudo cp "$bin"/qmake       "$Qt5"/bin
+    sudo cp "$bin"/moc         "$Qt5"/bin
+    sudo cp "$bin"/rcc         "$Qt5"/bin
+    sudo cp "$bin"/qmlcachegen "$Qt5"/bin
 
     sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
     sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
