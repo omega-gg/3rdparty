@@ -22,8 +22,7 @@ VLC_version="3.0.16"
 base32="/lib/i386-linux-gnu"
 base64="/lib/x86_64-linux-gnu"
 
-bin32="/usr/bin/i386-linux-gnu"
-bin64="/usr/bin/x86_64-linux-gnu"
+bin="/usr/bin"
 
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
@@ -70,7 +69,6 @@ if [ -d "${lib32}" ]; then
 
     base="$base32"
 
-    bin="$bin32"
     lib="$lib32"
 
     include="$include32"
@@ -79,7 +77,6 @@ else
 
     base="$base64"
 
-    bin="$bin64"
     lib="$lib64"
 
     include="$include64"
