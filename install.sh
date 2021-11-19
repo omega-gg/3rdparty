@@ -264,16 +264,8 @@ sudo cp "$base"/libz.so.1 "$libs"
 
 if [ $host = "ubuntu18" ]; then
 
-    sudo cp "$lib"/libicudata.so.60 "$libs"
-    sudo cp "$lib"/libicui18n.so.60 "$libs"
-    sudo cp "$lib"/libicuuc.so.60   "$libs"
-
     sudo cp "$lib"/libdouble-conversion.so.1 "$libs"
 else
-    sudo cp "$lib"/libicudata.so.66 "$libs"
-    sudo cp "$lib"/libicui18n.so.66 "$libs"
-    sudo cp "$lib"/libicuuc.so.66   "$libs"
-
     sudo cp "$lib"/libdouble-conversion.so.3 "$libs"
 
     # NOTE: Required for Ubuntu 20.04.
@@ -283,6 +275,20 @@ fi
 sudo cp "$lib"/libpng16.so.16       "$libs"
 sudo cp "$lib"/libharfbuzz.so.0     "$libs"
 sudo cp "$lib"/libxcb-xinerama.so.0 "$libs"
+
+if [ $platform = "linux32" ]; then
+
+    if [ $host = "ubuntu18" ]; then
+
+        sudo cp "$lib"/libicudata.so.60 "$libs"
+        sudo cp "$lib"/libicui18n.so.60 "$libs"
+        sudo cp "$lib"/libicuuc.so.60   "$libs"
+    else
+        sudo cp "$lib"/libicudata.so.66 "$libs"
+        sudo cp "$lib"/libicui18n.so.66 "$libs"
+        sudo cp "$lib"/libicuuc.so.66   "$libs"
+    fi
+fi
 
 echo ""
 echo "DEPLOYING Qt4"
