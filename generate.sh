@@ -479,7 +479,7 @@ elif [ $platform = "linux64" ]; then
 
     if [ $qt = "qt5" ]; then
 
-        Qt_modules="$Qt_modules qtx11extras"
+        Qt_modules="$Qt_modules qtx11extras icu"
     fi
 
     bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
