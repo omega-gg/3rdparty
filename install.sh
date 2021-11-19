@@ -221,6 +221,11 @@ if [ $host = "ubuntu20" ]; then
     sudo add-apt-repository -y ppa:rock-core/qt4
 fi
 
+# NOTE: Copying these binaries before they get replaced by Qt5.
+sudo cp "$bin"/qmake "$Qt4"/bin
+sudo cp "$bin"/moc   "$Qt4"/bin
+sudo cp "$bin"/rcc   "$Qt4"/bin
+
 sudo apt-get install -y $Qt4_linux
 
 if [ $platform = "linux32" ]; then
