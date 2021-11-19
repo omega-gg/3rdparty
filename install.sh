@@ -276,20 +276,6 @@ sudo cp "$lib"/libpng16.so.16       "$libs"
 sudo cp "$lib"/libharfbuzz.so.0     "$libs"
 sudo cp "$lib"/libxcb-xinerama.so.0 "$libs"
 
-if [ $platform = "linux32" ]; then
-
-    if [ $host = "ubuntu18" ]; then
-
-        sudo cp "$lib"/libicudata.so.60 "$libs"
-        sudo cp "$lib"/libicui18n.so.60 "$libs"
-        sudo cp "$lib"/libicuuc.so.60   "$libs"
-    else
-        sudo cp "$lib"/libicudata.so.66 "$libs"
-        sudo cp "$lib"/libicui18n.so.66 "$libs"
-        sudo cp "$lib"/libicuuc.so.66   "$libs"
-    fi
-fi
-
 echo ""
 echo "DEPLOYING Qt4"
 
@@ -351,6 +337,17 @@ if [ $platform = "linux32" ]; then
     sudo cp "$bin"/moc         "$Qt5"/bin
     sudo cp "$bin"/rcc         "$Qt5"/bin
     sudo cp "$bin"/qmlcachegen "$Qt5"/bin
+
+    if [ $host = "ubuntu18" ]; then
+
+        sudo cp "$lib"/libicudata.so.60 "$Qt5"/lib
+        sudo cp "$lib"/libicui18n.so.60 "$Qt5"/lib
+        sudo cp "$lib"/libicuuc.so.60   "$Qt5"/lib
+    else
+        sudo cp "$lib"/libicudata.so.66 "$Qt5"/lib
+        sudo cp "$lib"/libicui18n.so.66 "$Qt5"/lib
+        sudo cp "$lib"/libicuuc.so.66   "$Qt5"/lib
+    fi
 
     sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
     sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
