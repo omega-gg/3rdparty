@@ -27,6 +27,8 @@ bin="/usr/bin"
 lib32="/usr/lib/i386-linux-gnu"
 lib64="/usr/lib/x86_64-linux-gnu"
 
+share="/usr/share"
+
 include32="/usr/include/i386-linux-gnu"
 include64="/usr/include/x86_64-linux-gnu"
 
@@ -221,11 +223,6 @@ if [ $host = "ubuntu20" ]; then
     sudo add-apt-repository -y ppa:rock-core/qt4
 fi
 
-# NOTE: Copying these binaries before they get replaced by Qt5.
-sudo cp "$bin"/qmake "$Qt4"/bin
-sudo cp "$bin"/moc   "$Qt4"/bin
-sudo cp "$bin"/rcc   "$Qt4"/bin
-
 sudo apt-get install -y $Qt4_linux
 
 if [ $platform = "linux32" ]; then
@@ -304,6 +301,10 @@ if [ ! -d "${Qt4}" ]; then
 fi
 
 mkdir -p "$Qt4"/plugins/imageformats
+
+sudo cp "$share"/qt4/bin/qmake "$Qt4"/bin
+sudo cp "$share"/qt4/bin/moc   "$Qt4"/bin/moc
+sudo cp "$share"/qt4/bin/rcc   "$Qt4"/bin/rcc
 
 sudo cp "$lib"/libQtCore.so.$Qt4_version        "$Qt4"/lib/libQtCore.so.4
 sudo cp "$lib"/libQtGui.so.$Qt4_version         "$Qt4"/lib/libQtGui.so.4
