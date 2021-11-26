@@ -50,8 +50,8 @@ JDK_versionB="1.8.0_311"
 
 SDK_version="30"
 
-NDK_versionA="23"
-NDK_versionB="23.1.7779620"
+NDK_versionA="21"
+NDK_versionB="21.4.7075529"
 
 VLC_version_android="3.4.5"
 
