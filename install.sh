@@ -12,7 +12,7 @@ SSL_version="1.1.1l"
 
 VLC_version="3.0.16"
 
-#libtorrent_version="2.0.4"
+#libtorrent_version="2.0.5"
 
 #Boost_version="1.71.0"
 
