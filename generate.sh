@@ -17,7 +17,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
 Qt6_version="6.2.1"
-Qt6_modules="qtbase qtdeclarative qtsvg qt5compat"
+Qt6_modules="qtbase qtdeclarative qtsvg qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1l"
@@ -510,6 +510,16 @@ if [ $platform != "linux32" ]; then
     mkdir -p "$QtX"/plugins/imageformats
     mkdir -p "$QtX"/qml
 
+    mv "$Qt"/bin/qmake*       "$QtX"/bin
+    mv "$Qt"/bin/moc*         "$QtX"/bin
+    mv "$Qt"/bin/rcc*         "$QtX"/bin
+    mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+
+    if [ $qt = "qt6" ]; then
+
+        mv "$Qt"/bin/qsb* "$QtX"/bin
+    fi
+
     mv "$Qt"/bin/qt.conf "$QtX"/bin
 
     mv "$Qt"/lib "$QtX"
@@ -527,11 +537,6 @@ if [ $platform != "linux32" ]; then
     mv "$Qt"/mkspecs "$QtX"
 
     if [ $os = "windows" ]; then
-
-        mv "$Qt"/bin/qmake.exe       "$QtX"/bin
-        mv "$Qt"/bin/moc.exe         "$QtX"/bin
-        mv "$Qt"/bin/rcc.exe         "$QtX"/bin
-        mv "$Qt"/bin/qmlcachegen.exe "$QtX"/bin
 
         if [ $qt = "qt5" ]; then
 
@@ -554,11 +559,6 @@ if [ $platform != "linux32" ]; then
 
     elif [ $1 = "macOS" ]; then
 
-        mv "$Qt"/bin/qmake       "$QtX"/bin
-        mv "$Qt"/bin/moc         "$QtX"/bin
-        mv "$Qt"/bin/rcc         "$QtX"/bin
-        mv "$Qt"/bin/qmlcachegen "$QtX"/bin
-
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
 
@@ -573,11 +573,6 @@ if [ $platform != "linux32" ]; then
 
         mkdir -p "$QtX"/plugins/xcbglintegrations
 
-        mv "$Qt"/bin/qmake       "$QtX"/bin
-        mv "$Qt"/bin/moc         "$QtX"/bin
-        mv "$Qt"/bin/rcc         "$QtX"/bin
-        mv "$Qt"/bin/qmlcachegen "$QtX"/bin
-
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
@@ -589,10 +584,6 @@ if [ $platform != "linux32" ]; then
         mv "$Qt"/jar "$QtX"
         mv "$Qt"/src "$QtX"
 
-        mv "$Qt"/bin/qmake            "$QtX"/bin
-        mv "$Qt"/bin/moc              "$QtX"/bin
-        mv "$Qt"/bin/rcc              "$QtX"/bin
-        mv "$Qt"/bin/qmlcachegen      "$QtX"/bin
         mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
         mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
 
