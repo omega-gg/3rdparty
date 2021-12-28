@@ -47,16 +47,16 @@ jobs:
 
 ##--------------------------------------------------------------------------------------------------
 
-#- job: win32_qt6
-#  pool:
-#    vmImage: "windows-latest"
-#  steps:
-#  - bash: |
-#      sh environment.sh qt6
-#      sh generate.sh win32 build
-#      7z a 3rdparty.zip win32
-#  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
-#    artifact: 3rdparty-win32-qt6
+- job: win32_qt6
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh qt6
+      sh generate.sh win32 build
+      7z a 3rdparty.zip win32
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win32-qt6
 
 - job: win64_qt6
   pool:
