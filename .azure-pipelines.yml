@@ -161,7 +161,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
-                                     sh environment qt6;
+                                     sh environment.sh qt6;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
