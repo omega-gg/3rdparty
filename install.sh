@@ -176,10 +176,13 @@ if [ "$2" = "uninstall" ]; then
 
     sudo apt-get remove -y $X11_linux
 
-    echo ""
-    echo "UNINSTALLING Qt4"
+    if [ $qt = "qt5" ]; then
 
-    sudo apt-get remove -y $Qt4_linux
+        echo ""
+        echo "UNINSTALLING Qt4"
+
+        sudo apt-get remove -y $Qt4_linux
+    fi
 
     if [ $platform = "linux32" ]; then
 
@@ -216,19 +219,22 @@ echo "INSTALLING X11"
 
 sudo apt-get install -y $X11_linux
 
-echo ""
-echo "INSTALLING Qt4"
+if [ $qt = "qt5" ]; then
 
-# NOTE: Qt4 has been removed from Ubuntu 20.04 main repository.
-if [ $host = "ubuntu20" ]; then
+    echo ""
+    echo "INSTALLING Qt4"
 
-    # NOTE: This is required for add-apt-repository.
-    sudo apt-get install -y software-properties-common
+    # NOTE: Qt4 has been removed from Ubuntu 20.04 main repository.
+    if [ $host = "ubuntu20" ]; then
 
-    sudo add-apt-repository -y ppa:rock-core/qt4
+        # NOTE: This is required for add-apt-repository.
+        sudo apt-get install -y software-properties-common
+
+        sudo add-apt-repository -y ppa:rock-core/qt4
+    fi
+
+    sudo apt-get install -y $Qt4_linux
 fi
-
-sudo apt-get install -y $Qt4_linux
 
 if [ $platform = "linux32" ]; then
 
@@ -283,49 +289,52 @@ sudo cp "$lib"/libpng16.so.16       "$libs"
 sudo cp "$lib"/libharfbuzz.so.0     "$libs"
 sudo cp "$lib"/libxcb-xinerama.so.0 "$libs"
 
-echo ""
-echo "DEPLOYING Qt4"
+if [ $qt = "qt5" ]; then
 
-if [ ! -d "${Qt4}" ]; then
+    echo ""
+    echo "DEPLOYING Qt4"
 
-    mkdir -p "$Qt4"
+    if [ ! -d "${Qt4}" ]; then
 
-    cd "$Qt4"
+        mkdir -p "$Qt4"
 
-    curl -L -o "$Qt4_archive" "$Qt4_sources"
+        cd "$Qt4"
 
-    tar -xf "$Qt4_archive"
+        curl -L -o "$Qt4_archive" "$Qt4_sources"
 
-    mv "$Qt4_name"/* .
+        tar -xf "$Qt4_archive"
 
-    rm -rf "$Qt4_name"
+        mv "$Qt4_name"/* .
 
-    rm "$Qt4_archive"
+        rm -rf "$Qt4_name"
 
-    cd -
+        rm "$Qt4_archive"
+
+        cd -
+    fi
+
+    mkdir -p "$Qt4"/plugins/imageformats
+
+    sudo cp "$share"/qt4/bin/qmake "$Qt4"/bin
+    sudo cp "$share"/qt4/bin/moc   "$Qt4"/bin/moc
+    sudo cp "$share"/qt4/bin/rcc   "$Qt4"/bin/rcc
+
+    sudo cp "$lib"/libQtCore.so.$Qt4_version        "$Qt4"/lib/libQtCore.so.4
+    sudo cp "$lib"/libQtGui.so.$Qt4_version         "$Qt4"/lib/libQtGui.so.4
+    sudo cp "$lib"/libQtDeclarative.so.$Qt4_version "$Qt4"/lib/libQtDeclarative.so.4
+    sudo cp "$lib"/libQtNetwork.so.$Qt4_version     "$Qt4"/lib/libQtNetwork.so.4
+    sudo cp "$lib"/libQtOpenGL.so.$Qt4_version      "$Qt4"/lib/libQtOpenGL.so.4
+    sudo cp "$lib"/libQtScript.so.$Qt4_version      "$Qt4"/lib/libQtScript.so.4
+    sudo cp "$lib"/libQtSql.so.$Qt4_version         "$Qt4"/lib/libQtSql.so.4
+    sudo cp "$lib"/libQtSvg.so.$Qt4_version         "$Qt4"/lib/libQtSvg.so.4
+    sudo cp "$lib"/libQtXml.so.$Qt4_version         "$Qt4"/lib/libQtXml.so.4
+    sudo cp "$lib"/libQtXmlPatterns.so.$Qt4_version "$Qt4"/lib/libQtXmlPatterns.so.4
+
+    sudo cp "$lib"/libQtWebKit.so.$QtWebkit_version "$Qt4"/lib/libQtWebKit.so.4
+
+    sudo cp "$lib"/qt4/plugins/imageformats/libqsvg.so  "$Qt4"/plugins/imageformats
+    sudo cp "$lib"/qt4/plugins/imageformats/libqjpeg.so "$Qt4"/plugins/imageformats
 fi
-
-mkdir -p "$Qt4"/plugins/imageformats
-
-sudo cp "$share"/qt4/bin/qmake "$Qt4"/bin
-sudo cp "$share"/qt4/bin/moc   "$Qt4"/bin/moc
-sudo cp "$share"/qt4/bin/rcc   "$Qt4"/bin/rcc
-
-sudo cp "$lib"/libQtCore.so.$Qt4_version        "$Qt4"/lib/libQtCore.so.4
-sudo cp "$lib"/libQtGui.so.$Qt4_version         "$Qt4"/lib/libQtGui.so.4
-sudo cp "$lib"/libQtDeclarative.so.$Qt4_version "$Qt4"/lib/libQtDeclarative.so.4
-sudo cp "$lib"/libQtNetwork.so.$Qt4_version     "$Qt4"/lib/libQtNetwork.so.4
-sudo cp "$lib"/libQtOpenGL.so.$Qt4_version      "$Qt4"/lib/libQtOpenGL.so.4
-sudo cp "$lib"/libQtScript.so.$Qt4_version      "$Qt4"/lib/libQtScript.so.4
-sudo cp "$lib"/libQtSql.so.$Qt4_version         "$Qt4"/lib/libQtSql.so.4
-sudo cp "$lib"/libQtSvg.so.$Qt4_version         "$Qt4"/lib/libQtSvg.so.4
-sudo cp "$lib"/libQtXml.so.$Qt4_version         "$Qt4"/lib/libQtXml.so.4
-sudo cp "$lib"/libQtXmlPatterns.so.$Qt4_version "$Qt4"/lib/libQtXmlPatterns.so.4
-
-sudo cp "$lib"/libQtWebKit.so.$QtWebkit_version "$Qt4"/lib/libQtWebKit.so.4
-
-sudo cp "$lib"/qt4/plugins/imageformats/libqsvg.so  "$Qt4"/plugins/imageformats
-sudo cp "$lib"/qt4/plugins/imageformats/libqjpeg.so "$Qt4"/plugins/imageformats
 
 if [ $platform = "linux32" ]; then
 
