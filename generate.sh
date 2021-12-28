@@ -519,6 +519,7 @@ elif [ $1 = "android" ]; then
         mkdir -p "$Qt"
 
         copyQt desktop gcc_64
+
         copyQt android android_armv7
         copyQt android android_arm64_v8a
         copyQt android android_x86
