@@ -11,8 +11,6 @@ source="http://omega.gg/get/Sky/3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
-qt="qt5"
-
 Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
 
@@ -59,6 +57,8 @@ VLC_version_android="3.4.5"
 # environment
 
 compiler_win="mingw"
+
+qt="qt5"
 
 #--------------------------------------------------------------------------------------------------
 # Functions

@@ -4,6 +4,7 @@ set -e
 #--------------------------------------------------------------------------------------------------
 # Settings
 #--------------------------------------------------------------------------------------------------
+# environment
 
 compiler_win="mingw"
 
@@ -20,6 +21,7 @@ replace()
     apply $expression environment.sh
 
     apply $expression generate.sh
+    apply $expression install.sh
 }
 
 apply()
