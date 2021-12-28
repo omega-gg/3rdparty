@@ -64,6 +64,14 @@ qt="qt5"
 # Functions
 #--------------------------------------------------------------------------------------------------
 
+copyQt()
+{
+    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android \
+                     --toolchain $1 $Qt_modules
+
+    cp -r Qt/$Qt_version/$1/* "$Qt"
+}
+
 copySsl()
 {
     mkdir "$2"
@@ -497,10 +505,20 @@ elif [ $1 = "android" ]; then
     # NOTE android: This is required for install-qt.sh.
     export QT_VERSION="$Qt_version"
 
-    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android \
-                     --toolchain any $Qt_modules androidextras
-
     Qt="Qt/$Qt_version/android"
+
+    if [ $qt = "qt5" ]; then
+
+        bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android \
+                         --toolchain any $Qt_modules androidextras
+    else
+        mkdir -p "$Qt"
+
+        copyQt android_armv7
+        copyQt android_arm64_v8a
+        copyQt android_x86
+        copyQt android_x86_64
+    fi
 fi
 
 #--------------------------------------------------------------------------------------------------
