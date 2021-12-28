@@ -473,7 +473,12 @@ elif [ $1 = "macOS" ]; then
     bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                      --toolchain clang_64 $Qt_modules
 
-    Qt="Qt/$Qt_version/clang_64"
+    if [ $qt = "qt5" ]; then
+
+        Qt="Qt/$Qt_version/clang_64"
+    else
+        Qt="Qt/$Qt_version/macos"
+    fi
 
 elif [ $platform = "linux64" ]; then
 
