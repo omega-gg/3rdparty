@@ -571,9 +571,11 @@ if [ $platform != "linux32" ]; then
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
         else
-            mv "$Qt"/libexec/moc*         "$QtX"/bin
-            mv "$Qt"/libexec/rcc*         "$QtX"/bin
-            mv "$Qt"/libexec/qmlcachegen* "$QtX"/bin
+            mkdir "$QtX"/libexec
+
+            mv "$Qt"/libexec/moc*         "$QtX"/libexec
+            mv "$Qt"/libexec/rcc*         "$QtX"/libexec
+            mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
         fi
 
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
@@ -590,9 +592,18 @@ if [ $platform != "linux32" ]; then
 
         mkdir -p "$QtX"/plugins/xcbglintegrations
 
-        mv "$Qt"/bin/moc*         "$QtX"/bin
-        mv "$Qt"/bin/rcc*         "$QtX"/bin
-        mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+        if [ $qt = "qt5" ]; then
+
+            mv "$Qt"/bin/moc*         "$QtX"/bin
+            mv "$Qt"/bin/rcc*         "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+        else
+            mkdir -p "$QtX"/libexec
+
+            mv "$Qt"/libexec/moc*         "$QtX"/libexec
+            mv "$Qt"/libexec/rcc*         "$QtX"/libexec
+            mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
+        fi
 
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
