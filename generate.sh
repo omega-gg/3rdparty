@@ -635,8 +635,6 @@ if [ $platform != "linux32" ]; then
 
     elif [ $1 = "android" ]; then
 
-        mkdir -p "$QtX"/plugins/bearer
-
         mv "$Qt"/jar "$QtX"
         mv "$Qt"/src "$QtX"
 
@@ -659,7 +657,13 @@ if [ $platform != "linux32" ]; then
 
         mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
-        mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
+
+        if [ $qt = "qt5" ]; then
+
+            mkdir -p "$QtX"/plugins/bearer
+
+            mv "$Qt"/plugins/bearer/lib*.so "$QtX"/plugins/bearer
+        fi
     fi
 
     rm -rf Qt
