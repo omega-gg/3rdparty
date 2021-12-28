@@ -639,11 +639,22 @@ if [ $platform != "linux32" ]; then
         mv "$Qt"/jar "$QtX"
         mv "$Qt"/src "$QtX"
 
-        mv "$Qt"/bin/moc*             "$QtX"/bin
-        mv "$Qt"/bin/rcc*             "$QtX"/bin
-        mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
-        mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
-        mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
+        if [ $qt = "qt5" ]; then
+
+            mv "$Qt"/bin/moc*             "$QtX"/bin
+            mv "$Qt"/bin/rcc*             "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
+            mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
+        else
+            mkdir -p "$QtX"/libexec
+
+            mv "$Qt"/libexec/moc*             "$QtX"/libexec
+            mv "$Qt"/libexec/rcc*             "$QtX"/libexec
+            mv "$Qt"/libexec/qmlcachegen*     "$QtX"/libexec
+            mv "$Qt"/libexec/qmlimportscanner "$QtX"/libexec
+        fi
+
+        mv "$Qt"/bin/androiddeployqt "$QtX"/bin
 
         mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
