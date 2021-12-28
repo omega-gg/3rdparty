@@ -66,10 +66,14 @@ qt="qt5"
 
 copyQt()
 {
-    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android \
-                     --toolchain $1 $Qt_modules
+    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 \
+                     --toolchain $2 $Qt_modules
 
-    cp -r Qt/$Qt_version/$1/* "$Qt"
+    path="Qt/$Qt_version/$2"
+
+    cp -r "$path"/* "$Qt"
+
+    rm -rf "$path"
 }
 
 copySsl()
@@ -514,10 +518,11 @@ elif [ $1 = "android" ]; then
     else
         mkdir -p "$Qt"
 
-        copyQt android_armv7
-        copyQt android_arm64_v8a
-        copyQt android_x86
-        copyQt android_x86_64
+        copyQt desktop gcc_64
+        copyQt android android_armv7
+        copyQt android android_arm64_v8a
+        copyQt android android_x86
+        copyQt android android_x86_64
     fi
 fi
 
