@@ -515,10 +515,7 @@ if [ $platform != "linux32" ]; then
     mkdir -p "$QtX"/plugins/imageformats
     mkdir -p "$QtX"/qml
 
-    mv "$Qt"/bin/qmake*       "$QtX"/bin
-    mv "$Qt"/bin/moc*         "$QtX"/bin
-    mv "$Qt"/bin/rcc*         "$QtX"/bin
-    mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+    mv "$Qt"/bin/qmake* "$QtX"/bin
 
     if [ $qt = "qt6" ]; then
 
@@ -543,6 +540,10 @@ if [ $platform != "linux32" ]; then
 
     if [ $os = "windows" ]; then
 
+        mv "$Qt"/bin/moc*         "$QtX"/bin
+        mv "$Qt"/bin/rcc*         "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+
         if [ $qt = "qt5" ]; then
 
             mv "$Qt"/bin/lib*.dll "$QtX"/bin
@@ -564,6 +565,17 @@ if [ $platform != "linux32" ]; then
 
     elif [ $1 = "macOS" ]; then
 
+        if [ $qt = "qt5" ]; then
+
+            mv "$Qt"/bin/moc*         "$QtX"/bin
+            mv "$Qt"/bin/rcc*         "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+        else
+            mv "$Qt"/libexec/moc*         "$QtX"/bin
+            mv "$Qt"/libexec/rcc*         "$QtX"/bin
+            mv "$Qt"/libexec/qmlcachegen* "$QtX"/bin
+        fi
+
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
 
@@ -578,6 +590,10 @@ if [ $platform != "linux32" ]; then
 
         mkdir -p "$QtX"/plugins/xcbglintegrations
 
+        mv "$Qt"/bin/moc*         "$QtX"/bin
+        mv "$Qt"/bin/rcc*         "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
@@ -589,6 +605,9 @@ if [ $platform != "linux32" ]; then
         mv "$Qt"/jar "$QtX"
         mv "$Qt"/src "$QtX"
 
+        mv "$Qt"/bin/moc*             "$QtX"/bin
+        mv "$Qt"/bin/rcc*             "$QtX"/bin
+        mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
         mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
         mv "$Qt"/bin/androiddeployqt  "$QtX"/bin
 
