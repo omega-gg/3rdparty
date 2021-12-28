@@ -219,6 +219,7 @@ echo "INSTALLING X11"
 
 sudo apt-get install -y $X11_linux
 
+# NOTE: By default qt4 is mapped to qt5.
 if [ $qt = "qt5" ]; then
 
     echo ""
