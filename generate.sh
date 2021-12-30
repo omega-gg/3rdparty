@@ -74,7 +74,7 @@ installQt()
 
 mkdirQt()
 {
-    if [ $1 != "android" -o $qt = "qt5" ]; then
+    if [ $platform != "android" -o $qt = "qt5" ]; then
 
         mkdir -p "$QtX/$1"
     else
@@ -88,7 +88,7 @@ mkdirQt()
 
 moveQt()
 {
-    if [ $1 != "android" -o $qt = "qt5" ]; then
+    if [ $platform != "android" -o $qt = "qt5" ]; then
 
         mv "$Qt/$1" "$QtX/$2"
     else
