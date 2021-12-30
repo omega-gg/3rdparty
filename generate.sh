@@ -71,7 +71,7 @@ installQt()
 
     path="Qt/$Qt_version/$2"
 
-    mv "$path" "$Qt"
+    mv "$path" "$QtX"
 }
 
 mkdirQt()
