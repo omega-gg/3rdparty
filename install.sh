@@ -176,7 +176,7 @@ if [ "$2" = "uninstall" ]; then
 
     sudo apt-get remove -y $X11_linux
 
-    if [ $qt = "qt5" ]; then
+    if [ $qt = "qt4" ]; then
 
         echo ""
         echo "UNINSTALLING Qt4"
@@ -219,8 +219,7 @@ echo "INSTALLING X11"
 
 sudo apt-get install -y $X11_linux
 
-# NOTE: By default qt4 is mapped to qt5.
-if [ $qt = "qt5" ]; then
+if [ $qt = "qt4" ]; then
 
     echo ""
     echo "INSTALLING Qt4"
@@ -290,7 +289,7 @@ sudo cp "$lib"/libpng16.so.16       "$libs"
 sudo cp "$lib"/libharfbuzz.so.0     "$libs"
 sudo cp "$lib"/libxcb-xinerama.so.0 "$libs"
 
-if [ $qt = "qt5" ]; then
+if [ $qt = "qt4" ]; then
 
     echo ""
     echo "DEPLOYING Qt4"

@@ -3,6 +3,19 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
+- job: win32_qt4
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh qt4
+      sh generate.sh win32 build
+      7z a 3rdparty.zip win32
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-win32-qt4
+
+#--------------------------------------------------------------------------------------------------
+
 - job: win32_qt5
   pool:
     vmImage: "windows-latest"
@@ -120,6 +133,38 @@ jobs:
 
 #--------------------------------------------------------------------------------------------------
 # Linux
+#--------------------------------------------------------------------------------------------------
+
+- job: linux32_qt4
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip;
+                                     sh environment.sh qt4;
+                                     sh generate.sh linux build;
+                                     zip -rq 3rdparty.zip linux"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-linux32-qt4
+
+- job: linux64_qt4
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip;
+                                     sh environment.sh qt4;
+                                     sh generate.sh linux build;
+                                     zip -rq 3rdparty.zip linux"
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-linux64-qt4
+
 #--------------------------------------------------------------------------------------------------
 
 - job: linux32_qt5

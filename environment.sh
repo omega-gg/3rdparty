@@ -74,11 +74,6 @@ if [ $1 = "msvc" ]; then
 elif [ $1 = "mingw" ]; then
 
     replace compiler_win $compiler_win mingw
-
-# NOTE: By default qt4 is mapped to qt5.
-elif [ $1 = "qt4" ]; then
-
-    replace qt $qt "qt5"
 else
     replace qt $qt $1
 fi
