@@ -583,7 +583,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     moveQt "bin/qmake*" "bin"
 
-    moveQt "bin/qt.conf" "bin"
+    moveQt "bin/*qt.conf" "bin"
 
     moveQt "lib" "."
 
