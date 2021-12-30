@@ -439,97 +439,100 @@ fi
 # Qt
 #--------------------------------------------------------------------------------------------------
 
-echo "DOWNLOADING Qt"
+if [ $qt != "qt4" ]; then
 
-if [ $os = "windows" ]; then
+    echo "DOWNLOADING Qt"
 
-    if [ $compiler = "msvc" ]; then
+    if [ $os = "windows" ]; then
 
-        if [ $1 = "win32" ]; then
+        if [ $compiler = "msvc" ]; then
 
-            toolchain="$platform"_msvc2019
+            if [ $1 = "win32" ]; then
+
+                toolchain="$platform"_msvc2019
+            else
+                toolchain="$platform"_msvc2019_64
+            fi
         else
-            toolchain="$platform"_msvc2019_64
+            toolchain="$platform"_mingw81
         fi
-    else
-        toolchain="$platform"_mingw81
-    fi
 
-    if [ $qt = "qt5" ]; then
+        if [ $qt = "qt5" ]; then
 
-        Qt_modules="$Qt_modules qtwinextras"
-    fi
+            Qt_modules="$Qt_modules qtwinextras"
+        fi
 
-    bash $install_qt --directory Qt --version $Qt_version --host windows_x86 \
-                     --toolchain $toolchain $Qt_modules
+        bash $install_qt --directory Qt --version $Qt_version --host windows_x86 \
+                         --toolchain $toolchain $Qt_modules
 
-    if [ $compiler = "mingw" ]; then
+        if [ $compiler = "mingw" ]; then
 
-        if [ $1 = "win32" ]; then
+            if [ $1 = "win32" ]; then
 
-            Qt="Qt/$Qt_version/mingw81_32"
+                Qt="Qt/$Qt_version/mingw81_32"
+            else
+                Qt="Qt/$Qt_version/mingw81_64"
+            fi
         else
-            Qt="Qt/$Qt_version/mingw81_64"
-        fi
-    else
-        if [ $1 = "win32" ]; then
+            if [ $1 = "win32" ]; then
 
-            Qt="Qt/$Qt_version/msvc2019"
+                Qt="Qt/$Qt_version/msvc2019"
+            else
+                Qt="Qt/$Qt_version/msvc2019_64"
+            fi
+        fi
+
+    elif [ $1 = "macOS" ]; then
+
+        bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
+                         --toolchain clang_64 $Qt_modules
+
+        if [ $qt = "qt5" ]; then
+
+            Qt="Qt/$Qt_version/clang_64"
         else
-            Qt="Qt/$Qt_version/msvc2019_64"
+            Qt="Qt/$Qt_version/macos"
         fi
-    fi
 
-elif [ $1 = "macOS" ]; then
+    elif [ $platform = "linux64" ]; then
 
-    bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
-                     --toolchain clang_64 $Qt_modules
+        if [ $qt = "qt5" ]; then
 
-    if [ $qt = "qt5" ]; then
+            Qt_modules="$Qt_modules qtx11extras icu"
+        fi
 
-        Qt="Qt/$Qt_version/clang_64"
-    else
-        Qt="Qt/$Qt_version/macos"
-    fi
+        bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
+                         --toolchain gcc_64 $Qt_modules
 
-elif [ $platform = "linux64" ]; then
+        Qt="Qt/$Qt_version/gcc_64"
 
-    if [ $qt = "qt5" ]; then
+    elif [ $1 = "android" ]; then
 
-        Qt_modules="$Qt_modules qtx11extras icu"
-    fi
+        # NOTE android: This is required for install-qt.sh.
+        export QT_VERSION="$Qt_version"
 
-    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
-                     --toolchain gcc_64 $Qt_modules
+        Qt="Qt/$Qt_version/android"
 
-    Qt="Qt/$Qt_version/gcc_64"
+        if [ $qt = "qt5" ]; then
 
-elif [ $1 = "android" ]; then
+            bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
+                             --target android --toolchain any $Qt_modules androidextras
+        else
+            mkdir -p "$Qt"
 
-    # NOTE android: This is required for install-qt.sh.
-    export QT_VERSION="$Qt_version"
+            copyQt desktop gcc_64
 
-    Qt="Qt/$Qt_version/android"
-
-    if [ $qt = "qt5" ]; then
-
-        bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android \
-                         --toolchain any $Qt_modules androidextras
-    else
-        mkdir -p "$Qt"
-
-        copyQt desktop gcc_64
-
-        copyQt android android_armv7
-        copyQt android android_arm64_v8a
-        copyQt android android_x86
-        copyQt android android_x86_64
+            copyQt android android_armv7
+            copyQt android android_arm64_v8a
+            copyQt android android_x86
+            copyQt android android_x86_64
+        fi
     fi
 fi
 
 #--------------------------------------------------------------------------------------------------
 
-if [ $platform != "linux32" ]; then
+if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     echo ""
     echo "COPYING Qt"
