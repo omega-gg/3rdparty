@@ -64,17 +64,58 @@ qt="qt5"
 # Functions
 #--------------------------------------------------------------------------------------------------
 
-copyQt()
+installQt()
 {
     bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 \
                      --toolchain $2 $Qt_modules
 
     path="Qt/$Qt_version/$2"
 
-    cp -r "$path"/* "$Qt"
-
-    rm -rf "$path"
+    mv "$path" "$Qt"
 }
+
+mkdirQt()
+{
+    if [ $1 != "android" -o $qt = "qt5" ]; then
+
+        mkdir -p "$QtX/$1"
+    else
+        mkdir -p "$QtX/gcc_64/$1"
+        mkdir -p "$QtX/android_armv7/$1"
+        mkdir -p "$QtX/android_arm64_v8a/$1"
+        mkdir -p "$QtX/android_x86/$1"
+        mkdir -p "$QtX/android_x86_64/$1"
+    fi
+}
+
+moveQt()
+{
+    if [ $1 != "android" -o $qt = "qt5" ]; then
+
+        mv "$Qt/$1" "$QtX/$2"
+    else
+        mv "$Qt/gcc_64/$1"            "$QtX/gcc_64/$2"
+        mv "$Qt/android_armv7/$1"     "$QtX/android_armv7/$2"
+        mv "$Qt/android_arm64_v8a/$1" "$QtX/android_arm64_v8a/$2"
+        mv "$Qt/android_x86/$1"       "$QtX/android_x86/$2"
+        mv "$Qt/android_x86_64/$1"    "$QtX/android_x86_64/$2"
+    fi
+}
+
+moveAndroid()
+{
+    if [ $qt = "qt5" ]; then
+
+        mv "$Qt/$1" "$QtX/$2"
+    else
+        mv "$Qt/android_armv7/$1"     "$QtX/android_armv7/$2"
+        mv "$Qt/android_arm64_v8a/$1" "$QtX/android_arm64_v8a/$2"
+        mv "$Qt/android_x86/$1"       "$QtX/android_x86/$2"
+        mv "$Qt/android_x86_64/$1"    "$QtX/android_x86_64/$2"
+    fi
+}
+
+#--------------------------------------------------------------------------------------------------
 
 copySsl()
 {
@@ -511,21 +552,21 @@ if [ $qt != "qt4" ]; then
         # NOTE android: This is required for install-qt.sh.
         export QT_VERSION="$Qt_version"
 
-        Qt="Qt/$Qt_version/android"
-
         if [ $qt = "qt5" ]; then
 
             bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
                              --target android --toolchain any $Qt_modules androidextras
+
+            Qt="Qt/$Qt_version/android"
         else
-            mkdir -p "$Qt"
+            Qt="Qt/$Qt_version"
 
-            copyQt desktop gcc_64
+            installQt desktop gcc_64
 
-            copyQt android android_armv7
-            copyQt android android_arm64_v8a
-            copyQt android android_x86
-            copyQt android android_x86_64
+            installQt android android_armv7
+            installQt android android_arm64_v8a
+            installQt android android_x86
+            installQt android android_x86_64
         fi
     fi
 fi
@@ -537,33 +578,28 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     echo ""
     echo "COPYING Qt"
 
-    mkdir -p "$QtX"/bin
-    mkdir -p "$QtX"/plugins/platforms
-    mkdir -p "$QtX"/plugins/imageformats
-    mkdir -p "$QtX"/qml
+    mkdirQt "bin"
+    mkdirQt "plugins/platforms"
+    mkdirQt "plugins/imageformats"
+    mkdirQt "qml"
 
-    mv "$Qt"/bin/qmake* "$QtX"/bin
+    moveQt "bin/qmake*" "bin"
 
-    if [ $qt = "qt6" ]; then
+    moveQt "bin/qt.conf" "bin"
 
-        mv "$Qt"/bin/qsb* "$QtX"/bin
-    fi
+    moveQt "lib" "."
 
-    mv "$Qt"/bin/qt.conf "$QtX"/bin
-
-    mv "$Qt"/lib "$QtX"
-
-    mv "$Qt"/include "$QtX"
+    moveQt "include" "."
 
     if [ $qt = "qt5" ]; then
 
         mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
     else
-        mv "$Qt"/qml/QtQml   "$QtX"/qml
-        mv "$Qt"/qml/QtQuick "$QtX"/qml
+        moveQt "qml/QtQml"   "qml"
+        moveQt "qml/QtQuick" "qml"
     fi
 
-    mv "$Qt"/mkspecs "$QtX"
+    moveQt "mkspecs" "."
 
     if [ $os = "windows" ]; then
 
@@ -574,6 +610,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         if [ $qt = "qt5" ]; then
 
             mv "$Qt"/bin/lib*.dll "$QtX"/bin
+        else
+            mv "$Qt"/bin/qsb* "$QtX"/bin
         fi
 
         mv "$Qt"/bin/Qt*.dll "$QtX"/bin
@@ -599,6 +637,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
         else
             mkdir "$QtX"/libexec
+
+            mv "$Qt"/bin/qsb* "$QtX"/bin
 
             mv "$Qt"/libexec/moc*         "$QtX"/libexec
             mv "$Qt"/libexec/rcc*         "$QtX"/libexec
@@ -627,6 +667,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         else
             mkdir -p "$QtX"/libexec
 
+            mv "$Qt"/bin/qsb* "$QtX"/bin
+
             mv "$Qt"/libexec/moc*         "$QtX"/libexec
             mv "$Qt"/libexec/rcc*         "$QtX"/libexec
             mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
@@ -638,8 +680,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     elif [ $1 = "android" ]; then
 
-        mv "$Qt"/jar "$QtX"
-        mv "$Qt"/src "$QtX"
+        moveAndroid "jar" "."
+        moveAndroid "src" "."
 
         if [ $qt = "qt5" ]; then
 
@@ -647,19 +689,27 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/rcc*             "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
-        else
-            mkdir -p "$QtX"/libexec
 
-            mv "$Qt"/libexec/moc*             "$QtX"/libexec
-            mv "$Qt"/libexec/rcc*             "$QtX"/libexec
-            mv "$Qt"/libexec/qmlcachegen*     "$QtX"/libexec
-            mv "$Qt"/libexec/qmlimportscanner "$QtX"/libexec
+            mv "$Qt"/bin/androiddeployqt "$QtX"/bin
+        else
+            bin="gcc_64/bin"
+
+            libexec="gcc_64/libexec"
+
+            mkdir -p "$QtX/$libexec"
+
+            mv "$Qt/$bin"/qsb* "$QtX/$bin"
+
+            mv "$Qt/$libexec"/moc*             "$QtX/$libexec"
+            mv "$Qt/$libexec"/rcc*             "$QtX/$libexec"
+            mv "$Qt/$libexec"/qmlcachegen*     "$QtX/$libexec"
+            mv "$Qt/$libexec"/qmlimportscanner "$QtX/$libexec"
+
+            mv "$Qt/$bin"/androiddeployqt "$QtX/$bin"
         fi
 
-        mv "$Qt"/bin/androiddeployqt "$QtX"/bin
-
-        mv "$Qt"/plugins/platforms/lib*.so    "$QtX"/plugins/platforms
-        mv "$Qt"/plugins/imageformats/lib*.so "$QtX"/plugins/imageformats
+        moveAndroid "plugins/platforms/lib*.so"    "plugins/platforms"
+        moveAndroid "plugins/imageformats/lib*.so" "plugins/imageformats"
 
         if [ $qt = "qt5" ]; then
 
