@@ -76,13 +76,13 @@ mkdirQt()
 {
     if [ $platform != "android" -o $qt = "qt5" ]; then
 
-        mkdir -p "$QtX/$1"
+        mkdir -p "$QtX"/$1
     else
-        mkdir -p "$QtX/gcc_64/$1"
-        mkdir -p "$QtX/android_armv7/$1"
-        mkdir -p "$QtX/android_arm64_v8a/$1"
-        mkdir -p "$QtX/android_x86/$1"
-        mkdir -p "$QtX/android_x86_64/$1"
+        mkdir -p "$QtX"/gcc_64/$1
+        mkdir -p "$QtX"/android_armv7/$1
+        mkdir -p "$QtX"/android_arm64_v8a/$1
+        mkdir -p "$QtX"/android_x86/$1
+        mkdir -p "$QtX"/android_x86_64/$1
     fi
 }
 
@@ -90,13 +90,13 @@ moveQt()
 {
     if [ $platform != "android" -o $qt = "qt5" ]; then
 
-        mv "$Qt/$1" "$QtX/$2"
+        mv "$Qt"/$1 "$QtX"/$2
     else
-        mv "$Qt/gcc_64/$1"            "$QtX/gcc_64/$2"
-        mv "$Qt/android_armv7/$1"     "$QtX/android_armv7/$2"
-        mv "$Qt/android_arm64_v8a/$1" "$QtX/android_arm64_v8a/$2"
-        mv "$Qt/android_x86/$1"       "$QtX/android_x86/$2"
-        mv "$Qt/android_x86_64/$1"    "$QtX/android_x86_64/$2"
+        mv "$Qt"/gcc_64/$1            "$QtX"/gcc_64/$2
+        mv "$Qt"/android_armv7/$1     "$QtX"/android_armv7/$2
+        mv "$Qt"/android_arm64_v8a/$1 "$QtX"/android_arm64_v8a/$2
+        mv "$Qt"/android_x86/$1       "$QtX"/android_x86/$2
+        mv "$Qt"/android_x86_64/$1    "$QtX"/android_x86_64/$2
     fi
 }
 
@@ -104,12 +104,12 @@ moveAndroid()
 {
     if [ $qt = "qt5" ]; then
 
-        mv "$Qt/$1" "$QtX/$2"
+        mv "$Qt"/$1 "$QtX"/$2
     else
-        mv "$Qt/android_armv7/$1"     "$QtX/android_armv7/$2"
-        mv "$Qt/android_arm64_v8a/$1" "$QtX/android_arm64_v8a/$2"
-        mv "$Qt/android_x86/$1"       "$QtX/android_x86/$2"
-        mv "$Qt/android_x86_64/$1"    "$QtX/android_x86_64/$2"
+        mv "$Qt"/android_armv7/$1     "$QtX"/android_armv7/$2
+        mv "$Qt"/android_arm64_v8a/$1 "$QtX"/android_arm64_v8a/$2
+        mv "$Qt"/android_x86/$1       "$QtX"/android_x86/$2
+        mv "$Qt"/android_x86_64/$1    "$QtX"/android_x86_64/$2
     fi
 }
 
