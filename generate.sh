@@ -70,8 +70,6 @@ installQt()
                      --toolchain $2 $Qt_modules
 
     path="Qt/$Qt_version/$2"
-
-    mv "$path" "$QtX"
 }
 
 mkdirQt()
