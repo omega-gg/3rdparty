@@ -67,7 +67,7 @@ qt="qt5"
 installQt()
 {
     bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 \
-                     --toolchain $2 $Qt_modules
+                     --toolchain $2 $3
 
     path="Qt/$Qt_version/$2"
 }
@@ -559,12 +559,12 @@ if [ $qt != "qt4" ]; then
         else
             Qt="Qt/$Qt_version"
 
-            installQt desktop gcc_64
+            installQt desktop gcc_64 "$Qt_modules icu"
 
-            installQt android android_armv7
-            installQt android android_arm64_v8a
-            installQt android android_x86
-            installQt android android_x86_64
+            installQt android android_armv7     "$Qt_modules"
+            installQt android android_arm64_v8a "$Qt_modules"
+            installQt android android_x86       "$Qt_modules"
+            installQt android android_x86_64    "$Qt_modules"
         fi
     fi
 fi
