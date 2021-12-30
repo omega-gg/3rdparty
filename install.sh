@@ -140,7 +140,7 @@ libvlccore_version="9.0.0"
 #--------------------------------------------------------------------------------------------------
 
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2"
+"libaudio2 libgl-dev"
 
 Qt4_linux="qt4-default libqtwebkit-dev openssl"
 
