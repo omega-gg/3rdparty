@@ -359,7 +359,12 @@ echo ""
 
 if [ $1 = "linux" ]; then
 
-    sh install.sh $1
+    if [ "$2" = "build" ]; then
+
+        sh install.sh $1 build
+    else
+        sh install.sh $1
+    fi
 
 elif [ $1 = "android" -a $host = "linux" ]; then
 

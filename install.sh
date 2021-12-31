@@ -55,9 +55,9 @@ getOs()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 -a $# != 2 ] || [ $1 != "linux" ] || [ $# = 2 -a "$2" != "deploy" ]; then
+if [ $# != 1 -a $# != 2 ] || [ $1 != "linux" ] || [ $# = 2 -a "$2" != "build | uninstall" ]; then
 
-    echo "Usage: install <linux> [uninstall]"
+    echo "Usage: install <linux> [build | uninstall]"
 
     exit 1
 fi
@@ -273,6 +273,11 @@ sudo apt-get install -y $tools_linux
 #--------------------------------------------------------------------------------------------------
 # Deploy
 #--------------------------------------------------------------------------------------------------
+
+if [ "$2" != "build" ]; then
+
+    exit 0
+fi
 
 echo ""
 echo "DEPLOYING lib(s)"
