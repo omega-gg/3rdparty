@@ -142,8 +142,7 @@ libvlccore_version="9.0.0"
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
 "libaudio2"
 
-# NOTE: We need libgl-dev for Qt5.
-if [ $qt = "qt5" ]; then
+if [ $qt != "qt4" ]; then
 
     X11_linux="$X11_linux libgl-dev"
 fi
