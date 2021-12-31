@@ -144,7 +144,7 @@ X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev lib
 
 if [ $qt != "qt4" ]; then
 
-    X11_linux="$X11_linux libgl-dev"
+    X11_linux="$X11_linux libgl1-mesa-dev"
 fi
 
 Qt4_linux="qt4-default libqtwebkit-dev openssl"
