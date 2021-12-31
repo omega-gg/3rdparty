@@ -538,6 +538,8 @@ if [ $qt != "qt4" ]; then
         if [ $qt = "qt5" ]; then
 
             Qt_modules="$Qt_modules qtx11extras icu"
+        else
+            Qt_modules="$Qt_modules icu"
         fi
 
         bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
