@@ -635,11 +635,16 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     elif [ $1 = "macOS" ]; then
 
+        mv "$Qt"/bin/macdeployqt "$QtX"/bin
+
         if [ $qt = "qt5" ]; then
 
             mv "$Qt"/bin/moc*         "$QtX"/bin
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+
+            # NOTE: This is required for macdeployqt.
+            mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
         else
             mkdir "$QtX"/libexec
 
@@ -648,6 +653,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/libexec/moc*         "$QtX"/libexec
             mv "$Qt"/libexec/rcc*         "$QtX"/libexec
             mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
+
+            # NOTE: This is required for macdeployqt.
+            mv "$Qt"/libexec/qmlimportscanner "$QtX"/libexec
         fi
 
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
