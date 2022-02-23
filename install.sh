@@ -55,7 +55,9 @@ getOs()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 -a $# != 2 ] || [ $1 != "linux" ] || [ $# = 2 -a "$2" != "build | uninstall" ]; then
+if [ $# != 1 -a $# != 2 ] \
+   || \
+   [ $1 != "linux" ] || [ $# = 2 -a "$2" != "build" -a "$2" != "uninstall" ]; then
 
     echo "Usage: install <linux> [build | uninstall]"
 
