@@ -528,6 +528,8 @@ if [ $qt != "qt4" ]; then
 
     elif [ $1 = "macOS" ]; then
 
+        Qt_modules="$Qt_modules qtmacextras"
+
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --toolchain clang_64 $Qt_modules
 
