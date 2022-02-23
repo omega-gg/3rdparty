@@ -43,8 +43,8 @@ lib32="/usr/lib/i386-linux-gnu"
 #--------------------------------------------------------------------------------------------------
 # Android
 
-JDK_versionA="8u311"
-JDK_versionB="1.8.0_311"
+JDK_versionA="8u321"
+JDK_versionB="1.8.0_321"
 
 SDK_version="30"
 
