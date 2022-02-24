@@ -702,18 +702,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/moc*         "$QtX"/bin
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
-        else
-            bin="../macos/bin"
-
-            libexec="../macos/libexec"
-
-            mkdir "$QtX"/libexec
-
-            mv "$Qt/$bin"/qsb* "$QtX"/bin
-
-            mv "$Qt/$libexec"/moc*         "$QtX"/libexec
-            mv "$Qt/$libexec"/rcc*         "$QtX"/libexec
-            mv "$Qt/$libexec"/qmlcachegen* "$QtX"/libexec
         fi
 
         mv "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
@@ -762,21 +750,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
 
             mv "$Qt"/bin/androiddeployqt "$QtX"/bin
-        else
-            bin="gcc_64/bin"
-
-            libexec="gcc_64/libexec"
-
-            mkdir -p "$QtX/$libexec"
-
-            mv "$Qt/$bin"/qsb* "$QtX/$bin"
-
-            mv "$Qt/$libexec"/moc*             "$QtX/$libexec"
-            mv "$Qt/$libexec"/rcc*             "$QtX/$libexec"
-            mv "$Qt/$libexec"/qmlcachegen*     "$QtX/$libexec"
-            mv "$Qt/$libexec"/qmlimportscanner "$QtX/$libexec"
-
-            mv "$Qt/$bin"/androiddeployqt "$QtX/$bin"
         fi
 
         moveAndroid "plugins/platforms/lib*.so"    "plugins/platforms"
