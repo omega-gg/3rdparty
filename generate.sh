@@ -1044,25 +1044,28 @@ fi
 # libtorrent
 #--------------------------------------------------------------------------------------------------
 
-echo ""
-echo "ARTIFACT libtorrent-$name"
-echo $libtorrent_url
+if [ $1 != "iOS" ]; then
 
-libtorrent_url=$(getSource $libtorrent_url libtorrent-$name)
+    echo ""
+    echo "ARTIFACT libtorrent-$name"
+    echo $libtorrent_url
 
-echo ""
-echo "DOWNLOADING libtorrent"
-echo $libtorrent_url
+    libtorrent_url=$(getSource $libtorrent_url libtorrent-$name)
 
-curl --retry 3 -L -o libtorrent.zip $libtorrent_url
+    echo ""
+    echo "DOWNLOADING libtorrent"
+    echo $libtorrent_url
 
-unzip -q libtorrent.zip
+    curl --retry 3 -L -o libtorrent.zip $libtorrent_url
 
-rm libtorrent.zip
+    unzip -q libtorrent.zip
 
-unzip -q libtorrent-$name/libtorrent.zip -d "$external"
+    rm libtorrent.zip
 
-rm -rf libtorrent-$name
+    unzip -q libtorrent-$name/libtorrent.zip -d "$external"
+
+    rm -rf libtorrent-$name
+fi
 
 #--------------------------------------------------------------------------------------------------
 # JDK
