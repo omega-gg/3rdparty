@@ -703,9 +703,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
         else
-            bin="$Qt/../macos/bin"
+            bin="../macos/bin"
 
-            libexec="$Qt/../macos/libexec"
+            libexec="../macos/libexec"
 
             mkdir "$QtX"/libexec
 
