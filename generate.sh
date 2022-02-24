@@ -18,7 +18,8 @@ Qt6_version="6.2.1"
 Qt6_modules="qtbase qtdeclarative qtsvg qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
-SSL_versionB="1.1.1l"
+SSL_versionB="1.1.1m"
+SSL_versionC="1.1"
 
 VLC_version="3.0.16"
 
@@ -297,15 +298,13 @@ if [ $os = "windows" ]; then
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw810/8.1.0-1-202004170606i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win32.zip"
-
-        SSL_urlB="https://curl.se/windows/dl-7.78.0_4/openssl-${SSL_versionB}_4-win32-mingw.zip"
     else
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw810/8.1.0-1-202004170606x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win64.zip"
-
-        SSL_urlB="https://curl.se/windows/dl-7.78.0_4/openssl-${SSL_versionB}_4-win64-mingw.zip"
     fi
+
+    SSL_urlB="https://mirror.firedaemon.com/OpenSSL/openssl-${SSL_versionB}.zip"
 
     MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
 
@@ -826,7 +825,12 @@ if [ $os = "windows" ]; then
 
     mkdir -p "$path"
 
-    ssl="ssl/openssl-$SSL_versionB-$platform-mingw"
+    if [ $platform = "win32" ]; then
+
+        ssl="openssl-$SSL_versionC/x86/bin"
+    else
+        ssl="openssl-$SSL_versionC/x64/bin"
+    fi
 
     mv $ssl/libssl*.dll    "$path"
     mv $ssl/libcrypto*.dll "$path"
