@@ -951,9 +951,9 @@ elif [ $1 = "iOS" ]; then
 
     rm VLC.tar.xz
 
-    path="$VLC/MobileVLCKit-binary/MobileVLCKit.xcframework"
+    path="$VLC/MobileVLCKit-binary"
 
-    mv "$path"/* "$VLC"
+    mv "$path"/MobileVLCKit.xcframework/* "$VLC"
 
     rm -rf "$path"
 
