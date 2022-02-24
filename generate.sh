@@ -562,12 +562,7 @@ if [ $qt != "qt4" ]; then
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --target ios --toolchain ios $Qt_modules
 
-        if [ $qt = "qt5" ]; then
-
-            Qt="Qt/$Qt_version/ios"
-        else
-            Qt="Qt/$Qt_version"
-        fi
+        Qt="Qt/$Qt_version/ios"
 
     elif [ $platform = "linux64" ]; then
 
@@ -707,13 +702,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/moc*         "$QtX"/bin
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
-
-            mv "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
-            mv "$Qt"/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
         else
-            bin="macos/bin"
+            bin="$Qt/../macos/bin"
 
-            libexec="macos/libexec"
+            libexec="$Qt/../macos/libexec"
 
             mkdir "$QtX"/libexec
 
@@ -722,10 +714,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/moc*         "$QtX"/libexec
             mv "$Qt/$libexec"/rcc*         "$QtX"/libexec
             mv "$Qt/$libexec"/qmlcachegen* "$QtX"/libexec
-
-            mv "$Qt"/ios/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
-            mv "$Qt"/ios/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
         fi
+
+        mv "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
