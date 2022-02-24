@@ -15,6 +15,6 @@
 
 You can generate third party libraries with:
 
-    sh generate.sh <win32 | win64 | macOS | linux | android> [build | clean]
+    sh generate.sh <win32 | win64 | macOS | iOS | linux | android> [build | clean]
 
 - The "build" option loads dependencies from their original repository.

@@ -58,7 +58,7 @@ jobs:
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64-msvc-qt5
 
-##--------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 #- job: win32_qt6
 #  pool:
@@ -106,9 +106,9 @@ jobs:
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-win64-msvc-qt6
 
-##--------------------------------------------------------------------------------------------------
-## macOS
-##--------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
+# macOS
+#--------------------------------------------------------------------------------------------------
 
 - job: macOS_qt5
   pool:
@@ -130,6 +130,31 @@ jobs:
       zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-macOS-qt6
+
+#--------------------------------------------------------------------------------------------------
+# iOS
+#--------------------------------------------------------------------------------------------------
+
+- job: iOS_qt5
+  pool:
+    vmImage: "macOS-10.15"
+  steps:
+  - bash: |
+      sh generate.sh iOS build
+      zip -rq 3rdparty.zip iOS
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-iOS-qt5
+
+- job: iOS_qt6
+  pool:
+    vmImage: "macOS-10.15"
+  steps:
+  - bash: |
+      sh environment.sh qt6
+      sh generate.sh iOS build
+      zip -rq 3rdparty.zip iOS
+  - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
+    artifact: 3rdparty-iOS-qt6
 
 #--------------------------------------------------------------------------------------------------
 # Linux

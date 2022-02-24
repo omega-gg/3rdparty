@@ -37,6 +37,11 @@ jom_versionA="1.1.3"
 jom_versionB="1_1_3"
 
 #--------------------------------------------------------------------------------------------------
+# iOS
+
+VLC_version_iOS="3.3.18b9"
+
+#--------------------------------------------------------------------------------------------------
 # Linux
 
 lib32="/usr/lib/i386-linux-gnu"
@@ -182,7 +187,8 @@ getSource()
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "iOS" -a $1 != "linux" -a \
+     $1 != "android" ] \
    || \
    [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
 
@@ -315,6 +321,10 @@ if [ $os = "windows" ]; then
 elif [ $1 = "macOS" ]; then
 
     VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version-intel64.dmg"
+
+elif [ $1 = "iOS" ]; then
+
+    VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS-9f5506e-584bf4f6.tar.xz"
 
 elif [ $1 = "android" ]; then
 
@@ -540,6 +550,20 @@ if [ $qt != "qt4" ]; then
             Qt="Qt/$Qt_version/macos"
         fi
 
+    elif [ $1 = "iOS" ]; then
+
+        if [ $qt = "qt6" ]; then
+
+            # NOTE Qt6: We need the desktop toolchain to build iOS.
+            bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
+                             --toolchain clang_64 $Qt_modules
+        fi
+
+        bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
+                         --toolchain ios $Qt_modules
+
+        Qt="Qt/$Qt_version/ios"
+
     elif [ $platform = "linux64" ]; then
 
         if [ $qt = "qt5" ]; then
@@ -568,6 +592,7 @@ if [ $qt != "qt4" ]; then
         else
             Qt="Qt/$Qt_version"
 
+            # NOTE Qt6: We need the desktop toolchain to build android.
             installQt desktop gcc_64 "$Qt_modules icu"
 
             installQt android android_armv7     "$Qt_modules"
@@ -669,6 +694,37 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         rm -f "$QtX"/plugins/imageformats/*debug*
 
         find "$QtX"/lib -name "*_debug*" -delete
+
+    elif [ $1 = "iOS" ]; then
+
+        if [ $qt = "qt5" ]; then
+
+            mv "$Qt"/bin/moc*         "$QtX"/bin
+            mv "$Qt"/bin/rcc*         "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+        else
+            bin="macos/bin"
+
+            libexec="macos/libexec"
+
+            mkdir "$QtX"/libexec
+
+            mv "$Qt/$bin"/qsb* "$QtX"/bin
+
+            mv "$Qt/$libexec"/moc*         "$QtX"/libexec
+            mv "$Qt/$libexec"/rcc*         "$QtX"/libexec
+            mv "$Qt/$libexec"/qmlcachegen* "$QtX"/libexec
+        fi
+
+        mv "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
+
+        #------------------------------------------------------------------------------------------
+
+        rm -f "$QtX"/plugins/platforms/*debug*
+        rm -f "$QtX"/plugins/imageformats/*debug*
+
+        rm "$QtX"/lib/*debug*
 
     elif [ $platform = "linux64" ]; then
 
@@ -878,6 +934,26 @@ if [ $os = "windows" ]; then
     path="$VLC/vlc-$VLC_version"
 
     mv "$path"/* "$VLC"
+
+    rm -rf "$path"
+
+elif [ $1 = "iOS" ]; then
+
+    echo ""
+    echo "DOWNLOADING VLC"
+    echo $VLC_url
+
+    curl -L -o VLC.tar.xz $VLC_url
+
+    mkdir -p "$VLC"
+
+    tar -xf VLC.tar.xz -C "$VLC"
+
+    rm VLC.tar.xz
+
+    path="$VLC/MobileVLCKit-binary"
+
+    mv "$path/MobileVLCKit.xcframework" "$VLC"
 
     rm -rf "$path"
 
