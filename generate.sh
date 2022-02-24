@@ -560,7 +560,7 @@ if [ $qt != "qt4" ]; then
         fi
 
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
-                         --toolchain ios $Qt_modules
+                         --target ios --toolchain ios $Qt_modules
 
         Qt="Qt/$Qt_version/ios"
 
