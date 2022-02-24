@@ -827,9 +827,9 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        ssl="openssl-$SSL_versionC/x86/bin"
+        ssl="ssl/openssl-$SSL_versionC/x86/bin"
     else
-        ssl="openssl-$SSL_versionC/x64/bin"
+        ssl="ssl/openssl-$SSL_versionC/x64/bin"
     fi
 
     mv $ssl/libssl*.dll    "$path"
