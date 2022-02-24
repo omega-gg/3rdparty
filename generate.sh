@@ -951,11 +951,14 @@ elif [ $1 = "iOS" ]; then
 
     rm VLC.tar.xz
 
-    path="$VLC/MobileVLCKit-binary"
+    path="$VLC/MobileVLCKit-binary/MobileVLCKit.xcframework"
 
-    mv "$path/MobileVLCKit.xcframework" "$VLC"
+    mv "$path"/* "$VLC"
 
     rm -rf "$path"
+
+    # NOTE: Copying the headers in the root folder.
+    cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
 
 elif [ $1 = "macOS" ]; then
 
