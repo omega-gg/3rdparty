@@ -1151,6 +1151,8 @@ if [ $1 = "android" ]; then
     echo ""
     echo "DOWNLOADING Sky"
 
+    name="linux64-qt5"
+
     echo "ARTIFACT Sky-$name"
     echo $Sky_url
 
