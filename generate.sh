@@ -755,7 +755,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             libexec="gcc_64/libexec"
 
-            QtBase="$QtX/../gcc_64"
+            QtBase="$QtX/gcc_64"
 
             mkdir -p "$QtBase/$libexec"
 
