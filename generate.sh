@@ -1151,8 +1151,6 @@ if [ $1 = "android" ]; then
     echo ""
     echo "DOWNLOADING Sky"
 
-    name="linux64-qt5"
-
     echo "ARTIFACT Sky-$name"
     echo $Sky_url
 
@@ -1172,4 +1170,10 @@ if [ $1 = "android" ]; then
     unzip -q Sky.zip -d "$Sky"
 
     rm Sky.zip
+
+    name="$Sky/Sky-$name"
+
+    unzip -q "$name"/Sky.zip -d "$Sky"
+
+    rm -rf "$name"
 fi
