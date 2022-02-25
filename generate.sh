@@ -27,6 +27,8 @@ VLC_version="3.0.16"
 
 libtorrent_artifact="3875"
 
+Sky_artifact="4360"
+
 #--------------------------------------------------------------------------------------------------
 # Windows
 
@@ -291,6 +293,8 @@ JDK="$external/JDK/$JDK_versionA"
 SDK="$external/SDK/$SDK_version"
 NDK="$external/NDK"
 
+Sky="$external/Sky"
+
 #--------------------------------------------------------------------------------------------------
 
 thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$artifact/artifacts"
@@ -339,6 +343,8 @@ elif [ $1 = "android" ]; then
 
     VLC_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC_version_android/libvlc-all-$VLC_version_android.aar"
 fi
+
+Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
 
 #--------------------------------------------------------------------------------------------------
 # FIXME Azure: grep needs the language to be set to UTF-8.
@@ -1134,4 +1140,36 @@ if [ $1 = "android" ]; then
     ln -s "../SDK/$SDK_version/ndk/$NDK_versionB" "$NDK_versionA"
 
     cd -
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Sky
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING Sky"
+
+    name="linux64-qt5"
+
+    echo "ARTIFACT Sky-$name"
+    echo $Sky_url
+
+    Sky_url=$(getSource $Sky_url Sky-$name)
+
+    echo ""
+    echo "DOWNLOADING Sky-$name"
+    echo $Sky_url
+
+    curl --retry 3 -L -o Sky.zip $Sky_url
+
+    echo ""
+    echo "EXTRACTING Sky-$name"
+
+    mkdir -p "$Sky"
+
+    unzip -q Sky.zip -d "$Sky"
+
+    rm Sky.zip
 fi
