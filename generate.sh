@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="4357"
+artifact="4368"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
@@ -1163,9 +1163,6 @@ if [ $1 = "android" ]; then
     echo $Sky_url
 
     curl --retry 3 -L -o Sky.zip $Sky_url
-
-    echo ""
-    echo "EXTRACTING Sky-$name"
 
     mkdir -p "$Sky"
 
