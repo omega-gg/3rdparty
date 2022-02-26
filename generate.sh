@@ -383,9 +383,7 @@ if [ $1 = "linux" ]; then
 
 elif [ $1 = "android" -a $host = "linux" ]; then
 
-    sudo apt-get install -y build-essential
-
-    echo ""
+    sh install.sh linux
 fi
 
 #--------------------------------------------------------------------------------------------------
