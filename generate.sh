@@ -194,7 +194,7 @@ if [ $# != 1 -a $# != 2 ] \
    || \
    [ $# = 2 -a "$2" != "build" -a "$2" != "clean" ]; then
 
-    echo "Usage: generate <win32 | win64 | macOS | linux | android> [build | clean]"
+    echo "Usage: generate <win32 | win64 | macOS | iOS | linux | android> [build | clean]"
 
     exit 1
 fi
