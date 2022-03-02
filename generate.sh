@@ -754,6 +754,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         #------------------------------------------------------------------------------------------
 
+        if [ $qt = "qt6" ]; then
+
+            QtX="$QtX/ios"
+        fi
+
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
 
