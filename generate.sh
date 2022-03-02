@@ -82,10 +82,17 @@ installQt()
 
 mkdirQt()
 {
-    if [ $platform != "android" -o $qt = "qt5" ]; then
+    if [ $qt = "qt5" -o $os != "mobile" ]; then
 
         mkdir -p "$QtX"/$1
-    else
+
+    elif [ $platform = "iOS" ]; then
+
+        mkdir -p "$QtX"/macos/$1
+        mkdir -p "$QtX"/ios/$1
+
+    else # android
+
         mkdir -p "$QtX"/gcc_64/$1
         mkdir -p "$QtX"/android_armv7/$1
         mkdir -p "$QtX"/android_arm64_v8a/$1
@@ -96,10 +103,17 @@ mkdirQt()
 
 moveQt()
 {
-    if [ $platform != "android" -o $qt = "qt5" ]; then
+    if [ $qt = "qt5" -o $os != "mobile" ]; then
 
         mv "$Qt"/$1 "$QtX"/$2
-    else
+
+    elif [ $platform = "iOS" ]; then
+
+        mv "$Qt"/macos/$1 "$QtX"/macos/$2
+        mv "$Qt"/ios/$1   "$QtX"/ios/$2
+
+    else # android
+
         mv "$Qt"/gcc_64/$1            "$QtX"/gcc_64/$2
         mv "$Qt"/android_armv7/$1     "$QtX"/android_armv7/$2
         mv "$Qt"/android_arm64_v8a/$1 "$QtX"/android_arm64_v8a/$2
@@ -108,12 +122,18 @@ moveQt()
     fi
 }
 
-moveAndroid()
+moveMobile()
 {
-    if [ $qt = "qt5" ]; then
+    if [ $qt = "qt5" -o $os != "mobile" ]; then
 
         mv "$Qt"/$1 "$QtX"/$2
-    else
+
+    elif [ $platform = "iOS" ]; then
+
+        mv "$Qt"/ios/$1 "$QtX"/ios/$2
+
+    else # android
+
         mv "$Qt"/android_armv7/$1     "$QtX"/android_armv7/$2
         mv "$Qt"/android_arm64_v8a/$1 "$QtX"/android_arm64_v8a/$2
         mv "$Qt"/android_x86/$1       "$QtX"/android_x86/$2
@@ -561,17 +581,19 @@ if [ $qt != "qt4" ]; then
 
     elif [ $1 = "iOS" ]; then
 
-        if [ $qt = "qt6" ]; then
+        if [ $qt = "qt5" ]; then
 
+            Qt="Qt/$Qt_version/ios"
+        else
             # NOTE Qt6: We need the desktop toolchain to build iOS.
             bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                              --toolchain clang_64 $Qt_modules
+
+            Qt="Qt/$Qt_version"
         fi
 
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --target ios --toolchain ios $Qt_modules
-
-        Qt="Qt/$Qt_version/ios"
 
     elif [ $platform = "linux64" ]; then
 
@@ -711,10 +733,24 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/moc*         "$QtX"/bin
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+        else
+            QtBase="$QtX/macos"
+
+            bin="macos/bin"
+
+            libexec="macos/libexec"
+
+            mkdir -p "$QtBase/libexec"
+
+            mv "$Qt/$bin"/qsb* "$QtBase/bin"
+
+            mv "$Qt/$libexec"/moc*         "$QtBase/libexec"
+            mv "$Qt/$libexec"/rcc*         "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlcachegen* "$QtBase/libexec"
         fi
 
-        mv "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
-        mv "$Qt"/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
+        moveMobile "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
+        moveMobile "$Qt"/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
@@ -748,8 +784,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     elif [ $1 = "android" ]; then
 
-        moveAndroid "jar" "."
-        moveAndroid "src" "."
+        moveMobile "jar" "."
+        moveMobile "src" "."
 
         if [ $qt = "qt5" ]; then
 
@@ -760,11 +796,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/bin/androiddeployqt "$QtX"/bin
         else
+            QtBase="$QtX/gcc_64"
+
             bin="gcc_64/bin"
 
             libexec="gcc_64/libexec"
-
-            QtBase="$QtX/gcc_64"
 
             mkdir -p "$QtBase/libexec"
 
@@ -778,8 +814,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$bin"/androiddeployqt "$QtBase/bin"
         fi
 
-        moveAndroid "plugins/platforms/lib*.so"    "plugins/platforms"
-        moveAndroid "plugins/imageformats/lib*.so" "plugins/imageformats"
+        moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
+        moveMobile "plugins/imageformats/lib*.so" "plugins/imageformats"
 
         if [ $qt = "qt5" ]; then
 
