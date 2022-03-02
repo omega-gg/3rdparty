@@ -793,6 +793,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         if [ $qt = "qt6" ]; then
 
+            QtX="$QtX/macOS"
+
+            find "$QtX"/lib -name "*_debug*" -delete
+
             QtX="$QtX/ios"
         fi
 
