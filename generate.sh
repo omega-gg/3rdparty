@@ -109,16 +109,33 @@ moveQt()
 
     elif [ $platform = "iOS" ]; then
 
-        mv "$Qt"/macos/$1 "$QtX"/macos/$2
-        mv "$Qt"/ios/$1   "$QtX"/ios/$2
+        mv "$Qt"/ios/$1 "$QtX"/ios/$2
 
     else # android
 
-        mv "$Qt"/gcc_64/$1            "$QtX"/gcc_64/$2
         mv "$Qt"/android_armv7/$1     "$QtX"/android_armv7/$2
         mv "$Qt"/android_arm64_v8a/$1 "$QtX"/android_arm64_v8a/$2
         mv "$Qt"/android_x86/$1       "$QtX"/android_x86/$2
         mv "$Qt"/android_x86_64/$1    "$QtX"/android_x86_64/$2
+    fi
+}
+
+moveQtAll()
+{
+    moveQt $1 $2
+
+    if [ $os != "mobile" -o $qt = "qt5" ]; then
+
+        return
+    fi
+
+    if [ $platform = "iOS" ]; then
+
+        mv "$Qt"/macos/$1 "$QtX"/macos/$2
+
+    else # android
+
+        mv "$Qt"/gcc_64/$1 "$QtX"/gcc_64/$2
     fi
 }
 
@@ -646,9 +663,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     mkdirQt "plugins/imageformats"
     mkdirQt "qml"
 
-    moveQt "bin/qmake*" "bin"
+    moveQtAll "bin/qmake*" "bin"
 
-    moveQt "bin/*qt.conf" "bin"
+    moveQtAll "bin/*qt.conf" "bin"
 
     moveQt "lib" "."
 
@@ -662,7 +679,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         moveQt "qml/QtQuick" "qml"
     fi
 
-    moveQt "mkspecs" "."
+    moveQtAll "mkspecs" "."
 
     if [ $os = "windows" ]; then
 
