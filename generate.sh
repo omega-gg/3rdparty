@@ -225,7 +225,12 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
         name="$1"
     fi
 else
-    os="other"
+    if [ $1 = "iOS" -o $1 = "android" ]; then
+
+        os="mobile"
+    else
+        os="default"
+    fi
 
     if [ $1 = "linux" ]; then
 
@@ -1144,12 +1149,17 @@ fi
 # Sky
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "android" ]; then
+if [ $os = "mobile" ]; then
 
     echo ""
     echo "DOWNLOADING Sky"
 
-    name="linux64-$qt"
+    if [ $1 = "iOS" ]; then
+
+        name="macOS-$qt"
+    else
+        name="linux64-$qt"
+    fi
 
     echo "ARTIFACT Sky-$name"
     echo $Sky_url
