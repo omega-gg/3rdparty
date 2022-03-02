@@ -88,18 +88,36 @@ mkdirQt()
 
     elif [ $platform = "iOS" ]; then
 
-        mkdir -p "$QtX"/macos/$1
         mkdir -p "$QtX"/ios/$1
 
     else # android
 
-        mkdir -p "$QtX"/gcc_64/$1
         mkdir -p "$QtX"/android_armv7/$1
         mkdir -p "$QtX"/android_arm64_v8a/$1
         mkdir -p "$QtX"/android_x86/$1
         mkdir -p "$QtX"/android_x86_64/$1
     fi
 }
+
+mkdirQtAll()
+{
+    mkdirQt $1 $2
+
+    if [ $os != "mobile" -o $qt = "qt5" ]; then
+
+        return
+    fi
+
+    if [ $platform = "iOS" ]; then
+
+        mkdir -p "$QtX"/macos/$1
+
+    else # android
+
+        mkdir -p "$QtX"/gcc_64/$1
+    fi
+}
+
 
 moveQt()
 {
@@ -658,7 +676,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     echo ""
     echo "COPYING Qt"
 
-    mkdirQt "bin"
+    mkdirQtAll "bin"
+
     mkdirQt "plugins/platforms"
     mkdirQt "plugins/imageformats"
     mkdirQt "qml"
