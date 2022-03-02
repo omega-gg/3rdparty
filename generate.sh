@@ -82,7 +82,7 @@ installQt()
 
 mkdirQt()
 {
-    if [ $qt = "qt5" -o $os != "mobile" ]; then
+    if [ $os != "mobile" -o $qt = "qt5" ]; then
 
         mkdir -p "$QtX"/$1
 
@@ -103,7 +103,7 @@ mkdirQt()
 
 moveQt()
 {
-    if [ $qt = "qt5" -o $os != "mobile" ]; then
+    if [ $os != "mobile" -o $qt = "qt5" ]; then
 
         mv "$Qt"/$1 "$QtX"/$2
 
@@ -124,7 +124,7 @@ moveQt()
 
 moveMobile()
 {
-    if [ $qt = "qt5" -o $os != "mobile" ]; then
+    if [ $os != "mobile" -o $qt = "qt5" ]; then
 
         mv "$Qt"/$1 "$QtX"/$2
 
@@ -749,8 +749,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/qmlcachegen* "$QtBase/libexec"
         fi
 
-        moveMobile "$Qt"/plugins/platforms/libq*.a    "$QtX"/plugins/platforms
-        moveMobile "$Qt"/plugins/imageformats/libq*.a "$QtX"/plugins/imageformats
+        moveMobile plugins/platforms/libq*.a    plugins/platforms
+        moveMobile plugins/imageformats/libq*.a plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
