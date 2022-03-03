@@ -796,6 +796,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             find "$QtX"/macOS/lib -name "*_debug*" -delete
 
             QtX="$QtX/ios"
+
+            # NOTE Qt6: We replace target_qt otherwise mkspecs are not found.
+            cp dist/iOS/target_qt.conf "$QtX"/bin
         fi
 
         rm -f "$QtX"/plugins/platforms/*debug*
