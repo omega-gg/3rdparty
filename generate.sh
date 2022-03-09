@@ -27,7 +27,7 @@ VLC_version="3.0.16"
 
 libtorrent_artifact="3875"
 
-Sky_artifact="4377"
+Sky_artifact="4457"
 
 #--------------------------------------------------------------------------------------------------
 # Windows
@@ -767,9 +767,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         if [ $qt = "qt5" ]; then
 
-            mv "$Qt"/bin/moc*         "$QtX"/bin
-            mv "$Qt"/bin/rcc*         "$QtX"/bin
-            mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+            mv "$Qt"/bin/moc*             "$QtX"/bin
+            mv "$Qt"/bin/rcc*             "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
+            mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
         else
             QtBase="$QtX/macos"
 
@@ -781,13 +782,15 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt/$bin"/qsb* "$QtBase/bin"
 
-            mv "$Qt/$libexec"/moc*         "$QtBase/libexec"
-            mv "$Qt/$libexec"/rcc*         "$QtBase/libexec"
-            mv "$Qt/$libexec"/qmlcachegen* "$QtBase/libexec"
+            mv "$Qt/$libexec"/moc*             "$QtBase/libexec"
+            mv "$Qt/$libexec"/rcc*             "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
         fi
 
-        moveMobile plugins/platforms/libq*.a    plugins/platforms
-        moveMobile plugins/imageformats/libq*.a plugins/imageformats
+        # NOTE iOS: We need .a and .prl files.
+        moveMobile plugins/platforms/libq*.*    plugins/platforms
+        moveMobile plugins/imageformats/libq*.* plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
