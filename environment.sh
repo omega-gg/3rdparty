@@ -10,6 +10,8 @@ compiler_win="mingw"
 
 qt="qt5"
 
+mobile="simulator"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
@@ -50,9 +52,12 @@ getOs()
 
 if [ $# != 1 ] \
    || \
-   [ $1 != "mingw" -a $1 != "msvc" -a $1 != "qt4" -a $1 != "qt5" -a $1 != "qt6" ]; then
+   [ $1 != "mingw" -a $1 != "msvc" -a $1 != "qt4" -a $1 != "qt5" -a $1 != "qt6" -a \
+     $1 != "simulator" -a $1 != "device" ]; then
 
-    echo "Usage: environment <mingw | msvc | qt4 | qt5 | qt6>"
+    echo "Usage: environment <mingw | msvc"
+    echo "                    qt4 | qt5 | qt6 |"
+    echo "                    simulator | device>"
 
     exit 1
 fi
@@ -67,13 +72,13 @@ host=$(getOs)
 # Replacements
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "msvc" ]; then
+if [ $1 = "msvc" -o $1 = "mingw" ]; then
 
-    replace compiler_win $compiler_win msvc
+    replace compiler_win $compiler_win $1
 
-elif [ $1 = "mingw" ]; then
+elif [ $1 = "qt4" -o $1 = "qt5" -o $1 = "qt6" ]; then
 
-    replace compiler_win $compiler_win mingw
-else
     replace qt $qt $1
+else
+    replace mobile $mobile $1
 fi
