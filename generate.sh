@@ -765,6 +765,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     elif [ $1 = "iOS" ]; then
 
+        mkdirQt "plugins/iconengines"
+        mkdirQt "plugins/bearer"
+        mkdirQt "plugins/qmltooling"
+
         if [ $qt = "qt5" ]; then
 
             mv "$Qt"/bin/moc*             "$QtX"/bin
@@ -791,6 +795,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         # NOTE iOS: We need .a and .prl files.
         moveMobile plugins/platforms/libq*.*    plugins/platforms
         moveMobile plugins/imageformats/libq*.* plugins/imageformats
+        moveMobile plugins/iconengines/libq*.*  plugins/iconengines
+        moveMobile plugins/bearer/libq*.*       plugins/bearer
+        moveMobile plugins/qmltooling/libq*.*   plugins/qmltooling
 
         #------------------------------------------------------------------------------------------
 
