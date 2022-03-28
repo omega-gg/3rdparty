@@ -780,6 +780,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             # NOTE iOS: We need .a and .prl files.
             moveMobile plugins/bearer/libq*.* plugins/bearer
         else
+            mkdirQt "plugins/networkinformation"
+            mkdirQt "plugins/tls"
+
             QtBase="$QtX/macos"
 
             bin="macos/bin"
@@ -794,6 +797,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/rcc*             "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
+
+            # NOTE iOS: We need .a and .prl files.
+            moveMobile plugins/networkinformation/libq*.* plugins/networkinformation
+            moveMobile plugins/tls/libq*.*                plugins/tls
         fi
 
         # NOTE iOS: We need .a and .prl files.
