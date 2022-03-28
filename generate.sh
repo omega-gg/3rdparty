@@ -388,7 +388,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "iOS" ]; then
 
-    VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS-9f5506e-584bf4f6.tar.xz"
+    VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS-9748e1a4-426513d8.tar.xz"
 
 elif [ $1 = "android" ]; then
 
