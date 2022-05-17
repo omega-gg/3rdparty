@@ -15,10 +15,10 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg qtmultimedia"
 
 Qt6_version="6.2.1"
-Qt6_modules="qtbase qtdeclarative qtsvg qtmultimedia qt5compat qtshadertools"
+Qt6_modules="qtbase qtdeclarative qtsvg addons.qtmultimedia qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
-SSL_versionB="1.1.1m"
+SSL_versionB="1.1.1o"
 SSL_versionC="1.1"
 
 VLC_version="3.0.16"
