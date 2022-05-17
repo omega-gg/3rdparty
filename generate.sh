@@ -12,10 +12,10 @@ source="http://omega.gg/get/Sky/3rdparty"
 #--------------------------------------------------------------------------------------------------
 
 Qt5_version="5.15.2"
-Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg"
+Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtsvg qtmultimedia"
 
 Qt6_version="6.2.1"
-Qt6_modules="qtbase qtdeclarative qtsvg qt5compat qtshadertools"
+Qt6_modules="qtbase qtdeclarative qtsvg qtmultimedia qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1m"
@@ -680,6 +680,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     mkdirQt "plugins/platforms"
     mkdirQt "plugins/imageformats"
+    mkdirQt "plugins/mediaservice"
     mkdirQt "qml"
 
     moveQtAll "bin/qmake*" "bin"
@@ -693,10 +694,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     if [ $qt = "qt5" ]; then
 
-        mv "$Qt"/qml/QtQuick.2 "$QtX"/qml
+        mv "$Qt"/qml/QtQuick.2    "$QtX"/qml
+        mv "$Qt"/qml/QtMultimedia "$QtX"/qml
     else
-        moveQt "qml/QtQml"   "qml"
-        moveQt "qml/QtQuick" "qml"
+        moveQt "qml/QtQml"        "qml"
+        moveQt "qml/QtQuick"      "qml"
+        moveQt "qml/QtMultimedia" "qml"
     fi
 
     moveQtAll "mkspecs" "."
@@ -718,6 +721,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         mv "$Qt"/plugins/platforms/q*.dll    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/mediaservice/q*.dll "$QtX"/plugins/mediaservice
 
         #------------------------------------------------------------------------------------------
 
@@ -725,6 +729,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         rm -f "$QtX"/plugins/platforms/*d.*
         rm -f "$QtX"/plugins/imageformats/*d.*
+        rm -f "$QtX"/plugins/mediaservice/*d.*
 
         rm -f "$QtX"/lib/*d.*
 
@@ -755,11 +760,13 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/mediaservice/libq*.dylib "$QtX"/plugins/mediaservice
 
         #------------------------------------------------------------------------------------------
 
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
+        rm -f "$QtX"/plugins/mediaservice/*debug*
 
         find "$QtX"/lib -name "*_debug*" -delete
 
@@ -806,6 +813,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         # NOTE iOS: We need .a and .prl files.
         moveMobile plugins/platforms/libq*.*    plugins/platforms
         moveMobile plugins/imageformats/libq*.* plugins/imageformats
+        moveMobile plugins/mediaservice/libq*.* plugins/mediaservice
         moveMobile plugins/iconengines/libq*.*  plugins/iconengines
         moveMobile plugins/qmltooling/libq*.*   plugins/qmltooling
 
@@ -823,6 +831,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
+        rm -f "$QtX"/plugins/mediaservice/*debug*
 
         rm "$QtX"/lib/*debug*
 
@@ -847,6 +856,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/mediaservice/libq*.so      "$QtX"/plugins/mediaservice
         mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
 
     elif [ $1 = "android" ]; then
@@ -883,6 +893,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
         moveMobile "plugins/imageformats/lib*.so" "plugins/imageformats"
+        moveMobile "plugins/mediaservice/lib*.so" "plugins/mediaservice"
 
         if [ $qt = "qt5" ]; then
 
