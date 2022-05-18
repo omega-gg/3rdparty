@@ -852,7 +852,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
 
-            mv "$Qt"/plugins/mediaservice/libq*.so "$QtX"/plugins/mediaservice
+            mv "$Qt"/plugins/mediaservice/lib*.so "$QtX"/plugins/mediaservice
         else
             mkdir -p "$QtX"/libexec
 
