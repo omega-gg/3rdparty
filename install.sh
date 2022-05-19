@@ -398,7 +398,7 @@ if [ $platform = "linux32" ]; then
     sudo cp "$lib"/libQt5DBus.so.$Qt5_version        "$Qt5"/lib/libQt5DBus.so.5
 
     # NOTE Qt5: For some reason this library is private.
-    sudo cp "$lib"/libQt5MultimediaQuick_p.so.$Qt5_version "$Qt5"/lib/libQt5MultimediaQuick.so.5
+    sudo cp "$lib"/libQt5MultimediaQuick.so.$Qt5_version "$Qt5"/lib/libQt5MultimediaQuick.so.5
 
     if [ -f "$lib"/libQt5QmlModels.so.$Qt5_version ]; then
 
