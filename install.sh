@@ -152,7 +152,7 @@ fi
 Qt4_linux="qt4-default libqtwebkit-dev openssl"
 
 Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev libqt5xmlpatterns5-dev "\
-"libqt5svg5-dev libqt5x11extras5-dev qml-module-qtquick2"
+"libqt5svg5-dev qtmultimedia5-dev libqt5x11extras5-dev qml-module-qtquick2"
 
 VLC_linux="libvlc-dev vlc"
 
