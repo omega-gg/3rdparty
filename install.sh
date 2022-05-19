@@ -359,9 +359,11 @@ if [ $platform = "linux32" ]; then
 
     mkdir -p "$Qt5"/plugins/platforms
     mkdir -p "$Qt5"/plugins/imageformats
+    mkdir -p "$Qt5"/plugins/mediaservice
     mkdir -p "$Qt5"/plugins/xcbglintegrations
 
     mkdir -p "$Qt5"/qml/QtQuick.2
+    mkdir -p "$Qt5"/qml/QtMultimedia
 
     sudo cp -r "$include"/qt5/* "$Qt5"/include
 
@@ -381,18 +383,20 @@ if [ $platform = "linux32" ]; then
         sudo cp "$lib"/libicuuc.so.66   "$Qt5"/lib
     fi
 
-    sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
-    sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
-    sudo cp "$lib"/libQt5Network.so.$Qt5_version     "$Qt5"/lib/libQt5Network.so.5
-    sudo cp "$lib"/libQt5OpenGL.so.$Qt5_version      "$Qt5"/lib/libQt5OpenGL.so.5
-    sudo cp "$lib"/libQt5Qml.so.$Qt5_version         "$Qt5"/lib/libQt5Qml.so.5
-    sudo cp "$lib"/libQt5Quick.so.$Qt5_version       "$Qt5"/lib/libQt5Quick.so.5
-    sudo cp "$lib"/libQt5Svg.so.$Qt5_version         "$Qt5"/lib/libQt5Svg.so.5
-    sudo cp "$lib"/libQt5Widgets.so.$Qt5_version     "$Qt5"/lib/libQt5Widgets.so.5
-    sudo cp "$lib"/libQt5Xml.so.$Qt5_version         "$Qt5"/lib/libQt5Xml.so.5
-    sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version "$Qt5"/lib/libQt5XmlPatterns.so.5
-    sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version      "$Qt5"/lib/libQt5XcbQpa.so.5
-    sudo cp "$lib"/libQt5DBus.so.$Qt5_version        "$Qt5"/lib/libQt5DBus.so.5
+    sudo cp "$lib"/libQt5Core.so.$Qt5_version            "$Qt5"/lib/libQt5Core.so.5
+    sudo cp "$lib"/libQt5Gui.so.$Qt5_version             "$Qt5"/lib/libQt5Gui.so.5
+    sudo cp "$lib"/libQt5Network.so.$Qt5_version         "$Qt5"/lib/libQt5Network.so.5
+    sudo cp "$lib"/libQt5OpenGL.so.$Qt5_version          "$Qt5"/lib/libQt5OpenGL.so.5
+    sudo cp "$lib"/libQt5Qml.so.$Qt5_version             "$Qt5"/lib/libQt5Qml.so.5
+    sudo cp "$lib"/libQt5Quick.so.$Qt5_version           "$Qt5"/lib/libQt5Quick.so.5
+    sudo cp "$lib"/libQt5Svg.so.$Qt5_version             "$Qt5"/lib/libQt5Svg.so.5
+    sudo cp "$lib"/libQt5Widgets.so.$Qt5_version         "$Qt5"/lib/libQt5Widgets.so.5
+    sudo cp "$lib"/libQt5Xml.so.$Qt5_version             "$Qt5"/lib/libQt5Xml.so.5
+    sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version     "$Qt5"/lib/libQt5XmlPatterns.so.5
+    sudo cp "$lib"/libQt5Multimedia.so.$Qt5_version      "$Qt5"/lib/libQt5Multimedia.so.5
+    sudo cp "$lib"/libQt5MultimediaQuick.so.$Qt5_version "$Qt5"/lib/libQt5MultimediaQuick.so.5
+    sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version          "$Qt5"/lib/libQt5XcbQpa.so.5
+    sudo cp "$lib"/libQt5DBus.so.$Qt5_version            "$Qt5"/lib/libQt5DBus.so.5
 
     if [ -f "$lib"/libQt5QmlModels.so.$Qt5_version ]; then
 
@@ -405,6 +409,8 @@ if [ $platform = "linux32" ]; then
     sudo cp "$lib"/qt5/plugins/imageformats/libqsvg.so  "$Qt5"/plugins/imageformats
     sudo cp "$lib"/qt5/plugins/imageformats/libqjpeg.so "$Qt5"/plugins/imageformats
 
+    sudo cp "$lib"/qt5/plugins/mediaservice/libgstcamerabin.so "$Qt5"/plugins/mediaservice
+
     sudo cp "$lib"/qt5/plugins/xcbglintegrations/libqxcb-egl-integration.so \
             "$Qt5"/plugins/xcbglintegrations
 
@@ -413,6 +419,9 @@ if [ $platform = "linux32" ]; then
 
     sudo cp "$lib"/qt5/qml/QtQuick.2/libqtquick2plugin.so "$Qt5"/qml/QtQuick.2
     sudo cp "$lib"/qt5/qml/QtQuick.2/qmldir               "$Qt5"/qml/QtQuick.2
+
+    sudo cp "$lib"/qt5/qml/QtMultimedia/lib*multimedia*.so "$Qt5"/qml/QtMultimedia
+    sudo cp "$lib"/qt5/qml/QtMultimedia/qmldir             "$Qt5"/qml/QtMultimedia
 fi
 
 echo ""

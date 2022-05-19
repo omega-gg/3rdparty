@@ -1055,29 +1055,6 @@ if [ $os = "windows" ]; then
 
     rm -rf "$path"
 
-elif [ $1 = "iOS" ]; then
-
-    echo ""
-    echo "DOWNLOADING VLC"
-    echo $VLC_url
-
-    curl -L -o VLC.tar.xz $VLC_url
-
-    mkdir -p "$VLC"
-
-    tar -xf VLC.tar.xz -C "$VLC"
-
-    rm VLC.tar.xz
-
-    path="$VLC/MobileVLCKit-binary"
-
-    mv "$path"/MobileVLCKit.xcframework/* "$VLC"
-
-    rm -rf "$path"
-
-    # NOTE: Copying the headers in the root folder.
-    cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
-
 elif [ $1 = "macOS" ]; then
 
     echo ""
@@ -1117,6 +1094,29 @@ elif [ $1 = "macOS" ]; then
 
         rm -rf "$path"
     fi
+
+elif [ $1 = "iOS" ]; then
+
+    echo ""
+    echo "DOWNLOADING VLC"
+    echo $VLC_url
+
+    curl -L -o VLC.tar.xz $VLC_url
+
+    mkdir -p "$VLC"
+
+    tar -xf VLC.tar.xz -C "$VLC"
+
+    rm VLC.tar.xz
+
+    path="$VLC/MobileVLCKit-binary"
+
+    mv "$path"/MobileVLCKit.xcframework/* "$VLC"
+
+    rm -rf "$path"
+
+    # NOTE: Copying the headers in the root folder.
+    cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
 
 elif [ $1 = "android" ]; then
 
