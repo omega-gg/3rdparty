@@ -715,7 +715,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/bin/lib*.dll "$QtX"/bin
 
-            mv "$Qt"/plugins/mediaservice/q*.dll "$QtX"/plugins/mediaservice
+            mv "$Qt"/plugins/mediaservice/*.dll "$QtX"/plugins/mediaservice
 
             rm -f "$QtX"/plugins/mediaservice/*d.*
         else
@@ -749,7 +749,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             # NOTE: This is required for macdeployqt.
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
 
-            mv "$Qt"/plugins/mediaservice/libq*.dylib "$QtX"/plugins/mediaservice
+            mv "$Qt"/plugins/mediaservice/lib*.dylib "$QtX"/plugins/mediaservice
 
             rm -f "$QtX"/plugins/mediaservice/*debug*
         else
@@ -789,7 +789,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
 
-            moveMobile plugins/mediaservice/libq*.* plugins/mediaservice
+            moveMobile plugins/mediaservice/lib*.* plugins/mediaservice
             # NOTE iOS: We need .a and .prl files.
             moveMobile plugins/bearer/libq*.* plugins/bearer
 
