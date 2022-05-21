@@ -587,11 +587,19 @@ if [ $qt != "qt4" ]; then
 
         if [ $compiler = "mingw" ]; then
 
-            if [ $1 = "win32" ]; then
+            if [ $qt = "qt5" ]; then
 
-                Qt="Qt/$Qt_version/mingw81_32"
+                if [ $1 = "win32" ]; then
+
+                    Qt="Qt/$Qt_version/mingw81_32"
+                else
+                    Qt="Qt/$Qt_version/mingw81_64"
+                fi
+            elif [ $1 = "win32" ]; then
+
+                Qt="Qt/$Qt_version/mingw_32"
             else
-                Qt="Qt/$Qt_version/mingw81_64"
+                Qt="Qt/$Qt_version/mingw_64"
             fi
         else
             if [ $1 = "win32" ]; then
