@@ -570,8 +570,11 @@ if [ $qt != "qt4" ]; then
             else
                 toolchain="$platform"_msvc2019_64
             fi
-        else
+        elif [ $qt = "qt5" ]; then
+
             toolchain="$platform"_mingw81
+        else
+            toolchain="$platform"_mingw
         fi
 
         if [ $qt = "qt5" ]; then
