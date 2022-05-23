@@ -32,8 +32,9 @@ Sky_artifact="4726"
 #--------------------------------------------------------------------------------------------------
 # Windows
 
-MinGW_versionA="8.1.0"
-MinGW_versionB="810"
+MinGW_versionA="11.2.0"
+MinGW_versionB="1120"
+MinGW_versionC="810"
 
 jom_versionA="1.1.3"
 jom_versionB="1_1_3"
@@ -369,7 +370,7 @@ if [ $os = "windows" ]; then
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win32.zip"
     else
-        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win64_mingw810/8.1.0-1-202004170606x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z"
+        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/9.0.0-1-202203221220mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win64.zip"
     fi
@@ -942,7 +943,7 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
     if [ $1 = "win32" ]; then
 
-        path="$MinGW"/Tools/mingw"$MinGW_versionB"_32
+        path="$MinGW"/Tools/mingw"$MinGW_versionC"_32
     else
         path="$MinGW"/Tools/mingw"$MinGW_versionB"_64
     fi
