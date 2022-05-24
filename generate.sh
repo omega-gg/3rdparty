@@ -52,8 +52,7 @@ lib32="/usr/lib/i386-linux-gnu"
 #--------------------------------------------------------------------------------------------------
 # Android
 
-JDK_versionA="8u321"
-JDK_versionB="1.8.0_321"
+JDK_version="11.0.2"
 
 SDK_version="30"
 
@@ -349,7 +348,7 @@ SSL="$external/OpenSSL"
 
 VLC="$external/VLC/$VLC_version"
 
-JDK="$external/JDK/$JDK_versionA"
+JDK="$external/JDK/$JDK_version"
 
 SDK="$external/SDK/$SDK_version"
 NDK="$external/NDK"
@@ -393,7 +392,7 @@ elif [ $1 = "iOS" ]; then
 
 elif [ $1 = "android" ]; then
 
-    JDK_url="https://enos.itcollege.ee/~jpoial/allalaadimised/jdk8/jdk-$JDK_versionA-linux-x64.tar.gz"
+    JDK_url="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-${JDK_version}_linux-x64_bin.tar.gz"
 
     SDK_url="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
 
@@ -1218,7 +1217,7 @@ if [ $1 = "android" ]; then
 
     rm JDK.tar.gz
 
-    path="$JDK/jdk$JDK_versionB"
+    path="$JDK/jdk-$JDK_version"
 
     mv "$path"/* "$JDK"
 
