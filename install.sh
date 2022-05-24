@@ -14,7 +14,7 @@ VLC_version="3.0.16"
 
 #libtorrent_version="2.0.6"
 
-#Boost_version="1.71.0"
+#Boost_version="1.78.0"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -130,7 +130,7 @@ else
 
     QtWebkit_version="4.10.4"
 
-    #Boost_version="1.71.0"
+    #Boost_version="1.78.0"
 fi
 
 VLC_version="5.6.0"
