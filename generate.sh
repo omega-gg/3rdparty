@@ -709,6 +709,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mv "$Qt"/qml/QtQuick.2    "$QtX"/qml
         mv "$Qt"/qml/QtMultimedia "$QtX"/qml
     else
+        mkdirQt "plugins/tls"
+
         moveQt "qml/QtQml"        "qml"
         moveQt "qml/QtQuick"      "qml"
         moveQt "qml/QtMultimedia" "qml"
@@ -731,6 +733,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             rm -f "$QtX"/plugins/mediaservice/*d.*
         else
             mv "$Qt"/bin/qsb* "$QtX"/bin
+
+            mv "$Qt"/plugins/tls/*.dll "$QtX"/plugins/tls
+
+            rm -f "$QtX"/plugins/tls/*d.*
         fi
 
         mv "$Qt"/bin/Qt*.dll "$QtX"/bin
@@ -774,6 +780,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             # NOTE: This is required for macdeployqt.
             mv "$Qt"/libexec/qmlimportscanner "$QtX"/libexec
+
+            mv "$Qt"/plugins/tls/lib*.dylib "$QtX"/plugins/tls
+
+            rm -f "$QtX"/plugins/tls/*debug*
         fi
 
         mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
@@ -872,6 +882,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/libexec/moc*         "$QtX"/libexec
             mv "$Qt"/libexec/rcc*         "$QtX"/libexec
             mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
+
+            mv "$Qt"/plugins/tls/lib*.so "$QtX"/plugins/tls
         fi
 
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
@@ -913,6 +925,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
 
             mv "$Qt/$bin"/androiddeployqt "$QtBase/bin"
+
+            moveMobile "plugins/tls/lib*.so" "plugins/tls"
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
