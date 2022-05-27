@@ -736,7 +736,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/plugins/tls/*.dll "$QtX"/plugins/tls
 
-            rm -f "$QtX"/plugins/tls/*d.*
+            # NOTE: Making sure to keep the 'backend.dll' files.
+            rm -f "$QtX"/plugins/tls/*backendd.*
         fi
 
         mv "$Qt"/bin/Qt*.dll "$QtX"/bin
