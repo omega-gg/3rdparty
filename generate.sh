@@ -800,13 +800,13 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     elif [ $1 = "iOS" ]; then
 
         mkdirQt "plugins/iconengines"
-        mkdirQt "plugins/playlistformats"
         mkdirQt "plugins/qmltooling"
 
         if [ $qt = "qt5" ]; then
 
             mkdirQt "plugins/bearer"
             mkdirQt "plugins/audio"
+            mkdirQt "plugins/playlistformats"
 
             mv "$Qt"/bin/moc*             "$QtX"/bin
             mv "$Qt"/bin/rcc*             "$QtX"/bin
@@ -814,13 +814,15 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
 
             # NOTE iOS: We need .a and .prl files.
-            moveMobile plugins/mediaservice/lib*.* plugins/mediaservice
-            moveMobile plugins/bearer/libq*.*      plugins/bearer
-            moveMobile plugins/audio/libq*.*       plugins/audio
+            moveMobile plugins/mediaservice/lib*.*     plugins/mediaservice
+            moveMobile plugins/bearer/libq*.*          plugins/bearer
+            moveMobile plugins/audio/libq*.*           plugins/audio
+            moveMobile plugins/playlistformats/libq*.* plugins/playlistformats
 
             rm -f "$QtX"/plugins/mediaservice/*debug*
             rm -f "$QtX"/plugins/bearer/*debug*
             rm -f "$QtX"/plugins/audio/*debug*
+            rm -f "$QtX"/plugins/playlistformats/*debug*
         else
             mkdirQt "plugins/networkinformation"
             mkdirQt "plugins/tls"
@@ -846,11 +848,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         fi
 
         # NOTE iOS: We need .a and .prl files.
-        moveMobile plugins/platforms/libq*.*       plugins/platforms
-        moveMobile plugins/imageformats/libq*.*    plugins/imageformats
-        moveMobile plugins/iconengines/libq*.*     plugins/iconengines
-        moveMobile plugins/playlistformats/libq*.* plugins/playlistformats
-        moveMobile plugins/qmltooling/libq*.*      plugins/qmltooling
+        moveMobile plugins/platforms/libq*.*    plugins/platforms
+        moveMobile plugins/imageformats/libq*.* plugins/imageformats
+        moveMobile plugins/iconengines/libq*.*  plugins/iconengines
+        moveMobile plugins/qmltooling/libq*.*   plugins/qmltooling
 
         #------------------------------------------------------------------------------------------
 
@@ -867,7 +868,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
         rm -f "$QtX"/plugins/iconengines/*debug*
-        rm -f "$QtX"/plugins/playlistformats/*debug*
         rm -f "$QtX"/plugins/qmltooling/*debug*
 
         rm "$QtX"/lib/*debug*
