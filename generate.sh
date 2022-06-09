@@ -800,25 +800,27 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     elif [ $1 = "iOS" ]; then
 
         mkdirQt "plugins/iconengines"
-        mkdirQt "plugins/audio"
         mkdirQt "plugins/playlistformats"
         mkdirQt "plugins/qmltooling"
 
         if [ $qt = "qt5" ]; then
 
             mkdirQt "plugins/bearer"
+            mkdirQt "plugins/audio"
 
             mv "$Qt"/bin/moc*             "$QtX"/bin
             mv "$Qt"/bin/rcc*             "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
 
-            moveMobile plugins/mediaservice/lib*.* plugins/mediaservice
             # NOTE iOS: We need .a and .prl files.
-            moveMobile plugins/bearer/libq*.* plugins/bearer
+            moveMobile plugins/mediaservice/lib*.* plugins/mediaservice
+            moveMobile plugins/bearer/libq*.*      plugins/bearer
+            moveMobile plugins/audio/libq*.*       plugins/audio
 
             rm -f "$QtX"/plugins/mediaservice/*debug*
             rm -f "$QtX"/plugins/bearer/*debug*
+            rm -f "$QtX"/plugins/audio/*debug*
         else
             mkdirQt "plugins/networkinformation"
             mkdirQt "plugins/tls"
@@ -847,7 +849,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         moveMobile plugins/platforms/libq*.*       plugins/platforms
         moveMobile plugins/imageformats/libq*.*    plugins/imageformats
         moveMobile plugins/iconengines/libq*.*     plugins/iconengines
-        moveMobile plugins/audio/libq*.*           plugins/audio
         moveMobile plugins/playlistformats/libq*.* plugins/playlistformats
         moveMobile plugins/qmltooling/libq*.*      plugins/qmltooling
 
@@ -865,6 +866,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
+        rm -f "$QtX"/plugins/iconengines/*debug*
+        rm -f "$QtX"/plugins/playlistformats/*debug*
+        rm -f "$QtX"/plugins/qmltooling/*debug*
 
         rm "$QtX"/lib/*debug*
 
