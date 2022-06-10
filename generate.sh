@@ -868,7 +868,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
         rm -f "$QtX"/plugins/iconengines/*debug*
-        rm -f "$QtX"/plugins/qmltooling/*debug*
+        # NOTE: We want to keep the 'debug' files for qmltooling
 
         rm "$QtX"/lib/*debug*
 
