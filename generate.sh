@@ -907,7 +907,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         if [ $qt = "qt5" ]; then
 
             mkdir -p "$QtX"/plugins/bearer
-            mkdir -p "$QtX"/plugins/video
+            # NOTE: This is required by the multimedia module for the VideoOutput.
+            mkdir -p "$QtX"/plugins/video/videonode
 
             mv "$Qt"/bin/moc*             "$QtX"/bin
             mv "$Qt"/bin/rcc*             "$QtX"/bin
@@ -916,9 +917,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/bin/androiddeployqt "$QtX"/bin
 
-            mv "$Qt"/plugins/mediaservice/lib*.so "$QtX"/plugins/mediaservice
-            mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
-            mv "$Qt"/plugins/video/lib*.so        "$QtX"/plugins/video
+            mv "$Qt"/plugins/mediaservice/lib*.so    "$QtX"/plugins/mediaservice
+            mv "$Qt"/plugins/bearer/lib*.so          "$QtX"/plugins/bearer
+            mv "$Qt"/plugins/video/videonode/lib*.so "$QtX"/plugins/video/videonode
         else
             QtBase="$QtX/gcc_64"
 
