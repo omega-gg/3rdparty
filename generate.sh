@@ -907,6 +907,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         if [ $qt = "qt5" ]; then
 
             mkdir -p "$QtX"/plugins/bearer
+            mkdir -p "$QtX"/plugins/video
 
             mv "$Qt"/bin/moc*             "$QtX"/bin
             mv "$Qt"/bin/rcc*             "$QtX"/bin
@@ -917,6 +918,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/plugins/mediaservice/lib*.so "$QtX"/plugins/mediaservice
             mv "$Qt"/plugins/bearer/lib*.so       "$QtX"/plugins/bearer
+            mv "$Qt"/plugins/video/lib*.so        "$QtX"/plugins/video
         else
             QtBase="$QtX/gcc_64"
 
