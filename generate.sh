@@ -27,7 +27,7 @@ VLC_version="3.0.16"
 
 libtorrent_artifact="4799"
 
-Sky_artifact="4726"
+Sky_artifact="5009"
 
 #--------------------------------------------------------------------------------------------------
 # Windows
@@ -907,7 +907,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         if [ $qt = "qt5" ]; then
 
             mkdir -p "$QtX"/plugins/bearer
-            # NOTE: This is required by the multimedia module for the VideoOutput.
+            # NOTE: This is required by the multimedia module for VideoOutput.
             mkdir -p "$QtX"/plugins/video/videonode
 
             mv "$Qt"/bin/moc*             "$QtX"/bin
