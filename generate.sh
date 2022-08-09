@@ -799,6 +799,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     elif [ $1 = "iOS" ]; then
 
+        mkdirQt "plugins/platforms/darwin"
         mkdirQt "plugins/iconengines"
         mkdirQt "plugins/qmltooling"
 
@@ -848,10 +849,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         fi
 
         # NOTE iOS: We need .a and .prl files.
-        moveMobile plugins/platforms/libq*.*    plugins/platforms
-        moveMobile plugins/imageformats/libq*.* plugins/imageformats
-        moveMobile plugins/iconengines/libq*.*  plugins/iconengines
-        moveMobile plugins/qmltooling/libq*.*   plugins/qmltooling
+        moveMobile plugins/platforms/libq*.*        plugins/platforms
+        moveMobile plugins/platforms/darwin/libq*.* plugins/platforms/darwin
+        moveMobile plugins/imageformats/libq*.*     plugins/imageformats
+        moveMobile plugins/iconengines/libq*.*      plugins/iconengines
+        moveMobile plugins/qmltooling/libq*.*       plugins/qmltooling
 
         #------------------------------------------------------------------------------------------
 
@@ -866,6 +868,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         fi
 
         rm -f "$QtX"/plugins/platforms/*debug*
+        rm -f "$QtX"/plugins/platforms/darwin/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
         rm -f "$QtX"/plugins/iconengines/*debug*
         # NOTE: We want to keep the 'debug' files for qmltooling
