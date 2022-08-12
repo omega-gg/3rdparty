@@ -112,7 +112,7 @@ jobs:
 
 - job: macOS_qt5
   pool:
-    vmImage: "macOS-10.15"
+    vmImage: "macOS-11"
   steps:
   - bash: |
       sh generate.sh macOS build
@@ -122,7 +122,7 @@ jobs:
 
 - job: macOS_qt6
   pool:
-    vmImage: "macOS-10.15"
+    vmImage: "macOS-11"
   steps:
   - bash: |
       sh environment.sh qt6
@@ -137,7 +137,7 @@ jobs:
 
 - job: iOS_qt5
   pool:
-    vmImage: "macOS-10.15"
+    vmImage: "macOS-11"
   steps:
   - bash: |
       sh generate.sh iOS build
@@ -147,7 +147,7 @@ jobs:
 
 - job: iOS_qt6
   pool:
-    vmImage: "macOS-10.15"
+    vmImage: "macOS-11"
   steps:
   - bash: |
       sh environment.sh qt6
