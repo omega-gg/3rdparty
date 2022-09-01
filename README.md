@@ -2,7 +2,7 @@
 ---
 [![azure](https://dev.azure.com/bunjee/3rdparty/_apis/build/status/omega-gg.3rdparty)](https://dev.azure.com/bunjee/3rdparty/_build)
 
-3rdparty is the [Sky kit](http://omega.gg/Sky) dependencies repository.<br>
+3rdparty is the [Sky kit](https://omega.gg/Sky) dependencies repository.<br>
 
 ## Platforms
 
