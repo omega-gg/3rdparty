@@ -152,8 +152,8 @@ fi
 Qt4_linux="qt4-default libqtwebkit-dev openssl"
 
 Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimedia5-dev "\
-"libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev qml-module-qtquick2 "\
-"qml-module-qtmultimedia"
+"libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
+"qml-module-qtquick2 qml-module-qtmultimedia"
 
 VLC_linux="libvlc-dev vlc"
 
@@ -409,8 +409,6 @@ if [ $platform = "linux32" -a $qt = "qt5" ]; then
 
     sudo cp "$lib"/qt5/plugins/imageformats/libqsvg.so  "$Qt5"/plugins/imageformats
     sudo cp "$lib"/qt5/plugins/imageformats/libqjpeg.so "$Qt5"/plugins/imageformats
-
-    ls -la "$lib"/qt5/plugins/mediaservice
 
     sudo cp "$lib"/qt5/plugins/mediaservice/libgstcamerabin.so "$Qt5"/plugins/mediaservice
 
