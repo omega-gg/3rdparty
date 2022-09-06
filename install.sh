@@ -142,7 +142,7 @@ libvlccore_version="9.0.0"
 #--------------------------------------------------------------------------------------------------
 
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2 libinput-dev libudev-dev"
+"libaudio2"
 
 if [ $qt != "qt4" ]; then
 
@@ -176,9 +176,6 @@ if [ $host = "ubuntu20" ]; then
 
     # NOTE: Docker has no local set by default.
     sudo locale-gen en_US.UTF-8
-else
-    # NOTE: These seems to be required for qtbase5-private-dev.
-    X11_linux="libinput-dev libudev-dev libudev1"
 fi
 
 if [ "$2" = "uninstall" ]; then
