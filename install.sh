@@ -141,8 +141,9 @@ libvlccore_version="9.0.0"
 
 #--------------------------------------------------------------------------------------------------
 
+# NOTE: libinput-dev seems to be required for qtbase5-private-dev.
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2"
+"libaudio2 libinput-dev"
 
 if [ $qt != "qt4" ]; then
 
