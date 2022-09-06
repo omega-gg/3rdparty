@@ -522,7 +522,8 @@ elif [ $host = "macOS" ]; then
 
     echo ""
 
-elif [ $host = "linux" ]; then
+# NOTE: p7zip-full does not exists for Ubuntu 20.04 on i386.
+elif [ $host = "linux" -a $platform != "linux32" ]; then
 
     sudo apt-get install -y p7zip-full
 
