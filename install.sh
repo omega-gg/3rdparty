@@ -192,7 +192,7 @@ if [ "$2" = "uninstall" ]; then
         sudo apt-get remove -y $Qt4_linux
     fi
 
-    if [ $platform = "linux32" ]; then
+    if [ $platform = "linux32" -a $qt = "qt5" ]; then
 
         echo ""
         echo "UNINSTALLING Qt5"
@@ -244,7 +244,7 @@ if [ $qt = "qt4" ]; then
     sudo apt-get install -y $Qt4_linux
 fi
 
-if [ $platform = "linux32" ]; then
+if [ $platform = "linux32" -a $qt = "qt5" ]; then
 
     echo ""
     echo "INSTALLING Qt5"
@@ -349,7 +349,7 @@ if [ $qt = "qt4" ]; then
     sudo cp "$lib"/qt4/plugins/imageformats/libqjpeg.so "$Qt4"/plugins/imageformats
 fi
 
-if [ $platform = "linux32" ]; then
+if [ $platform = "linux32" -a $qt = "qt5" ]; then
 
     echo ""
     echo "DEPLOYING Qt5"
