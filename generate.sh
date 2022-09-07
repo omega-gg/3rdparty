@@ -1215,10 +1215,12 @@ if [ $1 != "iOS" ]; then
     # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
     if [ $qt = "qt4" -a $platform = "linux32" ]; then
 
-        libtorrent_url=$(getSource $libtorrent_url libtorrent-$name-$qt)
+        name=libtorrent-$name-$qt
     else
-        libtorrent_url=$(getSource $libtorrent_url libtorrent-$name)
+        name=libtorrent-$name
     fi
+
+    libtorrent_url=$(getSource $libtorrent_url $name)
 
     echo ""
     echo "DOWNLOADING libtorrent"
@@ -1230,9 +1232,9 @@ if [ $1 != "iOS" ]; then
 
     rm libtorrent.zip
 
-    unzip -q libtorrent-$name/libtorrent.zip -d "$external"
+    unzip -q $name/libtorrent.zip -d "$external"
 
-    rm -rf libtorrent-$name
+    rm -rf $name
 fi
 
 #--------------------------------------------------------------------------------------------------
