@@ -25,7 +25,7 @@ VLC_version="3.0.17.3"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_artifact="4799"
+libtorrent_artifact="5211"
 
 Sky_artifact="5009"
 
@@ -1212,7 +1212,13 @@ if [ $1 != "iOS" ]; then
     echo "ARTIFACT libtorrent-$name"
     echo $libtorrent_url
 
-    libtorrent_url=$(getSource $libtorrent_url libtorrent-$name)
+    # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
+    if [ $qt = "qt4" -a $platform = "linux32" ]; then
+
+        libtorrent_url=$(getSource $libtorrent_url libtorrent-$name-$qt)
+    else
+        libtorrent_url=$(getSource $libtorrent_url libtorrent-$name)
+    fi
 
     echo ""
     echo "DOWNLOADING libtorrent"
