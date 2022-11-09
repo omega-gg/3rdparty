@@ -54,7 +54,7 @@ lib32="/usr/lib/i386-linux-gnu"
 
 JDK_version="11.0.2"
 
-SDK_version="30"
+SDK_version="31"
 
 NDK_versionA="21"
 NDK_versionB="21.4.7075529"
