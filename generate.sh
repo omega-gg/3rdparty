@@ -57,7 +57,7 @@ JDK_version="11.0.2"
 SDK_version="31"
 
 NDK_versionA="23"
-NDK_versionB="23.1.7779620"
+NDK_versionB="22.1.7171670"
 
 VLC_version_android="3.5.1"
 
@@ -1309,6 +1309,19 @@ if [ $1 = "android" ]; then
     cd "$NDK"
 
     ln -s "../SDK/$SDK_version/ndk/$NDK_versionB" "$NDK_versionA"
+
+    #----------------------------------------------------------------------------------------------
+    # NOTE NDK 22: We add SDK 31 support to avoid random crashes with libtorrent on the NDK 23.
+    #              https://github.com/arvidn/libtorrent/issues/7181
+
+    path="$NDK_versionA/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib"
+
+    ln -s "$path/arm-linux-androideabi/30"  "$path/arm-linux-androideabi/31"
+    ln -s "$path/aarch64-linux-android/30"  "$path/aarch64-linux-android/31"
+    ln -s "$path/arm-i686-linux-android/30" "$path/arm-i686-linux-android/31"
+    ln -s "$path/x86_64-linux-android/30"   "$path/x86_64-linux-android/31"
+
+    #----------------------------------------------------------------------------------------------
 
     cd -
 fi
