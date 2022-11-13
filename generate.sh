@@ -56,7 +56,7 @@ JDK_version="11.0.2"
 
 SDK_version="31"
 
-NDK_versionA="23"
+NDK_versionA="22"
 NDK_versionB="22.1.7171670"
 
 VLC_version_android="3.5.1"
