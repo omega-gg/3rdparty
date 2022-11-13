@@ -1318,7 +1318,7 @@ if [ $1 = "android" ]; then
 
     ln -s "$path/arm-linux-androideabi/30"  "$path/arm-linux-androideabi/31"
     ln -s "$path/aarch64-linux-android/30"  "$path/aarch64-linux-android/31"
-    ln -s "$path/arm-i686-linux-android/30" "$path/arm-i686-linux-android/31"
+    ln -s "$path/arm-i686-linux-android/30" "$path/i686-linux-android/31"
     ln -s "$path/x86_64-linux-android/30"   "$path/x86_64-linux-android/31"
 
     #----------------------------------------------------------------------------------------------
