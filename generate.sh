@@ -194,6 +194,15 @@ extractVlc()
     cp VLC/jni/$1/libvlc.so "$path"
 }
 
+linkNdk()
+{
+    cd "$1"
+
+    ln -s "30" "31"
+
+    cd -
+}
+
 #--------------------------------------------------------------------------------------------------
 
 getOs()
@@ -1316,10 +1325,10 @@ if [ $1 = "android" ]; then
 
     path="$NDK_versionA/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib"
 
-    ln -s "$path/arm-linux-androideabi/30"  "$path/arm-linux-androideabi/31"
-    ln -s "$path/aarch64-linux-android/30"  "$path/aarch64-linux-android/31"
-    ln -s "$path/arm-i686-linux-android/30" "$path/i686-linux-android/31"
-    ln -s "$path/x86_64-linux-android/30"   "$path/x86_64-linux-android/31"
+    linkNdk "$path/arm-linux-androideabi"
+    linkNdk "$path/aarch64-linux-android"
+    linkNdk "$path/arm-i686-linux-android"
+    linkNdk "$path/x86_64-linux-android"
 
     #----------------------------------------------------------------------------------------------
 
