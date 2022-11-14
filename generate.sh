@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="5550"
+artifact="5565"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
@@ -1206,36 +1206,36 @@ fi
 # libtorrent
 #--------------------------------------------------------------------------------------------------
 
-#if [ $1 != "iOS" ]; then
+if [ $1 != "iOS" ]; then
 
-#    echo ""
-#    echo "ARTIFACT libtorrent-$name"
-#    echo $libtorrent_url
+    echo ""
+    echo "ARTIFACT libtorrent-$name"
+    echo $libtorrent_url
 
-#    # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
-#    if [ $qt = "qt4" -a $platform = "linux32" ]; then
+    # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
+    if [ $qt = "qt4" -a $platform = "linux32" ]; then
 
-#        name=libtorrent-$name-$qt
-#    else
-#        name=libtorrent-$name
-#    fi
+        name=libtorrent-$name-$qt
+    else
+        name=libtorrent-$name
+    fi
 
-#    libtorrent_url=$(getSource $libtorrent_url $name)
+    libtorrent_url=$(getSource $libtorrent_url $name)
 
-#    echo ""
-#    echo "DOWNLOADING libtorrent"
-#    echo $libtorrent_url
+    echo ""
+    echo "DOWNLOADING libtorrent"
+    echo $libtorrent_url
 
-#    curl --retry 3 -L -o libtorrent.zip $libtorrent_url
+    curl --retry 3 -L -o libtorrent.zip $libtorrent_url
 
-#    unzip -q libtorrent.zip
+    unzip -q libtorrent.zip
 
-#    rm libtorrent.zip
+    rm libtorrent.zip
 
-#    unzip -q $name/libtorrent.zip -d "$external"
+    unzip -q $name/libtorrent.zip -d "$external"
 
-#    rm -rf $name
-#fi
+    rm -rf $name
+fi
 
 #--------------------------------------------------------------------------------------------------
 # JDK
