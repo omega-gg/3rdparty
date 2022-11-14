@@ -365,7 +365,7 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw/qt.tools.win32_mingw810/8.1.0-1-202004170606i686-8.1.0-release-posix-dwarf-rt_v6-rev0.7z"
+        MinGW_url="https://github.com/niXman/mingw-builds-binaries/releases/download/11.2.0-rt_v9-rev1/i686-11.2.0-release-posix-dwarf-rt_v9-rev1.7z"
 
         SSL_urlA="http://wiki.overbyte.eu/arch/openssl-$SSL_versionA-win32.zip"
     else
@@ -972,7 +972,7 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
     if [ $1 = "win32" ]; then
 
-        path="$MinGW"/Tools/mingw"$MinGW_versionC"_32
+        path="$MinGW"/mingw32
     else
         path="$MinGW"/Tools/mingw"$MinGW_versionB"_64
     fi
@@ -1206,36 +1206,36 @@ fi
 # libtorrent
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 != "iOS" ]; then
+#if [ $1 != "iOS" ]; then
 
-    echo ""
-    echo "ARTIFACT libtorrent-$name"
-    echo $libtorrent_url
+#    echo ""
+#    echo "ARTIFACT libtorrent-$name"
+#    echo $libtorrent_url
 
-    # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
-    if [ $qt = "qt4" -a $platform = "linux32" ]; then
+#    # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
+#    if [ $qt = "qt4" -a $platform = "linux32" ]; then
 
-        name=libtorrent-$name-$qt
-    else
-        name=libtorrent-$name
-    fi
+#        name=libtorrent-$name-$qt
+#    else
+#        name=libtorrent-$name
+#    fi
 
-    libtorrent_url=$(getSource $libtorrent_url $name)
+#    libtorrent_url=$(getSource $libtorrent_url $name)
 
-    echo ""
-    echo "DOWNLOADING libtorrent"
-    echo $libtorrent_url
+#    echo ""
+#    echo "DOWNLOADING libtorrent"
+#    echo $libtorrent_url
 
-    curl --retry 3 -L -o libtorrent.zip $libtorrent_url
+#    curl --retry 3 -L -o libtorrent.zip $libtorrent_url
 
-    unzip -q libtorrent.zip
+#    unzip -q libtorrent.zip
 
-    rm libtorrent.zip
+#    rm libtorrent.zip
 
-    unzip -q $name/libtorrent.zip -d "$external"
+#    unzip -q $name/libtorrent.zip -d "$external"
 
-    rm -rf $name
-fi
+#    rm -rf $name
+#fi
 
 #--------------------------------------------------------------------------------------------------
 # JDK
