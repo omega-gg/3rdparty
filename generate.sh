@@ -1327,7 +1327,7 @@ if [ $1 = "android" ]; then
 
     linkNdk "$path/arm-linux-androideabi"
     linkNdk "$path/aarch64-linux-android"
-    linkNdk "$path/arm-i686-linux-android"
+    linkNdk "$path/i686-linux-android"
     linkNdk "$path/x86_64-linux-android"
 
     #----------------------------------------------------------------------------------------------
