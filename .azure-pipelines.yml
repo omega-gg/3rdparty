@@ -168,8 +168,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snapd;
-                                     systemctl enable --now snapd.socket;
+                                     apt-get -y install sudo curl zip;
                                      sh environment.sh qt4;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -181,11 +180,10 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snapd;
-                                     systemctl enable --now snapd.socket;
+                                     apt-get -y install sudo curl zip;
                                      sh environment.sh qt4;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -196,11 +194,15 @@ jobs:
 
 - job: linux32_qt5
   pool:
-    vmImage: "ubuntu-18.04"
+    vmImage: "ubuntu-latest"
   steps:
   - bash: |
-        sh generate.sh linux build
-        zip -rq 3rdparty.zip linux
+      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip;
+                                     sh generate.sh linux build;
+                                     zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32-qt5
 
@@ -221,11 +223,10 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snapd;
-                                     systemctl enable --now snapd.socket;
+                                     apt-get -y install sudo curl zip;
                                      sh environment.sh qt6;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -244,8 +245,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip unzip git snapd;
-                                     systemctl enable --now snapd.socket;
+                                     apt-get -y install sudo curl zip unzip git;
                                      sh generate.sh android build;
                                      zip -rqy 3rdparty.zip android"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -259,8 +259,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip unzip git snapd;
-                                     systemctl enable --now snapd.socket;
+                                     apt-get -y install sudo curl zip unzip git;
                                      sh environment.sh qt6;
                                      sh generate.sh android build;
                                      zip -rqy 3rdparty.zip android"
