@@ -169,6 +169,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh environment.sh qt4;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -184,6 +185,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh environment.sh qt4;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -201,6 +203,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -215,6 +218,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -231,6 +235,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh environment.sh qt6;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -250,6 +255,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip git snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh generate.sh android build;
                                      zip -rqy 3rdparty.zip android"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -264,6 +270,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip git snapd;
+                                     systemctl enable --now snapd.socket;
                                      sh environment.sh qt6;
                                      sh generate.sh android build;
                                      zip -rqy 3rdparty.zip android"
