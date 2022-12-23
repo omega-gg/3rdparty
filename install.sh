@@ -207,7 +207,7 @@ if [ "$2" = "uninstall" ]; then
     echo ""
     echo "UNINSTALLING VLC"
 
-    sudo snap remove -y $VLC_linux
+    sudo snap remove $VLC_linux
 
     #echo ""
     #echo "UNINSTALLING libtorrent"
@@ -259,7 +259,7 @@ fi
 echo ""
 echo "INSTALLING VLC"
 
-sudo snap install -y $VLC_linux
+sudo snap install $VLC_linux
 
 #echo ""
 #echo "INSTALLING libtorrent"
