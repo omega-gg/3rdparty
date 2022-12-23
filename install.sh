@@ -12,6 +12,12 @@ SSL_version="1.1.1q"
 
 VLC_version="3.0.17.3"
 
+VLC_versionA="5.6.1"
+VLC_versionB="5"
+
+libvlccore_versionA="9.0.1"
+libvlccore_versionB="9"
+
 #libtorrent_version="2.0.8"
 
 #Boost_version="1.78.0"
@@ -133,9 +139,7 @@ else
     #Boost_version="1.78.0"
 fi
 
-VLC_version="5.6.0"
-
-libvlccore_version="9.0.0"
+libvlccore_version="$libvlccore_versionA"
 
 #libtorrent_version="9.0.0"
 
@@ -155,7 +159,7 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 "libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
 "qml-module-qtquick2 qml-module-qtmultimedia"
 
-VLC_linux="libvlc-dev vlc"
+VLC_linux="vlc"
 
 #libtorrent_linux="libtorrent-rasterbar-dev"
 
@@ -203,7 +207,7 @@ if [ "$2" = "uninstall" ]; then
     echo ""
     echo "UNINSTALLING VLC"
 
-    sudo apt-get remove -y $VLC_linux
+    sudo snap remove -y $VLC_linux
 
     #echo ""
     #echo "UNINSTALLING libtorrent"
@@ -255,7 +259,7 @@ fi
 echo ""
 echo "INSTALLING VLC"
 
-sudo apt-get install -y $VLC_linux
+sudo snap install -y $VLC_linux
 
 #echo ""
 #echo "INSTALLING libtorrent"
@@ -438,10 +442,12 @@ echo "DEPLOYING VLC"
 
 mkdir -p "$VLC"
 
-sudo cp "$lib"/libvlc.so.$VLC_version            "$VLC"/libvlc.so.5
-sudo cp "$lib"/libvlccore.so.$libvlccore_version "$VLC"/libvlccore.so.9
+path="/snaps/vlc/current/usr/lib"
 
-sudo cp -r "$lib"/vlc/plugins "$VLC"
+sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
+sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
+
+sudo cp -r "$path"/vlc/plugins "$VLC"
 
 #echo ""
 #echo "DEPLOYING libtorrent"

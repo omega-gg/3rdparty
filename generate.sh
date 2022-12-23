@@ -407,10 +407,13 @@ elif [ $1 = "android" ]; then
 
     SSL_urlB="https://github.com/KDAB/android_openssl"
 
-    # FIXME android: We need the Windows archive for the include folder.
-    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
-
     VLC_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC_version_android/libvlc-all-$VLC_version_android.aar"
+fi
+
+# FIXME: We need the Windows archive for the include folder.
+if [ $1 = "linux" -o $1 = "android" ]; then
+
+    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 fi
 
 Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
@@ -1172,32 +1175,11 @@ elif [ $1 = "android" ]; then
 
     echo ""
     echo "DOWNLOADING VLC"
-    echo $VLC_url
-
-    #----------------------------------------------------------------------------------------------
-    # FIXME android: We need the Windows archive for the include folder.
-
-    curl -L -o VLC.7z $VLC_url
-
-    mkdir -p "$VLC"
-
-    7z x VLC.7z -o"$VLC" > /dev/null
-
-    rm VLC.7z
-
-    path="$VLC/vlc-$VLC_version"
-
-    mv "$path"/sdk/include "$VLC"
-
-    rm -rf "$path"
-
-    #----------------------------------------------------------------------------------------------
-
-    echo ""
-    echo "DOWNLOADING VLC ANDROID"
     echo $VLC_url_android
 
     curl --retry 3 -L -o VLC.zip $VLC_url_android
+
+    mkdir -p "$VLC"
 
     unzip -q VLC.zip -d"VLC"
 
@@ -1209,6 +1191,25 @@ elif [ $1 = "android" ]; then
     extractVlc x86_64
 
     rm -rf VLC
+fi
+
+if [ $1 = "linux" -o $1 = "android" ]; then
+
+    echo ""
+    echo "DOWNLOADING VLC sources"
+    echo $VLC_url
+
+    curl -L -o VLC.7z $VLC_url
+
+    7z x VLC.7z -o"$VLC" > /dev/null
+
+    rm VLC.7z
+
+    path="$VLC/vlc-$VLC_version"
+
+    mv "$path"/sdk/include "$VLC"
+
+    rm -rf "$path"
 fi
 
 #--------------------------------------------------------------------------------------------------
