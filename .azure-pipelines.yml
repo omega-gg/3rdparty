@@ -199,28 +199,18 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip snapd;
-                                     systemctl enable --now snapd.socket;
-                                     sh generate.sh linux build;
-                                     zip -rq 3rdparty.zip linux"
+        sh generate.sh linux build
+        zip -rq 3rdparty.zip linux
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux32-qt5
 
 - job: linux64_qt5
   pool:
-    vmImage: "ubuntu-latest"
+    vmImage: "ubuntu-18.04"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip snapd;
-                                     systemctl enable --now snapd.socket;
-                                     sh generate.sh linux build;
-                                     zip -rq 3rdparty.zip linux"
+        sh generate.sh linux build
+        zip -rq 3rdparty.zip linux
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64-qt5
 
