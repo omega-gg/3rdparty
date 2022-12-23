@@ -292,6 +292,8 @@ mkdir -p "$libs"
 
 sudo cp "$base"/libz.so.1 "$libs"
 
+ls -la "$lib"
+
 if [ $host = "ubuntu18" ]; then
 
     sudo cp "$lib"/libdouble-conversion.so.1 "$libs"
