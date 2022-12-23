@@ -168,7 +168,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snap;
+                                     apt-get -y install sudo curl zip snapd;
                                      sh environment.sh qt4;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -183,7 +183,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snap;
+                                     apt-get -y install sudo curl zip snapd;
                                      sh environment.sh qt4;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
@@ -200,7 +200,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snap;
+                                     apt-get -y install sudo curl zip snapd;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -214,7 +214,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip snap;
+                                     apt-get -y install sudo curl zip snapd;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -230,7 +230,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip;
+                                     apt-get -y install sudo curl zip snapd;
                                      sh environment.sh qt6;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
