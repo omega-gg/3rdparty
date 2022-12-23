@@ -442,7 +442,7 @@ echo "DEPLOYING VLC"
 
 mkdir -p "$VLC"
 
-path="/snaps/vlc/current/usr/lib"
+path="/snap/vlc/current/usr/lib"
 
 sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
 sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB

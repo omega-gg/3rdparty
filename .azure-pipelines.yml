@@ -196,7 +196,7 @@ jobs:
 
 - job: linux32_qt5
   pool:
-    vmImage: "ubuntu-latest"
+    vmImage: "ubuntu-18.04"
   steps:
   - bash: |
         sh generate.sh linux build
