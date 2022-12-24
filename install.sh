@@ -159,7 +159,12 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 "libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
 "qml-module-qtquick2 qml-module-qtmultimedia"
 
-VLC_linux="vlc"
+if [ $platform = "linux32" ]; then
+
+    VLC_linux="libvlc-dev vlc"
+else
+    VLC_linux="vlc"
+fi
 
 #libtorrent_linux="libtorrent-rasterbar-dev"
 
@@ -207,7 +212,12 @@ if [ "$2" = "uninstall" ]; then
     echo ""
     echo "UNINSTALLING VLC"
 
-    sudo snap remove $VLC_linux
+    if [ $platform = "linux32" ]; then
+
+        sudo apt-get remove -y $VLC_linux
+    else
+        sudo snap remove $VLC_linux
+    fi
 
     #echo ""
     #echo "UNINSTALLING libtorrent"
@@ -259,7 +269,12 @@ fi
 echo ""
 echo "INSTALLING VLC"
 
-sudo snap install $VLC_linux
+if [ $platform = "linux32" ]; then
+
+    sudo apt-get install -y $VLC_linux
+else
+    sudo snap install $VLC_linux
+fi
 
 #echo ""
 #echo "INSTALLING libtorrent"
@@ -442,7 +457,12 @@ echo "DEPLOYING VLC"
 
 mkdir -p "$VLC"
 
-path="/snap/vlc/current/usr/lib"
+if [ $platform = "linux32" ]; then
+
+    path="$lib"
+else
+    path="/snap/vlc/current/usr/lib"
+fi
 
 sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
 sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
