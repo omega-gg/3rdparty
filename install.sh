@@ -12,10 +12,12 @@ SSL_version="1.1.1q"
 
 VLC_version="3.0.17.3"
 
-VLC_versionA="5.6.1"
-VLC_versionB="5"
+VLC_versionA="5.6.0"
+VLC_versionB="5.6.1"
+VLC_versionC="5"
 
-libvlccore_versionA="9.0.1"
+libvlccore_versionA="9.0.0"
+libvlccore_versionB="9.0.1"
 libvlccore_versionB="9"
 
 #libtorrent_version="2.0.8"
@@ -460,12 +462,15 @@ mkdir -p "$VLC"
 if [ $platform = "linux32" ]; then
 
     path="$lib"
+
+    sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionC
+    sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionC
 else
     path="/snap/vlc/current/usr/lib"
-fi
 
-sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
-sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
+    sudo cp "$path"/libvlc.so.$VLC_versionB            "$VLC"/libvlc.so.$VLC_versionC
+    sudo cp "$path"/libvlccore.so.$libvlccore_versionB "$VLC"/libvlccore.so.$libvlccore_versionC
+fi
 
 sudo cp -r "$path"/vlc/plugins "$VLC"
 
