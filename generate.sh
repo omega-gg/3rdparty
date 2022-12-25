@@ -1193,7 +1193,7 @@ elif [ $1 = "android" ]; then
     rm -rf VLC
 fi
 
-if [ $1 = "linux" -o $1 = "android" ]; then
+if [ $platform = "linux64" -o $1 = "android" ]; then
 
     echo ""
     echo "DOWNLOADING VLC sources"
