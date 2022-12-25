@@ -18,7 +18,7 @@ VLC_versionC="5"
 
 libvlccore_versionA="9.0.0"
 libvlccore_versionB="9.0.1"
-libvlccore_versionB="9"
+libvlccore_versionC="9"
 
 #libtorrent_version="2.0.8"
 
