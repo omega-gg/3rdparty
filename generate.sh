@@ -376,11 +376,11 @@ if [ $os = "windows" ]; then
 
         MinGW_url="https://github.com/niXman/mingw-builds-binaries/releases/download/11.2.0-rt_v9-rev1/i686-11.2.0-release-posix-dwarf-rt_v9-rev1.7z"
 
-        SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-win32.zip"
+        SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-i386-win32.zip"
     else
         MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/9.0.0-1-202203221220mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3.7z"
 
-        SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-win64.zip"
+        SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-x64_86-win64.zip"
     fi
 
     SSL_urlB="https://mirror.firedaemon.com/OpenSSL/openssl-${SSL_versionB}.zip"
