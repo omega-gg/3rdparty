@@ -405,6 +405,8 @@ if [ $platform = "linux32" -a $qt = "qt5" ]; then
         sudo cp "$lib"/libicuuc.so.66   "$Qt5"/lib
     fi
 
+    ls -la "$lib"
+
     sudo cp "$lib"/libQt5Core.so.$Qt5_version            "$Qt5"/lib/libQt5Core.so.5
     sudo cp "$lib"/libQt5Gui.so.$Qt5_version             "$Qt5"/lib/libQt5Gui.so.5
     sudo cp "$lib"/libQt5Network.so.$Qt5_version         "$Qt5"/lib/libQt5Network.so.5
