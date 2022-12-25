@@ -407,20 +407,22 @@ if [ $platform = "linux32" -a $qt = "qt5" ]; then
 
     ls -la "$lib"
 
-    sudo cp "$lib"/libQt5Core.so.$Qt5_version            "$Qt5"/lib/libQt5Core.so.5
-    sudo cp "$lib"/libQt5Gui.so.$Qt5_version             "$Qt5"/lib/libQt5Gui.so.5
-    sudo cp "$lib"/libQt5Network.so.$Qt5_version         "$Qt5"/lib/libQt5Network.so.5
-    sudo cp "$lib"/libQt5OpenGL.so.$Qt5_version          "$Qt5"/lib/libQt5OpenGL.so.5
-    sudo cp "$lib"/libQt5Qml.so.$Qt5_version             "$Qt5"/lib/libQt5Qml.so.5
-    sudo cp "$lib"/libQt5Quick.so.$Qt5_version           "$Qt5"/lib/libQt5Quick.so.5
-    sudo cp "$lib"/libQt5Svg.so.$Qt5_version             "$Qt5"/lib/libQt5Svg.so.5
-    sudo cp "$lib"/libQt5Widgets.so.$Qt5_version         "$Qt5"/lib/libQt5Widgets.so.5
-    sudo cp "$lib"/libQt5Xml.so.$Qt5_version             "$Qt5"/lib/libQt5Xml.so.5
-    sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version     "$Qt5"/lib/libQt5XmlPatterns.so.5
-    sudo cp "$lib"/libQt5Multimedia.so.$Qt5_version      "$Qt5"/lib/libQt5Multimedia.so.5
-    sudo cp "$lib"/libQt5MultimediaQuick.so.$Qt5_version "$Qt5"/lib/libQt5MultimediaQuick.so.5
-    sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version          "$Qt5"/lib/libQt5XcbQpa.so.5
-    sudo cp "$lib"/libQt5DBus.so.$Qt5_version            "$Qt5"/lib/libQt5DBus.so.5
+    sudo cp "$lib"/libQt5Core.so.$Qt5_version        "$Qt5"/lib/libQt5Core.so.5
+    sudo cp "$lib"/libQt5Gui.so.$Qt5_version         "$Qt5"/lib/libQt5Gui.so.5
+    sudo cp "$lib"/libQt5Network.so.$Qt5_version     "$Qt5"/lib/libQt5Network.so.5
+    sudo cp "$lib"/libQt5OpenGL.so.$Qt5_version      "$Qt5"/lib/libQt5OpenGL.so.5
+    sudo cp "$lib"/libQt5Qml.so.$Qt5_version         "$Qt5"/lib/libQt5Qml.so.5
+    sudo cp "$lib"/libQt5Quick.so.$Qt5_version       "$Qt5"/lib/libQt5Quick.so.5
+    sudo cp "$lib"/libQt5Svg.so.$Qt5_version         "$Qt5"/lib/libQt5Svg.so.5
+    sudo cp "$lib"/libQt5Widgets.so.$Qt5_version     "$Qt5"/lib/libQt5Widgets.so.5
+    sudo cp "$lib"/libQt5Xml.so.$Qt5_version         "$Qt5"/lib/libQt5Xml.so.5
+    sudo cp "$lib"/libQt5XmlPatterns.so.$Qt5_version "$Qt5"/lib/libQt5XmlPatterns.so.5
+    sudo cp "$lib"/libQt5Multimedia.so.$Qt5_version  "$Qt5"/lib/libQt5Multimedia.so.5
+    sudo cp "$lib"/libQt5XcbQpa.so.$Qt5_version      "$Qt5"/lib/libQt5XcbQpa.so.5
+    sudo cp "$lib"/libQt5DBus.so.$Qt5_version        "$Qt5"/lib/libQt5DBus.so.5
+
+    # NOTE: For some reason libQt5MultimediaQuick is private.
+    sudo cp "$lib"/libQt5MultimediaQuick_p.so.$Qt5_version "$Qt5"/lib/libQt5MultimediaQuick.so.5
 
     if [ -f "$lib"/libQt5QmlModels.so.$Qt5_version ]; then
 
