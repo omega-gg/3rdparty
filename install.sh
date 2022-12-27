@@ -161,22 +161,24 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 "libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
 "qml-module-qtquick2 qml-module-qtmultimedia"
 
-if [ $platform = "linux64" ]; then
+if [ $platform = "linux32" ]; then
 
-    snap=true
-
-    VLC_linux="vlc"
-else
     snap=false
 
     VLC_linux="libvlc-dev vlc"
+
+    tools_linux="git"
+else
+    snap=true
+
+    VLC_linux="vlc"
+
+    tools_linux="git patchelf"
 fi
 
 #libtorrent_linux="libtorrent-rasterbar-dev"
 
 #Boost_linux="libboost-all-dev"
-
-tools_linux="git patchelf"
 
 #--------------------------------------------------------------------------------------------------
 # Install
