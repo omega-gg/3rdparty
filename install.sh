@@ -481,7 +481,7 @@ else
     sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionC
 fi
 
-sudo cp -r "$path"/vlc/plugins "$VLC"
+sudo cp -r "$path"/vlc "$VLC"
 
 #echo ""
 #echo "DEPLOYING libtorrent"

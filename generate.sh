@@ -399,6 +399,10 @@ elif [ $1 = "iOS" ]; then
 
     VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS-9748e1a4-426513d8.tar.xz"
 
+elif [ $1 = "linux" ]; then
+
+    linuxdeployqt_url="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+
 elif [ $1 = "android" ]; then
 
     JDK_url="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-${JDK_version}_linux-x64_bin.tar.gz"
@@ -914,6 +918,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
+
+        curl -L -o "$QtX"/linuxdeployqt $linuxdeployqt_url
 
     elif [ $1 = "android" ]; then
 
