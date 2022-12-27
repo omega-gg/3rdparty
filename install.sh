@@ -176,7 +176,7 @@ fi
 
 #Boost_linux="libboost-all-dev"
 
-tools_linux="git"
+tools_linux="git patchelf"
 
 #--------------------------------------------------------------------------------------------------
 # Install
