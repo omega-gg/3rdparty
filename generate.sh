@@ -919,7 +919,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
         mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
 
-        curl -L -o "$QtX"/linuxdeployqt $linuxdeployqt_url
+        # NOTE: linuxdeployqt is useful to package applications.
+        curl -L -o "$QtX"/bin/linuxdeployqt $linuxdeployqt_url
 
     elif [ $1 = "android" ]; then
 
