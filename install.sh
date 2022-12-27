@@ -148,7 +148,7 @@ libvlccore_version="$libvlccore_versionA"
 #--------------------------------------------------------------------------------------------------
 
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2"
+"libaudio2 libidn"
 
 if [ $qt != "qt4" ]; then
 
