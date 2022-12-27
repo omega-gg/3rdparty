@@ -161,7 +161,7 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 "libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
 "qml-module-qtquick2 qml-module-qtmultimedia"
 
-if [ $platform = "linux64" -a $host != "ubuntu18" ]; then
+if [ $platform = "linux64" ]; then
 
     snap=true
 
