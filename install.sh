@@ -468,13 +468,17 @@ mkdir -p "$VLC"
 if [ $snap = true ]; then
 
     path="/snap/vlc/current/usr/lib"
+
+    sudo cp "$path"/libvlc.so.$VLC_versionB            "$VLC"/libvlc.so.$VLC_versionC
+    sudo cp "$path"/libvlccore.so.$libvlccore_versionB "$VLC"/libvlccore.so.$libvlccore_versionC
 else
     path="$lib"
+
+    sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionC
+    sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionC
 fi
 
 sudo cp -r "$path"/vlc/plugins "$VLC"
-
-sudo cp "$path"/libvlc*.so* "$VLC"
 
 #echo ""
 #echo "DEPLOYING libtorrent"
