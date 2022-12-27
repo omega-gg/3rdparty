@@ -177,17 +177,13 @@ jobs:
 
 - job: linux64_qt4
   pool:
-    vmImage: "ubuntu-latest"
+    # NOTE: Ubuntu 20.04 seems to be required for qt4-default.
+    vmImage: "ubuntu-20.04"
   steps:
-  # NOTE: Docker seems to be required for qt4-default.
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:20.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /3rdparty;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip;
-                                     sh environment.sh qt4;
-                                     sh generate.sh linux build;
-                                     zip -rq 3rdparty.zip linux"
+      sh environment.sh qt4
+      sh generate.sh linux build
+      zip -rq 3rdparty.zip linux
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64-qt4
 
