@@ -161,10 +161,14 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 "libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
 "qml-module-qtquick2 qml-module-qtmultimedia"
 
-if [ $platform = "linux32" ]; then
+if [ $platform = "linux32" -o $host = "ubuntu18" ]; then
+
+    snap=true
 
     VLC_linux="libvlc-dev vlc"
 else
+    snap=false
+
     VLC_linux="vlc"
 fi
 
@@ -214,11 +218,11 @@ if [ "$2" = "uninstall" ]; then
     echo ""
     echo "UNINSTALLING VLC"
 
-    if [ $platform = "linux32" ]; then
+    if [ $snap ]; then
 
-        sudo apt-get remove -y $VLC_linux
-    else
         sudo snap remove $VLC_linux
+    else
+        sudo apt-get remove -y $VLC_linux
     fi
 
     #echo ""
@@ -271,11 +275,11 @@ fi
 echo ""
 echo "INSTALLING VLC"
 
-if [ $platform = "linux32" ]; then
+if [ $snap ]; then
 
-    sudo apt-get install -y $VLC_linux
-else
     sudo snap install $VLC_linux
+else
+    sudo apt-get install -y $VLC_linux
 fi
 
 #echo ""
@@ -461,17 +465,17 @@ echo "DEPLOYING VLC"
 
 mkdir -p "$VLC"
 
-if [ $platform = "linux32" ]; then
+if [ $snap ]; then
 
-    path="$lib"
-
-    sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionC
-    sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionC
-else
     path="/snap/vlc/current/usr/lib"
 
     sudo cp "$path"/libvlc.so.$VLC_versionB            "$VLC"/libvlc.so.$VLC_versionC
     sudo cp "$path"/libvlccore.so.$libvlccore_versionB "$VLC"/libvlccore.so.$libvlccore_versionC
+else
+    path="$lib"
+
+    sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionC
+    sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionC
 fi
 
 sudo cp -r "$path"/vlc/plugins "$VLC"
