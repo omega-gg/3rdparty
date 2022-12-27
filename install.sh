@@ -163,11 +163,11 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 
 if [ $platform = "linux64" -a $host != "ubuntu18" ]; then
 
-    snap=true
+    snap=$true
 
     VLC_linux="vlc"
 else
-    snap=false
+    snap=$false
 
     VLC_linux="libvlc-dev vlc"
 fi
