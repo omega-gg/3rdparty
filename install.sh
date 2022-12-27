@@ -163,11 +163,11 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 
 if [ $platform = "linux64" -a $host != "ubuntu18" ]; then
 
-    snap=$true
+    snap=true
 
     VLC_linux="vlc"
 else
-    snap=$false
+    snap=false
 
     VLC_linux="libvlc-dev vlc"
 fi
@@ -218,7 +218,7 @@ if [ "$2" = "uninstall" ]; then
     echo ""
     echo "UNINSTALLING VLC"
 
-    if [ $snap ]; then
+    if [ $snap = true ]; then
 
         sudo snap remove $VLC_linux
     else
@@ -275,7 +275,7 @@ fi
 echo ""
 echo "INSTALLING VLC"
 
-if [ $snap ]; then
+if [ $snap = true ]; then
 
     sudo snap install $VLC_linux
 else
@@ -465,7 +465,7 @@ echo "DEPLOYING VLC"
 
 mkdir -p "$VLC"
 
-if [ $snap ]; then
+if [ $snap = true ]; then
 
     path="/snap/vlc/current/usr/lib"
 
