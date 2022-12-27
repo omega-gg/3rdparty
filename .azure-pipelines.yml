@@ -177,7 +177,8 @@ jobs:
 
 - job: linux64_qt4
   pool:
-    vmImage: "ubuntu-latest"
+    # NOTE: Ubuntu 20.04 seems to be required for qt4-default.
+    vmImage: "ubuntu-20.04"
   steps:
   - bash: |
       sh environment.sh qt4
