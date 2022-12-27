@@ -147,9 +147,9 @@ libvlccore_version="$libvlccore_versionA"
 
 #--------------------------------------------------------------------------------------------------
 
-# NOTE: libidn11 is required for VLC.
+# NOTE: libidn-dev is required for VLC.
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2 libidn11"
+"libaudio2 libidn-dev"
 
 if [ $qt != "qt4" ]; then
 
