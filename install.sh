@@ -471,6 +471,9 @@ if [ $snap = true ]; then
 
     sudo cp "$path"/libvlc.so.$VLC_versionB            "$VLC"/libvlc.so.$VLC_versionC
     sudo cp "$path"/libvlccore.so.$libvlccore_versionB "$VLC"/libvlccore.so.$libvlccore_versionC
+
+    # NOTE: libidn is required for linking against libvlccore.
+    sudo cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$VLC"
 else
     path="$lib"
 
