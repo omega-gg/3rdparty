@@ -926,7 +926,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         echo "DOWNLOADING linuxdeployqt"
         echo $linuxdeployqt_url
 
-        curl -L -o "$QtX"/bin/linuxdeployqt $linuxdeployqt_url
+        linuxdeployqt="$QtX"/bin/linuxdeployqt
+
+        curl -L -o "$linuxdeployqt" $linuxdeployqt_url
+
+        chmod +x "$linuxdeployqt"
 
     elif [ $1 = "android" ]; then
 

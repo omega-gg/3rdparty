@@ -147,9 +147,9 @@ libvlccore_version="$libvlccore_versionA"
 
 #--------------------------------------------------------------------------------------------------
 
-# NOTE: libpulse-dev is needed for libQt5Multimedia.
+# NOTE: libpulse-dev and libgstreamer(s) are needed for libQt5Multimedia.
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2 libpulse-dev"
+"libaudio2 libpulse-dev libgstreamer1.0-0 libgstreamer-plugins-base1.0-0"
 
 if [ $qt != "qt4" ]; then
 
