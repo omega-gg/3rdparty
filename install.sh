@@ -185,6 +185,10 @@ fi
 # Install
 #--------------------------------------------------------------------------------------------------
 
+echo "UPDATING"
+
+sudo apt-get update
+
 sudo apt-get install -y build-essential
 
 if [ $host = "ubuntu20" ]; then
@@ -245,10 +249,6 @@ if [ "$2" = "uninstall" ]; then
 
     exit 0
 fi
-
-echo "UPDATING"
-
-sudo apt-get update
 
 echo "INSTALLING X11"
 
