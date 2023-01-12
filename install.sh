@@ -246,6 +246,10 @@ if [ "$2" = "uninstall" ]; then
     exit 0
 fi
 
+echo "UPDATING"
+
+sudo apt-get update
+
 echo "INSTALLING X11"
 
 sudo apt-get install -y $X11_linux
