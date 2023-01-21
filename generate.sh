@@ -383,7 +383,7 @@ if [ $os = "windows" ]; then
         SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-x64_86-win64.zip"
     fi
 
-    SSL_urlB="https://mirror.firedaemon.com/OpenSSL/openssl-${SSL_versionB}.zip"
+    SSL_urlB="https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-${SSL_versionB}.zip"
 
     MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
 
