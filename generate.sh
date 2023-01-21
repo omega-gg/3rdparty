@@ -18,7 +18,7 @@ Qt6_version="6.3.0"
 Qt6_modules="qtbase qtdeclarative qtsvg qtmultimedia qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
-SSL_versionB="1.1.1q"
+SSL_versionB="1.1.1s"
 SSL_versionC="1.1"
 
 VLC_version="3.0.18"
