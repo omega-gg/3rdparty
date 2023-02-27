@@ -25,6 +25,8 @@ VLC_version="3.0.18"
 
 #--------------------------------------------------------------------------------------------------
 
+VLC_artifact="6017"
+
 libtorrent_artifact="5766"
 
 Sky_artifact="5873"
@@ -49,6 +51,12 @@ VLC_version_iOS="3.3.18b12"
 
 lib32="/usr/lib/i386-linux-gnu"
 
+VLC_linuxA="5.6.1"
+VLC_linuxB="5"
+
+libvlccore_linuxA="9.0.1"
+libvlccore_linuxB="9"
+
 #--------------------------------------------------------------------------------------------------
 # Android
 
@@ -59,7 +67,7 @@ SDK_version="31"
 NDK_versionA="22"
 NDK_versionB="22.1.7171670"
 
-VLC_version_android="3.5.1"
+VLC_android="3.5.1"
 
 #--------------------------------------------------------------------------------------------------
 # environment
@@ -67,6 +75,8 @@ VLC_version_android="3.5.1"
 compiler_win="mingw"
 
 qt="qt5"
+
+snap="snapClear"
 
 #--------------------------------------------------------------------------------------------------
 # Functions
@@ -403,6 +413,8 @@ elif [ $1 = "linux" ]; then
 
     linuxdeployqt_url="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 
+    VLC_url="https://dev.azure.com/bunjee/snap/_apis/build/builds/$VLC_artifact/artifacts"
+
 elif [ $1 = "android" ]; then
 
     JDK_url="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-${JDK_version}_linux-x64_bin.tar.gz"
@@ -411,7 +423,7 @@ elif [ $1 = "android" ]; then
 
     SSL_urlB="https://github.com/KDAB/android_openssl"
 
-    VLC_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC_version_android/libvlc-all-$VLC_version_android.aar"
+    VLC_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC_android/libvlc-all-$VLC_android.aar"
 fi
 
 # FIXME: We need the Windows archive for the include folder.
@@ -1188,6 +1200,51 @@ elif [ $1 = "iOS" ]; then
     # NOTE: Copying the headers in the root folder.
     cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
 
+elif [ $platform = "linux64" ]; then
+
+    echo ""
+    echo "DOWNLOADING VLC"
+
+    name="VLC-linux64"
+
+    echo "ARTIFACT $name"
+    echo $VLC_url
+
+    VLC_url=$(getSource $VLC_url $name)
+
+    echo ""
+    echo "DOWNLOADING $name"
+    echo $VLC_url
+
+    curl --retry 3 -L -o VLC.zip $VLC_url
+
+    mkdir -p "$VLC"
+
+    unzip -q VLC.zip -d "$VLC"
+
+    rm VLC.zip
+
+    name="$VLC/$name"
+
+    unzip -q "$name"/VLC.zip -d "$VLC"/snap
+
+    rm -rf "$name"
+
+    path="$VLC/snap/vlc/current/usr/lib"
+
+    cp "$path"/libvlc.so.$VLC_linuxA            "$VLC"/libvlc.so.$VLC_linuxB
+    cp "$path"/libvlccore.so.$libvlccore_linuxA "$VLC"/libvlccore.so.$libvlccore_linuxB
+
+    # NOTE: libidn is required for linking against libvlccore.
+    cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$VLC"
+
+    cp -r "$path"/vlc "$VLC"
+
+    if [ $snap = "snapClear" ]; then
+
+        rm -rf "$VLC"/snap
+    fi
+
 elif [ $1 = "android" ]; then
 
     echo ""
@@ -1364,18 +1421,18 @@ if [ $os = "mobile" ]; then
 
     if [ $1 = "iOS" ]; then
 
-        name="macOS-$qt"
+        name="Sky-macOS-$qt"
     else
-        name="linux64-$qt"
+        name="Sky-linux64-$qt"
     fi
 
-    echo "ARTIFACT Sky-$name"
+    echo "ARTIFACT $name"
     echo $Sky_url
 
-    Sky_url=$(getSource $Sky_url Sky-$name)
+    Sky_url=$(getSource $Sky_url $name)
 
     echo ""
-    echo "DOWNLOADING Sky-$name"
+    echo "DOWNLOADING $name"
     echo $Sky_url
 
     curl --retry 3 -L -o Sky.zip $Sky_url
@@ -1386,7 +1443,7 @@ if [ $os = "mobile" ]; then
 
     rm Sky.zip
 
-    name="$Sky/Sky-$name"
+    name="$Sky/$name"
 
     unzip -q "$name"/Sky.zip -d "$Sky"
 

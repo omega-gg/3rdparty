@@ -12,6 +12,8 @@ qt="qt5"
 
 mobile="simulator"
 
+snap="snapClear"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
@@ -57,7 +59,8 @@ if [ $# != 1 ] \
 
     echo "Usage: environment <mingw | msvc"
     echo "                    qt4 | qt5 | qt6 |"
-    echo "                    simulator | device>"
+    echo "                    simulator | device |"
+    echo "                    snapClear | snapKeep>"
 
     exit 1
 fi
@@ -79,6 +82,10 @@ if [ $1 = "msvc" -o $1 = "mingw" ]; then
 elif [ $1 = "qt4" -o $1 = "qt5" -o $1 = "qt6" ]; then
 
     replace qt $qt $1
-else
+
+elif [ $1 = "simulator" -o $1 = "device" ]; then
+
     replace mobile $mobile $1
+else
+    replace snap $snap $1
 fi

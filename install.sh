@@ -13,12 +13,10 @@ SSL_version="1.1.1s"
 VLC_version="3.0.18"
 
 VLC_versionA="5.6.0"
-VLC_versionB="5.6.1"
-VLC_versionC="5"
+VLC_versionB="5"
 
 libvlccore_versionA="9.0.0"
-libvlccore_versionB="9.0.1"
-libvlccore_versionC="9"
+libvlccore_versionB="9"
 
 #libtorrent_version="2.0.8"
 
@@ -164,14 +162,10 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 
 if [ $platform = "linux32" ]; then
 
-    snap=false
-
     VLC_linux="libvlc-dev vlc"
 
     tools_linux="git"
 else
-    snap=true
-
     VLC_linux="vlc"
 
     tools_linux="git patchelf"
@@ -223,10 +217,8 @@ if [ "$2" = "uninstall" ]; then
     echo ""
     echo "UNINSTALLING VLC"
 
-    if [ $snap = true ]; then
+    if [ $platform = "linux32" ]; then
 
-        sudo snap remove $VLC_linux
-    else
         sudo apt-get remove -y $VLC_linux
     fi
 
@@ -280,10 +272,8 @@ fi
 echo ""
 echo "INSTALLING VLC"
 
-if [ $snap = true ]; then
+if [ $platform = "linux32" ]; then
 
-    sudo snap install $VLC_linux
-else
     sudo apt-get install -y $VLC_linux
 fi
 
@@ -468,20 +458,12 @@ echo "DEPLOYING VLC"
 
 mkdir -p "$VLC"
 
-if [ $snap = true ]; then
+if [ $platform = "linux32" ]; then
 
-    path="/snap/vlc/current/usr/lib"
-
-    sudo cp "$path"/libvlc.so.$VLC_versionB            "$VLC"/libvlc.so.$VLC_versionC
-    sudo cp "$path"/libvlccore.so.$libvlccore_versionB "$VLC"/libvlccore.so.$libvlccore_versionC
-
-    # NOTE: libidn is required for linking against libvlccore.
-    sudo cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$VLC"
-else
     path="$lib"
 
-    sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionC
-    sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionC
+    sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
+    sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
 fi
 
 sudo cp -r "$path"/vlc "$VLC"
