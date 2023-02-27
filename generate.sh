@@ -429,7 +429,7 @@ fi
 # FIXME: We need the Windows archive for the include folder.
 if [ $1 = "linux" -o $1 = "android" ]; then
 
-    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
+    VLC_url_archive="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 fi
 
 Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
@@ -1271,9 +1271,9 @@ if [ $platform = "linux64" -o $1 = "android" ]; then
 
     echo ""
     echo "DOWNLOADING VLC sources"
-    echo $VLC_url
+    echo $VLC_url_archive
 
-    curl -L -o VLC.7z $VLC_url
+    curl -L -o VLC.7z $VLC_url_archive
 
     7z x VLC.7z -o"$VLC" > /dev/null
 
