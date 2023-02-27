@@ -1202,18 +1202,16 @@ elif [ $1 = "iOS" ]; then
 
 elif [ $platform = "linux64" ]; then
 
+    artifact="VLC-linux64"
+
     echo ""
-    echo "DOWNLOADING VLC"
-
-    name="VLC-linux64"
-
-    echo "ARTIFACT $name"
+    echo "ARTIFACT $artifact"
     echo $VLC_url
 
-    VLC_url=$(getSource $VLC_url $name)
+    VLC_url=$(getSource $VLC_url $artifact)
 
     echo ""
-    echo "DOWNLOADING $name"
+    echo "DOWNLOADING VLC"
     echo $VLC_url
 
     curl --retry 3 -L -o VLC.zip $VLC_url
@@ -1224,11 +1222,11 @@ elif [ $platform = "linux64" ]; then
 
     rm VLC.zip
 
-    name="$VLC/$name"
+    path="$VLC/$artifact"
 
-    unzip -q "$name"/VLC.zip -d "$VLC"/snap
+    unzip -q "$path"/VLC.zip -d "$VLC"/snap
 
-    rm -rf "$name"
+    rm -rf "$path"
 
     path="$VLC/snap/usr/lib"
 
@@ -1292,19 +1290,19 @@ fi
 
 if [ $1 != "iOS" ]; then
 
-    echo ""
-    echo "ARTIFACT libtorrent-$name"
-    echo $libtorrent_url
-
     # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
     if [ $qt = "qt4" -a $platform = "linux32" ]; then
 
-        name=libtorrent-$name-$qt
+        artifact=libtorrent-$name-$qt
     else
-        name=libtorrent-$name
+        artifact=libtorrent-$name
     fi
 
-    libtorrent_url=$(getSource $libtorrent_url $name)
+    echo ""
+    echo "ARTIFACT $artifact"
+    echo $libtorrent_url
+
+    libtorrent_url=$(getSource $libtorrent_url $artifact)
 
     echo ""
     echo "DOWNLOADING libtorrent"
@@ -1316,9 +1314,9 @@ if [ $1 != "iOS" ]; then
 
     rm libtorrent.zip
 
-    unzip -q $name/libtorrent.zip -d "$external"
+    unzip -q $artifact/libtorrent.zip -d "$external"
 
-    rm -rf $name
+    rm -rf $artifact
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -1416,23 +1414,21 @@ fi
 
 if [ $os = "mobile" ]; then
 
-    echo ""
-    echo "DOWNLOADING Sky"
-
     if [ $1 = "iOS" ]; then
 
-        name="Sky-macOS-$qt"
+        artifact="Sky-macOS-$qt"
     else
-        name="Sky-linux64-$qt"
+        artifact="Sky-linux64-$qt"
     fi
 
-    echo "ARTIFACT $name"
+    echo ""
+    echo "ARTIFACT $artifact"
     echo $Sky_url
 
-    Sky_url=$(getSource $Sky_url $name)
+    Sky_url=$(getSource $Sky_url $artifact)
 
     echo ""
-    echo "DOWNLOADING $name"
+    echo "DOWNLOADING Sky"
     echo $Sky_url
 
     curl --retry 3 -L -o Sky.zip $Sky_url
@@ -1443,9 +1439,9 @@ if [ $os = "mobile" ]; then
 
     rm Sky.zip
 
-    name="$Sky/$name"
+    path="$Sky/$artifact"
 
-    unzip -q "$name"/Sky.zip -d "$Sky"
+    unzip -q "$path"/Sky.zip -d "$Sky"
 
-    rm -rf "$name"
+    rm -rf "$path"
 fi
