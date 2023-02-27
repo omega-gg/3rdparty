@@ -1230,7 +1230,7 @@ elif [ $platform = "linux64" ]; then
 
     rm -rf "$name"
 
-    path="$VLC/snap/vlc/current/usr/lib"
+    path="$VLC/snap/usr/lib"
 
     cp "$path"/libvlc.so.$VLC_linuxA            "$VLC"/libvlc.so.$VLC_linuxB
     cp "$path"/libvlccore.so.$libvlccore_linuxA "$VLC"/libvlccore.so.$libvlccore_linuxB
