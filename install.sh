@@ -453,20 +453,20 @@ mkdir -p "$SSL"
 sudo cp "$lib"/libssl.so.1.1    "$SSL"
 sudo cp "$lib"/libcrypto.so.1.1 "$SSL"
 
-echo ""
-echo "DEPLOYING VLC"
-
-mkdir -p "$VLC"
-
 if [ $platform = "linux32" ]; then
+
+    echo ""
+    echo "DEPLOYING VLC"
+
+    mkdir -p "$VLC"
 
     path="$lib"
 
     sudo cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
     sudo cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
-fi
 
-sudo cp -r "$path"/vlc "$VLC"
+    sudo cp -r "$path"/vlc "$VLC"
+fi
 
 #echo ""
 #echo "DEPLOYING libtorrent"
