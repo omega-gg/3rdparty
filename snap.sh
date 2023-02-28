@@ -21,10 +21,10 @@ getSource()
 
     rm artifacts.json
 
-    echo $artifacts | $grep -Po '"id":.*?[^\\]}}'         | \
-                      $grep "$2\""                        | \
-                      $grep -Po '"downloadUrl":.*?[^\\]"' | \
-                      $grep -o '"[^"]*"$'                 | tr -d '"'
+    echo $artifacts | grep -Po '"id":.*?[^\\]}}'         | \
+                      grep "$2\""                        | \
+                      grep -Po '"downloadUrl":.*?[^\\]"' | \
+                      grep -o '"[^"]*"$'                 | tr -d '"'
 }
 
 #--------------------------------------------------------------------------------------------------
