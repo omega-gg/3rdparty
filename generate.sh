@@ -894,6 +894,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     elif [ $platform = "linux64" ]; then
 
+        mkdir -p "$QtX"/plugins/iconengines
         mkdir -p "$QtX"/plugins/xcbglintegrations
 
         if [ $qt = "qt5" ]; then
@@ -917,6 +918,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/iconengines/libq*.so       "$QtX"/plugins/iconengines
         mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
 
         #------------------------------------------------------------------------------------------
