@@ -25,8 +25,6 @@ VLC_version="3.0.18"
 
 #--------------------------------------------------------------------------------------------------
 
-VLC_artifact="6021"
-
 libtorrent_artifact="5766"
 
 Sky_artifact="5873"
@@ -75,8 +73,6 @@ VLC_android="3.5.1"
 compiler_win="mingw"
 
 qt="qt5"
-
-snap="snapClear"
 
 #--------------------------------------------------------------------------------------------------
 # Functions
@@ -413,8 +409,6 @@ elif [ $1 = "linux" ]; then
 
     linuxdeployqt_url="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 
-    VLC_url="https://dev.azure.com/bunjee/snap/_apis/build/builds/$VLC_artifact/artifacts"
-
 elif [ $1 = "android" ]; then
 
     JDK_url="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-${JDK_version}_linux-x64_bin.tar.gz"
@@ -429,7 +423,7 @@ fi
 # FIXME: We need the Windows archive for the include folder.
 if [ $1 = "linux" -o $1 = "android" ]; then
 
-    VLC_url_archive="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
+    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
 fi
 
 Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
@@ -1202,46 +1196,9 @@ elif [ $1 = "iOS" ]; then
 
 elif [ $platform = "linux64" ]; then
 
-    artifact="VLC-linux64"
+    sh snap.sh linux vlc
 
-    echo ""
-    echo "ARTIFACT $artifact"
-    echo $VLC_url
-
-    VLC_url=$(getSource $VLC_url $artifact)
-
-    echo ""
-    echo "DOWNLOADING VLC"
-    echo $VLC_url
-
-    curl --retry 3 -L -o VLC.zip $VLC_url
-
-    mkdir -p "$VLC"
-
-    unzip -q VLC.zip -d "$VLC"
-
-    rm VLC.zip
-
-    path="$VLC/$artifact"
-
-    unzip -q "$path"/VLC.zip -d "$VLC"/snap
-
-    rm -rf "$path"
-
-    path="$VLC/snap/usr/lib"
-
-    cp "$path"/libvlc.so.$VLC_linuxA            "$VLC"/libvlc.so.$VLC_linuxB
-    cp "$path"/libvlccore.so.$libvlccore_linuxA "$VLC"/libvlccore.so.$libvlccore_linuxB
-
-    # NOTE: libidn is required for linking against libvlccore.
-    cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$VLC"
-
-    cp -r "$path"/vlc "$VLC"
-
-    if [ $snap = "snapClear" ]; then
-
-        rm -rf "$VLC"/snap
-    fi
+    rm -rf "$VLC"/snap
 
 elif [ $1 = "android" ]; then
 
@@ -1269,9 +1226,9 @@ if [ $platform = "linux64" -o $1 = "android" ]; then
 
     echo ""
     echo "DOWNLOADING VLC sources"
-    echo $VLC_url_archive
+    echo $VLC_url
 
-    curl -L -o VLC.7z $VLC_url_archive
+    curl -L -o VLC.7z $VLC_url
 
     7z x VLC.7z -o"$VLC" > /dev/null
 
