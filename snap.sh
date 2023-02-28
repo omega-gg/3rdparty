@@ -10,6 +10,15 @@ VLC_version="3.0.18"
 VLC_artifact="6021"
 
 #--------------------------------------------------------------------------------------------------
+# Linux
+
+VLC_versionA="5.6.1"
+VLC_versionB="5"
+
+libvlccore_versionA="9.0.1"
+libvlccore_versionB="9"
+
+#--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
 
@@ -82,8 +91,8 @@ if [ $2 = "vlc" ]; then
 
     path="$VLC/snap/usr/lib"
 
-    cp "$path"/libvlc.so.$VLC_linuxA            "$VLC"/libvlc.so.$VLC_linuxB
-    cp "$path"/libvlccore.so.$libvlccore_linuxA "$VLC"/libvlccore.so.$libvlccore_linuxB
+    cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
+    cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
 
     # NOTE: libidn is required for linking against libvlccore.
     cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$VLC"

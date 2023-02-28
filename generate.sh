@@ -49,12 +49,6 @@ VLC_version_iOS="3.3.18b12"
 
 lib32="/usr/lib/i386-linux-gnu"
 
-VLC_linuxA="5.6.1"
-VLC_linuxB="5"
-
-libvlccore_linuxA="9.0.1"
-libvlccore_linuxB="9"
-
 #--------------------------------------------------------------------------------------------------
 # Android
 
