@@ -163,8 +163,13 @@ Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimed
 if [ $platform = "linux32" ]; then
 
     VLC_linux="libvlc-dev vlc"
+
+    # NOTE: patchelf does not exist on linux32.
+    tools_linux="git"
 else
     VLC_linux="vlc"
+
+    tools_linux="git patchelf"
 fi
 
 #libtorrent_linux="libtorrent-rasterbar-dev"
