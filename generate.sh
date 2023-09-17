@@ -183,7 +183,7 @@ copySsl()
     mkdir "$2"
 
     # FIXME Qt 6.5+
-    cp android_openssl/ssl_1.1/$1/*.so "$2"
+    cp android_openssl/ssl_1.1/$1/*.so "$2"/$1
 }
 
 extractVlc()
@@ -1096,10 +1096,10 @@ elif [ $1 = "android" ]; then
 
     mkdir -p "$path"
 
-    copySsl arm    "$path"/armeabi-v7a
-    copySsl arm64  "$path"/arm64-v8a
-    copySsl x86    "$path"/x86
-    copySsl x86_64 "$path"/x86_64
+    copySsl armeabi-v7a "$path"
+    copySsl arm64-v8a   "$path"
+    copySsl x86         "$path"
+    copySsl x86_64      "$path"
 
     rm -rf android_openssl
 fi
