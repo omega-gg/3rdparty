@@ -182,7 +182,8 @@ copySsl()
 {
     mkdir "$2"
 
-    cp android_openssl/latest/$1/*.so "$2"
+    # FIXME Qt 6.5+
+    cp android_openssl/ssl_1.1/$1/*.so "$2"
 }
 
 extractVlc()
