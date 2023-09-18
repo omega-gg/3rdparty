@@ -180,21 +180,21 @@ moveMobile()
 
 copySsl()
 {
-    path="$2"/$1
+    ssl="$2"/$1
 
-    mkdir "$path"
+    mkdir "$ssl"
 
     # FIXME Qt 6.5+
-    cp android_openssl/ssl_1.1/$1/*.so "$path"
+    cp android_openssl/ssl_1.1/$1/*.so "$ssl"
 }
 
 extractVlc()
 {
-    path="$VLC/$1"
+    vlc="$VLC/$1"
 
-    mkdir "$path"
+    mkdir "$vlc"
 
-    cp VLC/jni/$1/libvlc.so "$path"
+    cp VLC/jni/$1/libvlc.so "$vlc"
 }
 
 linkNdk()
