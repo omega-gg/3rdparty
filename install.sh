@@ -430,6 +430,7 @@ if [ $platform = "linux32" -a $qt = "qt5" ]; then
 
     sudo cp "$lib"/qt5/plugins/imageformats/libqsvg.so  "$Qt5"/plugins/imageformats
     sudo cp "$lib"/qt5/plugins/imageformats/libqjpeg.so "$Qt5"/plugins/imageformats
+    sudo cp "$lib"/qt5/plugins/imageformats/libqwebp.so "$Qt5"/plugins/imageformats
 
     sudo cp "$lib"/qt5/plugins/mediaservice/libgstcamerabin.so "$Qt5"/plugins/mediaservice
 
