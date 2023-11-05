@@ -195,6 +195,9 @@ extractVlc()
     mkdir "$output"
 
     cp VLC/jni/$1/libvlc.so "$output"
+
+    # NOTE android/VLC: We need a specific libc++_shared library.
+    cp VLC/jni/$1/libc++_shared.so "$output"
 }
 
 linkNdk()
