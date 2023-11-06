@@ -54,10 +54,10 @@ lib32="/usr/lib/i386-linux-gnu"
 
 JDK_version="11.0.2"
 
-SDK_version="31"
+SDK_version="33"
 
-NDK_versionA="22"
-NDK_versionB="22.1.7171670"
+NDK_versionA="25"
+NDK_versionB="25.1.8937393"
 
 VLC_android="3.5.1"
 
@@ -1357,12 +1357,12 @@ if [ $1 = "android" ]; then
     # UPDATE: This is fixed by copying the specific libc++_shared provided with libVLC. Providing
     #         another one seems to cause random crashes.
 
-    path="$NDK_versionA/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib"
+    #path="$NDK_versionA/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib"
 
-    linkNdk "$path/arm-linux-androideabi"
-    linkNdk "$path/aarch64-linux-android"
-    linkNdk "$path/i686-linux-android"
-    linkNdk "$path/x86_64-linux-android"
+    #linkNdk "$path/arm-linux-androideabi"
+    #linkNdk "$path/aarch64-linux-android"
+    #linkNdk "$path/i686-linux-android"
+    #linkNdk "$path/x86_64-linux-android"
 
     #----------------------------------------------------------------------------------------------
 
