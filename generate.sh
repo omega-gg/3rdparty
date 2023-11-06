@@ -1354,6 +1354,8 @@ if [ $1 = "android" ]; then
     #----------------------------------------------------------------------------------------------
     # NOTE NDK 22: We add SDK 31 support to avoid random crashes with libtorrent on the NDK 23.
     #              https://github.com/arvidn/libtorrent/issues/7181
+    # UPDATE: This is fixed by copying the specific libc++_shared provided with libVLC. Providing
+    #         another one seems to cause random crashes.
 
     path="$NDK_versionA/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib"
 
