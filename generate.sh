@@ -36,6 +36,8 @@ MinGW_versionA="11.2.0"
 MinGW_versionB="1120"
 MinGW_versionC="810"
 
+MSVC_version="17"
+
 jom_versionA="1.1.3"
 jom_versionB="1_1_3"
 
@@ -391,7 +393,7 @@ if [ $os = "windows" ]; then
 
     SSL_urlB="https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-${SSL_versionB}.zip"
 
-    MSVC_url="https://aka.ms/vs/16/release/vs_buildtools.exe"
+    MSVC_url="https://aka.ms/vs/$MSVC_version/release/vs_buildtools.exe"
 
     jom_url="http://ftp1.nluug.nl/languages/qt/official_releases/jom/jom_$jom_versionB.zip"
 
