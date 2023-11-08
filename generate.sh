@@ -215,18 +215,12 @@ linkNdk()
 
 apply()
 {
-    echo "--- before sed ---"
-    cat "$2"
-
     if [ $host = "macOS" ]; then
 
         sed -i "" "$1" "$2"
     else
         sed -i "$1" "$2"
     fi
-
-    echo "--- sed result ---"
-    cat "$2"
 }
 
 applyAndroid()
@@ -929,9 +923,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
 
-            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/macos/g'
+            expression='s/HostPrefix=.*/HostPrefix=..\/..\/macos/g'
 
             apply $expression "$QtX"/bin/target_qt.conf
+
+            echo "--- sed after ---"
+            cat "$QtX"/bin/target_qt.conf
         fi
 
         rm -f "$QtX"/plugins/platforms/*debug*
@@ -1028,13 +1025,19 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
 
-            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/gcc_64/g'
+            expression='s/HostPrefix=.*/HostPrefix=..\/..\/gcc_64/g'
 
             applyAndroid $expression "$QtX" bin/target_qt.conf
 
-            expression='s/HostLibraryExecutable=.\/bin/HostLibraryExecutable=.\/libexec/g'
+            expression='s/HostLibraryExecutable=.*/HostLibraryExecutable=.\/libexec/g'
 
             applyAndroid $expression "$QtX" bin/target_qt.conf
+
+            echo "--- sed after ---"
+            cat "$QtX"/android_armv7/bin/target_qt.conf
+            cat "$QtX"/android_arm64_v8a/bin/target_qt.conf
+            cat "$QtX"/android_x86/bin/target_qt.conf
+            cat "$QtX"/android_x86_64/bin/target_qt.conf
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
