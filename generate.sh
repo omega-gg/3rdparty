@@ -76,7 +76,7 @@ qt="qt5"
 
 installQt()
 {
-    echo "$install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 --toolchain $2 $3"
+    echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 --toolchain $2 $3"
 
     bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 \
                      --toolchain $2 $3
@@ -211,6 +211,16 @@ linkNdk()
     ln -s "30" "31"
 
     cd -
+}
+
+apply()
+{
+    if [ $host = "macOS" ]; then
+
+        sed -i "" $1 $2
+    else
+        sed -i $1 $2
+    fi
 }
 
 #--------------------------------------------------------------------------------------------------
@@ -609,7 +619,7 @@ if [ $qt != "qt4" ]; then
             Qt_modules="$Qt_modules qtwinextras"
         fi
 
-        echo "$install_qt --directory Qt --version $Qt_version --host windows_x86 --toolchain $toolchain $Qt_modules"
+        echo "bash $install_qt --directory Qt --version $Qt_version --host windows_x86 --toolchain $toolchain $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host windows_x86 \
                          --toolchain $toolchain $Qt_modules
@@ -644,7 +654,7 @@ if [ $qt != "qt4" ]; then
         # NOTE: This is useful for macdeployqt.
         Qt_modules="$Qt_modules qttools"
 
-        echo "$install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
+        echo "bash $install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --toolchain clang_64 $Qt_modules
@@ -662,7 +672,7 @@ if [ $qt != "qt4" ]; then
 
             Qt="Qt/$Qt_version/ios"
         else
-            echo "$install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
+            echo "bash $install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
 
             # NOTE Qt6: We need the desktop toolchain to build iOS.
             bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
@@ -671,7 +681,7 @@ if [ $qt != "qt4" ]; then
             Qt="Qt/$Qt_version"
         fi
 
-        echo "$install_qt --directory Qt --version $Qt_version --host mac_x64 --target ios --toolchain ios $Qt_modules"
+        echo "bash $install_qt --directory Qt --version $Qt_version --host mac_x64 --target ios --toolchain ios $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --target ios --toolchain ios $Qt_modules
@@ -685,7 +695,7 @@ if [ $qt != "qt4" ]; then
             Qt_modules="$Qt_modules icu"
         fi
 
-        echo "$install_qt --directory Qt --version $Qt_version --host linux_x64 --toolchain gcc_64 $Qt_modules"
+        echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --toolchain gcc_64 $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
                          --toolchain gcc_64 $Qt_modules
@@ -699,7 +709,7 @@ if [ $qt != "qt4" ]; then
 
         if [ $qt = "qt5" ]; then
 
-            echo "$install_qt --directory Qt --version $Qt_version --host linux_x64 --target android --toolchain any $Qt_modules androidextras"
+            echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android --toolchain any $Qt_modules androidextras"
 
             bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
                              --target android --toolchain any $Qt_modules androidextras
@@ -902,8 +912,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             QtX="$QtX/ios"
 
-            # NOTE Qt6: We replace target_qt otherwise mkspecs are not found.
-            cp dist/iOS/target_qt.conf "$QtX"/bin
+            #--------------------------------------------------------------------------------------
+            # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
+
+            expression='s!HostPrefix=../../!HostPrefix=../..//macos/g!'
+
+            apply expression "$QtX"/bin/target_qt.conf
         fi
 
         rm -f "$QtX"/plugins/platforms/*debug*
@@ -996,6 +1010,16 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$bin"/androiddeployqt "$QtBase/bin"
 
             moveMobile "plugins/tls/lib*.so" "plugins/tls"
+
+            #--------------------------------------------------------------------------------------
+            # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
+
+            expression='s!HostPrefix=../../!HostPrefix=../..//gcc_64/g!'
+
+            apply $expression "$QtX"/android_armv7/target_qt.conf
+            apply $expression "$QtX"/android_arm64_v8a/target_qt.conf
+            apply $expression "$QtX"/android_x86/target_qt.conf
+            apply $expression "$QtX"/android_x86_64/target_qt.conf
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
