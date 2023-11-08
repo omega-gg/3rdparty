@@ -917,7 +917,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/macos\//g'
 
-            apply expression "$QtX"/bin/target_qt.conf
+            apply $expression "$QtX"/bin/target_qt.conf
         fi
 
         rm -f "$QtX"/plugins/platforms/*debug*
