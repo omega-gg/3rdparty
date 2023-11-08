@@ -217,10 +217,21 @@ apply()
 {
     if [ $host = "macOS" ]; then
 
-        sed -i "" $1 $2
+        sed -i "" "$1" "$2"
     else
-        sed -i $1 $2
+        sed -i "$1" "$2"
     fi
+
+    echo "--- sed result ---"
+    cat "$2"
+}
+
+applyAndroid()
+{
+    apply "$1" "$2"/android_armv7/"$3"
+    apply "$1" "$2"/android_arm64_v8a/"$3"
+    apply "$1" "$2"/android_x86/"$3"
+    apply "$1" "$2"/android_x86_64/"$3"
 }
 
 #--------------------------------------------------------------------------------------------------
@@ -915,7 +926,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
 
-            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/macos\//g'
+            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/macos/g'
 
             apply $expression "$QtX"/bin/target_qt.conf
         fi
@@ -1014,12 +1025,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
 
-            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/gcc_64\//g'
+            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/gcc_64/g'
 
-            apply $expression "$QtX"/android_armv7/bin/target_qt.conf
-            apply $expression "$QtX"/android_arm64_v8a/bin/target_qt.conf
-            apply $expression "$QtX"/android_x86/bin/target_qt.conf
-            apply $expression "$QtX"/android_x86_64/bin/target_qt.conf
+            applyAndroid $expression "$QtX" bin/target_qt.conf
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
