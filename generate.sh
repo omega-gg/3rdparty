@@ -915,7 +915,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
 
-            expression='s!HostPrefix=../../!HostPrefix=../..//macos/g!'
+            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/macos\//g'
 
             apply expression "$QtX"/bin/target_qt.conf
         fi
@@ -1014,12 +1014,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
 
-            expression='s!HostPrefix=../../!HostPrefix=../..//gcc_64/g!'
+            expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/gcc_64\//g'
 
-            apply $expression "$QtX"/android_armv7/target_qt.conf
-            apply $expression "$QtX"/android_arm64_v8a/target_qt.conf
-            apply $expression "$QtX"/android_x86/target_qt.conf
-            apply $expression "$QtX"/android_x86_64/target_qt.conf
+            apply $expression "$QtX"/android_armv7/bin/target_qt.conf
+            apply $expression "$QtX"/android_arm64_v8a/bin/target_qt.conf
+            apply $expression "$QtX"/android_x86/bin/target_qt.conf
+            apply $expression "$QtX"/android_x86_64/bin/target_qt.conf
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
