@@ -215,6 +215,9 @@ linkNdk()
 
 apply()
 {
+    echo "--- before sed ---"
+    cat "$2"
+
     if [ $host = "macOS" ]; then
 
         sed -i "" "$1" "$2"
