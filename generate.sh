@@ -76,6 +76,8 @@ qt="qt5"
 
 installQt()
 {
+    echo "$install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 --toolchain $2 $3"
+
     bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 \
                      --toolchain $2 $3
 
@@ -607,6 +609,8 @@ if [ $qt != "qt4" ]; then
             Qt_modules="$Qt_modules qtwinextras"
         fi
 
+        echo "$install_qt --directory Qt --version $Qt_version --host windows_x86 --toolchain $toolchain $Qt_modules"
+
         bash $install_qt --directory Qt --version $Qt_version --host windows_x86 \
                          --toolchain $toolchain $Qt_modules
 
@@ -640,6 +644,8 @@ if [ $qt != "qt4" ]; then
         # NOTE: This is useful for macdeployqt.
         Qt_modules="$Qt_modules qttools"
 
+        echo "$install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
+
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --toolchain clang_64 $Qt_modules
 
@@ -656,12 +662,16 @@ if [ $qt != "qt4" ]; then
 
             Qt="Qt/$Qt_version/ios"
         else
+            echo "$install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
+
             # NOTE Qt6: We need the desktop toolchain to build iOS.
             bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                              --toolchain clang_64 $Qt_modules
 
             Qt="Qt/$Qt_version"
         fi
+
+        echo "$install_qt --directory Qt --version $Qt_version --host mac_x64 --target ios --toolchain ios $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
                          --target ios --toolchain ios $Qt_modules
@@ -675,6 +685,8 @@ if [ $qt != "qt4" ]; then
             Qt_modules="$Qt_modules icu"
         fi
 
+        echo "$install_qt --directory Qt --version $Qt_version --host linux_x64 --toolchain gcc_64 $Qt_modules"
+
         bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
                          --toolchain gcc_64 $Qt_modules
 
@@ -686,6 +698,8 @@ if [ $qt != "qt4" ]; then
         export QT_VERSION="$Qt_version"
 
         if [ $qt = "qt5" ]; then
+
+            echo "$install_qt --directory Qt --version $Qt_version --host linux_x64 --target android --toolchain any $Qt_modules androidextras"
 
             bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
                              --target android --toolchain any $Qt_modules androidextras

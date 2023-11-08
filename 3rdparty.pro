@@ -7,3 +7,4 @@ OTHER_FILES += generate.sh \
                dist/generate.sh \
                dist/install-qt.sh \
                dist/showvcvars.bat \
+               dist/iOS/target_qt.conf \
