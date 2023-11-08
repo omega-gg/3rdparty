@@ -1028,6 +1028,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             expression='s/HostPrefix=..\/..\//HostPrefix=..\/..\/gcc_64/g'
 
             applyAndroid $expression "$QtX" bin/target_qt.conf
+
+            expression='s/HostLibraryExecutable=.\/bin/HostLibraryExecutable=.\/libexec/g'
+
+            applyAndroid $expression "$QtX" bin/target_qt.conf
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
