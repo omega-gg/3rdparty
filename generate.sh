@@ -927,7 +927,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             apply $expression "$QtX"/bin/target_qt.conf
 
-            expression='s/HostSpec=.*/HostSpec=macx-clang/g'
+            expression='s/HostData=.*/HostData=..\/ios/g'
 
             apply $expression "$QtX"/bin/target_qt.conf
 
