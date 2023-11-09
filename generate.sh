@@ -927,6 +927,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             apply $expression "$QtX"/bin/target_qt.conf
 
+            expression='s/HostSpec=.*/HostSpec=macx-clang/g'
+
+            apply $expression "$QtX"/bin/target_qt.conf
+
             echo "--- sed after ---"
             cat "$QtX"/bin/target_qt.conf
         fi
@@ -1029,7 +1033,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             applyAndroid $expression "$QtX" bin/target_qt.conf
 
-            expression='s/HostLibraryExecutable=.*/HostLibraryExecutable=.\/libexec/g'
+            expression='s/HostLibraryExecutables=.*/HostLibraryExecutables=.\/libexec/g'
 
             applyAndroid $expression "$QtX" bin/target_qt.conf
 
