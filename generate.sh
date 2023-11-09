@@ -36,7 +36,7 @@ MinGW_versionA="11.2.0"
 MinGW_versionB="1120"
 MinGW_versionC="810"
 
-BuildTools_version="17"
+BuildTools_version="16"
 
 jom_versionA="1.1.3"
 jom_versionB="1_1_3"
