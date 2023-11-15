@@ -314,11 +314,11 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
         name="$1-msvc"
 
-        web="default"
+        web="active"
     else
         name="$1"
 
-        web="active"
+        web="default"
     fi
 else
     if [ $1 = "iOS" -o $1 = "android" ]; then
