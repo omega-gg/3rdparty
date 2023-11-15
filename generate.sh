@@ -313,8 +313,12 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     if [ $compiler = "msvc" ]; then
 
         name="$1-msvc"
+
+        web="default"
     else
         name="$1"
+
+        web="active"
     fi
 else
     if [ $1 = "iOS" -o $1 = "android" ]; then
@@ -339,6 +343,8 @@ else
     compiler="default"
 
     name="$platform"
+
+    web="active"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -373,6 +379,11 @@ if [ $qt = "qt5" ]; then
 else
     Qt_version="$Qt6_version"
     Qt_modules="$Qt6_modules"
+fi
+
+if [ $web = "active" ]; then
+
+    Qt_modules="$Qt_modules qtwebengine"
 fi
 
 QtX="$external/Qt/$Qt_version"
@@ -765,12 +776,24 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         mv "$Qt"/qml/QtQuick.2    "$QtX"/qml
         mv "$Qt"/qml/QtMultimedia "$QtX"/qml
+
+        if [ -d "$Qt"/qml/QtWebEngineCore ]; then
+
+            mv "$Qt"/qml/QtWebEngineCore "$QtX"/qml
+            mv "$Qt"/qml/QtWebEngine     "$QtX"/qml
+        fi
     else
         mkdirQt "plugins/tls"
 
         moveQt "qml/QtQml"        "qml"
         moveQt "qml/QtQuick"      "qml"
         moveQt "qml/QtMultimedia" "qml"
+
+        if [ -d "$Qt"/qml/QtWebEngineCore ]; then
+
+            moveQt "qml/QtWebEngineCore" "qml"
+            moveQt "qml/QtWebEngine"     "qml"
+        fi
     fi
 
     moveQtAll "mkspecs" "."
