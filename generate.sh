@@ -765,24 +765,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         mv "$Qt"/qml/QtQuick.2    "$QtX"/qml
         mv "$Qt"/qml/QtMultimedia "$QtX"/qml
-
-        if [ -d "$Qt"/qml/QtWebEngineCore ]; then
-
-            mv "$Qt"/qml/QtWebEngineCore "$QtX"/qml
-            mv "$Qt"/qml/QtWebEngine     "$QtX"/qml
-        fi
     else
         mkdirQt "plugins/tls"
 
         moveQt "qml/QtQml"        "qml"
         moveQt "qml/QtQuick"      "qml"
         moveQt "qml/QtMultimedia" "qml"
-
-        if [ -d "$Qt"/qml/QtWebEngineCore ]; then
-
-            moveQt "qml/QtWebEngineCore" "qml"
-            moveQt "qml/QtWebEngine"     "qml"
-        fi
     fi
 
     moveQtAll "mkspecs" "."
