@@ -313,12 +313,8 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     if [ $compiler = "msvc" ]; then
 
         name="$1-msvc"
-
-        web="active"
     else
         name="$1"
-
-        web="default"
     fi
 else
     if [ $1 = "iOS" -o $1 = "android" ]; then
@@ -343,8 +339,6 @@ else
     compiler="default"
 
     name="$platform"
-
-    web="active"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -379,11 +373,6 @@ if [ $qt = "qt5" ]; then
 else
     Qt_version="$Qt6_version"
     Qt_modules="$Qt6_modules"
-fi
-
-if [ $web = "active" ]; then
-
-    Qt_modules="$Qt_modules qtwebengine"
 fi
 
 QtX="$external/Qt/$Qt_version"
