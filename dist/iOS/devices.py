@@ -44,7 +44,11 @@ from __future__ import print_function
 import argparse
 import json
 import subprocess
-from distutils.version import StrictVersion
+
+try:
+    from packaging.version import Version as StrictVersion
+except ImportError:
+    from distutils.version import StrictVersion
 
 def is_available(object):
     if "isAvailable" in object:
