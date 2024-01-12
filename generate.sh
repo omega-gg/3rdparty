@@ -354,6 +354,9 @@ if [ $host = "macOS" ]; then
     set -e
 
     grep="ggrep"
+
+    # NOTE macOS: python3 packaging module is required for devices.py.
+    pip3 install packaging
 else
     grep="grep"
 fi
