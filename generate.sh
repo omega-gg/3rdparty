@@ -899,10 +899,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/rcc*             "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
-
-            # NOTE iOS: We need .a and .prl files.
-            moveMobile plugins/networkinformation/libq*.* plugins/networkinformation
-            moveMobile plugins/tls/libq*.*                plugins/tls
         fi
 
         # NOTE iOS: We need .a and .prl files.
@@ -914,8 +910,14 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         #------------------------------------------------------------------------------------------
 
-        if [ $qt = "qt6" ]; then
+        if [ $qt = "qt5" ]; then
 
+            #--------------------------------------------------------------------------------------
+            # NOTE macOS/qt5: We update toolchain.prf and devices.py for Sonoma.
+
+            cp dist/iOS/toolchain.prf "$QtX"/mkspecs/features
+            cp dist/iOS/devices.py    "$QtX"/mkspecs/features/uikit
+        else
             find "$QtX"/macOS/lib -name "*_debug*" -delete
 
             QtX="$QtX/ios"

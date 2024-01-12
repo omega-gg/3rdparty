@@ -8,3 +8,5 @@ OTHER_FILES += generate.sh \
                dist/install-qt.sh \
                dist/showvcvars.bat \
                dist/iOS/target_qt.conf \
+               dist/iOS/toolchain.prf \
+               dist/iOS/devices.py \
