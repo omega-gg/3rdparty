@@ -284,7 +284,7 @@ isEmpty($${target_prefix}.INCDIRS) {
             }
         }
         #------------------------------------------------------------------------------------------
-        # NOTE macOS: This is a fix Sonoma.
+        # NOTE macOS: This is a fix Sonoma: https://codereview.qt-project.org/c/qt/qtbase/+/503172
         isEmpty(QMAKE_DEFAULT_INCDIRS): \
             !integrity: \
                 error("failed to parse default include paths from compiler output")
@@ -405,7 +405,7 @@ isEmpty($${target_prefix}.INCDIRS) {
         QMAKE_DEFAULT_INCDIRS = $$split(INCLUDE, $$QMAKE_DIRLIST_SEP)
     }
 
-    # NOTE macOS: This is a fix Sonoma.
+    # NOTE macOS: This is a fix Sonoma: https://codereview.qt-project.org/c/qt/qtbase/+/503172
     unix:!darwin:if(!cross_compile|host_build) {
         isEmpty(QMAKE_DEFAULT_INCDIRS): QMAKE_DEFAULT_INCDIRS = /usr/include /usr/local/include
         isEmpty(QMAKE_DEFAULT_LIBDIRS): QMAKE_DEFAULT_LIBDIRS = /lib /usr/lib
