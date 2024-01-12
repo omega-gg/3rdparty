@@ -46,6 +46,7 @@ import json
 import subprocess
 
 try:
+    # NOTE: This is required for python 3.12.
     from packaging.version import Version as StrictVersion
 except ImportError:
     from distutils.version import StrictVersion
