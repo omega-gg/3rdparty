@@ -900,6 +900,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
 
+            # NOTE iOS: We need .a and .prl files.
             moveMobile plugins/networkinformation/libq*.* plugins/networkinformation
             moveMobile plugins/tls/libq*.*                plugins/tls
         fi
