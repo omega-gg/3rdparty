@@ -913,7 +913,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         if [ $qt = "qt5" ]; then
 
             #--------------------------------------------------------------------------------------
-            # NOTE macOS/qt5: We update toolchain.prf and devices.py for Sonoma.
+            # NOTE macOS/Qt5: We update toolchain.prf and devices.py for Sonoma.
 
             cp dist/iOS/toolchain.prf "$QtX"/mkspecs/features
             cp dist/iOS/devices.py    "$QtX"/mkspecs/features/uikit
