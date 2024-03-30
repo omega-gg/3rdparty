@@ -5,7 +5,8 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-artifact="7167"
+# NOTE: Also check Sky_artifact.
+artifact="7427"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
