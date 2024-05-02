@@ -45,7 +45,7 @@ jom_versionB="1_1_3"
 #--------------------------------------------------------------------------------------------------
 # iOS
 
-VLC_version_iOS="3.5.1"
+VLC_version_iOS="3.5.1-34408b84-e9eceaed"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -429,7 +429,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "iOS" ]; then
 
-    VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS-9748e1a4-426513d8.tar.xz"
+    VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS.tar.xz"
 
 elif [ $1 = "linux" ]; then
 
