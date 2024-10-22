@@ -59,8 +59,8 @@ JDK_version="11.0.2"
 
 SDK_version="34"
 
-NDK_versionA="25"
-NDK_versionB="25.1.8937393"
+NDK_versionA="26"
+NDK_versionB="26.1.10909125"
 
 VLC_android="3.6.0-eap12"
 
