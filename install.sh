@@ -10,7 +10,7 @@ Qt5_version="5.15.2"
 
 SSL_version="1.1.1s"
 
-VLC_version="3.0.20"
+VLC_version="3.0.21"
 
 VLC_versionA="5.6.0"
 VLC_versionB="5"
