@@ -18,9 +18,9 @@ VLC_versionB="5"
 libvlccore_versionA="9.0.0"
 libvlccore_versionB="9"
 
-#libtorrent_version="2.0.9"
+#libtorrent_version="2.0.10"
 
-#Boost_version="1.78.0"
+#Boost_version="1.86.0"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -136,7 +136,7 @@ else
 
     QtWebkit_version="4.10.4"
 
-    #Boost_version="1.78.0"
+    #Boost_version="1.86.0"
 fi
 
 libvlccore_version="$libvlccore_versionA"
