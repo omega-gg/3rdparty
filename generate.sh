@@ -410,7 +410,7 @@ if [ $os = "windows" ]; then
 
         SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-i386-win32.zip"
     else
-        MinGW_url="http://ftp1.nluug.nl/languages/qt/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/9.0.0-1-202203221220mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3.7z"
+        MinGW_url="https://master.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/9.0.0-1-202203221220mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3.7z"
 
         SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-x64_86-win64.zip"
     fi
@@ -419,7 +419,7 @@ if [ $os = "windows" ]; then
 
     MSVC_url="https://aka.ms/vs/$BuildTools_version/release/vs_buildtools.exe"
 
-    jom_url="http://ftp1.nluug.nl/languages/qt/official_releases/jom/jom_$jom_versionB.zip"
+    jom_url="https://master.qt.io/official_releases/jom/jom_$jom_versionB.zip"
 
     VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/$platform/vlc-$VLC_version-$platform.7z"
 
