@@ -375,11 +375,7 @@ for COMPONENT in ${COMPONENTS}; do
     # conf file is needed for qmake
     #
     if [ "${COMPONENT}" == "qtbase" ]; then
-        # NOTE Qt6.7.0: The folder is flattened in the archive.
-        if [[ "${VERSION}" > "6.6.0" ]]; then
-            VERSION=""
-            SUBDIR=""
-        elif [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
+        if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
             SUBDIR="${TOOLCHAIN/win64_/}_64"
         elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
             SUBDIR="${TOOLCHAIN/win32_/}_32"
@@ -409,6 +405,7 @@ for COMPONENT in ${COMPONENTS}; do
             QMAKE_FILE="${UNPACK_DIR}/${VERSION}/gcc_64/bin/qmake"
             sed -i "s|\/home\/qt\/work\/install\/bin\/qmake|$QMAKE_FILE|g" "${ANDROID_QMAKE_FILE}"
             sed -i "s|\/Users\/qt\/work\/install\/bin\/qmake|$QMAKE_FILE|g" "${ANDROID_QMAKE_FILE}"
+            PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
         elif [ "${TARGET_PLATFORM}" == "ios" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/target_qt.conf"
             sed -i.bak "s|HostData=target|HostData=../$TOOLCHAIN|g" "${CONF_FILE}"
@@ -416,6 +413,7 @@ for COMPONENT in ${COMPONENTS}; do
             IOS_QMAKE_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qmake"
             QMAKE_FILE="${UNPACK_DIR}/${VERSION}/macos/bin/qmake"
             sed -i.bak "s|\/Users\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${IOS_QMAKE_FILE}"
+            PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
         elif [ "${TARGET_PLATFORM}" == "wasm" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/target_qt.conf"
             sed -i.bak "s|HostData=target|HostData=../$TOOLCHAIN|g" "${CONF_FILE}"
@@ -423,19 +421,22 @@ for COMPONENT in ${COMPONENTS}; do
             WASM_QMAKE_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qmake"
             QMAKE_FILE="${UNPACK_DIR}/${VERSION}/gcc_64/bin/qmake"
             sed -i.bak "s|\/home\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${WASM_QMAKE_FILE}"
+            PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
         else
-            CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
-            # NOTE Qt6.8.0: The qt.conf does not exist by default.
-            #if [ ! -f "$CONF_FILE" ]; then
-            #    touch "$CONF_FILE"
-            #fi
+            # NOTE Qt6.7.0: The folder is flattened in the archive.
+            if [[ "${VERSION}" < "7.0.0" ]]; then
+                CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
+                PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
+            else
+                CONF_FILE="${UNPACK_DIR}/bin/qt.conf"
+                PRI_FILE="${UNPACK_DIR}/mkspecs/qconfig.pri"
+            fi
             echo "[Paths]" > ${CONF_FILE}
             echo "Prefix = .." >> ${CONF_FILE}
         fi
 
         # Adjust the license to be able to run qmake
         # sed with -i requires intermediate file on Mac OS
-        PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
         sed -i.bak 's/Enterprise/OpenSource/g' "${PRI_FILE}"
         sed -i.bak 's/licheck.*//g' "${PRI_FILE}"
         rm "${PRI_FILE}.bak"
