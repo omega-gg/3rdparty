@@ -224,6 +224,7 @@ if ${INSTALLATION_IS_VALID}; then
     exit 0
 fi
 
+# NOTE: Use https.
 MIRRORS="\
     https://ftp.acc.umu.se/mirror/qt.io/qtproject \
     https://ftp.fau.de/qtproject \
@@ -374,7 +375,9 @@ for COMPONENT in ${COMPONENTS}; do
     # conf file is needed for qmake
     #
     if [ "${COMPONENT}" == "qtbase" ]; then
-        if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
+        if [[ "${VERSION}" > "6.7.0" ]]; then
+            SUBDIR=""
+        elif [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
             SUBDIR="${TOOLCHAIN/win64_/}_64"
         elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
             SUBDIR="${TOOLCHAIN/win32_/}_32"
@@ -421,9 +424,9 @@ for COMPONENT in ${COMPONENTS}; do
         else
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
             # NOTE Qt6.8.0: The qt.conf does not exist by default.
-            if [ ! -f "$CONF_FILE" ]; then
-                touch "$CONF_FILE"
-            fi
+            #if [ ! -f "$CONF_FILE" ]; then
+            #    touch "$CONF_FILE"
+            #fi
             echo "[Paths]" > ${CONF_FILE}
             echo "Prefix = .." >> ${CONF_FILE}
         fi
