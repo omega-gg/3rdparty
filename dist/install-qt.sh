@@ -410,15 +410,12 @@ for COMPONENT in ${COMPONENTS}; do
     # NOTE Qt6.7.0: The folder is flattened in the archive.
     if [[ "${VERSION}" > "6.6.0" ]]; then
         path="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
-        ls -la "${UNPACK_DIR}"
-        ls -la "${UNPACK_DIR}/bin"
         mv "${UNPACK_DIR}" temp
-        ls -la temp
         mkdir -p "$path"
         mv temp/* "$path"
         rm -rf temp
-        echo "$path"
-        ls -la "$path"
+        ls -la "$path"/bin
+        echo "$PWD"
     fi
 
     #
