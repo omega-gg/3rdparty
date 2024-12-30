@@ -282,6 +282,9 @@ function compute_url(){
             "qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             "qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${COMPONENT}"
             "qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            # NOTE: This is required for addons.
+            "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
+            "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
             # New repository format (>=5.9.6)
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${TOOLCHAIN}"
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
