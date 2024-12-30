@@ -424,7 +424,7 @@ for COMPONENT in ${COMPONENTS}; do
             PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
         else
             # NOTE Qt6.7.0: The folder is flattened in the archive.
-            if [[ "${VERSION}" < "7.0.0" ]]; then
+            if [[ "${VERSION}" < "6.7.0" ]]; then
                 CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
                 PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
             else
