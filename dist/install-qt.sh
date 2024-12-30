@@ -381,14 +381,14 @@ for COMPONENT in ${COMPONENTS}; do
         elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
             echo "${UNPACK_DIR}/Tools/mingw${VERSION_DIR}_32/bin"
         fi
-        return 0
+        continue
     elif [[ "${COMPONENT}" =~ "qtcreator" ]]; then
         if [ "${HOST_OS}" == "mac_x64" ]; then
             echo "${UNPACK_DIR}/Qt Creator.app/Contents/MacOS"
         else
             echo "${UNPACK_DIR}/bin"
         fi
-        return 0
+        continue
     fi
 
     if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
@@ -420,7 +420,7 @@ for COMPONENT in ${COMPONENTS}; do
     # conf file is needed for qmake
     #
     if [ "${COMPONENT}" != "qtbase" ]; then
-        return 0
+        continue
     fi
 
     if [ "${TARGET_PLATFORM}" == "android" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
