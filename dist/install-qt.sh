@@ -273,7 +273,7 @@ function compute_url(){
         fi
     else
         base="qt6_${VERSION//./}/qt6_${VERSION//./}"
-        baseAndroid="qt6_${VERSION//./}_${ANDROID_ARCH}/qt6_${VERSION//./}"
+        baseAndroid="../all_os/android/qt6_${VERSION//./}/qt6_${VERSION//./}_${ANDROID_ARCH}"
         REMOTE_BASES=(
             #--------------------------------------------------------------------------------------
             # New repository format (>=6.7.0)
@@ -395,7 +395,7 @@ for COMPONENT in ${COMPONENTS}; do
         if [[ "${VERSION}" > "6.6.0" ]]; then
             path="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
             mkdir -p "$path"
-            mv "${UNPACK_DIR}/*" "$path"
+            mv "${UNPACK_DIR}"/* "$path"
         fi
 
         if [ "${TARGET_PLATFORM}" == "android" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
@@ -427,6 +427,7 @@ for COMPONENT in ${COMPONENTS}; do
             QMAKE_FILE="${UNPACK_DIR}/${VERSION}/gcc_64/bin/qmake"
             sed -i.bak "s|\/home\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${WASM_QMAKE_FILE}"
         else
+            CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
             echo "[Paths]" > ${CONF_FILE}
             echo "Prefix = .." >> ${CONF_FILE}
         fi
