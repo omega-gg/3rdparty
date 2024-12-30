@@ -225,9 +225,9 @@ if ${INSTALLATION_IS_VALID}; then
 fi
 
 MIRRORS="\
-    http://ftp.acc.umu.se/mirror/qt.io/qtproject \
-    http://ftp.fau.de/qtproject \
-    http://download.qt.io \
+    https://ftp.acc.umu.se/mirror/qt.io/qtproject \
+    https://ftp.fau.de/qtproject \
+    https://download.qt.io \
 "
 
 for MIRROR in ${MIRRORS}; do
@@ -420,6 +420,10 @@ for COMPONENT in ${COMPONENTS}; do
             sed -i.bak "s|\/home\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${WASM_QMAKE_FILE}"
         else
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
+            # NOTE Qt6.8.0: The qt.conf does not exist by default.
+            if [ ! -f "$CONF_FILE" ]; then
+                touch "$CONF_FILE"
+            fi
             echo "[Paths]" > ${CONF_FILE}
             echo "Prefix = .." >> ${CONF_FILE}
         fi
