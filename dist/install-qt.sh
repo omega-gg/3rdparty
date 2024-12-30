@@ -414,8 +414,6 @@ for COMPONENT in ${COMPONENTS}; do
         mkdir -p "$path"
         mv temp/* "$path"
         rm -rf temp
-        ls -la "$path"/bin
-        echo "$PWD"
     fi
 
     #
