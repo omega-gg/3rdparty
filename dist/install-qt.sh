@@ -45,7 +45,7 @@ usage: install-qt [options] [components]
 
 Examples
   ./install-qt.sh --version 5.13.1 qtbase
-  ./install-qt.sh --version 5.14.0 --target android --toolchain any qtbase qtscript
+  ./install-qt.sh --version 5.14.0 --target android --toolchain any qtbase
 
 Positional arguments
   components
@@ -89,7 +89,7 @@ Options
                 android
                     any, android_armv7, android_arm64_v8a
                 desktop
-                    clang_64 (default),
+                    clang_64 (default)
                 ios
                     ios
 
@@ -153,7 +153,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         --toolchain)
-            TOOLCHAIN=$(echo $2 | tr '[A-Z]' '[a-z]')
+            TOOLCHAIN=$(echo $2 | tr '[:upper:]' '[:lower:]')
             shift
             ;;
         --version)
@@ -197,6 +197,8 @@ case "$TARGET_PLATFORM" in
     ios)
         ;;
     desktop)
+        ;;
+    wasm)
         ;;
     *)
         echo "Error: TARGET_PLATFORM=${TARGET_PLATFORM} is not valid." >&2
@@ -261,7 +263,7 @@ function compute_url(){
         echo "${BASE_URL}/${REMOTE_PATH}"
         return 0
     elif [[ "${COMPONENT}" =~ "mingw" ]]; then
-        REMOTE_BASE="tools_mingw/qt.tools.${TOOLCHAIN}${VERSION//./}"
+        REMOTE_BASE="tools_mingw90/qt.tools.${TOOLCHAIN}${VERSION//./}"
 
         REMOTE_PATH="$(${CURL} ${BASE_URL}/${REMOTE_BASE}/ | grep -o -E "[[:alnum:]_.\-]*7z" | grep -v "meta" | head -1)"
         if [ ! -z "${REMOTE_PATH}" ]; then
@@ -272,12 +274,14 @@ function compute_url(){
         REMOTE_BASES=(
             # New repository format (>=6.0.0)
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
+            "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${HOST_OS//_x64/}_${TOOLCHAIN}"
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${COMPONENT}.${HOST_OS//_x64/}_${TOOLCHAIN}"
             "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
-            # NOTE: This is required for addons.
-            "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
-            "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
+            "qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
+            "qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${COMPONENT}"
+            "qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
             # New repository format (>=5.9.6)
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${TOOLCHAIN}"
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
@@ -323,6 +327,10 @@ for COMPONENT in ${COMPONENTS}; do
             echo "Component ${COMPONENT} was removed in Qt6, skipping" >&2
             continue
         fi
+        if [[ "${COMPONENT}" =~ "icu" ]] && [[ "${TARGET_PLATFORM}" =~ "wasm" ]]; then
+            echo "Component ${COMPONENT} is not present in Qt6 (${TARGET_PLATFORM}), skipping" >&2
+            continue
+        fi
     else
         if [[ "${COMPONENT}" =~ "qt5compat" ]]; then
             echo "Component ${COMPONENT} is not present in Qt ${VERSION}, skipping" >&2
@@ -351,7 +359,7 @@ for COMPONENT in ${COMPONENTS}; do
             SUBDIR="${TOOLCHAIN/win32_/}"
         elif [[ "${TOOLCHAIN}" =~ "any" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
             SUBDIR="android"
-        elif [ "${HOST_OS}" == "mac_x64" ] && [ ! "${VERSION}" \< "6.1.2" ]; then
+        elif [[ "${HOST_OS}" == "mac_x64" ]] && [[ ! "${VERSION}" < "6.1.2" ]] && [[ "${TARGET_PLATFORM}" == "desktop" ]]; then
             SUBDIR="macos"
         else
             SUBDIR="${TOOLCHAIN}"
@@ -359,11 +367,32 @@ for COMPONENT in ${COMPONENTS}; do
 
         if [ "${TARGET_PLATFORM}" == "android" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/target_qt.conf"
+            ANDROID_QMAKE_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qmake"
+            if [ "${TOOLCHAIN}" == "android_armv7" ] && [ ! "${VERSION}" \< "6.4.2" ]; then
+                sed -i "s/\r//" "${CONF_FILE}"
+                sed -i "s|HostLibraryExecutables=.\/bin|HostLibraryExecutables=.\/libexec|g" "${CONF_FILE}"
+                chmod +x "${ANDROID_QMAKE_FILE}"
+                sed -i "s|\\\|\/|g" "${ANDROID_QMAKE_FILE}"
+            fi
             sed -i "s|target|../$TOOLCHAIN|g" "${CONF_FILE}"
             sed -i "/HostPrefix/ s|$|gcc_64|g" "${CONF_FILE}"
-            ANDROID_QMAKE_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qmake"
             QMAKE_FILE="${UNPACK_DIR}/${VERSION}/gcc_64/bin/qmake"
             sed -i "s|\/home\/qt\/work\/install\/bin\/qmake|$QMAKE_FILE|g" "${ANDROID_QMAKE_FILE}"
+            sed -i "s|\/Users\/qt\/work\/install\/bin\/qmake|$QMAKE_FILE|g" "${ANDROID_QMAKE_FILE}"
+        elif [ "${TARGET_PLATFORM}" == "ios" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
+            CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/target_qt.conf"
+            sed -i.bak "s|HostData=target|HostData=../$TOOLCHAIN|g" "${CONF_FILE}"
+            sed -i.bak "s|HostPrefix=..\/..\/|HostPrefix=..\/..\/macos|g" "${CONF_FILE}"
+            IOS_QMAKE_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qmake"
+            QMAKE_FILE="${UNPACK_DIR}/${VERSION}/macos/bin/qmake"
+            sed -i.bak "s|\/Users\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${IOS_QMAKE_FILE}"
+        elif [ "${TARGET_PLATFORM}" == "wasm" ] && [ ! "${VERSION}" \< "6.0.0" ]; then
+            CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/target_qt.conf"
+            sed -i.bak "s|HostData=target|HostData=../$TOOLCHAIN|g" "${CONF_FILE}"
+            sed -i.bak "s|HostPrefix=..\/..\/|HostPrefix=..\/..\/gcc_64|g" "${CONF_FILE}"
+            WASM_QMAKE_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qmake"
+            QMAKE_FILE="${UNPACK_DIR}/${VERSION}/gcc_64/bin/qmake"
+            sed -i.bak "s|\/home\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${WASM_QMAKE_FILE}"
         else
             CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
             echo "[Paths]" > ${CONF_FILE}
@@ -381,10 +410,14 @@ for COMPONENT in ${COMPONENTS}; do
         # adjust the PATH variable.
         echo $(dirname "${CONF_FILE}")
     elif [[ "${COMPONENT}" =~ "mingw" ]]; then
+        VERSION_DIR="${VERSION//./}"
         if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
-            echo "${UNPACK_DIR}/Tools/mingw${VERSION//./}_64/bin"
+            if [[ "${VERSION}" == "9.0.0" ]]; then
+                VERSION_DIR="1120"
+            fi
+            echo "${UNPACK_DIR}/Tools/mingw${VERSION_DIR}_64/bin"
         elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
-            echo "${UNPACK_DIR}/Tools/mingw${VERSION//./}_32/bin"
+            echo "${UNPACK_DIR}/Tools/mingw${VERSION_DIR}_32/bin"
         fi
     elif [[ "${COMPONENT}" =~ "qtcreator" ]]; then
         if [ "${HOST_OS}" == "mac_x64" ]; then
