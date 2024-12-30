@@ -274,10 +274,20 @@ function compute_url(){
         base="qt6_${VERSION//./}/qt6_${VERSION//./}"
         baseAndroid="qt6_${VERSION//./}_${ANDROID_ARCH}/qt6_${VERSION//./}"
         REMOTE_BASES=(
+            #--------------------------------------------------------------------------------------
             # New repository format (>=6.7.0)
+            #--------------------------------------------------------------------------------------
             "$base/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             "$base/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            "$baseAndroid/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
+            "$baseAndroid/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            #--------------------------------------------------------------------------------------
+            # NOTE: This is required for addons.
+            "$base/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
+            "$baseAndroid/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
+            #--------------------------------------------------------------------------------------
             # New repository format (>=6.0.0)
+            #--------------------------------------------------------------------------------------
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             #"qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${HOST_OS//_x64/}_${TOOLCHAIN}"
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
@@ -287,16 +297,23 @@ function compute_url(){
             #"qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             #"qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${COMPONENT}"
             #"qt${VERSION//./_}/qt6_${VERSION//./}_${TOOLCHAIN}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            #--------------------------------------------------------------------------------------
             # NOTE: This is required for addons.
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
             "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
+            #--------------------------------------------------------------------------------------
             # New repository format (>=5.9.6)
+            #--------------------------------------------------------------------------------------
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${TOOLCHAIN}"
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            #--------------------------------------------------------------------------------------
             # Multi-abi Android since 5.14
+            #--------------------------------------------------------------------------------------
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${TARGET_PLATFORM}"
             "qt5_${VERSION//./}/qt.qt5.${VERSION//./}.${COMPONENT}.${TARGET_PLATFORM}"
+            #--------------------------------------------------------------------------------------
             # Older repository format (<5.9.0)
+            #--------------------------------------------------------------------------------------
             "qt5_${VERSION//./}/qt.${VERSION//./}.${TOOLCHAIN}"
             "qt5_${VERSION//./}/qt.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
         )
