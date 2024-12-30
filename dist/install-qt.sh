@@ -375,7 +375,9 @@ for COMPONENT in ${COMPONENTS}; do
     # conf file is needed for qmake
     #
     if [ "${COMPONENT}" == "qtbase" ]; then
-        if [[ "${VERSION}" > "6.7.0" ]]; then
+        # NOTE Qt6.7.0: The folder is flattened in the archive.
+        if [[ "${VERSION}" > "6.6.0" ]]; then
+            VERSION=""
             SUBDIR=""
         elif [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
             SUBDIR="${TOOLCHAIN/win64_/}_64"
