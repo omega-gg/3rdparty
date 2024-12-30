@@ -394,8 +394,7 @@ for COMPONENT in ${COMPONENTS}; do
         # NOTE Qt6.7.0: The folder is flattened in the archive.
         if [[ "${VERSION}" > "6.6.0" ]]; then
             path="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
-            mkdir temp
-            mv "${UNPACK_DIR}"/* temp
+            mv "${UNPACK_DIR}" temp
             mkdir -p "$path"
             mv temp/* "$path"
             rm -rf temp
