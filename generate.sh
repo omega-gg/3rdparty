@@ -16,8 +16,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedia"
 
 Qt6_version="6.8.1"
-Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat "\
-"qtshadertools"
+Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1s"
@@ -34,9 +33,8 @@ Sky_artifact="8074"
 #--------------------------------------------------------------------------------------------------
 # Windows
 
-MinGW_versionA="11.2.0"
-MinGW_versionB="1120"
-MinGW_versionC="810"
+MinGW_versionA="13.1.0"
+MinGW_versionB="1310"
 
 BuildTools_version="16"
 
@@ -407,11 +405,11 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        MinGW_url="https://github.com/niXman/mingw-builds-binaries/releases/download/11.2.0-rt_v9-rev1/i686-11.2.0-release-posix-dwarf-rt_v9-rev1.7z"
+        MinGW_url="https://github.com/niXman/mingw-builds-binaries/releases/download/13.1.0-rt_v11-rev1/i686-13.1.0-release-posix-dwarf-msvcrt-rt_v11-rev1.7z"
 
         SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-i386-win32.zip"
     else
-        MinGW_url="https://master.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/9.0.0-1-202203221220mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3.7z"
+        MinGW_url="https://master.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_mingw1310/qt.tools.win64_mingw1310/13.1.0-202407240918mingw1310.7z"
 
         SSL_urlA="https://indy.fulgan.com/SSL/openssl-$SSL_versionA-x64_86-win64.zip"
     fi
