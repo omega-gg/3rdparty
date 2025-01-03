@@ -158,12 +158,7 @@ moveQtAll()
 
     else # android
 
-        if [ $qt = "qt5" ]; then
-
-            mv "$Qt"/gcc_64/$1 "$QtX"/gcc_64/$2
-        else
-            mv "$Qt"/linux_gcc_64/$1 "$QtX"/gcc_64/$2
-        fi
+        mv "$Qt"/$toolchain/$1 "$QtX"/gcc_64/$2
     fi
 }
 
@@ -1033,27 +1028,22 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/plugins/bearer/lib*.so          "$QtX"/plugins/bearer
             mv "$Qt"/plugins/video/videonode/lib*.so "$QtX"/plugins/video/videonode
         else
-            if [ $qt = "qt5" ]; then
+            QtBase="$QtX/$toolchain"
 
-                QtBase="$QtX/gcc_64"
-            else
-                QtBase="$QtX/linux_gcc_64"
-            fi
+            bin="$toolchain/bin"
 
-            bin="gcc_64/bin"
-
-            libexec="gcc_64/libexec"
+            libexec="$toolchain/libexec"
 
             mkdir -p "$QtBase/libexec"
 
             mv "$Qt/$bin"/qsb* "$QtBase/bin"
 
+            mv "$Qt/$bin"/androiddeployqt "$QtBase/bin"
+
             mv "$Qt/$libexec"/moc*             "$QtBase/libexec"
             mv "$Qt/$libexec"/rcc*             "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
-
-            mv "$Qt/$bin"/androiddeployqt "$QtBase/bin"
 
             moveMobile "plugins/tls/lib*.so" "plugins/tls"
 
