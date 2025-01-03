@@ -732,6 +732,8 @@ if [ $qt != "qt4" ]; then
 
         if [ $qt = "qt5" ]; then
 
+            toolchain="gcc_64"
+
             echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target android --toolchain any $Qt_modules androidextras"
 
             bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
@@ -739,7 +741,7 @@ if [ $qt != "qt4" ]; then
 
             Qt="Qt/$Qt_version/android"
         else
-            Qt="Qt/$Qt_version"
+            toolchain="linux_gcc_64"
 
             # NOTE Qt6: We need the desktop toolchain to build android.
             installQt desktop linux_gcc_64 "$Qt_modules icu"
@@ -748,6 +750,8 @@ if [ $qt != "qt4" ]; then
             installQt android android_arm64_v8a "$Qt_modules"
             installQt android android_x86       "$Qt_modules"
             installQt android android_x86_64    "$Qt_modules"
+
+            Qt="Qt/$Qt_version"
         fi
     fi
 fi
