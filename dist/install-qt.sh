@@ -389,7 +389,7 @@ for COMPONENT in ${COMPONENTS}; do
     # NOTE Qt6.7.0: The folder is flattened in the archive.
     if [[ "${VERSION}" > "6.6.0" ]]; then
 
-        if [[ "${COMPONENT}" =~ "icu" ]]
+        if [[ "${COMPONENT}" =~ "icu" ]]; then
 
             UNPACK="${UNPACK_DIR}/${VERSION}/${SUBDIR}/lib"
         else
