@@ -613,19 +613,18 @@ if [ $qt != "qt4" ]; then
 
         if [ $compiler = "msvc" ]; then
 
+            if [ $qt = "qt5" ]; then
+
+                msvc="msvc2019"
+            else
+                msvc="msvc2022"
+            fi
+
             if [ $1 = "win32" ]; then
 
-                if [ $qt = "qt5" ]; then
-
-                    toolchain="$platform"_msvc2019
-                else
-                    toolchain="$platform"_msvc2022
-                fi
-            elif [ $qt = "qt5" ]; then
-
-                toolchain="$platform"_msvc2019_64
+                toolchain="$platform_$msvc"
             else
-                toolchain="$platform"_msvc2022_64
+                toolchain="$platform_$msvc_64"
             fi
         elif [ $qt = "qt5" ]; then
 
@@ -663,9 +662,9 @@ if [ $qt != "qt4" ]; then
         else
             if [ $1 = "win32" ]; then
 
-                Qt="Qt/$Qt_version/msvc2019"
+                Qt="Qt/$Qt_version/$msvc"
             else
-                Qt="Qt/$Qt_version/msvc2019_64"
+                Qt="Qt/$Qt_version/$msvc_64"
             fi
         fi
 
@@ -710,17 +709,21 @@ if [ $qt != "qt4" ]; then
 
         if [ $qt = "qt5" ]; then
 
+            toolchain="gcc_64"
+
             Qt_modules="$Qt_modules qtx11extras icu"
         else
+            toolchain="linux_gcc_64"
+
             Qt_modules="$Qt_modules icu"
         fi
 
         echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --toolchain gcc_64 $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host linux_x64 \
-                         --toolchain gcc_64 $Qt_modules
+                         --toolchain $toolchain $Qt_modules
 
-        Qt="Qt/$Qt_version/gcc_64"
+        Qt="Qt/$Qt_version/$toolchain"
 
     elif [ $1 = "android" ]; then
 
