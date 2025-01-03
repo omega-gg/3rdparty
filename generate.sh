@@ -744,7 +744,7 @@ if [ $qt != "qt4" ]; then
             toolchain="linux_gcc_64"
 
             # NOTE Qt6: We need the desktop toolchain to build android.
-            installQt desktop linux_gcc_64 "$Qt_modules icu"
+            installQt desktop $toolchain "$Qt_modules icu"
 
             installQt android android_armv7     "$Qt_modules"
             installQt android android_arm64_v8a "$Qt_modules"
@@ -942,6 +942,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             cp dist/iOS/devices.py    "$QtX"/mkspecs/features/uikit
         else
             find "$QtX"/macOS/lib -name "*_debug*" -delete
+            find "$QtX"/ios/lib   -name "*_debug*" -delete
 
             QtX="$QtX/ios"
 
