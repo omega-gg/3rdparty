@@ -743,12 +743,12 @@ if [ $qt != "qt4" ]; then
             Qt="Qt/$Qt_version"
 
             # NOTE Qt6: We need the desktop toolchain to build android.
-            bash installQt desktop linux_gcc_64 "$Qt_modules icu"
+            installQt desktop linux_gcc_64 "$Qt_modules icu"
 
-            bash installQt android android_armv7     "$Qt_modules"
-            bash installQt android android_arm64_v8a "$Qt_modules"
-            bash installQt android android_x86       "$Qt_modules"
-            bash installQt android android_x86_64    "$Qt_modules"
+            installQt android android_armv7     "$Qt_modules"
+            installQt android android_arm64_v8a "$Qt_modules"
+            installQt android android_x86       "$Qt_modules"
+            installQt android android_x86_64    "$Qt_modules"
         fi
     fi
 fi
