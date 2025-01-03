@@ -942,7 +942,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             cp dist/iOS/devices.py    "$QtX"/mkspecs/features/uikit
         else
             find "$QtX"/macOS/lib -name "*_debug*" -delete
-            find "$QtX"/ios/lib   -name "*_debug*" -delete
+            find "$QtX"/ios/lib   -name "*_debug"  -delete
 
             QtX="$QtX/ios"
 
