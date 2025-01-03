@@ -75,6 +75,16 @@ qt="qt5"
 # Functions
 #--------------------------------------------------------------------------------------------------
 
+installQt()
+{
+    echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 --toolchain $2 $3"
+
+    bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --target $1 \
+                     --toolchain $2 $3
+
+    path="Qt/$Qt_version/$2"
+}
+
 mkdirQt()
 {
     if [ $os != "mobile" -o $qt = "qt5" ]; then
