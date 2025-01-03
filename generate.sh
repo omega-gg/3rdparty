@@ -6,7 +6,7 @@ set -e
 #--------------------------------------------------------------------------------------------------
 
 # NOTE: Also check Sky_artifact.
-artifact="8197"
+artifact="8199"
 
 source="http://omega.gg/get/Sky/3rdparty"
 
