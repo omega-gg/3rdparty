@@ -251,12 +251,6 @@ function compute_url(){
     local BASE_URL="${MIRROR}/online/qtsdkrepository/${HOST_OS}/${TARGET_PLATFORM}"
     local ANDROID_ARCH=$(echo ${TOOLCHAIN##android_})
 
-    # NOTE Qt6.7.0/android: The archives are under 'all_os'.
-    if [[ "${VERSION}" > "6.6.0" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
-
-        BASE_URL="${MIRROR}/online/qtsdkrepository/all_os/${TARGET_PLATFORM}"
-    fi
-
     if [[ "${COMPONENT}" =~ "qtcreator" ]]; then
 
         if [[ "${HOST_OS}" == "windows_x86" ]]; then
@@ -278,6 +272,12 @@ function compute_url(){
             return 0
         fi
     else
+        # NOTE Qt6.7.0/android: The archives are under 'all_os'.
+        if [[ "${VERSION}" > "6.6.0" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
+
+            BASE_URL="${MIRROR}/online/qtsdkrepository/all_os/${TARGET_PLATFORM}"
+        fi
+
         base="qt6_${VERSION//./}/qt6_${VERSION//./}"
         baseAndroid="${base}_${ANDROID_ARCH}"
         REMOTE_BASES=(
