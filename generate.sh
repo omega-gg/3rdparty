@@ -16,7 +16,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedia"
 
 Qt6_version="6.8.1"
-Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat " \
+Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat "\
 "qtshadertools"
 
 SSL_versionA="1.0.2u"
