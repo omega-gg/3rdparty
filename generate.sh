@@ -615,9 +615,17 @@ if [ $qt != "qt4" ]; then
 
             if [ $1 = "win32" ]; then
 
-                toolchain="$platform"_msvc2019
-            else
+                if [ $qt = "qt5" ]; then
+
+                    toolchain="$platform"_msvc2019
+                else
+                    toolchain="$platform"_msvc2022
+                fi
+            elif [ $qt = "qt5" ]; then
+
                 toolchain="$platform"_msvc2019_64
+            else
+                toolchain="$platform"_msvc2022_64
             fi
         elif [ $qt = "qt5" ]; then
 
