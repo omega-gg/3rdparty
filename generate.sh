@@ -148,7 +148,12 @@ moveQtAll()
 
     else # android
 
-        mv "$Qt"/gcc_64/$1 "$QtX"/gcc_64/$2
+        if [ $qt = "qt5" ]; then
+
+            mv "$Qt"/gcc_64/$1 "$QtX"/gcc_64/$2
+        else
+            mv "$Qt"/linux_gcc_64/$1 "$QtX"/gcc_64/$2
+        fi
     fi
 }
 
