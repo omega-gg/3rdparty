@@ -359,10 +359,10 @@ for COMPONENT in ${COMPONENTS}; do
             echo "Component ${COMPONENT} was removed in Qt6, skipping" >&2
             continue
         fi
-        if [[ "${COMPONENT}" =~ "icu" ]] && [[ "${TARGET_PLATFORM}" =~ "wasm" ]]; then
-            echo "Component ${COMPONENT} is not present in Qt6 (${TARGET_PLATFORM}), skipping" >&2
-            continue
-        fi
+        #if [[ "${COMPONENT}" =~ "icu" ]] && [[ "${TARGET_PLATFORM}" =~ "wasm" ]]; then
+        #    echo "Component ${COMPONENT} is not present in Qt6 (${TARGET_PLATFORM}), skipping" >&2
+        #    continue
+        #fi
     else
         if [[ "${COMPONENT}" =~ "qt5compat" ]]; then
             echo "Component ${COMPONENT} is not present in Qt ${VERSION}, skipping" >&2
@@ -388,7 +388,13 @@ for COMPONENT in ${COMPONENTS}; do
 
     # NOTE Qt6.7.0: The folder is flattened in the archive.
     if [[ "${VERSION}" > "6.6.0" ]]; then
-        UNPACK="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
+
+        if [[ "${COMPONENT}" =~ "icu" ]]
+
+            UNPACK="${UNPACK_DIR}/${VERSION}/${SUBDIR}/lib"
+        else
+            UNPACK="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
+        fi
     else
         UNPACK="${UNPACK_DIR}"
     fi
