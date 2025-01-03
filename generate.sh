@@ -622,9 +622,9 @@ if [ $qt != "qt4" ]; then
 
             if [ $1 = "win32" ]; then
 
-                toolchain="$platform_$msvc"
+                toolchain="${platform}_${msvc}"
             else
-                toolchain="$platform_$msvc_64"
+                toolchain="${platform}_${msvc}_64"
             fi
         elif [ $qt = "qt5" ]; then
 
