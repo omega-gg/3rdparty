@@ -660,13 +660,12 @@ if [ $qt != "qt4" ]; then
             else
                 Qt="Qt/$Qt_version/mingw_64"
             fi
-        else
-            if [ $1 = "win32" ]; then
 
-                Qt="Qt/$Qt_version/$msvc"
-            else
-                Qt="Qt/$Qt_version/$msvc_64"
-            fi
+        else if [ $1 = "win32" ]; then
+
+            Qt="Qt/$Qt_version/$msvc"
+        else
+            Qt="Qt/$Qt_version/${msvc}_64"
         fi
 
     elif [ $1 = "macOS" ]; then
