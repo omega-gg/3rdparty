@@ -1033,7 +1033,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/plugins/bearer/lib*.so          "$QtX"/plugins/bearer
             mv "$Qt"/plugins/video/videonode/lib*.so "$QtX"/plugins/video/videonode
         else
-            QtBase="$QtX/gcc_64"
+            if [ $qt = "qt5" ]; then
+
+                QtBase="$QtX/gcc_64"
+            else
+                QtBase="$QtX/linux_gcc_64"
+            fi
 
             bin="gcc_64/bin"
 
