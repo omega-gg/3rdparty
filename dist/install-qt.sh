@@ -364,11 +364,34 @@ for COMPONENT in ${COMPONENTS}; do
         fi
     fi
 
+    if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
+        SUBDIR="${TOOLCHAIN/win64_/}_64"
+    elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
+        SUBDIR="${TOOLCHAIN/win32_/}_32"
+    elif [[ "${TOOLCHAIN}" =~ "win64_msvc" ]]; then
+        SUBDIR="${TOOLCHAIN/win64_/}"
+    elif [[ "${TOOLCHAIN}" =~ "win32_msvc" ]]; then
+        SUBDIR="${TOOLCHAIN/win32_/}"
+    elif [[ "${TOOLCHAIN}" =~ "any" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
+        SUBDIR="android"
+    elif [[ "${HOST_OS}" == "mac_x64" ]] && [[ ! "${VERSION}" < "6.1.2" ]] && [[ "${TARGET_PLATFORM}" == "desktop" ]]; then
+        SUBDIR="macos"
+    else
+        SUBDIR="${TOOLCHAIN}"
+    fi
+
+    # NOTE Qt6.7.0: The folder is flattened in the archive.
+    if [[ "${VERSION}" > "6.6.0" ]]; then
+        UNPACK="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
+    else
+        UNPACK="${UNPACK_DIR}"
+    fi
+
     URL="$(compute_url ${COMPONENT})"
     echo "Downloading ${COMPONENT} ${URL}..." >&2
     curl --progress-bar -L -o ${DOWNLOAD_DIR}/package.7z ${URL} >&2
-    7z x -y -o${UNPACK_DIR} ${DOWNLOAD_DIR}/package.7z >/dev/null 2>&1
-    7z l -ba -slt -y ${DOWNLOAD_DIR}/package.7z | tr '\\' '/' | sed -n -e "s|^Path\ =\ |${UNPACK_DIR}/|p" >> "${HASH_FILEPATH}" 2>/dev/null
+    7z x -y -o${UNPACK} ${DOWNLOAD_DIR}/package.7z >/dev/null 2>&1
+    7z l -ba -slt -y ${DOWNLOAD_DIR}/package.7z | tr '\\' '/' | sed -n -e "s|^Path\ =\ |${UNPACK}/|p" >> "${HASH_FILEPATH}" 2>/dev/null
     rm -f ${DOWNLOAD_DIR}/package.7z
 
     if [[ "${COMPONENT}" =~ "mingw" ]]; then
@@ -389,31 +412,6 @@ for COMPONENT in ${COMPONENTS}; do
             echo "${UNPACK_DIR}/bin"
         fi
         continue
-    fi
-
-    if [[ "${TOOLCHAIN}" =~ "win64_mingw" ]]; then
-        SUBDIR="${TOOLCHAIN/win64_/}_64"
-    elif [[ "${TOOLCHAIN}" =~ "win32_mingw" ]]; then
-        SUBDIR="${TOOLCHAIN/win32_/}_32"
-    elif [[ "${TOOLCHAIN}" =~ "win64_msvc" ]]; then
-        SUBDIR="${TOOLCHAIN/win64_/}"
-    elif [[ "${TOOLCHAIN}" =~ "win32_msvc" ]]; then
-        SUBDIR="${TOOLCHAIN/win32_/}"
-    elif [[ "${TOOLCHAIN}" =~ "any" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
-        SUBDIR="android"
-    elif [[ "${HOST_OS}" == "mac_x64" ]] && [[ ! "${VERSION}" < "6.1.2" ]] && [[ "${TARGET_PLATFORM}" == "desktop" ]]; then
-        SUBDIR="macos"
-    else
-        SUBDIR="${TOOLCHAIN}"
-    fi
-
-    # NOTE Qt6.7.0: The folder is flattened in the archive.
-    if [[ "${VERSION}" > "6.6.0" ]]; then
-        path="${UNPACK_DIR}/${VERSION}/${SUBDIR}"
-        mv "${UNPACK_DIR}" temp
-        mkdir -p "$path"
-        mv temp/* "$path"
-        rm -rf temp
     fi
 
     #
