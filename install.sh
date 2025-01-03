@@ -305,7 +305,7 @@ fi
 echo ""
 echo "DEPLOYING lib(s)"
 
-mkdir -p "$libs"
+#mkdir -p "$libs"
 
 #sudo cp "$base"/libz.so.1 "$libs"
 
