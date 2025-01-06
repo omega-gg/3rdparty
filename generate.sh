@@ -122,7 +122,6 @@ mkdirQtAll()
     fi
 }
 
-
 moveQt()
 {
     if [ $os != "mobile" -o $qt = "qt5" ]; then
@@ -1032,7 +1031,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/plugins/bearer/lib*.so          "$QtX"/plugins/bearer
             mv "$Qt"/plugins/video/videonode/lib*.so "$QtX"/plugins/video/videonode
         else
-            QtBase="$QtX/$toolchain"
+            QtBase="$QtX/gcc_64"
 
             bin="$toolchain/bin"
 
