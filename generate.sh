@@ -785,9 +785,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     else
         mkdirQt "plugins/tls"
 
-        moveQt "qml/QtQml"        "qml"
-        moveQt "qml/QtQuick"      "qml"
-        moveQt "qml/QtMultimedia" "qml"
+        moveQt "qml" "."
     fi
 
     moveQtAll "mkspecs" "."
