@@ -8,7 +8,7 @@ set -e
 # NOTE: Also check Sky_artifact.
 artifact="8230"
 
-source="http://omega.gg/get/Sky/3rdparty"
+source="https://omega.gg/get/Sky/3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -427,7 +427,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "iOS" ]; then
 
-    VLC_url="http://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS.tar.xz"
+    VLC_url="https://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS.tar.xz"
 
 elif [ $1 = "linux" ]; then
 
