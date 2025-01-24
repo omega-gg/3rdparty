@@ -117,6 +117,4 @@ if [ $2 = "vlc" ]; then
 
     extract $VLC3_version $VLC3_versionA $VLC3_versionB $libvlccore3_versionA $libvlccore3_versionB
     extract $VLC4_version $VLC4_versionA $VLC4_versionB $libvlccore4_versionA $libvlccore4_versionB
-
-    rm -rf "$VLC"/snap
 fi
