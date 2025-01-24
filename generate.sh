@@ -208,7 +208,7 @@ extractVlc()
 
         rm VLC.7z
 
-        if [ $1 = "$VLC3" ]; then
+        if [ $3 = "$VLC3_version" ]; then
 
             path="$VLC/vlc-$VLC_version"
         else
@@ -273,22 +273,20 @@ extractVlc()
 
         rm VLC.tar.xz
 
-        if [ $1 = "$VLC3" ]; then
+        if [ $3 = "$VLC3_version" ]; then
 
             path="$VLC/MobileVLCKit-binary"
 
             mv "$path"/MobileVLCKit.xcframework/ios-arm64_armv7_armv7s          "$VLC"/ios
             mv "$path"/MobileVLCKit.xcframework/ios-arm64_i386_x86_64-simulator "$VLC"/ios-simulator
-
-            rm -rf "$path"
         else
             path="$VLC/VLCKit-binary"
 
             mv "$path"/VLCKit.xcframework/ios-arm64                  "$VLC"/ios
             mv "$path"/VLCKit.xcframework/ios-arm64_x86_64-simulator "$VLC"/ios-simulator
-
-            rm -rf "$path"
         fi
+
+        rm -rf "$path"
 
         # NOTE: Copying the headers in the root folder.
         cp -r "$VLC"/ios/VLCKit.framework/Headers "$VLC"/include
@@ -333,7 +331,7 @@ extractVlc()
 
         rm VLC.7z
 
-        if [ $1 = "$VLC3" ]; then
+        if [ $3 = "$VLC3_version" ]; then
 
             path="$VLC/vlc-$VLC_version"
         else
