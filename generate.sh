@@ -281,9 +281,6 @@ extractVlc()
             mv "$path"/MobileVLCKit.xcframework/ios-arm64_i386_x86_64-simulator "$VLC"/ios-simulator
 
             rm -rf "$path"
-
-            # NOTE: Copying the headers in the root folder.
-            cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
         else
             path="$VLC/VLCKit-binary"
 
@@ -291,10 +288,10 @@ extractVlc()
             mv "$path"/VLCKit.xcframework/ios-arm64_x86_64-simulator "$VLC"/ios-simulator
 
             rm -rf "$path"
-
-            # NOTE: Copying the headers in the root folder.
-            cp -r "$VLC"/ios-arm64/VLCKit.framework/Headers "$VLC"/include
         fi
+
+        # NOTE: Copying the headers in the root folder.
+        cp -r "$VLC"/ios/VLCKit.framework/Headers "$VLC"/include
 
     elif [ $platform = "linux64" ]; then
 
