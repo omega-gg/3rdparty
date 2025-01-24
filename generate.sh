@@ -208,7 +208,12 @@ extractVlc()
 
         rm VLC.7z
 
-        path="$VLC/vlc-$VLC_version"
+        if [ $1 = "$VLC3" ]; then
+
+            path="$VLC/vlc-$VLC_version"
+        else
+            path="$VLC/vlc-$VLC_version-dev"
+        fi
 
         mv "$path"/* "$VLC"
 
@@ -228,7 +233,7 @@ extractVlc()
 
             hdiutil attach VLC.dmg
 
-            cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
+            cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS"/* "$VLC"
 
             # TODO: Detach the mounted drive.
 
@@ -272,7 +277,7 @@ extractVlc()
 
             path="$VLC/MobileVLCKit-binary"
 
-            mv "$path"/MobileVLCKit.xcframework/ios* "$VLC"
+            mv "$path"/MobileVLCKit.xcframework/* "$VLC"
 
             rm -rf "$path"
 
@@ -578,7 +583,12 @@ if [ $os = "windows" ]; then
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/$platform/vlc-$VLC3_version-$platform.7z"
 
-    VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20250124-0420/vlc-$VLC4_version-dev-$platform-417580d0.7z"
+    if [ $platform = "win32" ]; then
+
+        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform-llvm/20250124-0445/vlc-$VLC4_version-dev-$platform-417580d0.7z"
+    else
+        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20250124-0420/vlc-$VLC4_version-dev-$platform-417580d0.7z"
+    fi
 
 elif [ $1 = "macOS" ]; then
 
