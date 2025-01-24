@@ -188,9 +188,11 @@ extractVlc()
 {
     VLC="$2"
 
-    VLC_url="$3"
+    VLC_version="$3"
 
-    VLC_url_android="$4"
+    VLC_url="$4"
+
+    VLC_url_android="$5"
 
     if [ $os = "windows" ]; then
 
@@ -1363,11 +1365,11 @@ fi
 
 if [ $1 = "android" ]; then
 
-    extractVlc $1 $VLC3 $VLC3_url $VLC3_url_android
-    extractVlc $1 $VLC4 $VLC4_url $VLC4_url_android
+    extractVlc $1 $VLC3 $VLC3_version $VLC3_url $VLC3_url_android
+    extractVlc $1 $VLC4 $VLC4_version $VLC4_url $VLC4_url_android
 else
-    extractVlc $1 $VLC3 $VLC3_url ""
-    extractVlc $1 $VLC4 $VLC4_url ""
+    extractVlc $1 $VLC3 $VLC3_version $VLC3_url ""
+    extractVlc $1 $VLC4 $VLC4_version $VLC4_url ""
 fi
 
 #--------------------------------------------------------------------------------------------------
