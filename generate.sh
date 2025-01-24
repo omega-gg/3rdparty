@@ -197,7 +197,7 @@ extractVlc()
     if [ $os = "windows" ]; then
 
         echo ""
-        echo "DOWNLOADING VLC"
+        echo "DOWNLOADING VLC $VLC_version"
         echo $VLC_url
 
         curl -L -o VLC.7z $VLC_url
@@ -222,7 +222,7 @@ extractVlc()
     elif [ $1 = "macOS" ]; then
 
         echo ""
-        echo "DOWNLOADING VLC"
+        echo "DOWNLOADING VLC $VLC_version"
         echo $VLC_url
 
         curl -L -o VLC.dmg $VLC_url
@@ -262,7 +262,7 @@ extractVlc()
     elif [ $1 = "iOS" ]; then
 
         echo ""
-        echo "DOWNLOADING VLC"
+        echo "DOWNLOADING VLC $VLC_version"
         echo $VLC_url
 
         curl -L -o VLC.tar.xz $VLC_url
@@ -279,17 +279,22 @@ extractVlc()
 
             mv "$path"/MobileVLCKit.xcframework/ios-arm64_armv7_armv7s          "$VLC"/ios
             mv "$path"/MobileVLCKit.xcframework/ios-arm64_i386_x86_64-simulator "$VLC"/ios-simulator
+
+            rm -rf "$path"
+
+            # NOTE: Copying the headers in the root folder.
+            cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
         else
             path="$VLC/VLCKit-binary"
 
             mv "$path"/VLCKit.xcframework/ios-arm64                  "$VLC"/ios
             mv "$path"/VLCKit.xcframework/ios-arm64_x86_64-simulator "$VLC"/ios-simulator
+
+            rm -rf "$path"
+
+            # NOTE: Copying the headers in the root folder.
+            cp -r "$VLC"/ios-arm64/VLCKit.framework/Headers "$VLC"/include
         fi
-
-        rm -rf "$path"
-
-        # NOTE: Copying the headers in the root folder.
-        cp -r "$VLC"/ios/VLCKit.framework/Headers "$VLC"/include
 
     elif [ $platform = "linux64" ]; then
 
@@ -300,7 +305,7 @@ extractVlc()
     elif [ $1 = "android" ]; then
 
         echo ""
-        echo "DOWNLOADING VLC"
+        echo "DOWNLOADING VLC $VLC_version"
         echo $VLC_url_android
 
         curl --retry 3 -L -o VLC.zip $VLC_url_android
@@ -322,7 +327,7 @@ extractVlc()
     if [ $platform = "linux64" -o $1 = "android" ]; then
 
         echo ""
-        echo "DOWNLOADING VLC sources"
+        echo "DOWNLOADING VLC $VLC_version sources"
         echo $VLC_url
 
         curl -L -o VLC.7z $VLC_url
