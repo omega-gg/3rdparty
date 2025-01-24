@@ -1284,8 +1284,6 @@ elif [ $platform = "linux64" ]; then
 
     sh snap.sh linux vlc
 
-    rm -rf "$VLC"/snap
-
 elif [ $1 = "android" ]; then
 
     echo ""

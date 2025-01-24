@@ -5,22 +5,42 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-VLC_version="3.0.21"
+VLC_artifact="8336"
 
-VLC_artifact="6021"
+VLC3_version="3.0.21"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
 
-VLC_versionA="5.6.1"
-VLC_versionB="5"
+VLC3_versionA="5.6.1"
+VLC3_versionB="5"
 
-libvlccore_versionA="9.0.1"
-libvlccore_versionB="9"
+libvlccore3_versionA="9.0.1"
+libvlccore3_versionB="9"
 
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
+
+extract()
+{
+    echo ""
+    echo "EXTRACTING $1"
+
+    path="$VLC/snap/$1/usr/lib"
+
+    output="$VLC/$1"
+
+    mkdir -p "$output"
+
+    cp "$path"/libvlc.so.$2     "$output"/libvlc.so.$3
+    cp "$path"/libvlccore.so.$4 "$output"/libvlccore.so.$5
+
+    # NOTE: libidn is required for linking against libvlccore.
+    cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$output"
+
+    cp -r "$path"/vlc "$output"
+}
 
 getSource()
 {
@@ -53,7 +73,7 @@ fi
 
 external="$PWD/linux"
 
-VLC="$external/VLC/$VLC_version"
+VLC="$external/VLC"
 
 VLC_url="https://dev.azure.com/bunjee/snap/_apis/build/builds/$VLC_artifact/artifacts"
 
@@ -89,13 +109,7 @@ if [ $2 = "vlc" ]; then
 
     rm -rf "$path"
 
-    path="$VLC/snap/usr/lib"
+    extract $VLC3_version $VLC3_versionA $VLC3_versionB $libvlccore3_versionA $libvlccore3_versionB
 
-    cp "$path"/libvlc.so.$VLC_versionA            "$VLC"/libvlc.so.$VLC_versionB
-    cp "$path"/libvlccore.so.$libvlccore_versionA "$VLC"/libvlccore.so.$libvlccore_versionB
-
-    # NOTE: libidn is required for linking against libvlccore.
-    cp "$path"/../../lib/x86_64-linux-gnu/libidn.so* "$VLC"
-
-    cp -r "$path"/vlc "$VLC"
+    rm -rf "$VLC"/snap
 fi
