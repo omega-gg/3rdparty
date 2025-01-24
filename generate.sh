@@ -22,7 +22,8 @@ SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1s"
 SSL_versionC="1.1"
 
-VLC_version="3.0.21"
+VLC3_version="3.0.21"
+VLC4_version="4.0.0"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -44,7 +45,8 @@ jom_versionB="1_1_3"
 #--------------------------------------------------------------------------------------------------
 # iOS
 
-VLC_version_iOS="3.6.0-c73b779f-dd8bfdba"
+VLC3_version_iOS="3.6.0-c73b779f-dd8bfdba"
+VLC4_version_iOS="4.0.0a9-a3480636-ba880a0b"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -61,7 +63,8 @@ SDK_version="34"
 NDK_versionA="26"
 NDK_versionB="26.1.10909125"
 
-VLC_android="3.6.0-eap14"
+VLC3_android="3.6.0-eap14"
+VLC4_android="4.0.0-eap17"
 
 #--------------------------------------------------------------------------------------------------
 # environment
@@ -181,6 +184,157 @@ moveMobile()
 
 #--------------------------------------------------------------------------------------------------
 
+extractVlc()
+{
+    VLC="$1"
+
+    VLC_url="$2"
+
+    VLC_url_android="$3"
+
+    if [ $os = "windows" ]; then
+
+        echo ""
+        echo "DOWNLOADING VLC"
+        echo $VLC_url
+
+        curl -L -o VLC.7z $VLC_url
+
+        mkdir -p "$VLC"
+
+        7z x VLC.7z -o"$VLC" > /dev/null
+
+        rm VLC.7z
+
+        path="$VLC/vlc-$VLC_version"
+
+        mv "$path"/* "$VLC"
+
+        rm -rf "$path"
+
+    elif [ $1 = "macOS" ]; then
+
+        echo ""
+        echo "DOWNLOADING VLC"
+        echo $VLC_url
+
+        curl -L -o VLC.dmg $VLC_url
+
+        mkdir -p "$VLC"
+
+        if [ $host = "macOS" ]; then
+
+            hdiutil attach VLC.dmg
+
+            cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
+
+            # TODO: Detach the mounted drive.
+
+            rm VLC.dmg
+        else
+            #--------------------------------------------------------------------------------------
+            # NOTE: We get a header error when extracting the archive with 7z.
+
+            set +e
+
+            7z x VLC.dmg -o"$VLC" > /dev/null
+
+            set -e
+
+            #--------------------------------------------------------------------------------------
+
+            rm VLC.dmg
+
+            path="$VLC/VLC media player"
+
+            mv "$path"/VLC.app/Contents/MacOS/* "$VLC"
+
+            rm -rf "$path"
+        fi
+
+    elif [ $1 = "iOS" ]; then
+
+        echo ""
+        echo "DOWNLOADING VLC"
+        echo $VLC_url
+
+        curl -L -o VLC.tar.xz $VLC_url
+
+        mkdir -p "$VLC"
+
+        tar -xf VLC.tar.xz -C "$VLC"
+
+        rm VLC.tar.xz
+
+        if [ $1 = "$VLC3" ]; then
+
+            path="$VLC/MobileVLCKit-binary"
+
+            mv "$path"/MobileVLCKit.xcframework/ios* "$VLC"
+
+            rm -rf "$path"
+
+            # NOTE: Copying the headers in the root folder.
+            cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
+        else
+            path="$VLC/VLCKit-binary"
+
+            mv "$path"/VLCKit.xcframework/ios* "$VLC"
+
+            rm -rf "$path"
+
+            # NOTE: Copying the headers in the root folder.
+            cp -r "$VLC"/ios-arm64/VLCKit.framework/Headers "$VLC"/include
+        fi
+
+    elif [ $platform = "linux64" ]; then
+
+        sh snap.sh linux vlc
+
+        rm -rf "$VLC"/snap
+
+    elif [ $1 = "android" ]; then
+
+        echo ""
+        echo "DOWNLOADING VLC"
+        echo $VLC_url_android
+
+        curl --retry 3 -L -o VLC.zip $VLC_url_android
+
+        mkdir -p "$VLC"
+
+        unzip -q VLC.zip -d"VLC"
+
+        rm VLC.zip
+
+        copyVlcAndroid armeabi-v7a
+        copyVlcAndroid arm64-v8a
+        copyVlcAndroid x86
+        copyVlcAndroid x86_64
+
+        rm -rf VLC
+    fi
+
+    if [ $platform = "linux64" -o $1 = "android" ]; then
+
+        echo ""
+        echo "DOWNLOADING VLC sources"
+        echo $VLC_url
+
+        curl -L -o VLC.7z $VLC_url
+
+        7z x VLC.7z -o"$VLC" > /dev/null
+
+        rm VLC.7z
+
+        path="$VLC/vlc-$VLC_version"
+
+        mv "$path"/sdk/include "$VLC"
+
+        rm -rf "$path"
+    fi
+}
+
 copySsl()
 {
     output="$2"/$1
@@ -191,7 +345,7 @@ copySsl()
     cp android_openssl/ssl_1.1/$1/*.so "$output"
 }
 
-extractVlc()
+copyVlcAndroid()
 {
     output="$VLC/$1"
 
@@ -385,7 +539,8 @@ jom="$external/jom/$jom_versionA"
 
 SSL="$external/OpenSSL"
 
-VLC="$external/VLC/$VLC_version"
+VLC3="$external/VLC/$VLC3_version"
+VLC4="$external/VLC/$VLC4_version"
 
 JDK="$external/JDK/$JDK_version"
 
@@ -419,15 +574,21 @@ if [ $os = "windows" ]; then
 
     jom_url="https://master.qt.io/official_releases/jom/jom_$jom_versionB.zip"
 
-    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/$platform/vlc-$VLC_version-$platform.7z"
+    VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/$platform/vlc-$VLC3_version-$platform.7z"
+
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20250124-0420/vlc-$VLC4_version-dev-$platform-417580d0.7z"
 
 elif [ $1 = "macOS" ]; then
 
-    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/macosx/vlc-$VLC_version-intel64.dmg"
+    VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
+
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20250124-0411/vlc-$VLC4_version-dev-intel64-417580d0.dmg"
 
 elif [ $1 = "iOS" ]; then
 
-    VLC_url="https://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC_version_iOS.tar.xz"
+    VLC3_url="https://download.videolan.org/pub/cocoapods/prod/MobileVLCKit-$VLC3_version_iOS.tar.xz"
+
+    VLC4_url="http://download.videolan.org/pub/cocoapods/unstable/VLCKit-$VLC4_version_iOS.tar.xz"
 
 elif [ $1 = "linux" ]; then
 
@@ -441,13 +602,16 @@ elif [ $1 = "android" ]; then
 
     SSL_urlB="https://github.com/KDAB/android_openssl"
 
-    VLC_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC_android/libvlc-all-$VLC_android.aar"
+    VLC3_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC3_android/libvlc-all-$VLC3_android.aar"
+    VLC4_url_android="https://repo1.maven.org/maven2/org/videolan/android/libvlc-all/$VLC4_android/libvlc-all-$VLC4_android.aar"
 fi
 
 # FIXME: We need the Windows archive for the include folder.
 if [ $1 = "linux" -o $1 = "android" ]; then
 
-    VLC_url="https://download.videolan.org/pub/videolan/vlc/$VLC_version/win64/vlc-$VLC_version-win64.7z"
+    VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/win64/vlc-$VLC3_version-win64.7z"
+
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-win64/20250124-0420/vlc-$VLC4_version-dev-win64-417580d0.7z"
 fi
 
 Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
@@ -1197,134 +1361,13 @@ fi
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "windows" ]; then
+if [ $1 = "android" ]; then
 
-    echo ""
-    echo "DOWNLOADING VLC"
-    echo $VLC_url
-
-    curl -L -o VLC.7z $VLC_url
-
-    mkdir -p "$VLC"
-
-    7z x VLC.7z -o"$VLC" > /dev/null
-
-    rm VLC.7z
-
-    path="$VLC/vlc-$VLC_version"
-
-    mv "$path"/* "$VLC"
-
-    rm -rf "$path"
-
-elif [ $1 = "macOS" ]; then
-
-    echo ""
-    echo "DOWNLOADING VLC"
-    echo $VLC_url
-
-    curl -L -o VLC.dmg $VLC_url
-
-    mkdir -p "$VLC"
-
-    if [ $host = "macOS" ]; then
-
-        hdiutil attach VLC.dmg
-
-        cp -r "/Volumes/VLC media player/VLC.app/Contents/MacOS/"* "$VLC"
-
-        # TODO: Detach the mounted drive.
-
-        rm VLC.dmg
-    else
-        #------------------------------------------------------------------------------------------
-        # NOTE: We get a header error when extracting the archive with 7z.
-
-        set +e
-
-        7z x VLC.dmg -o"$VLC" > /dev/null
-
-        set -e
-
-        #------------------------------------------------------------------------------------------
-
-        rm VLC.dmg
-
-        path="$VLC/VLC media player"
-
-        mv "$path"/VLC.app/Contents/MacOS/* "$VLC"
-
-        rm -rf "$path"
-    fi
-
-elif [ $1 = "iOS" ]; then
-
-    echo ""
-    echo "DOWNLOADING VLC"
-    echo $VLC_url
-
-    curl -L -o VLC.tar.xz $VLC_url
-
-    mkdir -p "$VLC"
-
-    tar -xf VLC.tar.xz -C "$VLC"
-
-    rm VLC.tar.xz
-
-    path="$VLC/MobileVLCKit-binary"
-
-    mv "$path"/MobileVLCKit.xcframework/* "$VLC"
-
-    rm -rf "$path"
-
-    # NOTE: Copying the headers in the root folder.
-    cp -r "$VLC"/ios-arm64_armv7_armv7s/MobileVLCKit.framework/Headers "$VLC"/include
-
-elif [ $platform = "linux64" ]; then
-
-    sh snap.sh linux vlc
-
-    rm -rf "$VLC"/snap
-
-elif [ $1 = "android" ]; then
-
-    echo ""
-    echo "DOWNLOADING VLC"
-    echo $VLC_url_android
-
-    curl --retry 3 -L -o VLC.zip $VLC_url_android
-
-    mkdir -p "$VLC"
-
-    unzip -q VLC.zip -d"VLC"
-
-    rm VLC.zip
-
-    extractVlc armeabi-v7a
-    extractVlc arm64-v8a
-    extractVlc x86
-    extractVlc x86_64
-
-    rm -rf VLC
-fi
-
-if [ $platform = "linux64" -o $1 = "android" ]; then
-
-    echo ""
-    echo "DOWNLOADING VLC sources"
-    echo $VLC_url
-
-    curl -L -o VLC.7z $VLC_url
-
-    7z x VLC.7z -o"$VLC" > /dev/null
-
-    rm VLC.7z
-
-    path="$VLC/vlc-$VLC_version"
-
-    mv "$path"/sdk/include "$VLC"
-
-    rm -rf "$path"
+    extractVlc $VLC3 $VLC3_url $VLC3_url_android
+    extractVlc $VLC4 $VLC4_url $VLC4_url_android
+else
+    extractVlc $VLC3 $VLC3_url ""
+    extractVlc $VLC4 $VLC4_url ""
 fi
 
 #--------------------------------------------------------------------------------------------------
