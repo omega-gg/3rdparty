@@ -186,11 +186,11 @@ moveMobile()
 
 extractVlc()
 {
-    VLC="$1"
+    VLC="$2"
 
-    VLC_url="$2"
+    VLC_url="$3"
 
-    VLC_url_android="$3"
+    VLC_url_android="$4"
 
     if [ $os = "windows" ]; then
 
@@ -1363,11 +1363,11 @@ fi
 
 if [ $1 = "android" ]; then
 
-    extractVlc $VLC3 $VLC3_url $VLC3_url_android
-    extractVlc $VLC4 $VLC4_url $VLC4_url_android
+    extractVlc $1 $VLC3 $VLC3_url $VLC3_url_android
+    extractVlc $1 $VLC4 $VLC4_url $VLC4_url_android
 else
-    extractVlc $VLC3 $VLC3_url ""
-    extractVlc $VLC4 $VLC4_url ""
+    extractVlc $1 $VLC3 $VLC3_url ""
+    extractVlc $1 $VLC4 $VLC4_url ""
 fi
 
 #--------------------------------------------------------------------------------------------------
