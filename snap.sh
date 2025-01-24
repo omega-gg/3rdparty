@@ -8,6 +8,7 @@ set -e
 VLC_artifact="8336"
 
 VLC3_version="3.0.21"
+VLC4_version="4.0.0"
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -18,13 +19,18 @@ VLC3_versionB="5"
 libvlccore3_versionA="9.0.1"
 libvlccore3_versionB="9"
 
+VLC4_versionA="12.0.0"
+VLC4_versionB="12"
+
+libvlccore4_versionA="9.0.0"
+libvlccore4_versionB="9"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
 
 extract()
 {
-    echo ""
     echo "EXTRACTING $1"
 
     path="$VLC/snap/$1/usr/lib"
@@ -110,6 +116,7 @@ if [ $2 = "vlc" ]; then
     rm -rf "$path"
 
     extract $VLC3_version $VLC3_versionA $VLC3_versionB $libvlccore3_versionA $libvlccore3_versionB
+    extract $VLC4_version $VLC4_versionA $VLC4_versionB $libvlccore4_versionA $libvlccore4_versionB
 
     rm -rf "$VLC"/snap
 fi
