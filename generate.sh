@@ -334,7 +334,12 @@ extractVlc()
 
         rm VLC.7z
 
-        path="$VLC/vlc-$VLC_version"
+        if [ $1 = "$VLC3" ]; then
+
+            path="$VLC/vlc-$VLC_version"
+        else
+            path="$VLC/vlc-$VLC_version-dev"
+        fi
 
         mv "$path"/sdk/include "$VLC"
 
