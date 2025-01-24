@@ -277,7 +277,8 @@ extractVlc()
 
             path="$VLC/MobileVLCKit-binary"
 
-            mv "$path"/MobileVLCKit.xcframework/* "$VLC"
+            mv "$path"/MobileVLCKit.xcframework/ios-arm64_armv7_armv7s          "$VLC"/ios
+            mv "$path"/MobileVLCKit.xcframework/ios-arm64_i386_x86_64-simulator "$VLC"/ios-simulator
 
             rm -rf "$path"
 
@@ -286,7 +287,8 @@ extractVlc()
         else
             path="$VLC/VLCKit-binary"
 
-            mv "$path"/VLCKit.xcframework/ios* "$VLC"
+            mv "$path"/VLCKit.xcframework/ios-arm64                  "$VLC"/ios
+            mv "$path"/VLCKit.xcframework/ios-arm64_x86_64-simulator "$VLC"/ios-simulator
 
             rm -rf "$path"
 
