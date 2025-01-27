@@ -296,12 +296,6 @@ extractVlc()
             cp -r "$VLC"/ios/VLCKit.framework/Headers "$VLC"/include
         fi
 
-    elif [ $platform = "linux64" ]; then
-
-        sh snap.sh linux vlc
-
-        rm -rf "$VLC"/snap
-
     elif [ $1 = "android" ]; then
 
         echo ""
@@ -1385,6 +1379,14 @@ if [ $1 = "android" ]; then
     extractVlc $1 $VLC3 $VLC3_version $VLC3_url $VLC3_url_android
     extractVlc $1 $VLC4 $VLC4_version $VLC4_url $VLC4_url_android
 else
+
+    if [ $platform = "linux64" ]; then
+
+        sh snap.sh linux vlc
+
+        rm -rf "$external"/VLC/snap
+    fi
+
     extractVlc $1 $VLC3 $VLC3_version $VLC3_url ""
     extractVlc $1 $VLC4 $VLC4_version $VLC4_url ""
 fi
