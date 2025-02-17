@@ -27,7 +27,7 @@ VLC4_version="4.0.0"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_artifact="8093"
+libtorrent_artifact="8408"
 
 Sky_artifact="8074"
 
@@ -362,7 +362,7 @@ copyVlcAndroid()
     cp VLC/jni/$1/libvlc.so "$output"
 
     # NOTE android/VLC: We need a specific libc++_shared library.
-    cp VLC/jni/$1/libc++_shared.so "$output"
+    #cp VLC/jni/$1/libc++_shared.so "$output"
 }
 
 linkNdk()
