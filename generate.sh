@@ -19,8 +19,7 @@ Qt6_version="6.8.1"
 Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
 
 SSL_versionA="1.0.2u"
-SSL_versionB="1.1.1s"
-SSL_versionC="1.1"
+SSL_versionB="3.4.1"
 
 VLC3_version="3.0.21"
 VLC4_version="4.0.0"
@@ -349,8 +348,12 @@ copySsl()
 
     mkdir "$output"
 
-    # FIXME Qt 6.5+
-    cp android_openssl/ssl_1.1/$1/*.so "$output"
+    if [ $qt = "qt5" ]; then
+
+        cp android_openssl/ssl_1.1/$1/*.so "$output"
+    else
+        cp android_openssl/ssl_3/$1/*.so "$output"
+    fi
 }
 
 copyVlcAndroid()
@@ -1340,9 +1343,9 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        ssl="ssl/openssl-$SSL_versionC/x86/bin"
+        ssl="ssl/x86/bin"
     else
-        ssl="ssl/openssl-$SSL_versionC/x64/bin"
+        ssl="ssl/x64/bin"
     fi
 
     mv $ssl/libssl*.dll    "$path"
