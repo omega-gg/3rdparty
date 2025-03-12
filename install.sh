@@ -146,14 +146,18 @@ libvlccore_version="$libvlccore_versionA"
 #--------------------------------------------------------------------------------------------------
 
 # NOTE: libpulse-dev and libgstreamer(s) are needed for libQt5Multimedia.
-# NOTE Qt6: libxkbcommon* is required for libQt6Gui.
 X11_linux="libx11-dev libxi-dev libxinerama-dev libxrandr-dev libxcursor-dev libfontconfig-dev "\
-"libaudio2 libpulse-dev libgstreamer1.0-0 libgstreamer-plugins-base1.0-0 "\
-"libxkbcommon-dev libxkbcommon-x11-dev"
+"libaudio2 libpulse-dev libgstreamer1.0-0 libgstreamer-plugins-base1.0-0"
 
 if [ $qt != "qt4" ]; then
 
     X11_linux="$X11_linux libgl1-mesa-dev"
+
+    if [ $qt = "qt6" ]; then
+
+        # NOTE Qt6: libxkbcommon* is required for libQt6Gui.
+        X11_linux="$X11_linux libxkbcommon-dev libxkbcommon-x11-dev"
+    fi
 fi
 
 Qt4_linux="qt4-default libqtwebkit-dev openssl"
