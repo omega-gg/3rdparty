@@ -155,8 +155,9 @@ if [ $qt != "qt4" ]; then
 
     if [ $qt = "qt6" ]; then
 
-        # NOTE Qt6: libxkbcommon* is required for libQt6Gui.
-        X11_linux="$X11_linux libxkbcommon-dev libxkbcommon-x11-dev"
+        # NOTE Qt6: libxkbcommon*  is required for libQt6Gui.
+        #           libxcb-cursor0 is required for platforms/libqxcb.
+        X11_linux="$X11_linux libxkbcommon-dev libxkbcommon-x11-dev libxcb-cursor0"
     fi
 fi
 
