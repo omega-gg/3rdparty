@@ -157,7 +157,7 @@ if [ $qt != "qt4" ]; then
 
         # NOTE Qt6: libxkbcommon*  is required for libQt6Gui.
         #           libxcb-cursor0 is required for platforms/libqxcb.
-        X11_linux="$X11_linux libxkbcommon-dev libxkbcommon-x11-dev libxcb-cursor0"
+        X11_linux="$X11_linux libssl3 libxkbcommon-dev libxkbcommon-x11-dev libxcb-cursor0"
     fi
 fi
 
@@ -461,8 +461,14 @@ echo "DEPLOYING SSL"
 
 mkdir -p "$SSL"
 
-sudo cp "$lib"/libssl.so.1.1    "$SSL"
-sudo cp "$lib"/libcrypto.so.1.1 "$SSL"
+if [ $qt = "qt6" ]; then
+
+    sudo cp "$lib"/libssl.so.3    "$SSL"
+    sudo cp "$lib"/libcrypto.so.3 "$SSL"
+else
+    sudo cp "$lib"/libssl.so.1.1    "$SSL"
+    sudo cp "$lib"/libcrypto.so.1.1 "$SSL"
+fi
 
 if [ $platform = "linux32" ]; then
 
