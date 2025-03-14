@@ -310,7 +310,7 @@ sudo apt-get install -y $tools_linux
 # Build
 #--------------------------------------------------------------------------------------------------
 
-# FIXME: There's no OpenSSL 3.x on Ubuntu 20.04 so we build it from sources.
+# FIXME Ubuntu 20.04: There's no OpenSSL 3.x so we build it from sources.
 if [ $host = "ubuntu20" ]; then
 
     echo ""

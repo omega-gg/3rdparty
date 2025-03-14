@@ -46,6 +46,8 @@ cd $name
 
 make -j$(nproc)
 
+mkdir -p "$SSL"
+
 sudo cp libssl.so.3    "$SSL"
 sudo cp libcrypto.so.3 "$SSL"
 
