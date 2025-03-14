@@ -84,7 +84,7 @@ VLC="$external/VLC"
 VLC_url="https://dev.azure.com/bunjee/snap/_apis/build/builds/$VLC_artifact/artifacts"
 
 #--------------------------------------------------------------------------------------------------
-# Configuration
+# Extract
 #--------------------------------------------------------------------------------------------------
 
 if [ $2 = "vlc" ]; then

@@ -1,6 +1,7 @@
 OTHER_FILES += generate.sh \
                install.sh \
                snap.sh \
+               ssl.sh \
                environment.sh \
                README.md \
                .azure-pipelines.yml \

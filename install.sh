@@ -465,35 +465,14 @@ mkdir -p "$SSL"
 
 if [ $qt = "qt6" ]; then
 
-    if [ -f "$lib"/libssl.so.3 ]; then
+    if [ -f "$lib/libssl.so.3" ] || [ -f "$lib/libcrypto.so.3" ]; then
 
         sudo cp "$lib"/libssl.so.3    "$SSL"
         sudo cp "$lib"/libcrypto.so.3 "$SSL"
 
     # NOTE: There's no OpenSSL 3.x on Ubuntu 20.04 so we build it from sources.
     else
-        name="openssl-$SSL_version"
-
-        archive="$name.tar.gz"
-
-        curl -L -O "https://github.com/openssl/openssl/releases/download/$name/$archive"
-
-        tar -xvzf $archive
-
-        rm -rf $archive
-
-        cd $name
-
-        ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared
-
-        make -j$(nproc)
-
-        sudo cp libssl.so.3    "$SSL"
-        sudo cp libcrypto.so.3 "$SSL"
-
-        cd ..
-
-        rm -rf $name
+        sh ssl.sh linux
     fi
 else
     sudo cp "$lib"/libssl.so.1.1    "$SSL"
