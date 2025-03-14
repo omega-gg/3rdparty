@@ -988,8 +988,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/qsb* "$QtX"/bin
 
             mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
-
-            mv "$Qt"/plugins/tls/*.dll "$QtX"/plugins/tls
+            mv "$Qt"/plugins/tls/*.dll        "$QtX"/plugins/tls
 
             # NOTE: Making sure to keep the 'backend.dll' files.
             rm -f "$QtX"/plugins/tls/*backendd.*
@@ -1038,15 +1037,14 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/libexec/qmlimportscanner "$QtX"/libexec
 
             mv "$Qt"/plugins/multimedia/lib*.dylib "$QtX"/plugins/multimedia
-
-            mv "$Qt"/plugins/tls/lib*.dylib "$QtX"/plugins/tls
+            mv "$Qt"/plugins/tls/lib*.dylib        "$QtX"/plugins/tls
 
             rm -f "$QtX"/plugins/multimedia/*debug*
             rm -f "$QtX"/plugins/tls/*debug*
         fi
 
-        mv "$Qt"/plugins/platforms/libq*.dylib    "$QtX"/plugins/platforms
-        mv "$Qt"/plugins/imageformats/libq*.dylib "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/platforms/lib*.dylib    "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/lib*.dylib "$QtX"/plugins/imageformats
 
         #------------------------------------------------------------------------------------------
 
@@ -1073,10 +1071,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
 
             # NOTE iOS: We need .a and .prl files.
-            moveMobile plugins/mediaservice/lib*.*     plugins/mediaservice
-            moveMobile plugins/bearer/libq*.*          plugins/bearer
-            moveMobile plugins/audio/libq*.*           plugins/audio
-            moveMobile plugins/playlistformats/libq*.* plugins/playlistformats
+            moveMobile plugins/mediaservice/lib*.*    plugins/mediaservice
+            moveMobile plugins/bearer/lib*.*          plugins/bearer
+            moveMobile plugins/audio/lib*.*           plugins/audio
+            moveMobile plugins/playlistformats/lib*.* plugins/playlistformats
 
             rm -f "$QtX"/plugins/mediaservice/*debug*
             rm -f "$QtX"/plugins/bearer/*debug*
@@ -1103,17 +1101,17 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
 
             # NOTE iOS: We need .a and .prl files.
-            moveMobile plugins/networkinformation/libq*.* plugins/networkinformation
-            moveMobile plugins/multimedia/libq*.*         plugins/multimedia
-            moveMobile plugins/tls/libq*.*                plugins/tls
+            moveMobile plugins/networkinformation/lib*.* plugins/networkinformation
+            moveMobile plugins/multimedia/lib*.*         plugins/multimedia
+            moveMobile plugins/tls/lib*.*                plugins/tls
         fi
 
         # NOTE iOS: We need .a and .prl files.
-        moveMobile plugins/platforms/libq*.*        plugins/platforms
-        moveMobile plugins/platforms/darwin/libq*.* plugins/platforms/darwin
-        moveMobile plugins/imageformats/libq*.*     plugins/imageformats
-        moveMobile plugins/iconengines/libq*.*      plugins/iconengines
-        moveMobile plugins/qmltooling/libq*.*       plugins/qmltooling
+        moveMobile plugins/platforms/lib*.*        plugins/platforms
+        moveMobile plugins/platforms/darwin/lib*.* plugins/platforms/darwin
+        moveMobile plugins/imageformats/lib*.*     plugins/imageformats
+        moveMobile plugins/iconengines/lib*.*      plugins/iconengines
+        moveMobile plugins/qmltooling/lib*.*       plugins/qmltooling
 
         #------------------------------------------------------------------------------------------
 
@@ -1178,10 +1176,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/plugins/tls/lib*.so        "$QtX"/plugins/tls
         fi
 
-        mv "$Qt"/plugins/platforms/libq*.so         "$QtX"/plugins/platforms
-        mv "$Qt"/plugins/imageformats/libq*.so      "$QtX"/plugins/imageformats
-        mv "$Qt"/plugins/iconengines/libq*.so       "$QtX"/plugins/iconengines
-        mv "$Qt"/plugins/xcbglintegrations/libq*.so "$QtX"/plugins/xcbglintegrations
+        mv "$Qt"/plugins/platforms/lib*.so         "$QtX"/plugins/platforms
+        mv "$Qt"/plugins/imageformats/lib*.so      "$QtX"/plugins/imageformats
+        mv "$Qt"/plugins/iconengines/lib*.so       "$QtX"/plugins/iconengines
+        mv "$Qt"/plugins/xcbglintegrations/lib*.so "$QtX"/plugins/xcbglintegrations
 
         #------------------------------------------------------------------------------------------
         # NOTE: linuxdeployqt is useful to package applications.
