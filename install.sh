@@ -54,12 +54,8 @@ getOs()
     if [ -n "$(echo "$release" | grep 'VERSION_ID="18"')" ]; then
 
         echo "ubuntu18"
-
-    elif [ -n "$(echo "$release" | grep 'VERSION_ID="20"')" ]; then
-
-        echo "ubuntu20"
     else
-        echo "ubuntu22"
+        echo "ubuntu20"
     fi
 }
 
@@ -197,7 +193,7 @@ sudo apt-get update
 
 sudo apt-get install -y build-essential
 
-if [ $host != "ubuntu18" ]; then
+if [ $host = "ubuntu20" ]; then
 
     # NOTE: Docker requires tzdata and keyboard-configuration.
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata keyboard-configuration locales
@@ -264,7 +260,7 @@ if [ $qt = "qt4" ]; then
     echo "INSTALLING Qt4"
 
     # NOTE: Qt4 has been removed from Ubuntu 20.04 main repository.
-    if [ $host != "ubuntu18" ]; then
+    if [ $host = "ubuntu20" ]; then
 
         # NOTE: This is required for add-apt-repository.
         sudo apt-get install -y software-properties-common
@@ -467,11 +463,17 @@ echo "DEPLOYING SSL"
 
 mkdir -p "$SSL"
 
-# NOTE: There's no OpenSSL 3.x on Ubuntu 20.04
-if [ $qt = "qt6" -a $ubuntu = "ubuntu22" ]; then
+if [ $qt = "qt6" ]; then
 
-    sudo cp "$lib"/libssl.so.3    "$SSL"
-    sudo cp "$lib"/libcrypto.so.3 "$SSL"
+    # NOTE: There's no OpenSSL 3.x on Ubuntu 20.04
+    if [ -f "$lib"/libssl.so.3 ]; then
+
+        sudo cp "$lib"/libssl.so.3    "$SSL"
+        sudo cp "$lib"/libcrypto.so.3 "$SSL"
+    else
+        sudo cp "$lib"/libssl.so.1.1    "$SSL"
+        sudo cp "$lib"/libcrypto.so.1.1 "$SSL"
+    fi
 else
     sudo cp "$lib"/libssl.so.1.1    "$SSL"
     sudo cp "$lib"/libcrypto.so.1.1 "$SSL"
