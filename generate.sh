@@ -963,8 +963,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mv "$Qt"/qml/QtQuick.2    "$QtX"/qml
         mv "$Qt"/qml/QtMultimedia "$QtX"/qml
     else
-        mkdirQt "plugins/multimedia"
         mkdirQt "plugins/tls"
+        mkdirQt "plugins/multimedia"
 
         moveQt "qml" "."
     fi
@@ -987,11 +987,13 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         else
             mv "$Qt"/bin/qsb* "$QtX"/bin
 
-            mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
             mv "$Qt"/plugins/tls/*.dll        "$QtX"/plugins/tls
+            mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
 
             # NOTE: Making sure to keep the 'backend.dll' files.
             rm -f "$QtX"/plugins/tls/*backendd.*
+
+            rm -f "$QtX"/plugins/multimedia/*d.*
         fi
 
         mv "$Qt"/bin/Qt*.dll "$QtX"/bin
@@ -1036,11 +1038,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             # NOTE: This is required for macdeployqt.
             mv "$Qt"/libexec/qmlimportscanner "$QtX"/libexec
 
-            mv "$Qt"/plugins/multimedia/lib*.dylib "$QtX"/plugins/multimedia
             mv "$Qt"/plugins/tls/lib*.dylib        "$QtX"/plugins/tls
+            mv "$Qt"/plugins/multimedia/lib*.dylib "$QtX"/plugins/multimedia
 
-            rm -f "$QtX"/plugins/multimedia/*debug*
             rm -f "$QtX"/plugins/tls/*debug*
+            rm -f "$QtX"/plugins/multimedia/*debug*
         fi
 
         mv "$Qt"/plugins/platforms/lib*.dylib    "$QtX"/plugins/platforms
@@ -1081,9 +1083,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             rm -f "$QtX"/plugins/audio/*debug*
             rm -f "$QtX"/plugins/playlistformats/*debug*
         else
-            mkdirQt "plugins/networkinformation"
-            mkdirQt "plugins/multimedia"
             mkdirQt "plugins/tls"
+            mkdirQt "plugins/multimedia"
+            mkdirQt "plugins/networkinformation"
 
             QtBase="$QtX/macos"
 
@@ -1101,9 +1103,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
 
             # NOTE iOS: We need .a and .prl files.
-            moveMobile plugins/networkinformation/lib*.* plugins/networkinformation
-            moveMobile plugins/multimedia/lib*.*         plugins/multimedia
             moveMobile plugins/tls/lib*.*                plugins/tls
+            moveMobile plugins/multimedia/lib*.*         plugins/multimedia
+            moveMobile plugins/networkinformation/lib*.* plugins/networkinformation
         fi
 
         # NOTE iOS: We need .a and .prl files.
@@ -1172,8 +1174,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/libexec/rcc*         "$QtX"/libexec
             mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
 
-            mv "$Qt"/plugins/multimedia/lib*.so "$QtX"/plugins/multimedia
             mv "$Qt"/plugins/tls/lib*.so        "$QtX"/plugins/tls
+            mv "$Qt"/plugins/multimedia/lib*.so "$QtX"/plugins/multimedia
         fi
 
         mv "$Qt"/plugins/platforms/lib*.so         "$QtX"/plugins/platforms
@@ -1233,8 +1235,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
             mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
 
-            moveMobile "plugins/multimedia/lib*.so" "plugins/multimedia"
             moveMobile "plugins/tls/lib*.so"        "plugins/tls"
+            moveMobile "plugins/multimedia/lib*.so" "plugins/multimedia"
 
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
