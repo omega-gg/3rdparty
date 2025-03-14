@@ -54,10 +54,6 @@ getOs()
     if [ -n "$(echo "$release" | grep 'VERSION_ID="18')" ]; then
 
         echo "ubuntu18"
-
-    elif [ -n "$(echo "$release" | grep 'VERSION_ID="20')" ]; then
-
-        echo "ubuntu20"
     else
         echo "ubuntu22"
     fi
@@ -305,19 +301,6 @@ echo ""
 echo "INSTALLING TOOLS"
 
 sudo apt-get install -y $tools_linux
-
-#--------------------------------------------------------------------------------------------------
-# Build
-#--------------------------------------------------------------------------------------------------
-
-# FIXME Ubuntu 20.04: There's no OpenSSL 3.x so we build it from sources.
-if [ $qt = "qt6" -a $host = "ubuntu20" ]; then
-
-    echo ""
-    echo "BUILDING SSL"
-
-    sh ssl.sh linux
-fi
 
 #--------------------------------------------------------------------------------------------------
 # Deploy

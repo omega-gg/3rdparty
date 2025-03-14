@@ -11,9 +11,9 @@ SSL_version="3.4.1"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "linux" ]; then
+if [ $# != 2 ] || [ $1 != "linux" ] || [ $2 != "OpenSSL" ]; then
 
-    echo "Usage: ssl <linux>"
+    echo "Usage: build <linux> <OpenSSL>"
 
     exit 1
 fi
@@ -30,27 +30,33 @@ SSL="$external/OpenSSL/$SSL_version"
 # Build
 #--------------------------------------------------------------------------------------------------
 
-name="openssl-$SSL_version"
+if [ $2 = "OpenSSL" ]; then
 
-archive="$name.tar.gz"
+    echo "BUILDING OpenSSL $SSL_version"
 
-curl -L -O "https://github.com/openssl/openssl/releases/download/$name/$archive"
+    name="openssl-$SSL_version"
 
-tar -xvzf $archive
+    archive="$name.tar.gz"
 
-rm -rf $archive
+    curl -L -O "https://github.com/openssl/openssl/releases/download/$name/$archive"
 
-cd $name
+    tar -xvzf $archive
 
-./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared
+    rm -rf $archive
 
-make -j$(nproc)
+    cd $name
 
-mkdir -p "$SSL"
+    ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared
 
-sudo cp libssl.so.3    "$SSL"
-sudo cp libcrypto.so.3 "$SSL"
+    make -j$(nproc)
 
-cd ..
+    mkdir -p "$SSL"
 
-rm -rf $name
+    sudo cp libssl.so.3    "$SSL"
+    sudo cp libcrypto.so.3 "$SSL"
+
+    cd ..
+
+    rm -rf $name
+
+fi
