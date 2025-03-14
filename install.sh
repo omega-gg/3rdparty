@@ -51,7 +51,7 @@ getOs()
 {
     release=$(cat /etc/os-release)
 
-    if [ -n "$(echo "$release" | grep 'VERSION_ID="18"')" ]; then
+    if [ -n "$(echo "$release" | grep 'VERSION_ID="18')" ]; then
 
         echo "ubuntu18"
     else
