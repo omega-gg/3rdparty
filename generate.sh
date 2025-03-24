@@ -57,10 +57,14 @@ lib32="/usr/lib/i386-linux-gnu"
 
 JDK_version="11.0.2"
 
-SDK_version="34"
+SDK_version="33"
 
-NDK_versionA="26"
-NDK_versionB="26.1.10909125"
+# NOTE libVLC 3: Requires NDK 21.
+NDK_versionA="21"
+NDK_versionB="21.4.7075529"
+
+NDK_versionC="26"
+NDK_versionD="26.1.10909125"
 
 VLC3_android="3.6.0-eap14"
 VLC4_android="4.0.0-eap17"
@@ -1500,7 +1504,12 @@ if [ $1 = "android" ]; then
 
     yes | ./sdkmanager --sdk_root="$path" --licenses
 
-    ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionB"
+    if [ $qt = "qt5" ]; then
+
+        ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionB"
+    else
+        ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionD"
+    fi
 
     ./sdkmanager --sdk_root="$path" --update
 
@@ -1510,7 +1519,12 @@ if [ $1 = "android" ]; then
 
     cd "$NDK"
 
-    ln -s "../SDK/$SDK_version/ndk/$NDK_versionB" "$NDK_versionA"
+    if [ $qt = "qt5" ]; then
+
+        ln -s "../SDK/$SDK_version/ndk/$NDK_versionB" "$NDK_versionA"
+    else
+        ln -s "../SDK/$SDK_version/ndk/$NDK_versionD" "$NDK_versionC"
+    fi
 
     #----------------------------------------------------------------------------------------------
     # NOTE NDK 22: We add SDK 31 support to avoid random crashes with libtorrent on the NDK 23.
