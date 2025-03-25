@@ -14,9 +14,11 @@ source="https://omega.gg/get/Sky/3rdparty"
 
 Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedia"
+Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.8.1"
 Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
+Qt6_ndk="26.1.10909125"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="3.4.1"
@@ -58,10 +60,6 @@ lib32="/usr/lib/i386-linux-gnu"
 JDK_version="11.0.2"
 
 SDK_version="34"
-
-# FIXME VLC 3: The NDK 26 seems to clash with libVLC libc++_shared.so.
-NDK_versionA="25"
-NDK_versionB="25.2.9519653"
 
 VLC3_android="3.6.0-eap14"
 VLC4_android="4.0.0-eap17"
@@ -315,6 +313,15 @@ extractVlc()
         copyVlcAndroid x86
         copyVlcAndroid x86_64
 
+        # FIXME VLC 3: The NDK 26 seems to clash with libVLC libc++_shared.so.
+        if [ $qt = "qt6" ]; then
+
+            copyVlcShared armeabi-v7a "$VLC3"
+            copyVlcShared arm64-v8a   "$VLC3"
+            copyVlcShared x86         "$VLC3"
+            copyVlcShared x86_64      "$VLC3"
+        fi
+
         rm -rf VLC
     fi
 
@@ -365,8 +372,13 @@ copyVlcAndroid()
 
     cp VLC/jni/$1/libvlc.so "$output"
 
+    copyVlcShared $1 "$VLC/$1"
+}
+
+copyVlcShared()
+{
     # NOTE android/VLC: We need a specific libc++_shared library.
-    cp VLC/jni/$1/libc++_shared.so "$output"
+    cp VLC/jni/$1/libc++_shared.so "$2"
 }
 
 linkNdk()
@@ -538,9 +550,11 @@ if [ $qt = "qt5" ]; then
 
     Qt_version="$Qt5_version"
     Qt_modules="$Qt5_modules"
+    Qt_ndk="$Qt5_ndk"
 else
     Qt_version="$Qt6_version"
     Qt_modules="$Qt6_modules"
+    Qt_ndk="$Qt6_ndk"
 fi
 
 QtX="$external/Qt/$Qt_version"
@@ -1501,7 +1515,7 @@ if [ $1 = "android" ]; then
 
     yes | ./sdkmanager --sdk_root="$path" --licenses
 
-    ./sdkmanager --sdk_root="$path" "ndk;$NDK_versionB"
+    ./sdkmanager --sdk_root="$path" "ndk;$Qt_ndk"
 
     ./sdkmanager --sdk_root="$path" --update
 
@@ -1511,7 +1525,7 @@ if [ $1 = "android" ]; then
 
     cd "$NDK"
 
-    ln -s "../SDK/$SDK_version/ndk/$NDK_versionB" "$NDK_versionA"
+    ln -s "../SDK/$SDK_version/ndk/$Qt_ndk" "default"
 
     #----------------------------------------------------------------------------------------------
     # NOTE NDK 22: We add SDK 31 support to avoid random crashes with libtorrent on the NDK 23.
