@@ -6,7 +6,7 @@ set -e
 #--------------------------------------------------------------------------------------------------
 
 # NOTE: Also check Sky_artifact.
-artifact="8608"
+artifact="8614"
 
 source="https://omega.gg/get/Sky/3rdparty"
 
@@ -313,7 +313,8 @@ extractVlc()
         copyVlcAndroid x86
         copyVlcAndroid x86_64
 
-        # FIXME VLC 3: The NDK 26 seems to clash with libVLC libc++_shared.so.
+        # FIXME android/VLC 3: We need a recent libc++_shared when building with NDK26+, so we
+        #                      copy the one that comes with VLC 4.
         if [ $qt = "qt6" ]; then
 
             copyVlcShared armeabi-v7a "$VLC3"
@@ -372,7 +373,7 @@ copyVlcAndroid()
 
     cp VLC/jni/$1/libvlc.so "$output"
 
-    copyVlcShared $1 "$VLC/$1"
+    copyVlcShared $1 "$output"
 }
 
 copyVlcShared()
