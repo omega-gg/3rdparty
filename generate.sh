@@ -28,7 +28,7 @@ VLC4_version="4.0.0"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_artifact="8612"
+libtorrent_artifact="8617"
 
 Sky_artifact="8399"
 
@@ -1426,8 +1426,11 @@ fi
 
 if [ $1 != "iOS" ]; then
 
-    # NOTE/qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
-    if [ $qt = "qt4" -a $platform = "linux32" ]; then
+    # NOTE qt4: We have a specific libtorrent-linux32 build for ubuntu:18.04.
+    if [ $platform = "linux32" -a $qt = "qt4" ] \
+       || \
+       # NOTE android: We have a specific libtorrent builds depending on the NDK version.
+       [ $1 = "android" ]; then
 
         artifact=libtorrent-$name-$qt
     else
