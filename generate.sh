@@ -26,7 +26,7 @@ VLC4_version="4.0.0"
 
 #--------------------------------------------------------------------------------------------------
 
-libtorrent_artifact="8408"
+libtorrent_artifact="8607"
 
 Sky_artifact="8399"
 
@@ -59,8 +59,9 @@ JDK_version="11.0.2"
 
 SDK_version="34"
 
-NDK_versionA="26"
-NDK_versionB="26.1.10909125"
+# FIXME VLC 3: The NDK 26 seems to clash with libVLC libc++_shared.so.
+NDK_versionA="25"
+NDK_versionB="25.2.9519653"
 
 VLC3_android="3.6.0-eap14"
 VLC4_android="4.0.0-eap17"
@@ -365,7 +366,7 @@ copyVlcAndroid()
     cp VLC/jni/$1/libvlc.so "$output"
 
     # NOTE android/VLC: We need a specific libc++_shared library.
-    #cp VLC/jni/$1/libc++_shared.so "$output"
+    cp VLC/jni/$1/libc++_shared.so "$output"
 }
 
 linkNdk()
