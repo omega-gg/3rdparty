@@ -375,13 +375,13 @@ copyVlcAndroid()
 
     cp VLC/jni/$1/libvlc.so "$output"
 
-    copyVlcShared $1 "$output"
+    copyVlcShared $1 "$VLC"
 }
 
 copyVlcShared()
 {
     # NOTE android/VLC: We need a specific libc++_shared library.
-    cp VLC/jni/$1/libc++_shared.so "$2"
+    cp VLC/jni/$1/libc++_shared.so "$2/$1"
 }
 
 linkNdk()
