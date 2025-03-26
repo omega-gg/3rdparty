@@ -317,6 +317,8 @@ extractVlc()
         #                      copy the one that comes with VLC 4.
         if [ $3 = "$VLC4_version" -a $qt = "qt6" ]; then
 
+            echo "APPLYING VLC libc++_shared"
+
             copyVlcShared armeabi-v7a "$VLC3"
             copyVlcShared arm64-v8a   "$VLC3"
             copyVlcShared x86         "$VLC3"
