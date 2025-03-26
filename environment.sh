@@ -8,7 +8,7 @@ set -e
 
 compiler_win="mingw"
 
-qt="qt5"
+qt="qt6"
 
 mobile="simulator"
 
