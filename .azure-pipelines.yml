@@ -21,6 +21,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
+      sh environment.sh qt5
       sh generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -31,6 +32,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
+      sh environment.sh qt5
       sh generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -42,6 +44,7 @@ jobs:
   steps:
   - bash: |
       sh environment.sh msvc
+      sh environment.sh qt5
       sh generate.sh win32 build
       7z a 3rdparty.zip win32
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -53,6 +56,7 @@ jobs:
   steps:
   - bash: |
       sh environment.sh msvc
+      sh environment.sh qt5
       sh generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -89,8 +93,8 @@ jobs:
 #     vmImage: "windows-latest"
 #   steps:
 #   - bash: |
-#       sh environment.sh qt6
 #       sh environment.sh msvc
+#       sh environment.sh qt6
 #       sh generate.sh win32 build
 #       7z a 3rdparty.zip win32
 #   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -101,8 +105,8 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh environment.sh qt6
       sh environment.sh msvc
+      sh environment.sh qt6
       sh generate.sh win64 build
       7z a 3rdparty.zip win64
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -117,6 +121,7 @@ jobs:
     vmImage: "macOS-14"
   steps:
   - bash: |
+      sh environment.sh qt5
       sh generate.sh macOS build
       zip -rq 3rdparty.zip macOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -142,6 +147,7 @@ jobs:
     vmImage: "macOS-14"
   steps:
   - bash: |
+      sh environment.sh qt5
       sh generate.sh iOS build
       zip -rq 3rdparty.zip iOS
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -200,6 +206,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /3rdparty;
                                      apt-get update;
                                      apt-get -y install sudo curl zip;
+                                     sh environment.sh qt5;
                                      sh generate.sh linux build;
                                      zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -210,6 +217,7 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
+      sh environment.sh qt5
       sh generate.sh linux build
       zip -rq 3rdparty.zip linux
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
@@ -237,6 +245,7 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
+      sh environment.sh qt5
       sh generate.sh android build
       zip -rqy 3rdparty.zip android
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
