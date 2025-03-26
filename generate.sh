@@ -1102,6 +1102,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mkdirQt "plugins/tls"
             mkdirQt "plugins/multimedia"
             mkdirQt "plugins/networkinformation"
+            mkdirQt "plugins/permissions"
 
             QtBase="$QtX/macos"
 
@@ -1122,6 +1123,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             moveMobile plugins/tls/lib*.*                plugins/tls
             moveMobile plugins/multimedia/lib*.*         plugins/multimedia
             moveMobile plugins/networkinformation/lib*.* plugins/networkinformation
+            moveMobile plugins/permissions/lib*.*        plugins/permissions
         fi
 
         # NOTE iOS: We need .a and .prl files.
