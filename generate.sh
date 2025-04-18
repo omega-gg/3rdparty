@@ -1014,7 +1014,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             rm -f "$QtX"/plugins/multimedia/*d.*
         fi
 
-        mv "$Qt"/bin/Qt*.dll "$QtX"/bin
+        mv "$Qt"/bin/*.dll "$QtX"/bin
 
         mv "$Qt"/plugins/platforms/q*.dll    "$QtX"/plugins/platforms
         mv "$Qt"/plugins/imageformats/q*.dll "$QtX"/plugins/imageformats
