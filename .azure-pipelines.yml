@@ -217,9 +217,13 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      sh environment.sh qt5
-      sh generate.sh linux build
-      zip -rq 3rdparty.zip linux
+      docker run -d --name ubuntu -v $PWD:/3rdparty amd64/ubuntu:22.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /3rdparty;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip;
+                                     sh environment.sh qt5;
+                                     sh generate.sh linux build;
+                                     zip -rq 3rdparty.zip linux"
   - publish: $(System.DefaultWorkingDirectory)/3rdparty.zip
     artifact: 3rdparty-linux64-qt5
 
