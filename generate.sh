@@ -21,7 +21,8 @@ Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qt
 Qt6_ndk="26.1.10909125"
 
 SSL_versionA="1.0.2u"
-SSL_versionB="3.4.1"
+SSL_versionB="1.1.1w"
+SSL_versionC="3.4.1"
 
 VLC3_version="3.0.21"
 VLC4_version="4.0.0"
@@ -597,7 +598,12 @@ if [ $os = "windows" ]; then
         SSL_urlA="https://github.com/IndySockets/OpenSSL-Binaries/raw/refs/heads/master/openssl-$SSL_versionA-x64_86-win64.zip"
     fi
 
-    SSL_urlB="https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-${SSL_versionB}.zip"
+    if [ $qt = "qt5" ]; then
+
+        SSL_urlB="https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-${SSL_versionB}.zip"
+    else
+        SSL_urlB="https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-${SSL_versionC}.zip"
+    fi
 
     MSVC_url="https://aka.ms/vs/$BuildTools_version/release/vs_buildtools.exe"
 
@@ -1358,7 +1364,14 @@ if [ $os = "windows" ]; then
     rm -rf ssl
 
     echo ""
-    echo "DOWNLOADING SSL $SSL_versionB"
+
+    if [ $qt = "qt5" ]; then
+
+        echo "DOWNLOADING SSL $SSL_versionB"
+    else
+        echo "DOWNLOADING SSL $SSL_versionC"
+    fi
+
     echo $SSL_urlB
 
     curl -L -o ssl.zip $SSL_urlB
@@ -1367,15 +1380,29 @@ if [ $os = "windows" ]; then
 
     rm ssl.zip
 
-    path="$SSL/$SSL_versionB"
+    if [ $qt = "qt5" ]; then
 
-    mkdir -p "$path"
+        path="$SSL/$SSL_versionB"
 
-    if [ $platform = "win32" ]; then
+        mkdir -p "$path"
 
-        ssl="ssl/x86/bin"
+        if [ $platform = "win32" ]; then
+
+            ssl="ssl/openssl-1.1/x86/bin"
+        else
+            ssl="ssl/openssl-1.1/x64/bin"
+        fi
     else
-        ssl="ssl/x64/bin"
+        path="$SSL/$SSL_versionC"
+
+        mkdir -p "$path"
+
+        if [ $platform = "win32" ]; then
+
+            ssl="ssl/x86/bin"
+        else
+            ssl="ssl/x64/bin"
+        fi
     fi
 
     mv $ssl/libssl*.dll    "$path"
@@ -1386,12 +1413,12 @@ if [ $os = "windows" ]; then
 elif [ $1 = "android" ]; then
 
     echo ""
-    echo "DOWNLOADING SSL $SSL_versionB"
+    echo "DOWNLOADING SSL $SSL_versionC"
     echo $SSL_urlB
 
     git clone $SSL_urlB
 
-    path="$SSL/$SSL_versionB"
+    path="$SSL/$SSL_versionC"
 
     mkdir -p "$path"
 
