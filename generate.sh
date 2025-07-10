@@ -17,7 +17,7 @@ Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedi
 Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.8.3"
-Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
+Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qtwayland qt5compat qtshadertools"
 Qt6_ndk="26.1.10909125"
 
 SSL_versionA="1.0.2u"
