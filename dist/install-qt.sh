@@ -271,6 +271,22 @@ function compute_url(){
             echo "${BASE_URL}/${REMOTE_BASE}/${REMOTE_PATH}"
             return 0
         fi
+    # NOTE Qt6: Support for qtwebengine extension.
+    elif [[ "${COMPONENT}" =~ "qtwebengine" ]]; then
+        VERNUM="${VERSION//./}"
+
+        BASE_URL="${MIRROR}/online/qtsdkrepository/${HOST_OS}/extensions/qtwebengine/${VERNUM}/${TOOLCHAIN}"
+        REMOTE_BASES=(
+            "extensions.qtwebengine.${VERNUM}.${TOOLCHAIN}"
+        )
+
+        for REMOTE_BASE in ${REMOTE_BASES[*]}; do
+            REMOTE_PATH="$(${CURL} ${BASE_URL}/${REMOTE_BASE}/ | grep -o -E "[[:alnum:]_.\-]*7z" | grep "${COMPONENT}" | tail -1)"
+            if [ ! -z "${REMOTE_PATH}" ]; then
+                echo "${BASE_URL}/${REMOTE_BASE}/${REMOTE_PATH}"
+                return 0
+            fi
+        done
     else
         # NOTE Qt6.7.0/android: The archives are under 'all_os'.
         if [[ "${VERSION}" > "6.6.0" ]] && [[ "${TARGET_PLATFORM}" == "android" ]]; then
