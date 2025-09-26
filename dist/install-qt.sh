@@ -275,14 +275,26 @@ function compute_url(){
     elif [[ "${COMPONENT}" =~ "qtwebengine" ]]; then
         VERNUM="${VERSION//./}"
 
-        BASE_URL="${MIRROR}/online/qtsdkrepository/${HOST_OS}/extensions/qtwebengine/${VERNUM}/${TOOLCHAIN}"
-        REMOTE_BASES=(
-            "extensions.qtwebengine.${VERNUM}.${TOOLCHAIN}"
-        )
+        if [[ "${HOST_OS}" == "linux_x64" ]]; then
+            SUBDIR="x86_64"
+        elif [[ "${TOOLCHAIN}" =~ ^win64_msvc ]]; then
+            SUBDIR="${TOOLCHAIN/win64_/}"
+        else
+            SUBDIR="${TOOLCHAIN}"
+        fi
+
+        BASE_URL="${MIRROR}/online/qtsdkrepository/${HOST_OS}/extensions/qtwebengine/${VERNUM}/${SUBDIR}"
+        if [[ "${HOST_OS}" == "linux_x64" ]]; then
+            REMOTE_BASES=("extensions.qtwebengine.${VERNUM}.linux_gcc_64")
+        else
+            REMOTE_BASES=("extensions.qtwebengine.${VERNUM}.${TOOLCHAIN}")
+        fi
 
         for REMOTE_BASE in ${REMOTE_BASES[*]}; do
             REMOTE_PATH="$(${CURL} ${BASE_URL}/${REMOTE_BASE}/ | grep -o -E "[[:alnum:]_.\-]*7z" | grep "${COMPONENT}" | tail -1)"
-            echo "${BASE_URL}/${REMOTE_BASE}/${REMOTE_PATH}"
+            echo "BASE=${BASE_URL}" >&2
+            echo "GROUP=${REMOTE_BASE}" >&2
+            echo "REMOTE_PATH=${REMOTE_PATH}" >&2
             if [ ! -z "${REMOTE_PATH}" ]; then
                 echo "${BASE_URL}/${REMOTE_BASE}/${REMOTE_PATH}"
                 return 0

@@ -17,8 +17,7 @@ Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedi
 Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.8.3"
-Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools \
-qtwebview"
+Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
 Qt6_ndk="26.1.10909125"
 
 SSL_versionA="1.0.2u"
@@ -840,8 +839,10 @@ if [ $qt != "qt4" ]; then
         if [ $qt = "qt5" ]; then
 
             Qt_modules="$Qt_modules qtwinextras"
-        else
-            Qt_modules="$Qt_modules qtwebengine qtwebchannel qtpositioning"
+
+        elif [ $compiler = "msvc" ]; then
+
+            Qt_modules="$Qt_modules qtwebview qtwebengine qtwebchannel qtpositioning"
         fi
 
         echo "bash $install_qt --directory Qt --version $Qt_version --host windows_x86 --toolchain $toolchain $Qt_modules"
@@ -878,6 +879,11 @@ if [ $qt != "qt4" ]; then
         # NOTE: This is useful for macdeployqt.
         Qt_modules="$Qt_modules qttools"
 
+        if [ $qt = "qt6" ]; then
+
+            Qt_modules="$Qt_modules qtwebview"
+        fi
+
         echo "bash $install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
 
         bash $install_qt --directory Qt --version $Qt_version --host mac_x64 \
@@ -896,6 +902,8 @@ if [ $qt != "qt4" ]; then
 
             Qt="Qt/$Qt_version/ios"
         else
+            Qt_modules="$Qt_modules qtwebview"
+
             echo "bash $install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
 
             # NOTE Qt6: We need the desktop toolchain to build iOS.
@@ -920,7 +928,7 @@ if [ $qt != "qt4" ]; then
         else
             toolchain="linux_gcc_64"
 
-            Qt_modules="$Qt_modules qtwayland icu qtwebengine qtwebchannel qtpositioning"
+            Qt_modules="$Qt_modules qtwayland icu qtwebview qtwebengine qtwebchannel qtpositioning"
         fi
 
         echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --toolchain gcc_64 $Qt_modules"
@@ -948,8 +956,12 @@ if [ $qt != "qt4" ]; then
         else
             toolchain="linux_gcc_64"
 
+            Qt_modules="$Qt_modules qtwebview"
+
+            Qt_modules_desktop="$Qt_modules qtwebengine qtwebchannel qtpositioning icu"
+
             # NOTE Qt6: We need the desktop toolchain to build android.
-            installQt desktop $toolchain "$Qt_modules icu"
+            installQt desktop $toolchain "$Qt_modules_desktop"
 
             installQt android android_armv7     "$Qt_modules"
             installQt android android_arm64_v8a "$Qt_modules"
