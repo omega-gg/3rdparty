@@ -8,7 +8,7 @@ set -e
 Qt4_version="4.8.7"
 Qt5_version="5.15.2"
 
-SSL_version="3.4.1"
+SSL_version="3.5.3"
 
 VLC_version="3.0.21"
 
