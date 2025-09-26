@@ -17,7 +17,8 @@ Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedi
 Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.8.3"
-Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
+Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools\
+qtwebview"
 Qt6_ndk="26.1.10909125"
 
 SSL_versionA="1.0.2u"
@@ -839,6 +840,8 @@ if [ $qt != "qt4" ]; then
         if [ $qt = "qt5" ]; then
 
             Qt_modules="$Qt_modules qtwinextras"
+        else
+            Qt_modules="$Qt_modules qtwebengine qtwebchannel qtpositioning"
         fi
 
         echo "bash $install_qt --directory Qt --version $Qt_version --host windows_x86 --toolchain $toolchain $Qt_modules"
@@ -917,7 +920,7 @@ if [ $qt != "qt4" ]; then
         else
             toolchain="linux_gcc_64"
 
-            Qt_modules="$Qt_modules qtwayland icu"
+            Qt_modules="$Qt_modules qtwayland icu qtwebengine qtwebchannel qtpositioning"
         fi
 
         echo "bash $install_qt --directory Qt --version $Qt_version --host linux_x64 --toolchain gcc_64 $Qt_modules"
