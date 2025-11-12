@@ -537,7 +537,12 @@ if [ $host = "macOS" ]; then
     grep="ggrep"
 
     # NOTE macOS: python3 packaging module is required for devices.py.
-    pip3 install packaging
+
+    python3 -m venv .venv
+
+    source .venv/bin/activate
+
+    pip install packaging
 else
     grep="grep"
 fi
