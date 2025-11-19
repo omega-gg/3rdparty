@@ -1022,6 +1022,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         if [ $hasWeb = true ]; then
 
+            mkdirQt "plugins/webview"
+
             mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
 
             moveQtAll "resources" "."
