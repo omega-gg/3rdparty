@@ -494,15 +494,23 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     if [ $compiler = "msvc" ]; then
 
         name="$1-msvc"
+
+        hasWeb=true
     else
         name="$1"
+
+        hasWeb=false
     fi
 else
     if [ $1 = "iOS" -o $1 = "android" ]; then
 
         os="mobile"
+
+        hasWeb=false
     else
         os="default"
+
+        hasWeb=true
     fi
 
     if [ $1 = "linux" ]; then
@@ -1029,8 +1037,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             rm -f "$QtX"/plugins/mediaservice/*d.*
         else
-            mv "$Qt"/bin/qsb*                "$QtX"/bin
-            mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
+            mv "$Qt"/bin/qsb* "$QtX"/bin
 
             mv "$Qt"/plugins/tls/*.dll        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
@@ -1039,6 +1046,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             rm -f "$QtX"/plugins/tls/*backendd.*
 
             rm -f "$QtX"/plugins/multimedia/*d.*
+
+            if [ $hasWeb = true ]; then
+
+                mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
+            fi
         fi
 
         mv "$Qt"/bin/*.dll "$QtX"/bin
