@@ -1024,7 +1024,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             rm -f "$QtX"/plugins/mediaservice/*d.*
         else
-            mv "$Qt"/bin/qsb* "$QtX"/bin
+            mv "$Qt"/bin/qsb*                "$QtX"/bin
+            mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
 
             mv "$Qt"/plugins/tls/*.dll        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
