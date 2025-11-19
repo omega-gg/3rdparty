@@ -1019,6 +1019,13 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mkdirQt "plugins/multimedia"
 
         moveQt "qml" "."
+
+        if [ $hasWeb = true ]; then
+
+            mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
+
+            moveQtAll "resources" "."
+        fi
     fi
 
     moveQtAll "mkspecs" "."
@@ -1049,7 +1056,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             if [ $hasWeb = true ]; then
 
-                mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
+                mv "$Qt"/plugins/webview/*.dll "$QtX"/plugins/webview
+
+                rm -f "$QtX"/plugins/webview/*d.*
             fi
         fi
 
@@ -1100,6 +1109,13 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             rm -f "$QtX"/plugins/tls/*debug*
             rm -f "$QtX"/plugins/multimedia/*debug*
+
+            if [ $hasWeb = true ]; then
+
+                mv "$Qt"/plugins/webview/lib*.dylib "$QtX"/plugins/webview
+
+                rm -f "$QtX"/plugins/webview/*debug*
+            fi
         fi
 
         mv "$Qt"/plugins/platforms/lib*.dylib    "$QtX"/plugins/platforms
@@ -1235,6 +1251,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/plugins/tls/lib*.so        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/lib*.so "$QtX"/plugins/multimedia
+
+            if [ $hasWeb = true ]; then
+
+                mv "$Qt"/plugins/webview/lib*.so "$QtX"/plugins/webview
+            fi
         fi
 
         mv "$Qt"/plugins/platforms/lib*.so         "$QtX"/plugins/platforms
