@@ -1023,8 +1023,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         if [ $hasWeb = true ]; then
 
             mkdirQt "plugins/webview"
-
-            moveQtAll "resources" "."
         fi
     fi
 
@@ -1057,6 +1055,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             rm -f "$QtX"/plugins/multimedia/*d.*
 
             if [ $hasWeb = true ]; then
+
+                moveQtAll "resources" "."
 
                 mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
 
@@ -1257,6 +1257,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/plugins/multimedia/lib*.so "$QtX"/plugins/multimedia
 
             if [ $hasWeb = true ]; then
+
+                moveQtAll "resources" "."
 
                 mv "$Qt"/libexec/QtWebEngineProcess "$QtX"/libexec
 
