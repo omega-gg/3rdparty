@@ -915,7 +915,7 @@ if [ $qt != "qt4" ]; then
 
             Qt="Qt/$Qt_version/ios"
         else
-            Qt_modules="$Qt_modules qtwebview qtwebengine qtwebchannel qtpositioning"
+            Qt_modules="$Qt_modules qtwebview qtwebchannel qtpositioning"
 
             echo "bash $install_qt --directory Qt --version $Qt_version --host mac_x64 --toolchain clang_64 $Qt_modules"
 
