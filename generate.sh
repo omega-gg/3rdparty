@@ -1032,6 +1032,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     if [ $os = "windows" ]; then
 
+        find "$QtX"/qml -name "*plugind.dll" -delete
+
         mv "$Qt"/bin/moc*         "$QtX"/bin
         mv "$Qt"/bin/rcc*         "$QtX"/bin
         mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
