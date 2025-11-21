@@ -1036,21 +1036,27 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             rm -f "$QtX"/plugins/mediaservice/*d.*
         else
-            # NOTE: Required for the webview.
-            moveQtAll "resources" "."
-
-            mv "$Qt"/bin/qsb*                "$QtX"/bin
-            mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
+            mv "$Qt"/bin/qsb* "$QtX"/bin
 
             mv "$Qt"/plugins/tls/*.dll        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
-            mv "$Qt"/plugins/webview/*.dll    "$QtX"/plugins/webview
 
             # NOTE: Making sure to keep the 'backend.dll' files.
             rm -f "$QtX"/plugins/tls/*backendd.*
 
             rm -f "$QtX"/plugins/multimedia/*d.*
-            rm -f "$QtX"/plugins/webview/*d.*
+
+            if [ $compiler != "mingw" ]; then
+
+                # NOTE: Required for the webview.
+                moveQtAll "resources" "."
+
+                mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
+
+                mv "$Qt"/plugins/webview/*.dll "$QtX"/plugins/webview
+
+                rm -f "$QtX"/plugins/webview/*d.*
+            fi
         fi
 
         mv "$Qt"/bin/*.dll "$QtX"/bin
