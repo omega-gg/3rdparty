@@ -963,7 +963,7 @@ if [ $qt != "qt4" ]; then
 
             Qt_modules="$Qt_modules qtwebview qtwebchannel qtpositioning"
 
-            Qt_modules_desktop="$Qt_modules qtwebengine qtwebchannel qtpositioning icu"
+            Qt_modules_desktop="$Qt_modules icu"
 
             # NOTE Qt6: We need the desktop toolchain to build android.
             installQt desktop $toolchain "$Qt_modules_desktop"
