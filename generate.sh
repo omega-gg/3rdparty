@@ -961,7 +961,7 @@ if [ $qt != "qt4" ]; then
         else
             toolchain="linux_gcc_64"
 
-            Qt_modules="$Qt_modules qtwebview"
+            Qt_modules="$Qt_modules qtwebview qtwebchannel qtpositioning"
 
             Qt_modules_desktop="$Qt_modules qtwebengine qtwebchannel qtpositioning icu"
 
