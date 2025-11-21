@@ -494,23 +494,15 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     if [ $compiler = "msvc" ]; then
 
         name="$1-msvc"
-
-        hasWeb=true
     else
         name="$1"
-
-        hasWeb=false
     fi
 else
     if [ $1 = "iOS" -o $1 = "android" ]; then
 
         os="mobile"
-
-        hasWeb=false
     else
         os="default"
-
-        hasWeb=true
     fi
 
     if [ $1 = "linux" ]; then
@@ -1020,7 +1012,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
         moveQt "qml" "."
 
-        if [ $hasWeb = true ]; then
+        if [ $compiler != "mingw" ]; then
 
             mkdirQt "plugins/webview"
         fi
@@ -1044,26 +1036,21 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             rm -f "$QtX"/plugins/mediaservice/*d.*
         else
-            mv "$Qt"/bin/qsb* "$QtX"/bin
+            # NOTE: Required for the webview.
+            moveQtAll "resources" "."
+
+            mv "$Qt"/bin/qsb*                "$QtX"/bin
+            mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
 
             mv "$Qt"/plugins/tls/*.dll        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/*.dll "$QtX"/plugins/multimedia
+            mv "$Qt"/plugins/webview/*.dll    "$QtX"/plugins/webview
 
             # NOTE: Making sure to keep the 'backend.dll' files.
             rm -f "$QtX"/plugins/tls/*backendd.*
 
             rm -f "$QtX"/plugins/multimedia/*d.*
-
-            if [ $hasWeb = true ]; then
-
-                moveQtAll "resources" "."
-
-                mv "$Qt"/bin/QtWebEngineProcess* "$QtX"/bin
-
-                mv "$Qt"/plugins/webview/*.dll "$QtX"/plugins/webview
-
-                rm -f "$QtX"/plugins/webview/*d.*
-            fi
+            rm -f "$QtX"/plugins/webview/*d.*
         fi
 
         mv "$Qt"/bin/*.dll "$QtX"/bin
@@ -1110,16 +1097,11 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/plugins/tls/lib*.dylib        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/lib*.dylib "$QtX"/plugins/multimedia
+            mv "$Qt"/plugins/webview/lib*.dylib    "$QtX"/plugins/webview
 
             rm -f "$QtX"/plugins/tls/*debug*
             rm -f "$QtX"/plugins/multimedia/*debug*
-
-            if [ $hasWeb = true ]; then
-
-                mv "$Qt"/plugins/webview/lib*.dylib "$QtX"/plugins/webview
-
-                rm -f "$QtX"/plugins/webview/*debug*
-            fi
+            rm -f "$QtX"/plugins/webview/*debug*
         fi
 
         mv "$Qt"/plugins/platforms/lib*.dylib    "$QtX"/plugins/platforms
@@ -1185,6 +1167,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             moveMobile plugins/multimedia/lib*.*         plugins/multimedia
             moveMobile plugins/networkinformation/lib*.* plugins/networkinformation
             moveMobile plugins/permissions/lib*.*        plugins/permissions
+            moveMobile plugins/webview/lib*.*            plugins/webview
         fi
 
         # NOTE iOS: We need .a and .prl files.
@@ -1245,25 +1228,21 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/plugins/mediaservice/lib*.so "$QtX"/plugins/mediaservice
         else
+            # NOTE: Required for the webview.
+            moveQtAll "resources" "."
+
             mkdir -p "$QtX"/libexec
 
             mv "$Qt"/bin/qsb* "$QtX"/bin
 
-            mv "$Qt"/libexec/moc*         "$QtX"/libexec
-            mv "$Qt"/libexec/rcc*         "$QtX"/libexec
-            mv "$Qt"/libexec/qmlcachegen* "$QtX"/libexec
+            mv "$Qt"/libexec/moc*                "$QtX"/libexec
+            mv "$Qt"/libexec/rcc*                "$QtX"/libexec
+            mv "$Qt"/libexec/qmlcachegen*        "$QtX"/libexec
+            mv "$Qt"/libexec/QtWebEngineProcess* "$QtX"/libexec
 
             mv "$Qt"/plugins/tls/lib*.so        "$QtX"/plugins/tls
             mv "$Qt"/plugins/multimedia/lib*.so "$QtX"/plugins/multimedia
-
-            if [ $hasWeb = true ]; then
-
-                moveQtAll "resources" "."
-
-                mv "$Qt"/libexec/QtWebEngineProcess "$QtX"/libexec
-
-                mv "$Qt"/plugins/webview/lib*.so "$QtX"/plugins/webview
-            fi
+            mv "$Qt"/plugins/webview/lib*.so    "$QtX"/plugins/webview
         fi
 
         mv "$Qt"/plugins/platforms/lib*.so         "$QtX"/plugins/platforms
@@ -1325,6 +1304,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             moveMobile "plugins/tls/lib*.so"        "plugins/tls"
             moveMobile "plugins/multimedia/lib*.so" "plugins/multimedia"
+            moveMobile "plugins/webview/lib*.so"    "plugins/webview"
 
             #--------------------------------------------------------------------------------------
             # NOTE Qt6: We update target_qt otherwise mkspecs are not found.
