@@ -160,6 +160,10 @@ if [ $qt != "qt4" ]; then
         # NOTE Qt6: libxkbcommon*  is required for libQt6Gui.
         #           libxcb-cursor0 is required for platforms/libqxcb.
         X11_linux="$X11_linux libxkbcommon-dev libxkbcommon-x11-dev libxcb-cursor0"
+
+        # NOTE Qt6: These are required for webenginequick.
+        X11_linux="$X11_linux libnss3-dev libnspr4-dev libxcomposite-dev libxdamage-dev "\
+"libxtst-dev libasound2-dev libxkbfile-dev"
     fi
 fi
 
