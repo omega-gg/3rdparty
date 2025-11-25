@@ -527,17 +527,18 @@ fi
 
 if [ $host = "macOS" ]; then
 
+    # NOTE: These generate an error when the package already installed.
+
     set +e
 
-    # NOTE: This generates an error when grep is already installed.
     brew install grep
+
+    # NOTE macOS: python3 packaging module is required for devices.py.
+    brew install python-packaging
 
     set -e
 
     grep="ggrep"
-
-    # NOTE macOS: python3 packaging module is required for devices.py.
-    brew install python-packaging
 else
     grep="grep"
 fi
