@@ -527,7 +527,7 @@ fi
 
 if [ $host = "macOS" ]; then
 
-    # NOTE: These generate an error when the package already installed.
+    # NOTE: These generate an error when a package is already installed.
 
     set +e
 
