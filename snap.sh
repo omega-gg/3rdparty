@@ -5,7 +5,7 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
-VLC_artifact="8336"
+VLC_artifact="9371"
 
 VLC3_version="3.0.21"
 VLC4_version="4.0.0"
@@ -66,9 +66,9 @@ getSource()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "linux" ] || [ $2 != "vlc" ]; then
+if [ $# != 2 ] || [ $1 != "linux" ] || [ $2 != "vlc3" -a $2 != "vlc4" ]; then
 
-    echo "Usage: snap <linux> <vlc>"
+    echo "Usage: snap <linux> <vlc3 | vlc4>"
 
     exit 1
 fi
@@ -87,9 +87,14 @@ VLC_url="https://dev.azure.com/bunjee/snap/_apis/build/builds/$VLC_artifact/arti
 # Extract
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "vlc" ]; then
+if [ $2 = "vlc3" -o $2 = "vlc4" ]; then
 
-    artifact="VLC-linux64"
+    if [ $2 = "vlc3" ]; then
+
+        artifact="VLC3-linux64"
+    else
+        artifact="VLC4-linux64"
+    fi
 
     echo ""
     echo "ARTIFACT $artifact"
@@ -115,6 +120,12 @@ if [ $2 = "vlc" ]; then
 
     rm -rf "$path"
 
-    extract $VLC3_version $VLC3_versionA $VLC3_versionB $libvlccore3_versionA $libvlccore3_versionB
-    extract $VLC4_version $VLC4_versionA $VLC4_versionB $libvlccore4_versionA $libvlccore4_versionB
+    if [ $2 = "vlc3" ]; then
+
+        extract $VLC3_version $VLC3_versionA $VLC3_versionB $libvlccore3_versionA \
+                $libvlccore3_versionB
+    else
+        extract $VLC4_version $VLC4_versionA $VLC4_versionB $libvlccore4_versionA \
+                $libvlccore4_versionB
+    fi
 fi
