@@ -989,10 +989,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     moveQtAll "bin/qmake*" "bin"
 
-    if [ $qt != "qt6" ]; then
-
-        moveQtAll "bin/*qt.conf" "bin"
-    fi
+    moveQtAll "bin/*qt.conf" "bin"
 
     # NOTE: We need the lib folder for the qmake binary.
     moveQtAll "lib" "."

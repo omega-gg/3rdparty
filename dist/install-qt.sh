@@ -37,6 +37,7 @@
 ## $QT_END_LICENSE$
 ##
 #############################################################################
+# Reference: https://github.com/qbs/qbs/blob/master/scripts/install-qt.sh
 set -eu
 
 function help() {
@@ -485,6 +486,8 @@ for COMPONENT in ${COMPONENTS}; do
         sed -i.bak "s|\/home\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${WASM_QMAKE_FILE}"
     else
         CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
+        # NOTE 6.10.1: qt.conf is no longer shipped with qtbase.
+        mkdir -p "$(dirname "$CONF_FILE")"
         echo "[Paths]" > ${CONF_FILE}
         echo "Prefix = .." >> ${CONF_FILE}
     fi
