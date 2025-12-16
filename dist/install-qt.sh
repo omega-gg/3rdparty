@@ -486,8 +486,6 @@ for COMPONENT in ${COMPONENTS}; do
         sed -i.bak "s|\/home\/qt\/work\/install\/bin\/qmake|${QMAKE_FILE}|g" "${WASM_QMAKE_FILE}"
     else
         CONF_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/bin/qt.conf"
-        # NOTE 6.10.1: qt.conf is no longer shipped with qtbase.
-        mkdir -p "$(dirname "$CONF_FILE")"
         echo "[Paths]" > ${CONF_FILE}
         echo "Prefix = .." >> ${CONF_FILE}
     fi
@@ -495,8 +493,6 @@ for COMPONENT in ${COMPONENTS}; do
     # Adjust the license to be able to run qmake
     # sed with -i requires intermediate file on Mac OS
     PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
-    ls -la "${UNPACK_DIR}/${VERSION}/${SUBDIR}"
-    find "${UNPACK_DIR}/${VERSION}/${SUBDIR}" -maxdepth 2 -type d -print
     sed -i.bak 's/Enterprise/OpenSource/g' "${PRI_FILE}"
     sed -i.bak 's/licheck.*//g' "${PRI_FILE}"
     rm "${PRI_FILE}.bak"
