@@ -614,16 +614,16 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform-llvm/20250124-0445/vlc-$VLC4_version-dev-$platform-417580d0.7z"
+        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform-llvm/20251216-0419/vlc-$VLC4_version-dev-$platform-9106f00f.7z"
     else
-        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20250124-0420/vlc-$VLC4_version-dev-$platform-417580d0.7z"
+        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20251216-0423/vlc-$VLC4_version-dev-$platform-9106f00f.7z"
     fi
 
 elif [ $1 = "macOS" ]; then
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
-    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20250124-0411/vlc-$VLC4_version-dev-intel64-417580d0.dmg"
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20251216-0411/vlc-$VLC4_version-dev-intel64-9106f00f.dmg"
 
 elif [ $1 = "iOS" ]; then
 
