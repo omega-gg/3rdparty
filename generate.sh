@@ -16,7 +16,7 @@ Qt5_version="5.15.2"
 Qt5_modules="qtbase qtdeclarative qtxmlpatterns qtimageformats qtsvg qtmultimedia"
 Qt5_ndk="25.2.9519653"
 
-Qt6_version="6.8.3"
+Qt6_version="6.10.1"
 Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
 Qt6_ndk="26.1.10909125"
 
@@ -60,7 +60,7 @@ lib32="/usr/lib/i386-linux-gnu"
 
 JDK_version="11.0.2"
 
-SDK_version="34"
+SDK_version="35"
 
 VLC3_android="3.6.2"
 VLC4_android="4.0.0-eap17"
