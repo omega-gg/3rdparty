@@ -1486,7 +1486,8 @@ else
 
     if [ $platform = "linux64" ]; then
 
-        sh snap.sh linux vlc
+        sh snap.sh linux vlc3
+        sh snap.sh linux vlc4
 
         rm -rf "$external"/VLC/snap
     fi
