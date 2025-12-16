@@ -18,7 +18,7 @@ Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.10.1"
 Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
-Qt6_ndk="26.1.10909125"
+Qt6_ndk="27.2.12479018"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1w"
@@ -989,7 +989,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     moveQtAll "bin/qmake*" "bin"
 
-    moveQtAll "bin/*qt.conf" "bin"
+    if [ $qt != "qt6" ]; then
+
+        moveQtAll "bin/*qt.conf" "bin"
+    fi
 
     # NOTE: We need the lib folder for the qmake binary.
     moveQtAll "lib" "."
