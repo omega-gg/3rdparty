@@ -495,6 +495,7 @@ for COMPONENT in ${COMPONENTS}; do
     # Adjust the license to be able to run qmake
     # sed with -i requires intermediate file on Mac OS
     PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
+    ls -la "${UNPACK_DIR}/${VERSION}/${SUBDIR}"
     sed -i.bak 's/Enterprise/OpenSource/g' "${PRI_FILE}"
     sed -i.bak 's/licheck.*//g' "${PRI_FILE}"
     rm "${PRI_FILE}.bak"
