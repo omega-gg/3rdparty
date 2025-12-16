@@ -40,6 +40,10 @@
 # Reference: https://github.com/qbs/qbs/blob/master/scripts/install-qt.sh
 set -eu
 
+function version {
+  echo "$@" | awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }';
+}
+
 function help() {
     cat <<EOF
 usage: install-qt [options] [components]
@@ -361,10 +365,6 @@ function compute_url(){
 
     echo "Could not determine a remote URL for ${COMPONENT} with version ${VERSION}">&2
     exit 1
-}
-
-function version {
-  echo "$@" | awk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }';
 }
 
 mkdir -p ${INSTALL_DIR}
