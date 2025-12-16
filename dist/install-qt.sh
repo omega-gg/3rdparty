@@ -496,6 +496,7 @@ for COMPONENT in ${COMPONENTS}; do
     # sed with -i requires intermediate file on Mac OS
     PRI_FILE="${UNPACK_DIR}/${VERSION}/${SUBDIR}/mkspecs/qconfig.pri"
     ls -la "${UNPACK_DIR}/${VERSION}/${SUBDIR}"
+    find "${UNPACK_DIR}/${VERSION}/${SUBDIR}" -maxdepth 2 -type d -print
     sed -i.bak 's/Enterprise/OpenSource/g' "${PRI_FILE}"
     sed -i.bak 's/licheck.*//g' "${PRI_FILE}"
     rm "${PRI_FILE}.bak"
