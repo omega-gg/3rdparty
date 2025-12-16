@@ -652,7 +652,7 @@ if [ $1 = "linux" -o $1 = "android" ]; then
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/win64/vlc-$VLC3_version-win64.7z"
 
-    VLC4_url="https://artifacts.videolan.org/vlc/nightly-win64/20250124-0420/vlc-$VLC4_version-dev-win64-417580d0.7z"
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-win64/20251216-0423/vlc-$VLC4_version-dev-win64-9106f00f.7z"
 fi
 
 Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
