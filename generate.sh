@@ -18,7 +18,8 @@ Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.10.1"
 Qt6_modules="qtbase qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
-Qt6_ndk="27.2.12479018"
+Qt6_ndk="28.2.13676358"
+# Reference: https://code.videolan.org/videolan/docker-images/blob/master/vlc-debian-android/Dockerfile
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1w"
