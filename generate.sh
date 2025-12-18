@@ -374,9 +374,9 @@ copyVlcAndroid()
 
     mkdir "$output"
 
-    cp VLC/jni/$1/libvlc.so "$output"
+    cp VLC/jni/$1/*.so "$output"
 
-    copyVlcShared $1 "$VLC"
+    cp VLC/*.jar "$output"
 }
 
 copyVlcShared()
