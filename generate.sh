@@ -314,6 +314,8 @@ extractVlc()
         copyVlcAndroid x86
         copyVlcAndroid x86_64
 
+        cp VLC/*.jar "$VLC"
+
         # FIXME android/VLC 3: We need a recent libc++_shared when building with NDK26+, so we
         #                      copy the one that comes with VLC 4.
         if [ $3 = "$VLC3_version" -a $qt = "qt6" ]; then
@@ -375,8 +377,6 @@ copyVlcAndroid()
     mkdir "$output"
 
     cp VLC/jni/$1/*.so "$output"
-
-    cp VLC/*.jar "$output"
 }
 
 copyVlcShared()
