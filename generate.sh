@@ -958,9 +958,9 @@ if [ $qt != "qt4" ]; then
         else
             toolchain="linux_gcc_64"
 
-            Qt_modules="$Qt_modules qtwebview qtwebchannel qtpositioning"
-
             Qt_modules_desktop="$Qt_modules icu"
+
+            Qt_modules="$Qt_modules qtwebview qtwebchannel qtpositioning"
 
             # NOTE Qt6: We need the desktop toolchain to build android.
             installQt desktop $toolchain "$Qt_modules_desktop"
