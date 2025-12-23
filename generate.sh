@@ -40,10 +40,10 @@ Sky_artifact="9183"
 MinGW_versionA="13.1.0"
 MinGW_versionB="1310"
 
-BuildTools_version="16"
+BuildTools_version="17"
 
-jom_versionA="1.1.3"
-jom_versionB="1_1_3"
+jom_versionA="1.1.5"
+jom_versionB="1_1_5"
 
 #--------------------------------------------------------------------------------------------------
 # iOS
