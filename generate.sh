@@ -63,7 +63,7 @@ JDK_version="17.0.2"
 
 SDK_version="35"
 
-VLC3_android="3.6.2"
+VLC3_android="3.6.5"
 VLC4_android="4.0.0-eap23"
 
 #--------------------------------------------------------------------------------------------------
@@ -319,15 +319,15 @@ extractVlc()
 
         # FIXME android/VLC 3: We need a recent libc++_shared when building with NDK26+, so we
         #                      copy the one that comes with VLC 4.
-        if [ $3 = "$VLC3_version" -a $qt = "qt6" ]; then
-
-            echo "APPLYING VLC libc++_shared"
-
-            copyVlcShared armeabi-v7a "$VLC3"
-            copyVlcShared arm64-v8a   "$VLC3"
-            copyVlcShared x86         "$VLC3"
-            copyVlcShared x86_64      "$VLC3"
-        fi
+        #if [ $3 = "$VLC3_version" -a $qt = "qt6" ]; then
+        #
+        #    echo "APPLYING VLC libc++_shared"
+        #
+        #    copyVlcShared armeabi-v7a "$VLC3"
+        #    copyVlcShared arm64-v8a   "$VLC3"
+        #    copyVlcShared x86         "$VLC3"
+        #    copyVlcShared x86_64      "$VLC3"
+        #fi
 
         rm -rf VLC
     fi
