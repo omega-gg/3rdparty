@@ -319,7 +319,7 @@ extractVlc()
 
         # FIXME android 32bit/VLC 3: We need a recent libc++_shared when building with NDK26+, so
         #                            we copy the one that comes with VLC 4.
-        if [ $3 = "$VLC3_version" -a $qt = "qt6" ]; then
+        if [ $3 = "$VLC4_version" -a $qt = "qt6" ]; then
 
             echo "APPLYING VLC libc++_shared"
 
