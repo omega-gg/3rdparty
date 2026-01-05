@@ -317,17 +317,15 @@ extractVlc()
 
         cp VLC/*.jar "$VLC"
 
-        # FIXME android/VLC 3: We need a recent libc++_shared when building with NDK26+, so we
-        #                      copy the one that comes with VLC 4.
-        #if [ $3 = "$VLC3_version" -a $qt = "qt6" ]; then
-        #
-        #    echo "APPLYING VLC libc++_shared"
-        #
-        #    copyVlcShared armeabi-v7a "$VLC3"
-        #    copyVlcShared arm64-v8a   "$VLC3"
-        #    copyVlcShared x86         "$VLC3"
-        #    copyVlcShared x86_64      "$VLC3"
-        #fi
+        # FIXME android 32bit/VLC 3: We need a recent libc++_shared when building with NDK26+, so
+        #                            we copy the one that comes with VLC 4.
+        if [ $3 = "$VLC3_version" -a $qt = "qt6" ]; then
+
+            echo "APPLYING VLC libc++_shared"
+
+            copyVlcShared armeabi-v7a "$VLC3"
+            copyVlcShared x86         "$VLC3"
+        fi
 
         rm -rf VLC
     fi
@@ -378,16 +376,13 @@ copyVlcAndroid()
     mkdir "$output"
 
     cp VLC/jni/$1/*.so "$output"
-
-    # NOTE android/VLC: We want to provide our own libc++_shared library.
-    rm "$output"/libc++_shared.so
 }
 
-#copyVlcShared()
-#{
-#    # NOTE android/VLC: We need a specific libc++_shared library.
-#    cp VLC/jni/$1/libc++_shared.so "$2/$1"
-#}
+copyVlcShared()
+{
+    # NOTE android/VLC: We need a specific libc++_shared library.
+    cp VLC/jni/$1/libc++_shared.so "$2/$1"
+}
 
 linkNdk()
 {
