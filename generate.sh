@@ -379,6 +379,7 @@ copyVlcAndroid()
 
     cp VLC/jni/$1/*.so "$output"
 
+    # NOTE android/VLC: We want to provide our own libc++_shared library.
     rm "$output"/libc++_shared.so
 }
 
