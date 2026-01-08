@@ -1323,6 +1323,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             cat "$QtX"/android_arm64_v8a/bin/target_qt.conf
             cat "$QtX"/android_x86/bin/target_qt.conf
             cat "$QtX"/android_x86_64/bin/target_qt.conf
+
+            # FIXME Qt6.10.1: libavformat is not properly aligned on x86_64
+            python dist/android/patch-16k.py "$QtX"/android_x86_64/lib/libavformat.so
         fi
 
         moveMobile "plugins/platforms/lib*.so"    "plugins/platforms"
