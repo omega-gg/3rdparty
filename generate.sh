@@ -42,8 +42,8 @@ MinGW_versionB="1310"
 
 BuildTools_version="17"
 
-jom_versionA="1.1.5"
-jom_versionB="1_1_5"
+jom_versionA="1.1.4"
+jom_versionB="1_1_4"
 
 #--------------------------------------------------------------------------------------------------
 # iOS
