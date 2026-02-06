@@ -1020,7 +1020,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mv "$Qt"/bin/rcc*         "$QtX"/bin
         mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
         mv "$Qt"/bin/lupdate*     "$QtX"/bin
-        mv "$Qt"/bin/lprodump*    "$QtX"/bin
         mv "$Qt"/bin/lrelease*    "$QtX"/bin
 
         if [ $qt = "qt5" ]; then
@@ -1078,7 +1077,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
             mv "$Qt"/bin/lupdate*     "$QtX"/bin
-            mv "$Qt"/bin/lprodump*    "$QtX"/bin
             mv "$Qt"/bin/lrelease*    "$QtX"/bin
 
             # NOTE: This is required for macdeployqt.
@@ -1092,7 +1090,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/bin/qsb*      "$QtX"/bin
             mv "$Qt"/bin/lupdate*  "$QtX"/bin
-            mv "$Qt"/bin/lprodump* "$QtX"/bin
             mv "$Qt"/bin/lrelease* "$QtX"/bin
 
             mv "$Qt"/libexec/moc*         "$QtX"/libexec
@@ -1233,7 +1230,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
             mv "$Qt"/bin/lupdate*     "$QtX"/bin
-            mv "$Qt"/bin/lprodump*    "$QtX"/bin
             mv "$Qt"/bin/lrelease*    "$QtX"/bin
 
             mv "$Qt"/plugins/mediaservice/lib*.so "$QtX"/plugins/mediaservice
@@ -1245,7 +1241,6 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mv "$Qt"/bin/qsb*      "$QtX"/bin
             mv "$Qt"/bin/lupdate*  "$QtX"/bin
-            mv "$Qt"/bin/lprodump* "$QtX"/bin
             mv "$Qt"/bin/lrelease* "$QtX"/bin
 
             mv "$Qt"/libexec/moc*                "$QtX"/libexec
