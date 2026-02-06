@@ -1022,6 +1022,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         mv "$Qt"/bin/moc*         "$QtX"/bin
         mv "$Qt"/bin/rcc*         "$QtX"/bin
         mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+        mv "$Qt"/bin/lupdate*     "$QtX"/bin
+        mv "$Qt"/bin/lprodump*    "$QtX"/bin
+        mv "$Qt"/bin/lrelease*    "$QtX"/bin
 
         if [ $qt = "qt5" ]; then
 
@@ -1077,6 +1080,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/moc*         "$QtX"/bin
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+            mv "$Qt"/bin/lupdate*     "$QtX"/bin
+            mv "$Qt"/bin/lprodump*    "$QtX"/bin
+            mv "$Qt"/bin/lrelease*    "$QtX"/bin
 
             # NOTE: This is required for macdeployqt.
             mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
@@ -1087,7 +1093,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         else
             mkdir "$QtX"/libexec
 
-            mv "$Qt"/bin/qsb* "$QtX"/bin
+            mv "$Qt"/bin/qsb*      "$QtX"/bin
+            mv "$Qt"/bin/lupdate*  "$QtX"/bin
+            mv "$Qt"/bin/lprodump* "$QtX"/bin
+            mv "$Qt"/bin/lrelease* "$QtX"/bin
 
             mv "$Qt"/libexec/moc*         "$QtX"/libexec
             mv "$Qt"/libexec/rcc*         "$QtX"/libexec
@@ -1226,6 +1235,9 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mv "$Qt"/bin/moc*         "$QtX"/bin
             mv "$Qt"/bin/rcc*         "$QtX"/bin
             mv "$Qt"/bin/qmlcachegen* "$QtX"/bin
+            mv "$Qt"/bin/lupdate*     "$QtX"/bin
+            mv "$Qt"/bin/lprodump*    "$QtX"/bin
+            mv "$Qt"/bin/lrelease*    "$QtX"/bin
 
             mv "$Qt"/plugins/mediaservice/lib*.so "$QtX"/plugins/mediaservice
         else
@@ -1234,7 +1246,10 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mkdir -p "$QtX"/libexec
 
-            mv "$Qt"/bin/qsb* "$QtX"/bin
+            mv "$Qt"/bin/qsb*      "$QtX"/bin
+            mv "$Qt"/bin/lupdate*  "$QtX"/bin
+            mv "$Qt"/bin/lprodump* "$QtX"/bin
+            mv "$Qt"/bin/lrelease* "$QtX"/bin
 
             mv "$Qt"/libexec/moc*                "$QtX"/libexec
             mv "$Qt"/libexec/rcc*                "$QtX"/libexec
