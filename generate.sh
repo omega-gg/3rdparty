@@ -17,8 +17,7 @@ Qt5_modules="qtbase qttools qtdeclarative qtxmlpatterns qtimageformats qtsvg qtm
 Qt5_ndk="25.2.9519653"
 
 Qt6_version="6.10.1"
-Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qtquickcontrols2 \
-qt5compat qtshadertools"
+Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qt5compat qtshadertools"
 Qt6_ndk="28.2.13676358"
 # Reference: https://code.videolan.org/videolan/docker-images/blob/master/vlc-debian-android/Dockerfile
 
