@@ -711,7 +711,7 @@ if [ $compiler = "msvc" ]; then
     set +e
 
     ./vs_buildtools --quiet --wait --norestart --nocache \
-                    --installPath "$external/BuildTools"
+                    --installPath "$external/BuildTools" \
                     --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended
 
     set -e
