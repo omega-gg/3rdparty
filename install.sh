@@ -406,6 +406,8 @@ if [ $platform = "linux32" -a $qt = "qt5" ]; then
     sudo cp "$bin"/moc         "$Qt5"/bin
     sudo cp "$bin"/rcc         "$Qt5"/bin
     sudo cp "$bin"/qmlcachegen "$Qt5"/bin
+    sudo cp "$bin"/lupdate     "$Qt5"/bin
+    sudo cp "$bin"/lrelease    "$Qt5"/bin
 
     if [ $host = "ubuntu18" ]; then
 
