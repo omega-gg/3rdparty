@@ -1130,10 +1130,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             mkdirQt "plugins/audio"
             mkdirQt "plugins/playlistformats"
 
-            mv "$Qt"/bin/moc*             "$QtX"/bin
-            mv "$Qt"/bin/rcc*             "$QtX"/bin
-            mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
-            mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
+            mv "$Qt"/bin/moc*              "$QtX"/bin
+            mv "$Qt"/bin/rcc*              "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen*      "$QtX"/bin
+            mv "$Qt"/bin/qmlimportscanner* "$QtX"/bin
+            mv "$Qt"/bin/lupdate*          "$QtX"/bin
+            mv "$Qt"/bin/lrelease*         "$QtX"/bin
 
             # NOTE iOS: We need .a and .prl files.
             moveMobile plugins/mediaservice/lib*.*    plugins/mediaservice
@@ -1159,12 +1161,14 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mkdir -p "$QtBase/libexec"
 
-            mv "$Qt/$bin"/qsb* "$QtBase/bin"
+            mv "$Qt/$bin"/qsb*      "$QtBase/bin"
+            mv "$Qt/$bin"/lupdate*  "$QtBase/bin"
+            mv "$Qt/$bin"/lrelease* "$QtBase/bin"
 
-            mv "$Qt/$libexec"/moc*             "$QtBase/libexec"
-            mv "$Qt/$libexec"/rcc*             "$QtBase/libexec"
-            mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
-            mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
+            mv "$Qt/$libexec"/moc*              "$QtBase/libexec"
+            mv "$Qt/$libexec"/rcc*              "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlcachegen*      "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlimportscanner* "$QtBase/libexec"
 
             # NOTE iOS: We need .a and .prl files.
             moveMobile plugins/tls/lib*.*                plugins/tls
@@ -1282,10 +1286,12 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             # NOTE: This is required by the multimedia module for VideoOutput.
             mkdir -p "$QtX"/plugins/video/videonode
 
-            mv "$Qt"/bin/moc*             "$QtX"/bin
-            mv "$Qt"/bin/rcc*             "$QtX"/bin
-            mv "$Qt"/bin/qmlcachegen*     "$QtX"/bin
-            mv "$Qt"/bin/qmlimportscanner "$QtX"/bin
+            mv "$Qt"/bin/moc*              "$QtX"/bin
+            mv "$Qt"/bin/rcc*              "$QtX"/bin
+            mv "$Qt"/bin/qmlcachegen*      "$QtX"/bin
+            mv "$Qt"/bin/qmlimportscanner* "$QtX"/bin
+            mv "$Qt"/bin/lupdate*          "$QtX"/bin
+            mv "$Qt"/bin/lrelease*         "$QtX"/bin
 
             mv "$Qt"/bin/androiddeployqt "$QtX"/bin
 
@@ -1301,14 +1307,16 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
             mkdir -p "$QtBase/libexec"
 
-            mv "$Qt/$bin"/qsb* "$QtBase/bin"
+            mv "$Qt/$bin"/qsb*      "$QtBase/bin"
+            mv "$Qt/$bin"/lupdate*  "$QtBase/bin"
+            mv "$Qt/$bin"/lrelease* "$QtBase/bin"
 
             mv "$Qt/$bin"/androiddeployqt "$QtBase/bin"
 
-            mv "$Qt/$libexec"/moc*             "$QtBase/libexec"
-            mv "$Qt/$libexec"/rcc*             "$QtBase/libexec"
-            mv "$Qt/$libexec"/qmlcachegen*     "$QtBase/libexec"
-            mv "$Qt/$libexec"/qmlimportscanner "$QtBase/libexec"
+            mv "$Qt/$libexec"/moc*              "$QtBase/libexec"
+            mv "$Qt/$libexec"/rcc*              "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlcachegen*      "$QtBase/libexec"
+            mv "$Qt/$libexec"/qmlimportscanner* "$QtBase/libexec"
 
             moveMobile "plugins/tls/lib*.so"        "plugins/tls"
             moveMobile "plugins/multimedia/lib*.so" "plugins/multimedia"
