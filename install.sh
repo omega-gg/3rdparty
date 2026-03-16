@@ -171,7 +171,7 @@ Qt4_linux="qt4-default libqtwebkit-dev openssl"
 
 Qt5_linux="qt5-default qtbase5-private-dev qtdeclarative5-private-dev qtmultimedia5-dev "\
 "libqt5xmlpatterns5-dev libqt5svg5-dev libqt5x11extras5-dev libqt5multimedia5-plugins "\
-"qml-module-qtquick2 qml-module-qtmultimedia"
+"qml-module-qtquick2 qml-module-qtmultimedia qttools5-dev-tools"
 
 if [ $platform = "linux32" ]; then
 
