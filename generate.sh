@@ -628,7 +628,7 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-mac-x64.7z"
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
@@ -642,7 +642,7 @@ elif [ $1 = "iOS" ]; then
 
 elif [ $1 = "linux" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-linux-x64.7z"
 
     linuxdeployqt_url="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 
