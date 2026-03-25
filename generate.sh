@@ -567,7 +567,7 @@ fi
 
 QtX="$external/Qt/$Qt_version"
 
-QtInstaller="$external/Qt/QtInstaller"
+QtInstaller="$external/QtInstaller"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
