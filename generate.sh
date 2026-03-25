@@ -1366,7 +1366,8 @@ fi
 # QtInstaller
 #--------------------------------------------------------------------------------------------------
 
-if [ os != "mobile" ]; then
+# NOTE: p7zip-full does not exists for Ubuntu 20.04 on i386.
+if [ os != "mobile" -a $platform != "linux32" ]; then
 
     echo ""
     echo "DOWNLOADING QtInstaller"
