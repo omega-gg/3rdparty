@@ -21,6 +21,10 @@ Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qt5c
 Qt6_ndk="28.2.13676358"
 # Reference: https://code.videolan.org/videolan/docker-images/blob/master/vlc-debian-android/Dockerfile
 
+QtInstaller_versionA="47"
+QtInstaller_versionB="4.7.0-0-202402150941ifw"
+QtInstaller_versionC="4.7"
+
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1w"
 SSL_versionC="3.5.3"
@@ -563,6 +567,8 @@ fi
 
 QtX="$external/Qt/$Qt_version"
 
+QtInstaller="$external/Qt/QtInstaller"
+
 MinGW="$external/MinGW/$MinGW_versionA"
 
 jom="$external/jom/$jom_versionA"
@@ -586,6 +592,8 @@ thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$artifa
 libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libtorrent_artifact/artifacts"
 
 if [ $os = "windows" ]; then
+
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
 
     if [ $platform = "win32" ]; then
 
@@ -620,6 +628,8 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
+
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
     VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20251216-0411/vlc-$VLC4_version-dev-intel64-9106f00f.dmg"
@@ -631,6 +641,8 @@ elif [ $1 = "iOS" ]; then
     VLC4_url="http://download.videolan.org/pub/cocoapods/unstable/VLCKit-$VLC4_version_iOS.tar.xz"
 
 elif [ $1 = "linux" ]; then
+
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
 
     linuxdeployqt_url="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 
@@ -1348,6 +1360,31 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
     fi
 
     rm -rf Qt
+fi
+
+#--------------------------------------------------------------------------------------------------
+# QtInstaller
+#--------------------------------------------------------------------------------------------------
+
+if [ os != "mobile" ]; then
+
+    echo ""
+    echo "DOWNLOADING QtInstaller"
+    echo $QtInstaller_url
+
+    curl -L -o QtInstaller.7z $QtInstaller_url
+
+    mkdir -p "$QtInstaller"
+
+    7z x QtInstaller.7z -o"$QtInstaller" > /dev/null
+
+    rm QtInstaller.7z
+
+    path="$QtInstaller/Tools/QtInstallerFramework/$QtInstaller_versionC"
+
+    mv "$path"/* "$QtInstaller"
+
+    rm -rf "$QtInstaller/Tools"
 fi
 
 #--------------------------------------------------------------------------------------------------
