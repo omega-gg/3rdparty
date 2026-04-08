@@ -546,6 +546,14 @@ else
     grep="grep"
 fi
 
+# NOTE windows: Ensure we use the proper find.
+if [ -x /usr/bin/find ]; then
+
+    find="/usr/bin/find"
+else
+    find="find"
+fi
+
 #--------------------------------------------------------------------------------------------------
 
 source="$source/$1"
@@ -1026,7 +1034,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
 
     if [ $os = "windows" ]; then
 
-        find "$QtX"/qml -name "*plugind.dll" -delete
+        $find "$QtX"/qml -name "*plugind.dll" -delete
 
         mv "$Qt"/bin/moc*         "$QtX"/bin
         mv "$Qt"/bin/rcc*         "$QtX"/bin
@@ -1128,7 +1136,7 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
         rm -f "$QtX"/plugins/platforms/*debug*
         rm -f "$QtX"/plugins/imageformats/*debug*
 
-        find "$QtX"/lib -name "*_debug*" -delete
+        $find "$QtX"/lib -name "*_debug*" -delete
 
     elif [ $1 = "iOS" ]; then
 
@@ -1207,8 +1215,8 @@ if [ $qt != "qt4" -a $platform != "linux32" ]; then
             cp dist/iOS/toolchain.prf "$QtX"/mkspecs/features
             cp dist/iOS/devices.py    "$QtX"/mkspecs/features/uikit
         else
-            find "$QtX"/macOS/lib -name "*_debug*" -delete
-            find "$QtX"/ios/lib   -name "*_debug"  -delete
+            $find "$QtX"/macOS/lib -name "*_debug*" -delete
+            $find "$QtX"/ios/lib   -name "*_debug"  -delete
 
             QtX="$QtX/ios"
 
