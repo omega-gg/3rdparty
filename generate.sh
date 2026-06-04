@@ -630,7 +630,7 @@ if [ $os = "windows" ]; then
 
         VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform-llvm/20251216-0419/vlc-$VLC4_version-dev-$platform-9106f00f.7z"
     else
-        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20251216-0423/vlc-$VLC4_version-dev-$platform-9106f00f.7z"
+        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20260604-0428/vlc-$VLC4_version-dev-$platform-13f988a2.7z"
     fi
 
 elif [ $1 = "macOS" ]; then
@@ -639,7 +639,7 @@ elif [ $1 = "macOS" ]; then
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
-    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20251216-0411/vlc-$VLC4_version-dev-intel64-9106f00f.dmg"
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20260604-0415/vlc-$VLC4_version-dev-intel64-13f988a2.dmg"
 
 elif [ $1 = "iOS" ]; then
 
@@ -670,7 +670,7 @@ if [ $1 = "linux" -o $1 = "android" ]; then
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/win64/vlc-$VLC3_version-win64.7z"
 
-    VLC4_url="https://artifacts.videolan.org/vlc/nightly-win64/20251216-0423/vlc-$VLC4_version-dev-win64-9106f00f.7z"
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-win64/20260604-0428/vlc-$VLC4_version-dev-win64-13f988a2.7z"
 fi
 
 Sky_url="https://dev.azure.com/bunjee/Sky/_apis/build/builds/$Sky_artifact/artifacts"
