@@ -21,9 +21,8 @@ Qt6_modules="qtbase qttools qtdeclarative qtimageformats qtsvg qtmultimedia qt5c
 Qt6_ndk="28.2.13676358"
 # Reference: https://code.videolan.org/videolan/docker-images/blob/master/vlc-debian-android/Dockerfile
 
-QtInstaller_versionA="47"
-QtInstaller_versionB="4.7.0-0-202402150941ifw"
-QtInstaller_versionC="4.7"
+QtInstaller_versionA="411"
+QtInstaller_versionB="4.11.0-0-202603231357ifw"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1w"
@@ -601,7 +600,7 @@ libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libt
 
 if [ $os = "windows" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/windows_x86/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
 
     if [ $platform = "win32" ]; then
 
@@ -636,7 +635,7 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-mac-x64.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-mac-universal.7z"
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
@@ -650,7 +649,7 @@ elif [ $1 = "iOS" ]; then
 
 elif [ $1 = "linux" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/tools_ifw/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-linux-x64.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/linux_x64/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-linux-x64.7z"
 
     linuxdeployqt_url="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 
@@ -1388,12 +1387,6 @@ if [ $os != "mobile" -a $platform != "linux32" ]; then
     7z x QtInstaller.7z -o"$QtInstaller" > /dev/null
 
     rm QtInstaller.7z
-
-    path="$QtInstaller/Tools/QtInstallerFramework/$QtInstaller_versionC"
-
-    mv "$path"/* "$QtInstaller"
-
-    rm -rf "$QtInstaller/Tools"
 fi
 
 #--------------------------------------------------------------------------------------------------
