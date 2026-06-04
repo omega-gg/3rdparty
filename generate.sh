@@ -600,7 +600,7 @@ libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libt
 
 if [ $os = "windows" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/windows_x86/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x86.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/windows_x86/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-win-x64.7z"
 
     if [ $platform = "win32" ]; then
 
