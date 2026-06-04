@@ -23,6 +23,7 @@ Qt6_ndk="28.2.13676358"
 
 QtInstaller_versionA="411"
 QtInstaller_versionB="4.11.0-0-202603231357ifw"
+QtInstaller_versionC="4.11.0-0-202603311245ifw"
 
 SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1w"
@@ -635,7 +636,7 @@ if [ $os = "windows" ]; then
 
 elif [ $1 = "macOS" ]; then
 
-    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionB-mac-universal.7z"
+    QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionC-mac-universal.7z"
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
