@@ -629,7 +629,7 @@ if [ $os = "windows" ]; then
 
     if [ $platform = "win32" ]; then
 
-        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform-llvm/20251216-0419/vlc-$VLC4_version-dev-$platform-9106f00f.7z"
+        VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform-llvm/20260604-0426/vlc-$VLC4_version-dev-$platform-13f988a2.7z"
     else
         VLC4_url="https://artifacts.videolan.org/vlc/nightly-$platform/20260604-0428/vlc-$VLC4_version-dev-$platform-13f988a2.7z"
     fi
