@@ -30,6 +30,8 @@ SSL_versionA="1.0.2u"
 SSL_versionB="1.1.1w"
 SSL_versionC="3.5.3"
 
+FFmpeg_version="9.0.2"
+
 VLC3_version="3.0.24"
 VLC4_version="4.0.0"
 
@@ -584,6 +586,8 @@ jom="$external/jom/$jom_versionA"
 
 SSL="$external/OpenSSL"
 
+FFmpeg="$external/FFmpeg/$FFmpeg_version"
+
 VLC3="$external/VLC/$VLC3_version"
 VLC4="$external/VLC/$VLC4_version"
 
@@ -599,6 +603,8 @@ Sky="$external/Sky"
 thirdparty_url="https://dev.azure.com/bunjee/3rdparty/_apis/build/builds/$artifact/artifacts"
 
 libtorrent_url="https://dev.azure.com/bunjee/libtorrent/_apis/build/builds/$libtorrent_artifact/artifacts"
+
+FFmpeg_url="https://github.com/omega-gg/FFmpeg/releases/download/$FFmpeg_version/FFmpeg-$platform.zip"
 
 if [ $os = "windows" ]; then
 
@@ -1530,6 +1536,25 @@ elif [ $1 = "android" ]; then
     copySsl x86_64      "$path"
 
     rm -rf android_openssl
+fi
+
+#--------------------------------------------------------------------------------------------------
+# FFmpeg
+#--------------------------------------------------------------------------------------------------
+
+if [ $qt = "qt6" -a $platform != "win32" -a $platform != "linux32" ]; then
+
+    echo ""
+    echo "DOWNLOADING FFmpeg $FFmpeg_version"
+    echo $FFmpeg_url
+
+    curl --retry 3 -L -o FFmpeg.zip $FFmpeg_url
+
+    mkdir -p "$FFmpeg"
+
+    unzip -q FFmpeg.zip -d "$FFmpeg"
+
+    rm FFmpeg.zip
 fi
 
 #--------------------------------------------------------------------------------------------------
