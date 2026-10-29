@@ -582,6 +582,8 @@ QtInstaller="$external/QtInstaller"
 
 MinGW="$external/MinGW/$MinGW_versionA"
 
+MSVC="$external/MSVC"
+
 jom="$external/jom/$jom_versionA"
 
 SSL="$external/OpenSSL"
@@ -1425,6 +1427,42 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     mv "$path"/* "$MinGW"
 
     rm -rf "$MinGW/Tools"
+fi
+
+#--------------------------------------------------------------------------------------------------
+# MSVC runtime
+#--------------------------------------------------------------------------------------------------
+
+if [ $compiler = "msvc" ]; then
+
+    echo ""
+    echo "COPYING MSVC runtime"
+
+    if [ $1 = "win32" ]; then
+
+        arch="x86"
+    else
+        arch="x64"
+    fi
+
+    BuildTools="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools"
+
+    # NOTE: The latest redistributable of the Build Tools installed above.
+
+    path=$(ls -d "$BuildTools"/VC/Redist/MSVC/1* | tail -1)
+
+    path="$path/$arch/Microsoft.VC143.CRT"
+
+    mkdir -p "$MSVC"
+
+    cp "$path"/vcruntime140.dll "$path"/msvcp140.dll "$path"/msvcp140_1.dll \
+       "$path"/msvcp140_2.dll "$MSVC"
+
+    # NOTE: x64 only.
+    if [ -f "$path"/vcruntime140_1.dll ]; then
+
+        cp "$path"/vcruntime140_1.dll "$MSVC"
+    fi
 fi
 
 #--------------------------------------------------------------------------------------------------
