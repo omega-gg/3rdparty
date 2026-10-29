@@ -1455,7 +1455,9 @@ if [ $compiler = "msvc" ]; then
 
     mkdir -p "$MSVC"
 
-    cp "$path"/vcruntime140.dll "$path"/msvcp140.dll "$path"/msvcp140_1.dll \
+    cp "$path"/vcruntime140.dll \
+       "$path"/msvcp140.dll \
+       "$path"/msvcp140_1.dll \
        "$path"/msvcp140_2.dll "$MSVC"
 
     # NOTE: x64 only.
