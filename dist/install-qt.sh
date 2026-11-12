@@ -370,6 +370,14 @@ function compute_url(){
 mkdir -p ${INSTALL_DIR}
 rm -f "${HASH_FILEPATH}"
 
+# NOTE 7-Zip 25.01: Symbolic links in the flattened Qt6 archives are rejected by the new security
+#                   checks (CVE-2025-55188), -snld20 bypasses them. Older versions do not know it.
+SEVENZIP_OPTIONS=""
+SEVENZIP_VERSION="$(7z 2>/dev/null | sed -n 's/^7-Zip[^0-9]*\([0-9][0-9]*\)\..*/\1/p' | head -1)"
+if [ -n "${SEVENZIP_VERSION}" ] && [ "${SEVENZIP_VERSION}" -ge 25 ]; then
+    SEVENZIP_OPTIONS="-snld20"
+fi
+
 for COMPONENT in ${COMPONENTS}; do
 
     if [[ "${COMPONENT}" =~ "qtcreator" ]] && [[ "${HOST_OS}" != "mac_x64" ]]; then
@@ -427,7 +435,7 @@ for COMPONENT in ${COMPONENTS}; do
     URL="$(compute_url ${COMPONENT})"
     echo "Downloading ${COMPONENT} ${URL}..." >&2
     curl --progress-bar -L -o ${DOWNLOAD_DIR}/package.7z ${URL} >&2
-    7z x -y -o${UNPACK} ${DOWNLOAD_DIR}/package.7z >/dev/null 2>&1
+    7z x -y ${SEVENZIP_OPTIONS} -o${UNPACK} ${DOWNLOAD_DIR}/package.7z >&2
     7z l -ba -slt -y ${DOWNLOAD_DIR}/package.7z | tr '\\' '/' | sed -n -e "s|^Path\ =\ |${UNPACK}/|p" >> "${HASH_FILEPATH}" 2>/dev/null
     rm -f ${DOWNLOAD_DIR}/package.7z
 
