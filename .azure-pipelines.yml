@@ -172,18 +172,7 @@ jobs:
   pool:
     vmImage: "ubuntu-latest"
   steps:
-  # NOTE: Temporary diagnostic for i386 DNS failures, remove once fixed.
-  - bash: |
-      uname -r
-      docker version --format "docker {{.Server.Version}}"
-      for image in i386/ubuntu:18.04 i386/ubuntu:20.04 amd64/ubuntu:20.04; do
-        for opt in "" "--security-opt seccomp=unconfined" "--network host"; do
-          printf "%-20s %-36s " "$image" "$opt"
-          docker run --rm $opt $image getent ahosts archive.ubuntu.com > /dev/null && echo OK || echo FAIL
-        done
-      done
-      docker run --rm i386/ubuntu:18.04 cat /etc/resolv.conf
-    displayName: Diagnose i386 DNS
+  # NOTE: i386 DNS resolution fails under the default seccomp profile.
   - bash: |
       docker run -d --name ubuntu --security-opt seccomp=unconfined -v $PWD:/3rdparty i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
@@ -217,6 +206,7 @@ jobs:
   pool:
     vmImage: "ubuntu-latest"
   steps:
+  # NOTE: i386 DNS resolution fails under the default seccomp profile.
   - bash: |
       docker run -d --name ubuntu --security-opt seccomp=unconfined -v $PWD:/3rdparty i386/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /3rdparty;
