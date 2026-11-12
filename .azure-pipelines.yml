@@ -118,7 +118,7 @@ jobs:
 
 - job: macOS_qt5
   pool:
-    vmImage: "macOS-14"
+    vmImage: "macOS-15"
   steps:
   - bash: |
       sh environment.sh qt5
@@ -129,7 +129,7 @@ jobs:
 
 - job: macOS_qt6
   pool:
-    vmImage: "macOS-14"
+    vmImage: "macOS-15"
   steps:
   - bash: |
       sh environment.sh qt6
@@ -144,7 +144,7 @@ jobs:
 
 - job: iOS_qt5
   pool:
-    vmImage: "macOS-14"
+    vmImage: "macOS-15"
   steps:
   - bash: |
       sh environment.sh qt5
@@ -155,7 +155,7 @@ jobs:
 
 - job: iOS_qt6
   pool:
-    vmImage: "macOS-14"
+    vmImage: "macOS-15"
   steps:
   - bash: |
       sh environment.sh qt6
