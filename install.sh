@@ -266,10 +266,16 @@ if [ $qt = "qt4" ]; then
     # NOTE: Qt4 has been removed from Ubuntu 20.04 main repository.
     if [ $host != "ubuntu18" ]; then
 
-        # NOTE: This is required for add-apt-repository.
-        sudo apt-get install -y software-properties-common
+        # NOTE: add-apt-repository times out retrieving the PPA key, so we add the PPA manually.
+        sudo curl -fsSL -o /etc/apt/trusted.gpg.d/rock-core-qt4.asc \
+            "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x63BBCC76C6D55B7DF2D65B2A78CB407D3E3D8F94"
 
-        sudo add-apt-repository -y ppa:rock-core/qt4
+        codename=$(. /etc/os-release; echo $VERSION_CODENAME)
+
+        echo "deb http://ppa.launchpad.net/rock-core/qt4/ubuntu $codename main" |
+            sudo tee /etc/apt/sources.list.d/rock-core-qt4.list
+
+        sudo apt-get update
     fi
 
     sudo apt-get install -y $Qt4_linux
