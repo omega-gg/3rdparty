@@ -272,8 +272,9 @@ if [ $qt = "qt4" ]; then
 
         codename=$(. /etc/os-release; echo $VERSION_CODENAME)
 
-        echo "deb http://ppa.launchpad.net/rock-core/qt4/ubuntu $codename main" |
-             sudo tee /etc/apt/sources.list.d/rock-core-qt4.list
+        echo "deb http://ppa.launchpad.net/rock-core/qt4/ubuntu $codename main" \
+        | \
+        sudo tee /etc/apt/sources.list.d/rock-core-qt4.list
 
         sudo apt-get update
     fi
