@@ -232,9 +232,33 @@ extractVlc()
         echo "DOWNLOADING VLC $VLC_version"
         echo $VLC_url
 
-        curl -L -o VLC.dmg $VLC_url
-
         mkdir -p "$VLC"
+
+        # NOTE VLC 4: We use the macOS sdk and move it to the VLC 3 layout.
+        if [ $3 = "$VLC4_version" ]; then
+
+            curl -L -o VLC.tar.gz $VLC_url
+
+            mkdir -p VLC-sdk
+
+            tar -xf VLC.tar.gz -C VLC-sdk
+
+            rm VLC.tar.gz
+
+            mkdir -p "$VLC"/lib
+
+            mv VLC-sdk/include "$VLC"
+
+            mv VLC-sdk/lib/libvlc*.dylib "$VLC"/lib
+
+            mv VLC-sdk/lib/vlc/plugins "$VLC"
+
+            rm -rf VLC-sdk
+
+            return
+        fi
+
+        curl -L -o VLC.dmg $VLC_url
 
         if [ $host = "macOS" ]; then
 
@@ -649,7 +673,7 @@ elif [ $1 = "macOS" ]; then
 
     VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
 
-    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20260604-0415/vlc-$VLC4_version-dev-intel64-13f988a2.dmg"
+    VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20260604-0415/vlc-macos-sdk-$VLC4_version-dev-intel64-13f988a2.tar.gz"
 
 elif [ $1 = "iOS" ]; then
 
