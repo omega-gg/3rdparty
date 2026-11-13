@@ -520,6 +520,22 @@ getSource()
                       $grep -o '"[^"]*"$'                 | tr -d '"'
 }
 
+getArtifact()
+{
+    # NOTE azure: The download can be truncated without a curl error.
+    for i in 1 2 3; do
+
+        curl --retry 3 -L -o $2 $1
+
+        if unzip -tq $2 > /dev/null; then
+
+            return
+        fi
+    done
+
+    exit 1
+}
+
 #--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
@@ -826,7 +842,7 @@ if [ "$2" != "build" -a "$2" != "clean" ]; then
     echo "DOWNLOADING 3rdparty-$name"
     echo $thirdparty_url
 
-    curl --retry 3 -L -o 3rdparty.zip $thirdparty_url
+    getArtifact $thirdparty_url 3rdparty.zip
 
     echo ""
     echo "EXTRACTING 3rdparty-$name"
@@ -1706,7 +1722,7 @@ if [ $1 != "iOS" ]; then
     echo "DOWNLOADING libtorrent"
     echo $libtorrent_url
 
-    curl --retry 3 -L -o libtorrent.zip $libtorrent_url
+    getArtifact $libtorrent_url libtorrent.zip
 
     unzip -q libtorrent.zip
 
@@ -1831,7 +1847,7 @@ if [ $os = "mobile" ]; then
     echo "DOWNLOADING Sky"
     echo $Sky_url
 
-    curl --retry 3 -L -o Sky.zip $Sky_url
+    getArtifact $Sky_url Sky.zip
 
     mkdir -p "$Sky"
 

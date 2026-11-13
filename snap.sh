@@ -62,6 +62,22 @@ getSource()
                       grep -o '"[^"]*"$'                 | tr -d '"'
 }
 
+getArtifact()
+{
+    # NOTE azure: The download can be truncated without a curl error.
+    for i in 1 2 3; do
+
+        curl --retry 3 -L -o $2 $1
+
+        if unzip -tq $2 > /dev/null; then
+
+            return
+        fi
+    done
+
+    exit 1
+}
+
 #--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
@@ -106,7 +122,7 @@ if [ $2 = "vlc3" -o $2 = "vlc4" ]; then
     echo "DOWNLOADING VLC"
     echo $VLC_url
 
-    curl --retry 3 -L -o VLC.zip $VLC_url
+    getArtifact $VLC_url VLC.zip
 
     mkdir -p "$VLC"
 
