@@ -191,6 +191,28 @@ moveMobile()
 
 #--------------------------------------------------------------------------------------------------
 
+# NOTE: extractSdk <url> <output> move the VLC 4 macOS sdk to the VLC 3 layout.
+extractSdk()
+{
+    curl -L -o VLC.tar.gz $1
+
+    mkdir -p VLC-sdk
+
+    tar -xf VLC.tar.gz -C VLC-sdk
+
+    rm VLC.tar.gz
+
+    mkdir -p "$2"/lib
+
+    mv VLC-sdk/include "$2"
+
+    mv VLC-sdk/lib/libvlc*.dylib "$2"/lib
+
+    mv VLC-sdk/lib/vlc/plugins "$2"
+
+    rm -rf VLC-sdk
+}
+
 extractVlc()
 {
     VLC="$2"
@@ -234,26 +256,38 @@ extractVlc()
 
         mkdir -p "$VLC"
 
-        # NOTE VLC 4: We use the macOS sdk and move it to the VLC 3 layout.
         if [ $3 = "$VLC4_version" ]; then
 
-            curl -L -o VLC.tar.gz $VLC_url
+            extractSdk $VLC_url "$VLC"
 
-            mkdir -p VLC-sdk
+            # NOTE VLC 4: The sdk is not universal so we merge the arm64 binaries with lipo.
+            if [ $host = "macOS" ]; then
 
-            tar -xf VLC.tar.gz -C VLC-sdk
+                echo ""
+                echo "DOWNLOADING VLC $VLC_version arm64"
+                echo $VLC4_url_arm64
 
-            rm VLC.tar.gz
+                extractSdk $VLC4_url_arm64 VLC-arm64
 
-            mkdir -p "$VLC"/lib
+                # NOTE: We skip the libvlc.dylib and libvlccore.dylib symlinks with -type f.
+                for file in $(cd VLC-arm64; $find . -name "*.dylib" -type f); do
 
-            mv VLC-sdk/include "$VLC"
+                    if [ -f "$VLC/$file" ]; then
 
-            mv VLC-sdk/lib/libvlc*.dylib "$VLC"/lib
+                        lipo -create "$VLC/$file" "VLC-arm64/$file" -output "$VLC/$file"
+                    else
+                        # NOTE: Some plugins only exist for arm64, in the plugins/aarch64 folder.
+                        mkdir -p "$VLC/${file%/*}"
 
-            mv VLC-sdk/lib/vlc/plugins "$VLC"
+                        cp "VLC-arm64/$file" "$VLC/$file"
+                    fi
+                done
 
-            rm -rf VLC-sdk
+                rm -rf VLC-arm64
+
+                # NOTE: The plugins cache is generated for x86_64, VLC scans without it.
+                rm "$VLC"/plugins/plugins.dat
+            fi
 
             return
         fi
@@ -671,9 +705,11 @@ elif [ $1 = "macOS" ]; then
 
     QtInstaller_url="https://download.qt.io/online/qtsdkrepository/mac_x64/ifw/tools_ifw_$QtInstaller_versionA/qt.tools.ifw.$QtInstaller_versionA/$QtInstaller_versionC-mac-universal.7z"
 
-    VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-intel64.dmg"
+    VLC3_url="https://download.videolan.org/pub/videolan/vlc/$VLC3_version/macosx/vlc-$VLC3_version-universal.dmg"
 
     VLC4_url="https://artifacts.videolan.org/vlc/nightly-macos-x86_64/20260604-0415/vlc-macos-sdk-$VLC4_version-dev-intel64-13f988a2.tar.gz"
+
+    VLC4_url_arm64="https://artifacts.videolan.org/vlc/nightly-macos-arm64/20260604-0416/vlc-macos-sdk-$VLC4_version-dev-arm64-13f988a2.tar.gz"
 
 elif [ $1 = "iOS" ]; then
 
